@@ -3,7 +3,7 @@
 <section class="articles-section">
     <div class="container">
         <div class="articles-grid">
-            {{ $posts := where .Site.RegularPages "Type" "posts" }}
+            {{ $posts := where .Site.RegularPages "Section" "posts" }}
             {{ $featuredPost := index $posts 0 }}
             {{ if $featuredPost }}
             <!-- Featured Article -->

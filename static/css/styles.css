@@ -43,6 +43,13 @@ body {
     flex: 1;
 }
 
+.menu-ko,
+.menu-en {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
 .nav-brand {
     flex: 1;
     text-align: center;
@@ -61,6 +68,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    gap: 16px;
     flex: 1;
 }
 
@@ -78,18 +86,68 @@ body {
     opacity: 0.6;
 }
 
+.gitlab-link,
 .github-link {
     color: #000000;
     transition: opacity 0.3s ease;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.gitlab-link:hover,
 .github-link:hover {
     opacity: 0.6;
 }
 
+.gitlab-icon,
 .github-icon {
     width: 20px;
     height: 20px;
+}
+
+/* Language Toggle */
+.language-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.lang-switch {
+    color: #000000;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+    letter-spacing: -0.02em;
+    position: relative;
+}
+
+.lang-switch:hover {
+    opacity: 0.6;
+}
+
+.lang-current {
+    display: inline-block;
+    transition: opacity 0.3s ease;
+}
+
+.lang-target {
+    display: none;
+}
+
+.lang-switch:hover .lang-current {
+    display: none;
+}
+
+.lang-switch:hover .lang-target {
+    display: inline-block;
 }
 
 /* Hero Section */
@@ -405,6 +463,16 @@ body {
     
     .nav-menu {
         gap: 20px;
+    }
+    
+    .nav-social {
+        gap: 12px;
+    }
+    
+    .lang-switch {
+        font-size: 12px;
+        width: 20px;
+        height: 20px;
     }
     
     .hero-title {

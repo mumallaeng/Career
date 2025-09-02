@@ -8,6 +8,8 @@ baseURL = "https://yonmilk.gitlab.io/portfolio/"
 title = "YONMILK"
 description = "Personal blog sharing thoughts, experiences, and discoveries"
 theme = ["github.com/adityatelange/hugo-PaperMod"]
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = true
 
 [pagination]
 pagerSize = 5
@@ -34,83 +36,40 @@ tag = "tags"
 series = "series"
 
 [[languages.en.menu.main]]
-name = "WORK"
-url = "/work/"
+name = "PROJECTS"
+url = "/projects/"
 weight = 1
 [[languages.en.menu.main]]
-name = "LIFE"
-url = "/life/"
+name = "ACTIVITIES"
+url = "/activities/"
 weight = 2
 [[languages.en.menu.main]]
 name = "PROFILE"
 url = "/profile/"
 weight = 3
 
-[languages.fr]
-languageName = ":fr:"
+[languages.ko]
+languageName = "한국어"
 weight = 2
-title = "PaperModL2"
+title = "YONMILK"
 
-[languages.fr.taxonomies]
-category = "FRcategories"
-tag = "FRtags"
-series = "FRseries"
+[languages.ko.taxonomies]
+category = "categories"
+tag = "tags"
+series = "series"
 
-[[languages.fr.menu.main]]
-name = "Archive"
-url = "archives/"
-weight = 5
-[[languages.fr.menu.main]]
-name = "FRTags"
-url = "frtags"
-weight = 10
-[[languages.fr.menu.main]]
-name = "FRCategories"
-url = "frcategories"
-weight = 10
-[[languages.fr.menu.main]]
-name = "FRSeries"
-url = "frseries"
-weight = 10
-[[languages.fr.menu.main]]
-name = "NullLink"
-url = "#"
-
-[languages.fr.params]
-languageAltTitle = "French"
-
-[languages.fr.params.profileMode]
-enabled = true
-title = "PaperMod"
-imageUrl = "https://raw.githubusercontent.com/googlefonts/noto-emoji/master/svg/emoji_u1f9d1_1f3fb_200d_1f4bb.svg"
-imageTitle = "ProfileMode image"
-subtitle = "☄️ Fast | ☁️ Fluent | 🌙 Smooth | 📱 Responsive"
-
-[[languages.fr.params.profileMode.buttons]]
-name = "Blog"
-url = "posts"
-[[languages.fr.params.profileMode.buttons]]
-name = "Profile Mode"
-url = "https://github.com/adityatelange/hugo-PaperMod/wiki/Features#profile-mode"
-
-[languages.fa]
-languagedirection = "rtl"
+[[languages.ko.menu.main]]
+name = "프로젝트"
+url = "/projects/"
+weight = 1
+[[languages.ko.menu.main]]
+name = "활동"
+url = "/activities/"
+weight = 2
+[[languages.ko.menu.main]]
+name = "프로필"
+url = "/profile/"
 weight = 3
-title = "PaperMod RTL"
-
-[languages.fa.taxonomies]
-category = "FAcategories"
-tag = "FAtags"
-series = "FAseries"
-
-[[languages.fa.menu.main]]
-name = "FATags"
-url = "fatags"
-weight = 10
-
-[languages.fa.params.homeInfoParams]
-Title = "Hi there 👋"
-Content = "Welcome to RTL layout"
 
 [outputs]
 home = ["HTML", "RSS", "JSON"]
