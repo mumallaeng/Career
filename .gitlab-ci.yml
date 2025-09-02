@@ -1,23 +1,20 @@
-# The Docker image that will be used to build your app
 image: hugomods/hugo:exts
-
+---
 variables:
   HUGO_ENV: production
   THEME_URL: "github.com/adityatelange/hugo-PaperMod"
-
+---
 default:
   before_script:
     - hugo version
     - hugo mod get -u $THEME_URL
-
-# Use everywhere except on the default branch
+---
 test:
   script:
     - hugo --minify
   rules:
     - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
-
-# Run only on the default branch
+---
 create-pages:
   stage: deploy
   script:
