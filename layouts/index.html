@@ -2,8 +2,9 @@
 <!-- Articles Grid -->
 <section class="articles-section">
     <div class="container">
+        {{ $posts := where .Site.RegularPages "Section" "posts" }}
+        {{ if $posts }}
         <div class="articles-grid">
-            {{ $posts := where .Site.RegularPages "Section" "posts" }}
             {{ $featuredPost := index $posts 0 }}
             {{ if $featuredPost }}
             <!-- Featured Article -->
@@ -43,6 +44,13 @@
             {{ end }}
             {{ end }}
         </div>
+        {{ else }}
+        <!-- No Posts Message -->
+        <div class="no-posts">
+            <h2>{{ if eq .Site.Language.Lang "ko" }}포스트를 준비 중입니다{{ else }}Posts coming soon{{ end }}</h2>
+            <p>{{ if eq .Site.Language.Lang "ko" }}새로운 콘텐츠를 준비하고 있습니다.{{ else }}New content is being prepared.{{ end }}</p>
+        </div>
+        {{ end }}
     </div>
 </section>
 {{ end }}
