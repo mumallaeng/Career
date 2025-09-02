@@ -8,7 +8,7 @@ isAutoTranslated: true
 originalLang: "ko"
 ---
 
-*This page has been automatically translated from Korean. [View original](../profile.ko/)*
+*This page has ㅠeen automatically translated from Korean. [View original](../profile.ko/)*
 
 # Profile
 

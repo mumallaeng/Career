@@ -3,8 +3,8 @@
     <div class="container">
         <header class="post-header">
             <div class="post-meta">
-                <span class="post-category">{{ .Params.category | default "Blog" }}</span>
-                <time class="post-date">{{ .Date.Format "January 2, 2006" }}</time>
+                {{ if .Params.category }}<span class="post-category">{{ .Params.category }}</span>{{ end }}
+                {{ if ne .Type "page" }}<time class="post-date">{{ .Date.Format "January 2, 2006" }}</time>{{ end }}
             </div>
             <h1 class="post-title">{{ .Title }}</h1>
             {{ if .Params.excerpt }}

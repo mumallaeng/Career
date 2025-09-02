@@ -1,6 +1,5 @@
 ---
 title: "프로필"
-date: 2024-01-01T00:00:00+09:00
 draft: false
 type: "page"
 translationKey: "profile"
