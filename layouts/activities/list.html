@@ -31,6 +31,7 @@
                     </h3>
                     <div class="activity-meta">
                         <time class="activity-date">{{ .Date.Format "2006.01.02" }}</time>
+                        {{ if .Params.categories }}<span class="activity-category">{{ index .Params.categories 0 }}</span>{{ end }}
                         <div class="activity-tags">
                             {{ range .Params.tags }}
                                 <span class="tag">#{{ . }}</span>
