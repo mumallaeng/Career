@@ -1,25 +1,31 @@
 image: hugomods/hugo:exts
----
+
 variables:
   HUGO_ENV: production
   THEME_URL: "github.com/adityatelange/hugo-PaperMod"
----
+
+stages:
+  - test
+  - deploy
+
 default:
   before_script:
     - hugo version
     - hugo mod get -u $THEME_URL
----
+
 test:
+  stage: test
   script:
     - hugo --minify
   rules:
     - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
----
-create-pages:
+
+pages:
   stage: deploy
   script:
     - hugo --minify
-  pages: 
-    publish: public
+  artifacts:
+    paths:
+      - public
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
