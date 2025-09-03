@@ -12,7 +12,7 @@ isAutoTranslated: true
 originalLang: "ko"
 ---
 
-*This post has been automatically translated from Korean. [View original](../../ko/projects/greent/)*
+*This post has been automatically translated from Korean. [View original](/ko/projects/greent/)*
 
 Developed a smart agricultural efficiency enhancement system using IoT sensors and automation systems.
 

@@ -12,7 +12,7 @@ isAutoTranslated: true
 originalLang: "ko"
 ---
 
-*This post has been automatically translated from Korean. [View original](../../ko/projects/stonespring/)*
+*This post has been automatically translated from Korean. [View original](/ko/projects/stonespring/)*
 
 Developed a real-time caregiving chatbot system using OpenAI API as project team leader.
 

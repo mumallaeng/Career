@@ -12,7 +12,7 @@ isAutoTranslated: true
 originalLang: "ko"
 ---
 
-*This post has been automatically translated from Korean. [View original](../../ko/projects/shoepernoma/)*
+*This post has been automatically translated from Korean. [View original](/ko/projects/shoepernoma/)*
 
 Developed a ROS2-based store-integrated shoe picking robot system as project team leader.
 

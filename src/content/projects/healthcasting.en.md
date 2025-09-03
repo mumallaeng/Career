@@ -12,7 +12,7 @@ isAutoTranslated: true
 originalLang: "ko"
 ---
 
-*This post has been automatically translated from Korean. [View original](../../ko/projects/healthcasting/)*
+*This post has been automatically translated from Korean. [View original](/ko/projects/healthcasting/)*
 
 Developed a health alert system utilizing search trend data as project team leader.
 

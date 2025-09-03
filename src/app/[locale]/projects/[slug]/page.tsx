@@ -26,16 +26,28 @@ export default async function ProjectDetailPage({
     notFound();
   }
 
+  // Check if the other language version exists
+  const otherLocale = locale === 'ko' ? 'en' : 'ko';
+  const otherProject = getProjectBySlug(slug, otherLocale);
+
   return (
     <div className="min-h-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <nav className="back-nav">
+        <nav className="back-nav" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Link 
             href={`/${locale}/projects`}
             className="back-link"
           >
             ← {locale === 'ko' ? '프로젝트 목록으로' : 'Back to Projects'}
           </Link>
+          {otherProject && (
+            <Link 
+              href={`/${otherLocale}/projects/${slug}`}
+              className="back-link"
+            >
+              {locale === 'ko' ? 'View in English' : '한국어로 보기'}
+            </Link>
+          )}
         </nav>
         
         <article>

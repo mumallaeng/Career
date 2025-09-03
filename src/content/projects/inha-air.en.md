@@ -12,7 +12,7 @@ isAutoTranslated: true
 originalLang: "ko"
 ---
 
-*This post has been automatically translated from Korean. [View original](../../ko/projects/inha-air/)*
+*This post has been automatically translated from Korean. [View original](/ko/projects/inha-air/)*
 
 Developed an airline booking system using Java, implementing user interface and reservation logic.
 

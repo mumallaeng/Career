@@ -7,6 +7,6 @@ isAutoTranslated: true
 originalLang: "ko"
 ---
 
-*This page has been automatically translated from Korean. [View original](/portfolio/ko/projects/)*
+*This page has been automatically translated from Korean. [View original](/ko/projects/)*
 
 Introducing AI robotics development projects.

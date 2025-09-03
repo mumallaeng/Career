@@ -12,7 +12,7 @@ isAutoTranslated: true
 originalLang: "ko"
 ---
 
-*This post has been automatically translated from Korean. [View original](../../ko/projects/rustpython/)*
+*This post has been automatically translated from Korean. [View original](/ko/projects/rustpython/)*
 
 Contributed to the RustPython open-source project, a Python interpreter implemented in Rust.
 

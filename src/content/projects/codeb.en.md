@@ -12,7 +12,7 @@ isAutoTranslated: true
 originalLang: "ko"
 ---
 
-*This post has been automatically translated from Korean. [View original](../../ko/projects/codeb/)*
+*This post has been automatically translated from Korean. [View original](/ko/projects/codeb/)*
 
 Developed an AI education Python visual programming platform running on Pyodide-based WebAssembly execution environment.
 
