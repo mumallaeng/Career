@@ -8,6 +8,7 @@ cache:
   paths:
     - node_modules/
     - .next/cache/
+    - .npm/
 
 variables:
   NODE_ENV: production
@@ -29,7 +30,7 @@ pages:
   dependencies:
     - build
   script:
-    - mkdir public
+    - mkdir -p public
     - cp -r out/* public/
   artifacts:
     paths:
