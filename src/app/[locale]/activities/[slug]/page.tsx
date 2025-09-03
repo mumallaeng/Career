@@ -26,28 +26,16 @@ export default async function ActivityDetailPage({
     notFound();
   }
 
-  // Check if the other language version exists
-  const otherLocale = locale === 'ko' ? 'en' : 'ko';
-  const otherActivity = getActivityBySlug(slug, otherLocale);
-
   return (
     <div className="min-h-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <nav className="back-nav" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <nav className="back-nav">
           <Link 
             href={`/${locale}/activities`}
             className="back-link"
           >
             ← {locale === 'ko' ? '활동 목록으로' : 'Back to Activities'}
           </Link>
-          {otherActivity && (
-            <Link 
-              href={`/${otherLocale}/activities/${slug}`}
-              className="back-link"
-            >
-              {locale === 'ko' ? 'View in English' : '한국어로 보기'}
-            </Link>
-          )}
         </nav>
         
         <article>
