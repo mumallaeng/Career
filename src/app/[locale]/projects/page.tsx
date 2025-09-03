@@ -1,6 +1,13 @@
 import Link from 'next/link';
 import { getProjectsData } from '@/lib/content';
 
+export async function generateStaticParams() {
+  return [
+    { locale: 'ko' },
+    { locale: 'en' }
+  ];
+}
+
 export default async function ProjectsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const projects = getProjectsData(locale as 'ko' | 'en');

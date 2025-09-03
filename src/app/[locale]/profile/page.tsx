@@ -1,6 +1,13 @@
 import { getProfileData } from '@/lib/content';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 
+export async function generateStaticParams() {
+  return [
+    { locale: 'ko' },
+    { locale: 'en' }
+  ];
+}
+
 export default async function ProfilePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const profile = getProfileData(locale as 'ko' | 'en');

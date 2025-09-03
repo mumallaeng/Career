@@ -3,12 +3,14 @@ import { notFound } from 'next/navigation';
 import { getProjectsData, getProjectBySlug } from '@/lib/content';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 
-export async function generateStaticParams({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  const projects = getProjectsData(locale as 'ko' | 'en');
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
+export async function generateStaticParams() {
+  const koProjects = getProjectsData('ko');
+  const enProjects = getProjectsData('en');
+  
+  return [
+    ...koProjects.map((project) => ({ locale: 'ko', slug: project.slug })),
+    ...enProjects.map((project) => ({ locale: 'en', slug: project.slug })),
+  ];
 }
 
 export default async function ProjectDetailPage({ 

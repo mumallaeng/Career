@@ -3,12 +3,14 @@ import { notFound } from 'next/navigation';
 import { getActivitiesData, getActivityBySlug } from '@/lib/content';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 
-export async function generateStaticParams({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  const activities = getActivitiesData(locale as 'ko' | 'en');
-  return activities.map((activity) => ({
-    slug: activity.slug,
-  }));
+export async function generateStaticParams() {
+  const koActivities = getActivitiesData('ko');
+  const enActivities = getActivitiesData('en');
+  
+  return [
+    ...koActivities.map((activity) => ({ locale: 'ko', slug: activity.slug })),
+    ...enActivities.map((activity) => ({ locale: 'en', slug: activity.slug })),
+  ];
 }
 
 export default async function ActivityDetailPage({ 

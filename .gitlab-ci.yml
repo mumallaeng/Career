@@ -1,7 +1,6 @@
-image: node:18-alpine
+image: node:20-alpine
 
 stages:
-  - install
   - build
   - deploy
 
@@ -13,29 +12,17 @@ cache:
 variables:
   NODE_ENV: production
 
-install_dependencies:
-  stage: install
-  script:
-    - npm ci --cache .npm --prefer-offline
-  artifacts:
-    paths:
-      - node_modules/
-    expire_in: 1 hour
-
 build:
   stage: build
-  dependencies:
-    - install_dependencies
   script:
+    - npm ci --cache .npm --prefer-offline
     - npm run build
   artifacts:
     paths:
-      - .next/
       - out/
     expire_in: 1 week
   only:
     - main
-    - develop
 
 pages:
   stage: deploy
@@ -49,30 +36,3 @@ pages:
       - public
   only:
     - main
-
-deploy_staging:
-  stage: deploy
-  dependencies:
-    - build
-  script:
-    - echo "Deploy to staging server"
-    # Add your staging deployment commands here
-  environment:
-    name: staging
-    url: https://staging.yourdomain.com
-  only:
-    - develop
-
-deploy_production:
-  stage: deploy
-  dependencies:
-    - build
-  script:
-    - echo "Deploy to production server"
-    # Add your production deployment commands here
-  environment:
-    name: production
-    url: https://yourdomain.com
-  only:
-    - main
-  when: manual

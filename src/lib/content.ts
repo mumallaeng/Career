@@ -33,12 +33,12 @@ function parseFrontMatter(fileContent: string): { frontMatter: FrontMatter; cont
   const frontMatterText = match[1];
   const content = match[2].trim();
 
-  const frontMatter: any = {};
+  const frontMatter: Record<string, unknown> = {};
   
   frontMatterText.split('\n').forEach(line => {
     const [key, ...valueParts] = line.split(':');
     if (key && valueParts.length > 0) {
-      let value = valueParts.join(':').trim();
+      let value: string | string[] | boolean = valueParts.join(':').trim();
       
       // Remove quotes
       if ((value.startsWith('"') && value.endsWith('"')) || 
@@ -48,7 +48,7 @@ function parseFrontMatter(fileContent: string): { frontMatter: FrontMatter; cont
 
       // Parse arrays
       if (value.startsWith('[') && value.endsWith(']')) {
-        value = value.slice(1, -1).split(',').map(v => v.trim().replace(/"/g, ''));
+        value = value.slice(1, -1).split(',').map((v: string) => v.trim().replace(/"/g, ''));
       }
 
       // Parse booleans
@@ -59,7 +59,7 @@ function parseFrontMatter(fileContent: string): { frontMatter: FrontMatter; cont
     }
   });
 
-  return { frontMatter: frontMatter as FrontMatter, content };
+  return { frontMatter: frontMatter as unknown as FrontMatter, content };
 }
 
 export function getProjectsData(locale: 'ko' | 'en' = 'ko'): Content[] {
