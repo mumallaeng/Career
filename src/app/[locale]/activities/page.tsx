@@ -20,7 +20,7 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
           {locale === 'ko' ? '활동' : 'Activities'}
         </h1>
         <div className="section-description">
-          {locale === 'ko' ? '다양한 활동과 수상 경력을 소개합니다.' : 'Various activities and achievements I\'ve participated in.'}
+          {locale === 'ko' ? '자격증과 수상 내역을 포함한 사회 활동' : 'Various activities and achievements I\'ve participated in.'}
         </div>
       </header>
 

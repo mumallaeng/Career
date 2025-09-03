@@ -19,9 +19,9 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
         <h1 className="section-title">
           {locale === 'ko' ? '프로젝트' : 'Projects'}
         </h1>
-        <div className="section-description">
-          {locale === 'ko' ? '제가 작업한 다양한 프로젝트들을 소개합니다.' : 'Showcase of various projects I\'ve worked on.'}
-        </div>
+        {/* <div className="section-description">
+          {locale === 'ko' ? '프로젝트 작업물' : 'Showcase of various projects I\'ve worked on.'}
+        </div> */}
       </header>
 
       {/* Projects Grid */}
