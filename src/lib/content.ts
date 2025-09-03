@@ -63,7 +63,7 @@ function parseFrontMatter(fileContent: string): { frontMatter: FrontMatter; cont
 }
 
 export function getProjectsData(locale: 'ko' | 'en' = 'ko'): Content[] {
-  const projectsDir = '/Users/yonmilk/git/portfolio-hugo/content/projects';
+  const projectsDir = path.join(process.cwd(), 'content/projects');
   
   if (!fs.existsSync(projectsDir)) {
     return [];
@@ -91,7 +91,7 @@ export function getProjectsData(locale: 'ko' | 'en' = 'ko'): Content[] {
 }
 
 export function getActivitiesData(locale: 'ko' | 'en' = 'ko'): Content[] {
-  const activitiesDir = '/Users/yonmilk/git/portfolio-hugo/content/activities';
+  const activitiesDir = path.join(process.cwd(), 'content/activities');
   
   if (!fs.existsSync(activitiesDir)) {
     return [];
@@ -129,7 +129,7 @@ export function getActivityBySlug(slug: string, locale: 'ko' | 'en' = 'ko'): Con
 }
 
 export function getProfileData(locale: 'ko' | 'en' = 'ko'): Content | null {
-  const profilePath = `/Users/yonmilk/git/portfolio-hugo/content/profile.${locale}.md`;
+  const profilePath = path.join(process.cwd(), `content/profile.${locale}.md`);
   
   if (!fs.existsSync(profilePath)) {
     return null;
