@@ -55,12 +55,6 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                         ))}
                       </div>
                     </div>
-                    <div className="activity-description">
-                      {activity.frontMatter.description}
-                    </div>
-                    <span className="read-more">
-                      {locale === 'ko' ? '자세히 보기' : 'Read More'}
-                    </span>
                   </div>
                 </Link>
               </article>
@@ -93,12 +87,6 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                         ))}
                       </div>
                     </div>
-                    <div className="activity-description">
-                      {activity.frontMatter.description}
-                    </div>
-                    <span className="read-more">
-                      {locale === 'ko' ? '자세히 보기' : 'Read More'}
-                    </span>
                   </div>
                 </Link>
               </article>
@@ -131,12 +119,6 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                         ))}
                       </div>
                     </div>
-                    <div className="activity-description">
-                      {activity.frontMatter.description}
-                    </div>
-                    <span className="read-more">
-                      {locale === 'ko' ? '자세히 보기' : 'Read More'}
-                    </span>
                   </div>
                 </Link>
               </article>
@@ -169,12 +151,6 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                         ))}
                       </div>
                     </div>
-                    <div className="activity-description">
-                      {activity.frontMatter.description}
-                    </div>
-                    <span className="read-more">
-                      {locale === 'ko' ? '자세히 보기' : 'Read More'}
-                    </span>
                   </div>
                 </Link>
               </article>

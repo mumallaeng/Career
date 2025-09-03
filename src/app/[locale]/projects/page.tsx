@@ -49,12 +49,6 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
                         ))}
                       </div>
                     </div>
-                    <div className="project-description">
-                      {project.frontMatter.description}
-                    </div>
-                    <span className="read-more">
-                      {locale === 'ko' ? '자세히 보기' : 'Read More'}
-                    </span>
                   </div>
                 </Link>
               </article>
@@ -81,12 +75,6 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
                         ))}
                       </div>
                     </div>
-                    <div className="project-description">
-                      {project.frontMatter.description}
-                    </div>
-                    <span className="read-more">
-                      {locale === 'ko' ? '자세히 보기' : 'Read More'}
-                    </span>
                   </div>
                 </Link>
               </article>
@@ -113,12 +101,6 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
                         ))}
                       </div>
                     </div>
-                    <div className="project-description">
-                      {project.frontMatter.description}
-                    </div>
-                    <span className="read-more">
-                      {locale === 'ko' ? '자세히 보기' : 'Read More'}
-                    </span>
                   </div>
                 </Link>
               </article>
