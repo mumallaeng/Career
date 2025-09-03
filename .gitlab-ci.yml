@@ -20,15 +20,7 @@ build:
     - npm --version
   script:
     - npm ci --cache .npm --prefer-offline --include=dev
-    - echo "Contents of current directory before build:"
-    - ls -la
     - npm run build
-    - echo "Contents of current directory after build:"
-    - ls -la
-    - echo "Checking if out/ directory exists:"
-    - ls -la out/ || echo "out/ directory does not exist"
-    - echo "Force creating out/ directory if it doesn't exist:"
-    - test -d out/ || (echo "out/ directory missing, checking .next directory" && ls -la .next/ && exit 1)
   artifacts:
     paths:
       - out/
