@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Hugo specific (from master branch)
+public/
+.hugo_build.lock
+themes/ananke
