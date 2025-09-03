@@ -1,0 +1,60 @@
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .header {
+        padding: 30px 0 15px;
+    }
+    
+    .nav-container {
+        padding: 0 16px;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+    
+    .nav-menu {
+        gap: 20px;
+    }
+    
+    .nav-social {
+        gap: 12px;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .project-card.featured,
+    .project-card.half {
+        grid-column: 1;
+        padding: 20px;
+    }
+    
+    .projects-container,
+    .activities-container {
+        padding: 20px 16px;
+    }
+    
+    .section-title {
+        font-size: 28px;
+    }
+
+    .activities-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .activity-card.featured,
+    .activity-card.third {
+        grid-column: 1;
+        padding: 16px;
+    }
+    
+    .activity-title a {
+        font-size: 16px;
+    }
+    
+    .activity-card.featured .activity-title {
+        font-size: 20px;
+    }
+}

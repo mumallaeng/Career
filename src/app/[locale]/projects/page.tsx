@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { getProjectsData } from '@/lib/content';
+import Card from '@/components/Card';
 
 export async function generateStaticParams() {
   return [
@@ -26,87 +26,15 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
 
       {/* Projects Grid */}
       <div className="projects-grid">
-        {projects.map((project, index) => {
-          if (index === 0) {
-            // First project: full width featured
-            return (
-              <article key={project.slug} className="project-card featured">
-                <Link href={`/${locale}/projects/${project.slug}`} className="project-link">
-                  <div className="project-content">
-                    <h2 className="project-title">
-                      {project.frontMatter.title}
-                    </h2>
-                    <div className="project-meta">
-                      <time className="project-date">
-                        {new Date(project.frontMatter.date).toLocaleDateString('ko-KR', { 
-                          year: 'numeric', 
-                          month: '2-digit' 
-                        })}
-                      </time>
-                      <div className="project-tags">
-                        {project.frontMatter.tags?.map((tag) => (
-                          <span key={tag} className="tag">#{tag}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </article>
-            );
-          } else if (index % 2 === 1) {
-            // Odd projects (2nd, 4th, 6th...): left side of row
-            return (
-              <article key={project.slug} className="project-card half left">
-                <Link href={`/${locale}/projects/${project.slug}`} className="project-link">
-                  <div className="project-content">
-                    <h2 className="project-title">
-                      {project.frontMatter.title}
-                    </h2>
-                    <div className="project-meta">
-                      <time className="project-date">
-                        {new Date(project.frontMatter.date).toLocaleDateString('ko-KR', { 
-                          year: 'numeric', 
-                          month: '2-digit' 
-                        })}
-                      </time>
-                      <div className="project-tags">
-                        {project.frontMatter.tags?.map((tag) => (
-                          <span key={tag} className="tag">#{tag}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </article>
-            );
-          } else {
-            // Even projects (3rd, 5th, 7th...): right side of row
-            return (
-              <article key={project.slug} className="project-card half right">
-                <Link href={`/${locale}/projects/${project.slug}`} className="project-link">
-                  <div className="project-content">
-                    <h2 className="project-title">
-                      {project.frontMatter.title}
-                    </h2>
-                    <div className="project-meta">
-                      <time className="project-date">
-                        {new Date(project.frontMatter.date).toLocaleDateString('ko-KR', { 
-                          year: 'numeric', 
-                          month: '2-digit' 
-                        })}
-                      </time>
-                      <div className="project-tags">
-                        {project.frontMatter.tags?.map((tag) => (
-                          <span key={tag} className="tag">#{tag}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </article>
-            );
-          }
-        })}
+        {projects.map((project, index) => (
+          <Card 
+            key={project.slug}
+            item={project}
+            index={index}
+            type="project"
+            locale={locale}
+          />
+        ))}
       </div>
     </div>
   );

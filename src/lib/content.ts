@@ -1,27 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-
-export interface FrontMatter {
-  title: string;
-  date: string;
-  author?: string;
-  description: string;
-  tags: string[];
-  categories: string[];
-  translationKey: string;
-  featured?: boolean;
-  draft?: boolean;
-  isAutoTranslated?: boolean;
-  originalLang?: string;
-}
-
-export interface Content {
-  slug: string;
-  frontMatter: FrontMatter;
-  content: string;
-  preview: string;
-  locale: string;
-}
+import { FrontMatter, Content, ContentType, Locale } from '@/types/content';
 
 function parseFrontMatter(fileContent: string): { frontMatter: FrontMatter; content: string } {
   const frontMatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
@@ -66,29 +45,31 @@ function parseFrontMatter(fileContent: string): { frontMatter: FrontMatter; cont
   return { frontMatter: frontMatter as unknown as FrontMatter, content };
 }
 
-export function getProjectsData(locale: 'ko' | 'en' = 'ko'): Content[] {
-  const projectsDir = path.join(process.cwd(), 'src/content/projects');
+function getContentData(contentType: ContentType, locale: Locale = 'ko'): Content[] {
+  const contentDir = path.join(process.cwd(), `src/content/${contentType}`);
   
-  if (!fs.existsSync(projectsDir)) {
+  if (!fs.existsSync(contentDir)) {
     return [];
   }
 
-  const files = fs.readdirSync(projectsDir)
+  const files = fs.readdirSync(contentDir)
     .filter(file => file.endsWith(`.${locale}.md`) && !file.startsWith('_'));
 
-  const projects = files.map(file => {
-    const filePath = path.join(projectsDir, file);
+  const previewLength = contentType === 'projects' ? 150 : 120;
+
+  const items = files.map(file => {
+    const filePath = path.join(contentDir, file);
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const { frontMatter, content } = parseFrontMatter(fileContent);
     
     const slug = file.replace(`.${locale}.md`, '');
     
-    // Create preview from content (first paragraph or first 150 characters)
+    // Create preview from content
     const preview = content
       .replace(/^#.*$/gm, '') // Remove headers
       .replace(/\n+/g, ' ') // Replace newlines with spaces
       .trim()
-      .substring(0, 150) + '...';
+      .substring(0, previewLength) + '...';
     
     return {
       slug,
@@ -99,56 +80,28 @@ export function getProjectsData(locale: 'ko' | 'en' = 'ko'): Content[] {
     };
   });
 
-  return projects.sort((a, b) => new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime());
+  return items.sort((a, b) => new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime());
 }
 
-export function getActivitiesData(locale: 'ko' | 'en' = 'ko'): Content[] {
-  const activitiesDir = path.join(process.cwd(), 'src/content/activities');
-  
-  if (!fs.existsSync(activitiesDir)) {
-    return [];
-  }
-
-  const files = fs.readdirSync(activitiesDir)
-    .filter(file => file.endsWith(`.${locale}.md`) && !file.startsWith('_'));
-
-  const activities = files.map(file => {
-    const filePath = path.join(activitiesDir, file);
-    const fileContent = fs.readFileSync(filePath, 'utf8');
-    const { frontMatter, content } = parseFrontMatter(fileContent);
-    
-    const slug = file.replace(`.${locale}.md`, '');
-    
-    // Create preview from content (first paragraph or first 120 characters)
-    const preview = content
-      .replace(/^#.*$/gm, '') // Remove headers
-      .replace(/\n+/g, ' ') // Replace newlines with spaces
-      .trim()
-      .substring(0, 120) + '...';
-    
-    return {
-      slug,
-      frontMatter,
-      content,
-      preview,
-      locale
-    };
-  });
-
-  return activities.sort((a, b) => new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime());
+export function getProjectsData(locale: Locale = 'ko'): Content[] {
+  return getContentData('projects', locale);
 }
 
-export function getProjectBySlug(slug: string, locale: 'ko' | 'en' = 'ko'): Content | null {
+export function getActivitiesData(locale: Locale = 'ko'): Content[] {
+  return getContentData('activities', locale);
+}
+
+export function getProjectBySlug(slug: string, locale: Locale = 'ko'): Content | null {
   const projects = getProjectsData(locale);
   return projects.find(project => project.slug === slug) || null;
 }
 
-export function getActivityBySlug(slug: string, locale: 'ko' | 'en' = 'ko'): Content | null {
+export function getActivityBySlug(slug: string, locale: Locale = 'ko'): Content | null {
   const activities = getActivitiesData(locale);
   return activities.find(activity => activity.slug === slug) || null;
 }
 
-export function getProfileData(locale: 'ko' | 'en' = 'ko'): Content | null {
+export function getProfileData(locale: Locale = 'ko'): Content | null {
   const profilePath = path.join(process.cwd(), `src/content/profile.${locale}.md`);
   
   if (!fs.existsSync(profilePath)) {
