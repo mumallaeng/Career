@@ -35,7 +35,7 @@ function parseFrontMatter(fileContent: string): { frontMatter: FrontMatter; cont
   let content = match[2].trim();
   
   // Remove <!--more--> marker if present
-  content = content.replace(/<!--more-->.*$/s, '').trim();
+  content = content.replace(/<!--more-->[\s\S]*$/, '').trim();
 
   const frontMatter: Record<string, unknown> = {};
   
