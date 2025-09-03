@@ -1,0 +1,24 @@
+{
+  "HomePage": {
+    "title": "안녕하세요!",
+    "description": "포트폴리오에 오신 것을 환영합니다."
+  },
+  "Navigation": {
+    "home": "홈",
+    "about": "소개",
+    "projects": "프로젝트",
+    "contact": "연락처"
+  },
+  "About": {
+    "title": "소개",
+    "description": "저에 대해 알아보세요."
+  },
+  "Projects": {
+    "title": "프로젝트",
+    "description": "제가 작업한 프로젝트들을 확인하세요."
+  },
+  "Contact": {
+    "title": "연락처",
+    "description": "언제든지 연락주세요."
+  }
+}
