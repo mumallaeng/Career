@@ -8,6 +8,8 @@ tags: ["java", "gui", "booking-system", "calendar", "database"]
 categories: ["프로젝트"]
 translationKey: "inha-air"
 featured: false
+type: "개인 프로젝트"
+role: "개인"
 ---
 
 Java를 활용한 항공 예매 시스템을 개발하며 사용자 인터페이스와 예약 로직을 구현했습니다.

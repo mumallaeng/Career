@@ -48,6 +48,11 @@ export default function Card({ item, index, type, locale }: CardProps) {
                 {item.frontMatter.categories[0]}
               </span>
             )}
+            {isProject && item.frontMatter.role && (
+              <span className={`${type}-role`}>
+                {item.frontMatter.role}
+              </span>
+            )}
             <div className={`${type}-tags`}>
               {item.frontMatter.tags?.map((tag) => (
                 <span key={tag} className="tag">#{tag}</span>

@@ -205,6 +205,19 @@
     font-size: 14px;
 }
 
+.project-role {
+    background: rgba(255, 255, 255, 0.2);
+    color: #1d1d1f;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .project-tags {
     display: flex;
     gap: 8px;

@@ -8,6 +8,8 @@ tags: ["chatbot", "openai", "gpt", "stt", "tts", "tcp-udp", "caregiving"]
 categories: ["프로젝트"]
 translationKey: "stonespring"
 featured: true
+type: "팀 프로젝트"
+role: "팀장"
 ---
 
 프로젝트 팀장으로서 OpenAI API를 활용한 실시간 돌봄 챗봇 시스템을 개발했습니다.

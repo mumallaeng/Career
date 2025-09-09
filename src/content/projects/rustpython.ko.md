@@ -8,6 +8,8 @@ tags: ["rust", "python", "interpreter", "open-source", "compiler", "rustpython"]
 categories: ["프로젝트"]
 translationKey: "rustpython"
 featured: true
+type: "오픈소스"
+role: "기여"
 ---
 
 Rust로 구현된 Python 인터프리터 RustPython 오픈소스 프로젝트에 기여했습니다.

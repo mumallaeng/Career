@@ -8,6 +8,8 @@ tags: ["data-analysis", "health", "search-trends", "eda", "api", "weather-data"]
 categories: ["프로젝트"]
 translationKey: "healthcasting"
 featured: true
+type: "팀 프로젝트"
+role: "팀장"
 ---
 
 프로젝트 팀장으로서 검색 트렌드 데이터를 활용한 건강 경보 시스템을 개발했습니다.

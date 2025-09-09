@@ -8,6 +8,8 @@ tags: ["ros2", "robotics", "automation", "picking-system", "database", "tcp-udp"
 categories: ["프로젝트"]
 translationKey: "shoepernoma"
 featured: true
+type: "팀 프로젝트"
+role: "팀장"
 ---
 
 프로젝트 팀장으로서 ROS2 기반 매장 연동형 신발 피킹 로봇 시스템을 개발했습니다.
