@@ -14,6 +14,8 @@ export interface FrontMatter {
   draft?: boolean;
   isAutoTranslated?: boolean;
   originalLang?: string;
+  type?: string;
+  role?: string;
 }
 
 export interface Content {
