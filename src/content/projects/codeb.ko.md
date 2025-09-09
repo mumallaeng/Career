@@ -8,8 +8,8 @@ tags: ["python", "education", "visual-programming", "pyodide", "webassembly", "a
 categories: ["프로젝트"]
 translationKey: "codeb"
 featured: true
-type: "개인 프로젝트"
-role: "개인"
+type: "팀 프로젝트"
+role: "팀원"
 ---
 
 Pyodide 기반 WebAssembly 실행 환경에서 동작하는 AI 교육용 Python 비주얼 프로그래밍 플랫폼을 개발했습니다.
