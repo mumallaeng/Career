@@ -11,7 +11,7 @@ function parseFrontMatter(fileContent: string): { frontMatter: FrontMatter; cont
   }
 
   const frontMatterText = match[1];
-  let content = match[2].trim();
+  const content = match[2].trim();
 
   const frontMatter: Record<string, unknown> = {};
   
