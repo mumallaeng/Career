@@ -1,6 +1,6 @@
 ---
 title: "인공지능 교육을 위한 Python 비주얼 프로그래밍 플랫폼 DIY/CodeB"
-date: 2022-02-28T00:00:00+09:00
+date: 2021-08-28T00:00:00+09:00
 draft: false
 author: "YONMILK"
 description: "Pyodide 기반 웹 Python 비주얼 프로그래밍 교육 플랫폼"
