@@ -26,7 +26,7 @@ export default function Navigation() {
         {/* Right side - Social Icons */}
         <div className="nav-social">
           {/* GitLab Icon */}
-          <Link
+          {/* <Link
             href="https://gitlab.com/yonmilk"
             target="_blank"
             rel="noopener noreferrer"
@@ -36,7 +36,7 @@ export default function Navigation() {
             <svg className="gitlab-icon" viewBox="0 0 24 24" fill="currentColor">
               <path d="M23.955 13.587l-1.342-4.135-2.664-8.189c-.135-.423-.73-.423-.867 0L16.418 9.45H7.582L4.918 1.263c-.135-.423-.73-.423-.867 0L1.387 9.452L.045 13.587c-.121.375.014.789.331 1.023L12 23.054l11.624-8.443c.318-.235.453-.648.331-1.024"/>
             </svg>
-          </Link>
+          </Link> */}
 
           {/* GitHub Icon */}
           <Link
