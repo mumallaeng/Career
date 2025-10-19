@@ -1,19 +1,10 @@
-'use client';
-
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 export default function Navigation() {
-  const pathname = usePathname();
-  const locale = pathname.split('/')[1] || 'ko';
-  
-  // 현재 경로에서 locale을 제거한 path
-  const pathWithoutLocale = pathname.slice(3) || '/';
-  
   const navItems = [
-    { href: `/${locale}/projects`, label: locale === 'ko' ? '프로젝트' : 'PROJECTS' },
-    { href: `/${locale}/activities`, label: locale === 'ko' ? '활동' : 'ACTIVITIES' },
-    { href: `/${locale}/profile`, label: locale === 'ko' ? '프로필' : 'PROFILE' },
+    { href: '/projects', label: '프로젝트' },
+    { href: '/activities', label: '활동' },
+    { href: '/profile', label: '프로필' },
   ];
 
   return (
@@ -31,21 +22,9 @@ export default function Navigation() {
             </Link>
           ))}
         </div>
-        
-        {/* Right side - Language Toggle + Social Icons */}
+
+        {/* Right side - Social Icons */}
         <div className="nav-social">
-          {/* Language Toggle */}
-          <div className="language-toggle">
-            <Link
-              href={`${locale === 'ko' ? '/en' : '/ko'}${pathWithoutLocale === '/' ? '/projects' : pathWithoutLocale}`}
-              className="lang-switch"
-              title={`Switch to ${locale === 'ko' ? 'English' : '한국어'}`}
-            >
-              <span className="lang-current">{locale === 'ko' ? '한' : 'EN'}</span>
-              <span className="lang-target">{locale === 'ko' ? 'EN' : '한'}</span>
-            </Link>
-          </div>
-          
           {/* GitLab Icon */}
           <Link
             href="https://gitlab.com/yonmilk"
@@ -58,7 +37,7 @@ export default function Navigation() {
               <path d="M23.955 13.587l-1.342-4.135-2.664-8.189c-.135-.423-.73-.423-.867 0L16.418 9.45H7.582L4.918 1.263c-.135-.423-.73-.423-.867 0L1.387 9.452L.045 13.587c-.121.375.014.789.331 1.023L12 23.054l11.624-8.443c.318-.235.453-.648.331-1.024"/>
             </svg>
           </Link>
-          
+
           {/* GitHub Icon */}
           <Link
             href="https://github.com/yonmilk"

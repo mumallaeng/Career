@@ -6,20 +6,19 @@ interface CardProps {
   item: Content;
   index: number;
   type: 'project' | 'activity';
-  locale: string;
 }
 
-export default function Card({ item, index, type, locale }: CardProps) {
+export default function Card({ item, index, type }: CardProps) {
   const isProject = type === 'project';
   const basePath = isProject ? 'projects' : 'activities';
-  
+
   // Project layout: first featured, then alternating halves
   // Activity layout: first featured, then groups of three
   const getCardClass = () => {
     if (index === 0) {
       return `${type}-card featured`;
     }
-    
+
     if (isProject) {
       return index % 2 === 1 ? `${type}-card half left` : `${type}-card half right`;
     } else {
@@ -34,7 +33,7 @@ export default function Card({ item, index, type, locale }: CardProps) {
 
   return (
     <article className={getCardClass()}>
-      <Link href={`/${locale}/${basePath}/${item.slug}`} className={`${type}-link`}>
+      <Link href={`/${basePath}/${item.slug}`} className={`${type}-link`}>
         <div className={`${type}-content`}>
           <TitleTag className={`${type}-title`}>
             {item.frontMatter.title}
