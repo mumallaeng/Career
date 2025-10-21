@@ -23,3 +23,5 @@ export interface Content {
 }
 
 export type ContentType = 'projects' | 'activities';
+
+export type Locale = 'ko' | 'en';
