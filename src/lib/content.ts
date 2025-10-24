@@ -42,6 +42,22 @@ function parseFrontMatter(fileContent: string): { frontMatter: FrontMatter; cont
   return { frontMatter: frontMatter as unknown as FrontMatter, content };
 }
 
+function extractFirstImage(content: string): string | undefined {
+  // Try to find HTML img tag first
+  const htmlImgMatch = content.match(/<img[^>]+src=["']([^"']+)["']/);
+  if (htmlImgMatch) {
+    return htmlImgMatch[1];
+  }
+
+  // Try to find Markdown image syntax ![alt](url)
+  const mdImgMatch = content.match(/!\[.*?\]\(([^)]+)\)/);
+  if (mdImgMatch) {
+    return mdImgMatch[1];
+  }
+
+  return undefined;
+}
+
 function getContentData(contentType: ContentType): Content[] {
   const contentDir = path.join(process.cwd(), `src/content/${contentType}`);
 
@@ -68,15 +84,23 @@ function getContentData(contentType: ContentType): Content[] {
       .trim()
       .substring(0, previewLength) + '...';
 
+    // Extract thumbnail: use frontMatter.thumbnail if available, otherwise extract from content
+    const thumbnailUrl = frontMatter.thumbnail || extractFirstImage(content);
+
     return {
       slug,
       frontMatter,
       content,
-      preview
+      preview,
+      thumbnailUrl
     };
   });
 
-  return items.sort((a, b) => new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime());
+  return items.sort((a, b) => {
+    const dateA = a.frontMatter.endDate || a.frontMatter.date;
+    const dateB = b.frontMatter.endDate || b.frontMatter.date;
+    return new Date(dateB).getTime() - new Date(dateA).getTime();
+  });
 }
 
 export function getProjectsData(): Content[] {
@@ -114,10 +138,13 @@ export function getProfileData(): Content | null {
     .trim()
     .substring(0, 150) + '...';
 
+  const thumbnailUrl = frontMatter.thumbnail || extractFirstImage(content);
+
   return {
     slug: 'profile',
     frontMatter,
     content,
-    preview
+    preview,
+    thumbnailUrl
   };
 }
