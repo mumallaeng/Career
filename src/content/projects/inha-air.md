@@ -1,6 +1,7 @@
 ---
 title: "항공 예매 시스템 INHA AIR"
-date: 2021-07-15T00:00:00+09:00
+startDate: 2021-05-13T00:00:00+09:00
+endDate: 2021-07-15T00:00:00+09:00
 draft: false
 author: "yonmilk"
 description: "인하공업 전문대학 컴퓨터시스템과 2학년 1학기 [Java 프로그래밍 응용] 과제 팀 프로젝트"
@@ -9,15 +10,15 @@ categories: ["프로젝트"]
 translationKey: "inha-air"
 featured: false
 type: "팀 프로젝트"
-role: "팀원"
 ---
 
-인하공업 전문대학 컴퓨터시스템과 2학년 1학기 [Java 프로그래밍 응용] 과제 팀 프로젝트로, 
-항공 예매 시스템에서 항공 예매 기능을 주로 구현했습니다.
+[yonmilk/INHA_AIR](https://github.com/yonmilk/INHA_AIR)
+
 
 <!--more-->
 
-[GitHub - yonmilk/INHA_AIR](https://github.com/yonmilk/INHA_AIR)
+인하공업 전문대학 컴퓨터시스템과 2학년 1학기 [Java 프로그래밍 응용] 과제 팀 프로젝트로, 
+항공 예매 시스템에서 항공 예매 기능을 주로 구현했습니다.
 
 ## 프로젝트 개요
 **기간**: 2021.05.13 ~ 2021.07.15 (2개월)
@@ -33,7 +34,7 @@ role: "팀원"
 
 ### 팀원 및 역할
 이름 | github | 역할
-----|--------|------
+--------|------------|------
 김연우 | [@yonmilk](https://github.com/yonmilk) | 항공권 예매(예매정보입력) 및 로그인, 회원가입, 아이디/비밀번호 찾기 UI 개발 및 구현
 김민주 | [@MinJu-A](https://github.com/MinJu-A) | 데이터베이스 및 관리자 메뉴 UI 개발 및 구현
 노예원 | [@yewon-Noh](https://github.com/yewon-Noh) | 데이터베이스 및 항공권 예매(탑승정보입력, 결제) 관련 UI 개발 및 구현
@@ -76,7 +77,7 @@ role: "팀원"
   }
 </style>
 
-<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1hYKoS6fPkDNljlhXNhuokQLwa3Z_oDYQ">
+<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1dNbzRkUFRlFK85t83hm5XlqVKDOyfwyd">
 
 <div class="image-grid">    
   <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1W3uTisglJD07sBNfSZSSpLCWVnfSZ8IV" name="start">
