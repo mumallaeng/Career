@@ -2,10 +2,31 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getProjectsData, getProjectBySlug } from '@/lib/content';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import { formatProjectDate } from '@/lib/utils/date';
+import type { Metadata } from 'next';
 
 export async function generateStaticParams() {
   const projects = getProjectsData();
   return projects.map((project) => ({ slug: project.slug }));
+}
+
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
+
+  if (!project) {
+    return {
+      title: 'Project Not Found'
+    };
+  }
+
+  return {
+    title: project.frontMatter.title
+  };
 }
 
 export default async function ProjectDetailPage({
@@ -37,7 +58,7 @@ export default async function ProjectDetailPage({
           <header className="post-header">
             <div className="post-meta-container">
               <time className="post-date">
-                {new Date(project.frontMatter.date).getFullYear()}
+                {formatProjectDate(project.frontMatter.endDate || project.frontMatter.date)}
               </time>
               {project.frontMatter.featured && (
                 <span className="featured-badge">
