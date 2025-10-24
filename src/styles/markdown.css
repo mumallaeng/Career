@@ -1,0 +1,183 @@
+/* Markdown Content Styles */
+
+/* Table Styles */
+.post-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    table-layout: auto;
+}
+
+/* Specific column widths for team member tables */
+.post-body table th:first-child,
+.post-body table td:first-child {
+    width: 15%;
+    min-width: 80px;
+}
+
+.post-body table th:nth-child(2),
+.post-body table td:nth-child(2) {
+    width: 20%;
+    min-width: 120px;
+}
+
+.post-body table th:nth-child(3),
+.post-body table td:nth-child(3) {
+    width: 65%;
+}
+
+.post-body thead {
+    background-color: #f5f5f7;
+}
+
+.post-body th {
+    padding: 16px 20px;
+    text-align: left;
+    font-weight: 600;
+    color: #1d1d1f;
+    border-bottom: 2px solid #e8e8ed;
+}
+
+.post-body td {
+    padding: 14px 20px;
+    border-bottom: 1px solid #e8e8ed;
+    color: #1d1d1f;
+}
+
+.post-body tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.post-body tbody tr:hover {
+    background-color: #fafafa;
+    transition: background-color 0.2s ease;
+}
+
+/* Image Grid Styles */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin: 2rem 0;
+    padding: 0;
+}
+
+.image-grid img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-grid img:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Regular Images */
+.post-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 2rem auto;
+    display: block;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Horizontal Rule */
+.post-body hr {
+    border: none;
+    border-top: 1px solid #e8e8ed;
+    margin: 3rem 0;
+}
+
+/* Links in markdown */
+.post-body a {
+    color: #007aff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
+}
+
+.post-body a:hover {
+    opacity: 0.7;
+    text-decoration: underline;
+}
+
+/* Code blocks */
+.post-body pre {
+    background-color: #f5f5f7;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.post-body code {
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    font-size: 14px;
+}
+
+/* Inline code */
+.post-body p code,
+.post-body li code,
+.post-body td code {
+    background-color: #f5f5f7;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #1d1d1f;
+}
+
+/* Lists */
+.post-body ul,
+.post-body ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+.post-body li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+/* Blockquotes */
+.post-body blockquote {
+    border-left: 4px solid #007aff;
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: #6e6e73;
+    font-style: italic;
+}
+
+/* Headings spacing in markdown */
+.post-body h1 {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.post-body h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.post-body h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+}
+
+.post-body h4 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* First heading shouldn't have top margin */
+.post-body > *:first-child {
+    margin-top: 0 !important;
+}
