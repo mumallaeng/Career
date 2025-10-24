@@ -1,6 +1,7 @@
 ---
 title: "농업 효율 향상 시스템 GreenT"
-date: 2025-02-27T00:00:00+09:00
+startDate: 2025-02-05T00:00:00+09:00
+endDate: 2025-02-27T00:00:00+09:00
 draft: false
 author: "YONMILK"
 description: "IoT 기반 스마트 농업 자동화 시스템"

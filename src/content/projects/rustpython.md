@@ -1,6 +1,7 @@
 ---
 title: "Rust기반 Python 인터프리터 RustPython"
-date: 2022-10-14T00:00:00+09:00
+startDate: 2022-07-01T00:00:00+09:00
+endDate: 2022-10-14T00:00:00+09:00
 draft: false
 author: "YONMILK"
 description: "오픈소스 Python 인터프리터 개발 및 기여"

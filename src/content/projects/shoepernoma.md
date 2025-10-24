@@ -1,6 +1,7 @@
 ---
 title: "매장 연동형 로봇 기반 신발 피킹 시스템 Shoepernoma"
-date: 2025-05-27T00:00:00+09:00
+startDate: 2025-04-09T00:00:00+09:00
+endDate: 2025-05-27T00:00:00+09:00
 draft: false
 author: "YONMILK"
 description: "ROS2 기반 신발 피킹 자동화 시스템"

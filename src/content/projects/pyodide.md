@@ -1,6 +1,7 @@
 ---
 title: "Python WebAssembly 런타임 Pyodide"
-date: 2022-01-15T00:00:00+09:00
+startDate: 2022-10-12T00:00:00+09:00
+endDate: 2022-10-22T00:00:00+09:00
 draft: false
 author: "YONMILK"
 description: "Python을 WebAssembly로 컴파일하는 오픈소스 프로젝트 기여"

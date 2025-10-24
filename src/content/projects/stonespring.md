@@ -1,6 +1,7 @@
 ---
 title: "돌봄 챗봇 시스템 StoneSpring"
-date: 2025-04-07T00:00:00+09:00
+startDate: 2025-02-27T00:00:00+09:00
+endDate: 2025-04-07T00:00:00+09:00
 draft: false
 author: "YONMILK"
 description: "OpenAI GPT-4o-mini 기반 실시간 돌봄 챗봇 시스템"
@@ -55,3 +56,4 @@ role: "팀장"
 - 음성 입출력을 통한 직관적인 사용자 인터페이스 제공
 - 돌봄 상황에 특화된 맞춤형 AI 응답 시스템 개발
 - 안정적인 실시간 통신 및 스트리밍 처리 시스템 구축
+

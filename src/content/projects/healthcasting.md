@@ -1,6 +1,7 @@
 ---
 title: "검색 트렌드와 함께 보는 건강 경보 체계 HealthCasting"
-date: 2025-01-03T00:00:00+09:00
+startDate: 2024-12-12T00:00:00+09:00
+endDate: 2025-01-03T00:00:00+09:00
 draft: false
 author: "YONMILK"
 description: "Google/Naver 검색 트렌드 기반 건강 경보 시스템"
