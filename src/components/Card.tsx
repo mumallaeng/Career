@@ -32,15 +32,31 @@ export default function Card({ item, index, type }: CardProps) {
   const TitleTag = isProject ? 'h2' : 'h3';
 
   return (
-    <article className={getCardClass()}>
-      <Link href={`/${basePath}/${item.slug}`} className={`${type}-link`}>
-        <div className={`${type}-content`}>
+    <Link href={`/${basePath}/${item.slug}`} className={`${type}-link`}>
+      <article
+        className={getCardClass()}
+        style={item.thumbnailUrl ? {
+          backgroundImage: `url(${item.thumbnailUrl})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        } : undefined}
+      >
+        <div
+          className={`${type}-title-container ${item.thumbnailUrl ? 'has-thumbnail' : 'no-thumbnail'}`}
+        >
           <TitleTag className={`${type}-title`}>
             {item.frontMatter.title}
           </TitleTag>
+        </div>
+        <div className={`${type}-content`}>
           <div className={`${type}-meta`}>
             <time className={`${type}-date`}>
-              {formatContentDate(item.frontMatter.date, isProject ? 'projects' : 'activities')}
+              {formatContentDate(
+                isProject && item.frontMatter.startDate
+                  ? item.frontMatter.startDate
+                  : (item.frontMatter.endDate || item.frontMatter.date),
+                isProject ? 'projects' : 'activities'
+              )}
             </time>
             {!isProject && item.frontMatter.categories && (
               <span className={`${type}-category`}>
@@ -59,7 +75,7 @@ export default function Card({ item, index, type }: CardProps) {
             </div>
           </div>
         </div>
-      </Link>
-    </article>
+      </article>
+    </Link>
   );
 }
