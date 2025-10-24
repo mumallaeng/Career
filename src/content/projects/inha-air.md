@@ -77,7 +77,7 @@ type: "팀 프로젝트"
   }
 </style>
 
-<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1dNbzRkUFRlFK85t83hm5XlqVKDOyfwyd">
+<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1dNbzRkUFRlFK85t83hm5XlqVKDOyfwyd" name="start">
 
 <div class="image-grid">    
   <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1W3uTisglJD07sBNfSZSSpLCWVnfSZ8IV" name="start">

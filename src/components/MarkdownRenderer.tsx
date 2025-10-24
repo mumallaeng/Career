@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -11,19 +12,23 @@ interface MarkdownRendererProps {
 }
 
 export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
-  // Custom sanitize schema to allow style tags and class attributes
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  // Custom sanitize schema to allow style tags, class attributes, and video
   const customSchema = deepmerge(defaultSchema, {
     attributes: {
       '*': ['className', 'class', 'style'],
       div: ['className', 'class'],
       img: ['src', 'alt', 'name', 'className', 'class'],
+      video: ['src', 'controls', 'width', 'height', 'autoplay', 'loop', 'muted', 'className', 'class'],
+      source: ['src', 'type'],
     },
-    tagNames: ['style'],
+    tagNames: ['style', 'video', 'source'],
   });
 
   return (
-    <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-semibold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-strong:text-gray-900 dark:prose-strong:text-gray-100 prose-ul:text-gray-700 dark:prose-ul:text-gray-300 prose-ol:text-gray-700 dark:prose-ol:text-gray-300">
-      <ReactMarkdown
+    <>
+      <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-semibold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-strong:text-gray-900 dark:prose-strong:text-gray-100 prose-ul:text-gray-700 dark:prose-ul:text-gray-300 prose-ol:text-gray-700 dark:prose-ol:text-gray-300">
+        <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, [rehypeSanitize, customSchema]]}
         components={{
@@ -58,8 +63,9 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             <img
               src={src}
               alt={alt || ''}
-              className="rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
+              className="rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer"
               loading="lazy"
+              onClick={() => setLightboxImage(src || null)}
             />
           ),
           blockquote: ({ children }) => (
@@ -87,5 +93,20 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
         {content}
       </ReactMarkdown>
     </div>
+
+    {/* Lightbox Modal */}
+    {lightboxImage && (
+      <div
+        className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4 cursor-pointer"
+        onClick={() => setLightboxImage(null)}
+      >
+        <img
+          src={lightboxImage}
+          alt="Full size"
+          className="max-w-full max-h-full object-contain"
+        />
+      </div>
+    )}
+    </>
   );
 }
