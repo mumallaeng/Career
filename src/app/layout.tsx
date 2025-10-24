@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "My personal portfolio",
+  title: "Kim Yeonwoo's Intro Page",
+  description: "Welcome to my introduction page!",
 };
 
 export default function RootLayout({
