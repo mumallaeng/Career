@@ -5,6 +5,8 @@
 export interface FrontMatter {
   title: string;
   date: string;
+  startDate?: string;
+  endDate?: string;
   author?: string;
   description: string;
   tags: string[];
@@ -13,6 +15,7 @@ export interface FrontMatter {
   draft?: boolean;
   type?: string;
   role?: string;
+  thumbnail?: string;
 }
 
 export interface Content {
@@ -20,6 +23,7 @@ export interface Content {
   frontMatter: FrontMatter;
   content: string;
   preview: string;
+  thumbnailUrl?: string;
 }
 
 export type ContentType = 'projects' | 'activities';
