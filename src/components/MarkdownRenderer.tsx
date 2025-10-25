@@ -65,7 +65,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
               alt={alt || ''}
               className="rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer"
               loading="lazy"
-              onClick={() => setLightboxImage(src || null)}
+              onClick={() => setLightboxImage(typeof src === 'string' ? src : null)}
             />
           ),
           blockquote: ({ children }) => (
