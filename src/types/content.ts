@@ -16,6 +16,7 @@ export interface FrontMatter {
   type?: string;
   role?: string;
   thumbnail?: string;
+  content_type?: string;
 }
 
 export interface Content {

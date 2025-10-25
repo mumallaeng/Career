@@ -2,7 +2,6 @@ import Link from 'next/link';
 
 export default function Navigation() {
   const navItems = [
-    { href: '/projects', label: '프로젝트' },
     { href: '/activities', label: '활동' },
     { href: '/profile', label: '프로필' },
   ];

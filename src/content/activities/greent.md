@@ -10,6 +10,7 @@ categories: ["프로젝트"]
 featured: true
 type: "팀 프로젝트"
 role: "팀원"
+content_type: "project"
 ---
 
 IoT 센서와 자동화 시스템을 활용한 스마트 농업 효율 향상 시스템을 개발했습니다.

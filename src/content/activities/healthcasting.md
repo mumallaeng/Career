@@ -10,6 +10,7 @@ categories: ["프로젝트"]
 featured: true
 type: "팀 프로젝트"
 role: "팀장"
+content_type: "project"
 ---
 
 프로젝트 팀장으로서 검색 트렌드 데이터를 활용한 건강 경보 시스템을 개발했습니다.

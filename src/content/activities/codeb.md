@@ -8,6 +8,7 @@ tags: ["python", "education", "visual-programming", "pyodide", "webassembly", "a
 categories: ["프로젝트"]
 featured: true
 type: "팀 프로젝트"
+content_type: "project"
 ---
 
 *상업용으로 사용되어 **코드 공개가 불가능**합니다.*

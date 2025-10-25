@@ -9,6 +9,7 @@ tags: ["java", "gui", "booking-system", "calendar", "database"]
 categories: ["프로젝트"]
 featured: false
 type: "팀 프로젝트"
+content_type: "project"
 ---
 
 [yonmilk/INHA_AIR](https://github.com/yonmilk/INHA_AIR)
