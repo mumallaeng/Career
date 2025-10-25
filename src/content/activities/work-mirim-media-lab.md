@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "K-디지털 기초역량훈련 강의 콘텐츠 제작 및 조교"
 tags: ["work", "education", "content-creation", "digital-training"]
 categories: ["업무경험"]
-translationKey: "work-mirim-media-lab"
 featured: false
 ---
 

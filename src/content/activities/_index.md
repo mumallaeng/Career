@@ -2,7 +2,6 @@
 title: "활동"
 date: 2024-01-01T00:00:00+09:00
 draft: false
-translationKey: "activities"
 ---
 
 AI 로봇 개발 관련 활동과 경험들을 공유합니다.

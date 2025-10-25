@@ -7,7 +7,6 @@ author: "YONMILK"
 description: "IoT 기반 스마트 농업 자동화 시스템"
 tags: ["iot", "agriculture", "automation", "raspberry-pi", "arduino", "smart-farming"]
 categories: ["프로젝트"]
-translationKey: "greent"
 featured: true
 type: "팀 프로젝트"
 role: "팀원"

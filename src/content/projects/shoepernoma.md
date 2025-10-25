@@ -7,7 +7,6 @@ author: "YONMILK"
 description: "ROS2 기반 신발 피킹 자동화 시스템"
 tags: ["ros2", "robotics", "automation", "picking-system", "database", "tcp-udp"]
 categories: ["프로젝트"]
-translationKey: "shoepernoma"
 featured: true
 type: "팀 프로젝트"
 role: "팀장"

@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "애드인에듀 IT 아카데미 로봇 개발 교육과정"
 tags: ["training", "ros2", "robotics", "autonomous-driving", "ai"]
 categories: ["교육과정"]
-translationKey: "training-ros-robot"
 featured: true
 ---
 

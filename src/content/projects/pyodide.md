@@ -7,7 +7,6 @@ author: "YONMILK"
 description: "Python을 WebAssembly로 컴파일하는 오픈소스 프로젝트 기여"
 tags: ["python", "webassembly", "open-source", "pyodide", "wasm", "browser"]
 categories: ["프로젝트"]
-translationKey: "pyodide"
 featured: true
 type: "오픈소스"
 role: "기여"

@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "과학기술정보통신부장관 대상 수상"
 tags: ["award", "open-source", "rustpython", "grand-prize"]
 categories: ["수상내역"]
-translationKey: "award-opensource-grand"
 featured: true
 ---
 

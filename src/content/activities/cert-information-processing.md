@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "한국산업인력공단 정보처리산업기사 자격증"
 tags: ["certification", "information-processing", "software-development"]
 categories: ["자격증"]
-translationKey: "cert-information-processing"
 featured: true
 ---
 

@@ -7,7 +7,6 @@ author: "YONMILK"
 description: "오픈소스 Python 인터프리터 개발 및 기여"
 tags: ["rust", "python", "interpreter", "open-source", "compiler", "rustpython"]
 categories: ["프로젝트"]
-translationKey: "rustpython"
 featured: true
 type: "오픈소스"
 role: "기여"

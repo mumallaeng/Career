@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "한국정보통신자격협회 네트워크관리사 2급 자격증"
 tags: ["certification", "network-management", "communications"]
 categories: ["자격증"]
-translationKey: "cert-network-administrator"
 featured: false
 ---
 

@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "교내 연구 및 인프라 지원 업무"
 tags: ["work", "scholarship", "research", "infrastructure"]
 categories: ["업무경험"]
-translationKey: "work-inha-scholarship"
 featured: false
 ---
 

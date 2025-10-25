@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "개인 기록 작성용 웹 프로젝트"
 tags: ["intro", "web-development", "github-pages", "nextjs", "personal-branding"]
 categories: ["개인 프로젝트", "웹 개발"]
-translationKey: "yeonwoo-space"
 featured: true
 type: "개인 프로젝트"
 role: "개인"

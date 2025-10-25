@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "제 23회 인천과학대제전 메타버스 플랫폼 관리"
 tags: ["work", "metaverse", "event-management", "education"]
 categories: ["업무경험"]
-translationKey: "work-incheon-metaverse"
 featured: false
 ---
 

@@ -7,7 +7,6 @@ author: "YONMILK"
 description: "OpenAI GPT-4o-mini 기반 실시간 돌봄 챗봇 시스템"
 tags: ["chatbot", "openai", "gpt", "stt", "tts", "tcp-udp", "caregiving"]
 categories: ["프로젝트"]
-translationKey: "stonespring"
 featured: true
 type: "팀 프로젝트"
 role: "팀장"

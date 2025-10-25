@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "한국정보통신자격협회 PC정비사 2급 자격증"
 tags: ["certification", "hardware-maintenance", "computer-repair"]
 categories: ["자격증"]
-translationKey: "cert-pc-technician"
 featured: false
 ---
 

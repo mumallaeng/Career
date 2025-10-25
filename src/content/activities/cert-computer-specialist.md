@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "대한상공회의소 컴퓨터활용능력 1급 자격증"
 tags: ["certification", "computer-skills", "office-programs"]
 categories: ["자격증"]
-translationKey: "cert-computer-specialist"
 featured: false
 ---
 

@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "인천광역시교육청 AI 교육 프로그램 개발"
 tags: ["work", "education", "ai-training", "teacher-development"]
 categories: ["업무경험"]
-translationKey: "work-teacher-training"
 featured: false
 ---
 

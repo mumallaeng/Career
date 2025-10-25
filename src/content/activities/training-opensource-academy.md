@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "RustPython 인터프리터 개발 참여"
 tags: ["training", "open-source", "rustpython", "mentorship"]
 categories: ["교육과정"]
-translationKey: "training-opensource-academy"
 featured: true
 ---
 

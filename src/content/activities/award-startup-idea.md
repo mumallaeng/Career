@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "공학기술교육혁신선도센터 대상 수상"
 tags: ["award", "startup", "business-idea", "grand-prize"]
 categories: ["수상내역"]
-translationKey: "award-startup-idea"
 featured: false
 ---
 

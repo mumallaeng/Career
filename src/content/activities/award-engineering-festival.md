@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "과학기술정보통신부장관 동상 수상"
 tags: ["award", "iot", "engineering", "bronze-medal"]
 categories: ["수상내역"]
-translationKey: "award-engineering-festival"
 featured: false
 ---
 

@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "서버 인프라 구축 및 운영 관리"
 tags: ["work", "server-administration", "infrastructure", "system-management"]
 categories: ["업무경험"]
-translationKey: "work-inha-server-admin"
 featured: true
 ---
 

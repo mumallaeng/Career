@@ -4,7 +4,6 @@ date: "2025-09-04"
 description: "개발자 프로필"
 tags: []
 categories: ["profile"]
-translationKey: "profile"
 ---
 
 # 프로필

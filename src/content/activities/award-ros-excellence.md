@@ -6,7 +6,6 @@ author: "YONMILK"
 description: "애드인에듀 아카데미 파이널 프로젝트 최우수상 수상"
 tags: ["award", "ros2", "robotics", "excellence-award"]
 categories: ["수상내역"]
-translationKey: "award-ros-excellence"
 featured: true
 ---
 
