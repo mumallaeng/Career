@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -11,18 +11,32 @@ interface MarkdownRendererProps {
   content: string;
 }
 
+// Helper function to safely render children
+const safeChildren = (children: ReactNode): ReactNode => {
+  if (children === null || children === undefined) {
+    return '';
+  }
+  if (typeof children === 'number' && isNaN(children)) {
+    return '';
+  }
+  return children;
+};
+
 export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   // Custom sanitize schema to allow style tags, class attributes, and video
   const customSchema = deepmerge(defaultSchema, {
     attributes: {
       '*': ['className', 'class', 'style'],
-      div: ['className', 'class'],
-      img: ['src', 'alt', 'name', 'className', 'class'],
+      div: ['className', 'class', 'style'],
+      img: ['src', 'alt', 'name', 'className', 'class', 'loading'],
       video: ['src', 'controls', 'width', 'height', 'autoplay', 'loop', 'muted', 'className', 'class'],
       source: ['src', 'type'],
+      h3: ['className', 'class'],
+      p: ['className', 'class'],
+      strong: ['className', 'class'],
     },
-    tagNames: ['style', 'video', 'source'],
+    tagNames: ['style', 'video', 'source', 'div', 'img', 'h3', 'p', 'strong'],
   });
 
   return (
@@ -32,68 +46,33 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, [rehypeSanitize, customSchema]]}
         components={{
-          h1: ({ children }) => {
-            const content = children !== null && children !== undefined ? children : '';
-            return <h1 className="text-4xl font-bold mb-8 mt-16 text-gray-900 dark:text-gray-100 leading-tight">{content}</h1>;
-          },
-          h2: ({ children }) => {
-            const content = children !== null && children !== undefined ? children : '';
-            return <h2 className="text-2xl font-semibold mb-5 mt-10 text-gray-900 dark:text-gray-100 leading-tight">{content}</h2>;
-          },
-          h3: ({ children }) => {
-            const content = children !== null && children !== undefined ? children : '';
-            return <h3 className="text-xl font-semibold mb-3 mt-6 text-gray-900 dark:text-gray-100">{content}</h3>;
-          },
-          h4: ({ children }) => {
-            const content = children !== null && children !== undefined ? children : '';
-            return <h4 className="text-lg font-semibold mb-2 mt-4 text-gray-900 dark:text-gray-100">{content}</h4>;
-          },
-          p: ({ children }) => {
-            const content = children !== null && children !== undefined ? children : '';
-            return <p className="mb-6 text-gray-700 dark:text-gray-300 leading-relaxed">{content}</p>;
-          },
-          ul: ({ children }) => {
-            const content = children !== null && children !== undefined ? children : '';
-            return <ul className="mb-4 space-y-2 text-gray-700 dark:text-gray-300">{content}</ul>;
-          },
-          ol: ({ children }) => {
-            const content = children !== null && children !== undefined ? children : '';
-            return <ol className="mb-4 space-y-2 text-gray-700 dark:text-gray-300">{content}</ol>;
-          },
-          li: ({ children }) => {
-            const content = children !== null && children !== undefined ? children : '';
-            return <li className="ml-4">{content}</li>;
-          },
-          strong: ({ children }) => {
-            const content = children !== null && children !== undefined ? children : '';
-            return <strong className="font-semibold text-gray-900 dark:text-gray-100">{content}</strong>;
-          },
+          h1: ({ children }) => <h1 className="text-4xl font-bold mb-8 mt-16 text-gray-900 dark:text-gray-100 leading-tight">{safeChildren(children)}</h1>,
+          h2: ({ children }) => <h2 className="text-2xl font-semibold mb-5 mt-10 text-gray-900 dark:text-gray-100 leading-tight">{safeChildren(children)}</h2>,
+          h3: ({ children }) => <h3 className="text-xl font-semibold mb-3 mt-6 text-gray-900 dark:text-gray-100">{safeChildren(children)}</h3>,
+          h4: ({ children }) => <h4 className="text-lg font-semibold mb-2 mt-4 text-gray-900 dark:text-gray-100">{safeChildren(children)}</h4>,
+          p: ({ children }) => <p className="mb-6 text-gray-700 dark:text-gray-300 leading-relaxed">{safeChildren(children)}</p>,
+          ul: ({ children }) => <ul className="mb-4 space-y-2 text-gray-700 dark:text-gray-300">{safeChildren(children)}</ul>,
+          ol: ({ children }) => <ol className="mb-4 space-y-2 text-gray-700 dark:text-gray-300">{safeChildren(children)}</ol>,
+          li: ({ children }) => <li className="ml-4">{safeChildren(children)}</li>,
+          strong: ({ children }) => <strong className="font-semibold text-gray-900 dark:text-gray-100">{safeChildren(children)}</strong>,
           table: ({ children }) => (
             <div className="overflow-x-auto my-8">
-              <table className="min-w-full">{children}</table>
+              <table className="min-w-full">{safeChildren(children)}</table>
             </div>
           ),
-          thead: ({ children }) => <thead className="bg-gray-50 dark:bg-gray-800">{children}</thead>,
-          tbody: ({ children }) => <tbody className="bg-white dark:bg-gray-900">{children}</tbody>,
-          tr: ({ children }) => <tr className="border-b border-gray-200 dark:border-gray-700">{children}</tr>,
-          th: ({ children }) => {
-            // Safely handle children - could be text, number, or React nodes
-            const content = children !== null && children !== undefined ? children : '';
-            return (
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                {content}
-              </th>
-            );
-          },
-          td: ({ children }) => {
-            // Safely handle children - could be text, number, or React nodes
-            const content = children !== null && children !== undefined ? children : '';
-            return (
-              <td className="px-6 py-4 whitespace-normal text-sm text-gray-700 dark:text-gray-300">
-                {content}
-              </td>
-            );
-          },
+          thead: ({ children }) => <thead className="bg-gray-50 dark:bg-gray-800">{safeChildren(children)}</thead>,
+          tbody: ({ children }) => <tbody className="bg-white dark:bg-gray-900">{safeChildren(children)}</tbody>,
+          tr: ({ children }) => <tr className="border-b border-gray-200 dark:border-gray-700">{safeChildren(children)}</tr>,
+          th: ({ children }) => (
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
+              {safeChildren(children)}
+            </th>
+          ),
+          td: ({ children }) => (
+            <td className="px-6 py-4 whitespace-normal text-sm text-gray-700 dark:text-gray-300">
+              {safeChildren(children)}
+            </td>
+          ),
           img: ({ src, alt }) => (
             <img
               src={src}
@@ -103,14 +82,11 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
               onClick={() => setLightboxImage(typeof src === 'string' ? src : null)}
             />
           ),
-          blockquote: ({ children }) => {
-            const content = children !== null && children !== undefined ? children : '';
-            return (
-              <blockquote className="border-l-4 border-blue-500 pl-4 my-4 italic text-gray-600 dark:text-gray-400">
-                {content}
-              </blockquote>
-            );
-          },
+          blockquote: ({ children }) => (
+            <blockquote className="border-l-4 border-blue-500 pl-4 my-4 italic text-gray-600 dark:text-gray-400">
+              {safeChildren(children)}
+            </blockquote>
+          ),
           code: ({ children, className }) => {
             const isInline = !className;
             // Convert children to string to avoid NaN errors
