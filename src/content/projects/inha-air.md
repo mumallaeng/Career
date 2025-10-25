@@ -7,7 +7,6 @@ author: "yonmilk"
 description: "항공 예매 시스템 GUI 애플리케이션"
 tags: ["java", "gui", "booking-system", "calendar", "database"]
 categories: ["프로젝트"]
-translationKey: "inha-air"
 featured: false
 type: "팀 프로젝트"
 ---
@@ -56,24 +55,9 @@ type: "팀 프로젝트"
 - 탑승일 선택을 위한 달력 UI 개발 (마우스클릭/키보드로 날짜 입력 가능)
 - 탑승 인원 수 선택 UI 구현 및 나이 계산기(성인/소아/유아 구분)
 
-# 프로젝트 결과 및 자료
+## 프로젝트 결과 및 자료
 
-## 구현 결과
-
-<style>
-  .image-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
-    padding: 10px;
-  }
-  
-  .image-grid img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-</style>
+### 구현 결과
 
 <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1dNbzRkUFRlFK85t83hm5XlqVKDOyfwyd" name="start">
 
@@ -100,7 +84,7 @@ type: "팀 프로젝트"
 <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1KmpklNOM562pjpHwFFhv3vGAJq5qbA-K">
 </div>
 
-## 구조도
+### 구조도
 
 <div class="image-grid">
   <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1S6y0iOPoA_eXcCaYAG5B_7WBLwV4ioVy" name="information_architecture_user">
@@ -108,7 +92,7 @@ type: "팀 프로젝트"
 </div>
 
 
-## 순서도
+### 순서도
 
 <div class="image-grid">
   <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1RfkcVe0waqq2WKPShMIBwppOOaCoABDL">
@@ -124,7 +108,7 @@ type: "팀 프로젝트"
   <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1BDwQF5R0IZtEMSGlyh-eSjyEESJvHhz9">
 </div>
 
-## 데이터베이스
+### 데이터베이스
 
 **데이터베이스 테이블 정보**
 
