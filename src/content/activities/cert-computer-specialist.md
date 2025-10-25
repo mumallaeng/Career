@@ -7,6 +7,7 @@ description: "대한상공회의소 컴퓨터활용능력 1급 자격증"
 tags: ["certification", "computer-skills", "office-programs"]
 categories: ["자격증"]
 featured: false
+content_type: "etc"
 ---
 
 컴퓨터 활용 능력을 검증하는 컴퓨터활용능력 1급을 취득했습니다.

@@ -7,6 +7,7 @@ description: "공학기술교육혁신선도센터 대상 수상"
 tags: ["award", "startup", "business-idea", "grand-prize"]
 categories: ["수상내역"]
 featured: false
+content_type: "competition"
 ---
 
 산학협력 공동교육캠프 창업아이디어 경진대회에서 대상을 수상했습니다.

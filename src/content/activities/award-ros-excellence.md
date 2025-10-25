@@ -7,6 +7,7 @@ description: "애드인에듀 아카데미 파이널 프로젝트 최우수상 �
 tags: ["award", "ros2", "robotics", "excellence-award"]
 categories: ["수상내역"]
 featured: true
+content_type: "competition"
 ---
 
 ROS2와 인공지능을 활용한 자율주행 로봇 개발자 양성과정에서 최우수상을 수상했습니다.

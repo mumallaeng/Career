@@ -7,6 +7,7 @@ description: "과학기술정보통신부장관 대상 수상"
 tags: ["award", "open-source", "rustpython", "grand-prize"]
 categories: ["수상내역"]
 featured: true
+content_type: "competition"
 ---
 
 오픈소스컨트리뷰션아카데미에서 RustPython 프로젝트 기여로 대상을 수상했습니다.

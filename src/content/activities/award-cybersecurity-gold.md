@@ -7,6 +7,7 @@ description: "경기도기능경기위원회 금메달 수상"
 tags: ["award", "cybersecurity", "competition", "gold-medal"]
 categories: ["수상내역", "직무경험"]
 featured: true
+content_type: "competition"
 ---
 
 <!--more-->

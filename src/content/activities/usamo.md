@@ -8,6 +8,7 @@ description: "인하공업전문대학 전공 동아리"
 tags: ["python", "education", "visual-programming", "pyodide", "webassembly", "ai-education"]
 categories: ["인하공업전문대학", "전공동아리"]
 featured: true
+content_type: "etc"
 ---
 
 <!--more-->

@@ -7,6 +7,7 @@ description: "RustPython 인터프리터 개발 참여"
 tags: ["training", "open-source", "rustpython", "mentorship"]
 categories: ["교육과정"]
 featured: true
+content_type: "education"
 ---
 
 오픈소스 컨트리뷰션 아카데미에서 RustPython 프로젝트에 기여했습니다.

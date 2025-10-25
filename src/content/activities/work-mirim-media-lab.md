@@ -7,6 +7,7 @@ description: "K-디지털 기초역량훈련 강의 콘텐츠 제작 및 조교"
 tags: ["work", "education", "content-creation", "digital-training"]
 categories: ["업무경험"]
 featured: false
+content_type: "etc"
 ---
 
 미림 미디어 랩에서 K-디지털 기초역량훈련 강의 콘텐츠 제작과 조교 업무를 담당했습니다.

@@ -34,8 +34,11 @@ export default function ActivitiesFilter({ activities }: ActivitiesFilterProps) 
   const getTypeDisplayName = (type: string) => {
     const typeNames: Record<string, string> = {
       'all': '전체',
-      'activity': '활동',
-      'project': '프로젝트'
+      'project': '프로젝트',
+      'server': '서버',
+      'competition': '공모전',
+      'education': '교육',
+      'etc': '그외'
     };
     return typeNames[type] || type;
   };

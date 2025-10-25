@@ -7,6 +7,7 @@ description: "제 23회 인천과학대제전 메타버스 플랫폼 관리"
 tags: ["work", "metaverse", "event-management", "education"]
 categories: ["업무경험"]
 featured: false
+content_type: "etc"
 ---
 
 인천광역시교육청에서 주관한 인천과학대제전의 메타버스 플랫폼을 관리했습니다.

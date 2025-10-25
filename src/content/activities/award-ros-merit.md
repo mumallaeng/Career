@@ -7,6 +7,7 @@ description: "애드인에듀 아카데미 교육과정 공로상 수상"
 tags: ["award", "ros2", "robotics", "merit-award"]
 categories: ["수상내역"]
 featured: false
+content_type: "competition"
 ---
 
 ROS2와 인공지능을 활용한 자율주행 로봇 개발자 양성과정에서 공로상을 수상했습니다.

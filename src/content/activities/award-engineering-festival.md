@@ -7,6 +7,7 @@ description: "과학기술정보통신부장관 동상 수상"
 tags: ["award", "iot", "engineering", "bronze-medal"]
 categories: ["수상내역"]
 featured: false
+content_type: "competition"
 ---
 
 공학페스티벌 창의적 종합설계 경진대회 IoT 부문에서 동상을 수상했습니다.

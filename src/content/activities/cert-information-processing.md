@@ -7,6 +7,7 @@ description: "한국산업인력공단 정보처리산업기사 자격증"
 tags: ["certification", "information-processing", "software-development"]
 categories: ["자격증"]
 featured: true
+content_type: "etc"
 ---
 
 소프트웨어 개발 전문 자격인 정보처리산업기사를 취득했습니다.

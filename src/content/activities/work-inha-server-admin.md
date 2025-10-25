@@ -7,6 +7,7 @@ description: "서버 인프라 구축 및 운영 관리"
 tags: ["work", "server-administration", "infrastructure", "system-management"]
 categories: ["업무경험"]
 featured: true
+content_type: "server"
 ---
 
 인하공업전문대학 인공지능빅데이터센터에서 서버 인프라 구축 및 운영 업무를 담당했습니다.

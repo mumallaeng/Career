@@ -7,6 +7,7 @@ description: "인천광역시교육청 AI 교육 프로그램 개발"
 tags: ["work", "education", "ai-training", "teacher-development"]
 categories: ["업무경험"]
 featured: false
+content_type: "etc"
 ---
 
 인천광역시교육청과 인하공업전문대학이 공동으로 진행한 AI융합교육 전문교원 역량강화 연수 프로그램 개발에 참여했습니다.

@@ -7,6 +7,7 @@ description: "애드인에듀 IT 아카데미 로봇 개발 교육과정"
 tags: ["training", "ros2", "robotics", "autonomous-driving", "ai"]
 categories: ["교육과정"]
 featured: true
+content_type: "education"
 ---
 
 6개월간의 집중적인 ROS2 기반 자율주행 로봇 개발자 양성과정을 수료했습니다.

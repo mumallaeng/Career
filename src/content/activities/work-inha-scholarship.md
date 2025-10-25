@@ -7,6 +7,7 @@ description: "교내 연구 및 인프라 지원 업무"
 tags: ["work", "scholarship", "research", "infrastructure"]
 categories: ["업무경험"]
 featured: false
+content_type: "etc"
 ---
 
 인하공업전문대학 인공지능빅데이터센터에서 근로장학생으로 활동했습니다.

@@ -7,6 +7,7 @@ description: "한국정보통신자격협회 네트워크관리사 2급 자격�
 tags: ["certification", "network-management", "communications"]
 categories: ["자격증"]
 featured: false
+content_type: "etc"
 ---
 
 네트워크 관리 전문 능력을 검증하는 네트워크관리사 2급을 취득했습니다.

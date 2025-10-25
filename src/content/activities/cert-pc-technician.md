@@ -7,6 +7,7 @@ description: "한국정보통신자격협회 PC정비사 2급 자격증"
 tags: ["certification", "hardware-maintenance", "computer-repair"]
 categories: ["자격증"]
 featured: false
+content_type: "etc"
 ---
 
 컴퓨터 하드웨어 정비 전문 능력을 검증하는 PC정비사 2급을 취득했습니다.
