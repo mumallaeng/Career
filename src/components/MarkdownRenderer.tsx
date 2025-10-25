@@ -75,16 +75,19 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           ),
           code: ({ children, className }) => {
             const isInline = !className;
+            // Convert children to string to avoid NaN errors
+            const codeContent = String(children || '');
+
             if (isInline) {
               return (
                 <code className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono text-red-600 dark:text-red-400">
-                  {children}
+                  {codeContent}
                 </code>
               );
             }
             return (
               <code className="block bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto font-mono text-sm">
-                {children}
+                {codeContent}
               </code>
             );
           },
