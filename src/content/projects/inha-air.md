@@ -1,10 +1,10 @@
 ---
-title: "항공 예매 시스템 INHA AIR"
+title: "INHA AIR"
 startDate: 2021-05-13T00:00:00+09:00
 endDate: 2021-07-15T00:00:00+09:00
 draft: false
 author: "yonmilk"
-description: "인하공업 전문대학 컴퓨터시스템과 2학년 1학기 [Java 프로그래밍 응용] 과제 팀 프로젝트"
+description: "항공 예매 시스템 GUI 애플리케이션"
 tags: ["java", "gui", "booking-system", "calendar", "database"]
 categories: ["프로젝트"]
 translationKey: "inha-air"
