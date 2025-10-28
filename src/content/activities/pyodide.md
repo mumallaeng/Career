@@ -3,7 +3,7 @@ title: "Python WebAssembly 런타임 Pyodide"
 startDate: 2022-10-12T00:00:00+09:00
 endDate: 2022-10-22T00:00:00+09:00
 draft: false
-author: "YONMILK"
+
 description: "Python을 WebAssembly로 컴파일하는 오픈소스 프로젝트 기여"
 tags: ["python", "webassembly", "open-source", "pyodide", "wasm", "browser"]
 categories: ["프로젝트"]
@@ -13,10 +13,52 @@ role: "기여"
 content_type: "project"
 ---
 
-Python을 WebAssembly로 컴파일하여 브라우저에서 실행 가능하게 하는 Pyodide 오픈소스 프로젝트에 기여했습니다.
+[yonmilk/pyodide](https://github.com/yonmilk/pyodide) \
+[pyodide/pyodide](https://github.com/pyodide/pyodide)
+
+
+[컨트리뷰션 아카데미](open_source_contribution_academy.md)에서 활동하며 `[RustPython](rustpython.md)`에 기여한 이후로 혼자서 오픈소스에 기여해보고 싶어 찾던 중,\
+이전에 `[AI 교육용 Python 블록 프로그래밍 웹 플랫폼](codeb.md)`에서 Pyodide를 사용했던 경험이 떠올랐습니다.
+Pyodide는 Python을 WebAssembly로 컴파일하여 브라우저에서 실행 가능하게 하는 인터프리터입니다.
 
 <!--more-->
 
-## 프로젝트 개요
+## 기여 내용
 
-## 주요 기여 내용
+### Pull Request: [Fix repr_shorten and Add shorten #3178](https://github.com/pyodide/pyodide/pull/3178)
+- **기간**: 2022.10.12 ~ 2022.10.22 (11일)
+
+Pyodide의 `repr_shorten` 함수 버그를 수정하고, 새로운 `shorten` 함수를 추가했습니다.
+
+#### 해결한 문제
+
+1. **`repr_shorten` 함수의 버그**
+   - `split` 파라미터가 제대로 검증되지 않아 잘못된 출력이 발생
+   - 예: `split` 값이 문자열 길이의 절반을 초과하면 `"5678..5678"` 같은 비정상적인 결과 생성
+
+2. **문서화 부족**
+   - 함수 사용 예제가 없어 개발자들이 사용법을 이해하기 어려움
+
+#### 구현 내용
+
+**버그 수정:**
+```python
+split = min(split, limit//2)
+```
+- `split` 파라미터를 제한하여 항상 접두사와 접미사가 구분자와 함께 포함되도록 보장
+- 잘못된 형식의 출력 방지
+
+**새로운 기능 추가:**
+- 범용 텍스트 단축 유틸리티 `shorten()` 함수 추가
+- `repr_shorten`의 일반화 버전으로 다양한 상황에서 활용 가능
+
+**문서화 개선:**
+- 두 함수 모두에 상세한 docstring 예제 추가
+- 파라미터와 반환값에 대한 명확한 설명 작성
+- 변경 이력(changelog)에 수정 사항 문서화
+
+
+#### 느낀 점
+- pyodide는 pull request에서 changelog 작성이 필요했습니다. \
+  Pyodide를 사용하며 체계적인 문서화가 유지되는 것이 인상 깊었는데, 직접 기여하면서 그 이유를 느낄 수 있었습니다.
+- 직접 사용해본 오픈소스 프로젝트에 기여하니 더 의미있고 재미있었습니다. 
