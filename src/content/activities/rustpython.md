@@ -3,7 +3,7 @@ title: "Rust기반 Python 인터프리터 RustPython"
 startDate: 2022-07-01T00:00:00+09:00
 endDate: 2022-10-14T00:00:00+09:00
 draft: false
-author: "YONMILK"
+
 description: "오픈소스 Python 인터프리터 개발 및 기여"
 tags: ["rust", "python", "interpreter", "open-source", "compiler", "rustpython"]
 categories: ["프로젝트"]
@@ -13,42 +13,100 @@ role: "기여"
 content_type: "project"
 ---
 
-Rust로 구현된 Python 인터프리터 RustPython 오픈소스 프로젝트에 기여했습니다.
+[yonmilk/rustpython](https://github.com/yonmilk/rustpython) \
+[rustpython/rustpython](https://github.com/rustpython/rustpython)
+
+[컨트리뷰션 아카데미](open_source_contribution_academy.md)에서 활동하며 Rust로 구현된 Python 인터프리터 오픈소스 프로젝트 RustPython에 기여했습니다. \
+첫 오픈소스 기여 경험으로, 향후에도 오픈소스에 지속적으로 참여하고자 하는 계기가 되었습니다.
 
 <!--more-->
 
-## 프로젝트 개요
-- **기간**: 2022.07 ~ 2022.10 (5개월)
-- **역할**: 오픈소스 컨트리뷰터
-- **성과**: 2022 오픈소스컨트리뷰션아카데미 대상(1위) 과학기술정보통신부장관
-- **교육기관**: 오픈소스 컨트리뷰션 아카데미
+## 기여 내용
 
-## 기술 스택
-- **언어**: Rust, Python
-- **도구**: Git, GitHub, Cargo
-- **플랫폼**: 크로스 플랫폼 (Linux, macOS, Windows)
-- **개념**: 인터프리터, 컴파일러, AST
+- **기간**: 2022.07.01 ~ 2022.10.14 (약 3.5개월)
 
-## 주요 기여 내용
 
-### itertools 모듈 개선
-- itertools.count에서 PyNumber를 지원하도록 개선하여 정수 외 수치 타입에 대한 유연한 처리 구현
-- Python 표준 라이브러리와의 호환성 강화
+### 1. itertools 모듈 개선
 
-### repr() 출력 형식 개선
-- repr() 출력 형식을 개선하여 함수 객체, union 타입 등에서 보다 정확하고 가독성 높은 표현 제공
-- Python 객체의 속성(_fields, __qualname__, StopIteration)을 내부 구조에 반영하여 표준 호환성 강화
+**[#3784: Add itertools count repr](https://github.com/RustPython/RustPython/pull/3784)**
+- `itertools.count` 객체의 문자열 표현 구현
 
-### 객체 비교 연산 확장
-- mappingproxy, weakproxy 객체에 대한 rich comparison(비교 연산) 기능 확장
-- Python의 표준 동작과 일치하도록 구현
+**[#3822: Fix itertools.count to take PyNumber](https://github.com/RustPython/RustPython/pull/3822)**
+- count 반복자가 일반 숫자 타입을 받도록 수정
 
-### warning 모듈 로직 수정
-- warning 모듈 로직 전반 수정(warn_explicit, setup_context 등)
-- 메타클래스 관련 버그 수정으로 안정성 향상
+**[#3824: Fix itertools count repr](https://github.com/RustPython/RustPython/pull/3824)**
+- count 객체의 repr 표현 수정
 
-## 핵심 성과
-- Python 표준 라이브러리와의 호환성 크게 향상
-- Rust 기반 고성능 Python 인터프리터 개발에 기여
-- 오픈소스 생태계에 실질적인 기여를 통한 개발자 커뮤니티 참여
-- 인터프리터 내부 구조에 대한 깊은 이해 습득
+**[#3834: Fix itertools.count step to take PyNumber](https://github.com/RustPython/RustPython/pull/3834)**
+- step 파라미터가 일반 숫자 타입을 받도록 개선
+
+**[#4272: Add combinations.__reduce__](https://github.com/RustPython/RustPython/pull/4272)**
+- combinations 반복자의 `__reduce__` 메서드 구현
+
+### 2. weakref 프록시 기능 구현
+
+**[#3854: Add weakproxy Sequence, Mapping](https://github.com/RustPython/RustPython/pull/3854)**
+- weak proxy의 시퀀스 및 매핑 프로토콜 구현
+
+**[#3900: Add weakproxy bool, bytes](https://github.com/RustPython/RustPython/pull/3900)**
+- weak proxy의 boolean 및 bytes 변환 지원
+
+**[#3909: Add weakproxy richcompare](https://github.com/RustPython/RustPython/pull/3909)**
+- weak proxy의 비교 연산 구현
+
+**[#3914: Add mappingproxy richcompare](https://github.com/RustPython/RustPython/pull/3914)**
+- mapping proxy의 비교 연산 구현
+
+### 3. AST(Abstract Syntax Tree) 개선
+
+**[#4243: Add _fields attribute to ast](https://github.com/RustPython/RustPython/pull/4243)**
+- AST 노드에 `_fields` 속성 추가하여 introspection 지원
+
+**[#4244: Fix _fileds and _attributes types of ast](https://github.com/RustPython/RustPython/pull/4244)** (Closed)
+- AST 노드 속성의 타입 문제 수정
+
+### 4. 타입 시스템 개선
+
+**[#4217: Add annotations for type](https://github.com/RustPython/RustPython/pull/4217)**
+- 타입 어노테이션 지원 구현
+
+**[#4253: Fix repr for union](https://github.com/RustPython/RustPython/pull/4253)**
+- union 타입의 문자열 표현 수정
+
+**[#3852: Fix is_unionable type_type check](https://github.com/RustPython/RustPython/pull/3852)**
+- union 타입 검증 로직 수정
+
+### 5. 경고 시스템 개선
+
+**[#4130: Update warning setup_context](https://github.com/RustPython/RustPython/pull/4130)**
+- 경고 컨텍스트 설정 개선
+
+**[#4146: Update warning warn_explicit](https://github.com/RustPython/RustPython/pull/4146)**
+- 경고 시스템 기능 향상
+
+### 6. 기타 버그 수정 및 개선
+
+**[#4249: Add StopIteration type to marshal](https://github.com/RustPython/RustPython/pull/4249)**
+- marshal 시스템에 StopIteration 예외 지원 추가
+
+**[#4183: Update function __qualname__ and repr](https://github.com/RustPython/RustPython/pull/4183)**
+- 함수 이름 및 표현 개선
+
+**[#3986: Fix metaclass check classcell](https://github.com/RustPython/RustPython/pull/3986)**
+- 메타클래스의 class cell 검증 수정
+
+**[#3954: Fix escape codecs](https://github.com/RustPython/RustPython/pull/3954)**
+- escape 인코딩/디코딩 함수 수정
+
+**[#3773: Add classmethod initialize](https://github.com/RustPython/RustPython/pull/3773)**
+- classmethod 초기화 지원 추가
+
+
+
+## 배운 점
+
+- Rust로 구현된 대규모 오픈소스 프로젝트의 구조와 개발 프로세스
+- Python 인터프리터의 내부 동작 원리와 구현 방법 학습
+- 오픈소스 커뮤니티에서의 협업과 코드 리뷰 경험
+
+
