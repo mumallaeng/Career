@@ -2,10 +2,10 @@
 title: "ROS2와 인공지능을 활용한 자율주행 로봇 개발자 양성과정"
 date: 2025-05-27T00:00:00+09:00
 draft: false
-author: "YONMILK"
+
 description: "애드인에듀 IT 아카데미 로봇 개발 교육과정"
 tags: ["training", "ros2", "robotics", "autonomous-driving", "ai"]
-categories: ["교육과정"]
+categories: ["교육"]
 featured: true
 content_type: "education"
 ---

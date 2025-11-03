@@ -2,6 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import { FrontMatter, Content } from '@/types/content';
 
+interface ThumbnailData {
+  url: string;
+  hasExplicitDimensions: boolean;
+}
+
 function parseFrontMatter(fileContent: string): { frontMatter: FrontMatter; content: string } {
   const frontMatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
   const match = fileContent.match(frontMatterRegex);
@@ -55,26 +60,48 @@ function transformDriveUrl(driveUrl: string): string | undefined {
   return `https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=${fileId}`;
 }
 
-function extractFirstImage(content: string): string | undefined {
+function hasExplicitSize(tag: string): boolean {
+  const widthAttribute = /\bwidth\s*=\s*(?:["'][^"']+["']|\{[^}]+\})/i;
+  const heightAttribute = /\bheight\s*=\s*(?:["'][^"']+["']|\{[^}]+\})/i;
+  const styleAttribute = /\bstyle\s*=\s*(?:["'][^"']*(?:width|height)[^"']*["']|\{\{[^}]*\b(?:width|height)\b[^}]*}})/i;
+
+  return widthAttribute.test(tag) || heightAttribute.test(tag) || styleAttribute.test(tag);
+}
+
+function extractFirstImage(content: string): ThumbnailData | undefined {
   // Try to find ImgTag component with driveUrl
-  const customImgMatch = content.match(/<ImgTag[^>]*driveUrl=["']([^"']+)["'][^>]*\/?>/i);
+  const customImgMatch = content.match(/(<ImgTag[^>]*driveUrl=["']([^"']+)["'][^>]*\/?>(?:<\/ImgTag>)?)/i);
   if (customImgMatch) {
-    const transformed = transformDriveUrl(customImgMatch[1]);
+    const [, fullMatch, driveUrl] = customImgMatch;
+    const transformed = transformDriveUrl(driveUrl);
     if (transformed) {
-      return transformed;
+      return {
+        url: transformed,
+        hasExplicitDimensions: hasExplicitSize(fullMatch),
+      };
     }
   }
 
   // Try to find HTML img tag first
-  const htmlImgMatch = content.match(/<img[^>]+src=["']([^"']+)["']/);
+  const htmlImgMatch = content.match(/(<img[^>]+>)/i);
   if (htmlImgMatch) {
-    return htmlImgMatch[1];
+    const tag = htmlImgMatch[1];
+    const srcMatch = tag.match(/src=["']([^"']+)["']/i);
+    if (srcMatch) {
+      return {
+        url: srcMatch[1],
+        hasExplicitDimensions: hasExplicitSize(tag),
+      };
+    }
   }
 
   // Try to find Markdown image syntax ![alt](url)
   const mdImgMatch = content.match(/!\[.*?\]\(([^)]+)\)/);
   if (mdImgMatch) {
-    return mdImgMatch[1];
+    return {
+      url: mdImgMatch[1],
+      hasExplicitDimensions: false,
+    };
   }
 
   return undefined;
@@ -107,14 +134,20 @@ export function getActivitiesData(): Content[] {
       .substring(0, previewLength) + '...';
 
     // Extract thumbnail: use frontMatter.thumbnail if available, otherwise extract from content
-    const thumbnailUrl = frontMatter.thumbnail || extractFirstImage(content);
+    const extractedThumbnail = frontMatter.thumbnail
+      ? { url: frontMatter.thumbnail, hasExplicitDimensions: false }
+      : extractFirstImage(content);
+
+    const thumbnailUrl = extractedThumbnail?.url;
+    const thumbnailHasExplicitSize = extractedThumbnail?.hasExplicitDimensions ?? false;
 
     return {
       slug,
       frontMatter,
       content,
       preview,
-      thumbnailUrl
+      thumbnailUrl,
+      thumbnailHasExplicitSize,
     };
   });
 
@@ -147,13 +180,19 @@ export function getProfileData(): Content | null {
     .trim()
     .substring(0, 150) + '...';
 
-  const thumbnailUrl = frontMatter.thumbnail || extractFirstImage(content);
+  const extractedThumbnail = frontMatter.thumbnail
+    ? { url: frontMatter.thumbnail, hasExplicitDimensions: false }
+    : extractFirstImage(content);
+
+  const thumbnailUrl = extractedThumbnail?.url;
+  const thumbnailHasExplicitSize = extractedThumbnail?.hasExplicitDimensions ?? false;
 
   return {
     slug: 'profile',
     frontMatter,
     content,
     preview,
-    thumbnailUrl
+    thumbnailUrl,
+    thumbnailHasExplicitSize,
   };
 }

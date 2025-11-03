@@ -2,10 +2,9 @@
 title: "오픈소스 컨트리뷰션 아카데미"
 date: 2022-10-14T00:00:00+09:00
 draft: false
-author: "YONMILK"
 description: "RustPython 인터프리터 개발 참여"
 tags: ["training", "open-source", "rustpython", "mentorship"]
-categories: ["교육과정"]
+categories: ["교육"]
 featured: true
 content_type: "education"
 ---

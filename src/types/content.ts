@@ -24,4 +24,5 @@ export interface Content {
   content: string;
   preview: string;
   thumbnailUrl?: string;
+  thumbnailHasExplicitSize?: boolean;
 }

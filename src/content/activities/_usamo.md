@@ -3,7 +3,7 @@ title: "USAMO"
 startDate: 2021-04-01T00:00:00+09:00
 endDate: 2022-02-28T00:00:00+09:00
 draft: false
-author: "yonmilk"
+
 description: "인하공업전문대학 전공 동아리"
 tags: ["python", "education", "visual-programming", "pyodide", "webassembly", "ai-education"]
 categories: ["인하공업전문대학", "전공동아리"]

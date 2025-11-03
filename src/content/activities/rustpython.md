@@ -1,10 +1,9 @@
 ---
-title: "Rust기반 Python 인터프리터 RustPython"
+title: "RustPython"
 startDate: 2022-07-01T00:00:00+09:00
 endDate: 2022-10-14T00:00:00+09:00
 draft: false
-
-description: "오픈소스 Python 인터프리터 개발 및 기여"
+description: "Rust로 구현된 Python 인터프리터"
 tags: ["rust", "python", "interpreter", "open-source", "compiler", "rustpython"]
 categories: ["프로젝트"]
 featured: true
@@ -15,6 +14,8 @@ content_type: "project"
 
 [yonmilk/rustpython](https://github.com/yonmilk/rustpython) \
 [rustpython/rustpython](https://github.com/rustpython/rustpython)
+
+<img src="https://rustpython.github.io/assets/img/rust-python-logo.svg" alt="RustPython Logo" width="150"/>
 
 [컨트리뷰션 아카데미](open_source_contribution_academy.md)에서 활동하며 Rust로 구현된 Python 인터프리터 오픈소스 프로젝트 RustPython에 기여했습니다. \
 첫 오픈소스 기여 경험으로, 향후에도 오픈소스에 지속적으로 참여하고자 하는 계기가 되었습니다.

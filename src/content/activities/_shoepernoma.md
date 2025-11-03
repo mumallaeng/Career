@@ -1,0 +1,120 @@
+---
+title: "Shoepernoma"
+startDate: 2025-04-09T00:00:00+09:00
+endDate: 2025-05-27T00:00:00+09:00
+draft: false
+
+description: "매장 연동형 신발 피킹 로봇 시스템"
+tags: ["ros2", "robotics", "automation", "picking-system", "database", "tcp-udp"]
+categories: ["프로젝트"]
+featured: true
+type: "팀 프로젝트"
+role: "팀장"
+content_type: "project"
+---
+
+
+
+> *(KDT) ROS2와 인공지능을 활용한 자율주행 로봇 개발자 양성과정 8기* 교육과정 내에서 진행된 파이널 과제입니다. \
+> 3팀 **Secondary Wave**는 본 프로젝트로 최종 발표회에서 최우수상(1위)을 수상하였습니다.
+
+매장 연동형 자율주행 로봇을 활용해 신발 상자를 자동으로 피킹(Picking)하고 전달하는 스마트 물류 솔루션입니다.
+
+<!--more-->
+
+## 프로젝트 개요
+- **기간**: 2025.04.09 ~ 2025.05.27 (6주)
+
+
+### 프로젝트 배경 및 목표
+
+- **노동력 부족 및 인건비 상승**으로 오프라인 매장의 물류 처리 효율화 필요
+- **기존 수작업 프로세스 한계**: 재고 처리 속도 저하, 배송 오류, 응대 지연 문제 발생
+- **목표**: ROS2 기반 자율주행 로봇과 AI 영상 처리, GUI 연동을 통해 매장 내 물류 흐름 최적화 및 피킹 정확도 향상
+
+
+### 팀원 및 역할
+
+| 역할 | 이름   | 주요 업무 요약 |
+|------|--------|----------------------------------------------------------|
+| 팀장 | 김연우 | - MainService 구조화 및 ROS2 통신 처리<br>- Task 처리 로직 및 ROS Action 연동<br>- 로봇 암 제어 및 rack/cart controller 개발<br>- Manager GUI 통신 구조 개선<br>- AI 모듈/DB 통합 및 시스템 리팩토링 |
+| 팀원 | 나덕윤 | - YOLO 기반 AI 모델 학습 및 라벨링<br>- 객체 인식 결과 MainServer 연동<br>- Manager GUI 상 로봇 상태 표시 구현<br>- 로그인 및 UI 흐름 설계 |
+| 팀원 | 남상기 | - 자율주행 기능 (TEB, 경로 계획, Waypoint)<br>- IMU, LiDAR, 초음파 센서 통신 처리<br>- ArUco 기반 절대 위치 추정<br>- Domain Bridge 및 통신 구조 설계 |
+| 팀원 | 심채훈 | - SLAM 및 Navigation 환경 설정<br>- ArUco 기반 위치 보정<br>- Battery/SSID 센서 퍼블리싱 및 DB 연동<br>- UDP 기반 영상 송신<br>- GUI 기본 기능 구현 |
+
+***
+
+로봇이름: ROScar
+
+로봇그룹: ROScars(로스카스 🐷)
+
+
+### 기술 스택
+
+| 분류             | 기술 요소 |
+|------------------|------------------------------------------------------------------|
+| 로봇 미들웨어  | ROS2, Nav2, TF2 |
+| 언어            | Python, C++ |
+| SLAM & 위치추정 | Cartographer, ArUco |
+| 센서 융합      | LiDAR, IMU, Ultrasonic, Camera |
+| 객체 인식      | OpenCV, YOLO |
+| GUI           | PyQt6 |
+| 통신       | TCP, UDP(영상 전송), ROS2(Action/Service/Topic) |
+| 데이터베이스 | MySQL, ORM |
+| 협업 도구      | Git, Slack, Jira, Confluence |
+
+
+### 주요 담당 업무
+
+**Main Service 아키텍처 설계**
+- ROS2 Action/Service/Topic 기반 모듈 설계 및 task 처리 로직 개발
+- GUI와 연동되는 토픽/서비스 흐름 구성 및 이벤트 통신 처리
+
+**Controller 및 ROS2 패키지 개발**
+- 랙/카트 제어용 cart_controller, rack_controller 모듈 리팩토링
+- 서보 모터 제어 로직 내장한 roscar_arm_controller 개발
+
+**DB 연동 및 ORM 기반 구조 설계**
+- 시퀀스 다이어그램 기반 쿼리/테이블 구조 정의 및 SSL 설정 적용
+- 로그 저장 및 인터페이스 기록을 위한 다중 DB ORM 구성
+
+**시스템 통합 및 최적화**
+- TCP/UDP 기반 AI 모듈 연동 및 파일시스템 이벤트 처리
+- Monorepo 기반 패키지 구조 재편 및 실행 스크립트 자동화
+- 코드 네이밍/디렉토리 통일, 문서화 및 유지보수성 향상
+
+
+## 프로젝트 결과 및 자료
+
+### 구현 결과
+
+재고 조회
+스캔 결과
+배송 요청
+요청 취소
+
+주행 시행착오
+
+기본 주행
+정밀 정차
+집품 확인(micro-ros)
+객체 탐지
+대시보드
+
+
+### 시스템 구조
+
+### 지도
+
+### 통신(인터페이스 명세서)
+
+### 시나리오
+
+재고 조회
+배송 요청
+Roscar 주행
+
+### 전체 주행 상태
+
+### 데이터 구조
+

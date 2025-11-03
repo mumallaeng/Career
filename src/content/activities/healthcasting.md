@@ -1,10 +1,9 @@
 ---
-title: "검색 트렌드와 함께 보는 건강 경보 체계 HealthCasting"
+title: "HealthCasting"
 startDate: 2024-12-12T00:00:00+09:00
 endDate: 2025-01-03T00:00:00+09:00
 draft: false
-
-description: "Google/Naver 검색 트렌드 기반 건강 경보 시스템"
+description: "검색 트렌드와 함께 보는 건강 경보 체계"
 tags: ["data-analysis", "health", "search-trends", "eda", "api", "weather-data"]
 categories: ["프로젝트"]
 featured: true

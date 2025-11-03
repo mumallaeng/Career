@@ -1,10 +1,9 @@
 ---
-title: "Python WebAssembly 런타임 Pyodide"
+title: "Pyodide"
 startDate: 2022-10-12T00:00:00+09:00
 endDate: 2022-10-22T00:00:00+09:00
 draft: false
-
-description: "Python을 WebAssembly로 컴파일하는 오픈소스 프로젝트 기여"
+description: "Python WebAssembly 런타임 프로젝트"
 tags: ["python", "webassembly", "open-source", "pyodide", "wasm", "browser"]
 categories: ["프로젝트"]
 featured: true
@@ -16,6 +15,7 @@ content_type: "project"
 [yonmilk/pyodide](https://github.com/yonmilk/pyodide) \
 [pyodide/pyodide](https://github.com/pyodide/pyodide)
 
+<img src="https://github.com/pyodide/pyodide/raw/main/docs/_static/img/pyodide-logo-readme.png" alt="Pyodide Logo" width="150"/>
 
 [컨트리뷰션 아카데미](open_source_contribution_academy.md)에서 활동하며 `[RustPython](rustpython.md)`에 기여한 이후로 혼자서 오픈소스에 기여해보고 싶어 찾던 중,\
 이전에 `[AI 교육용 Python 블록 프로그래밍 웹 플랫폼](codeb.md)`에서 Pyodide를 사용했던 경험이 떠올랐습니다.

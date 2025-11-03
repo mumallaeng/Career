@@ -3,7 +3,7 @@ title: "AI 교육용 Python 블록 프로그래밍 웹 플랫폼"
 startDate: 2021-08-01T00:00:00+09:00
 endDate: 2022-02-28T00:00:00+09:00
 draft: false
-author: "YONMILK"
+
 tags: ["python", "education", "visual-programming", "pyodide", "webassembly", "ai-education"]
 categories: ["프로젝트"]
 featured: true

@@ -3,7 +3,7 @@ title: "돌봄 챗봇 시스템 StoneSpring"
 startDate: 2025-02-27T00:00:00+09:00
 endDate: 2025-04-07T00:00:00+09:00
 draft: false
-author: "YONMILK"
+
 description: "OpenAI GPT-4o-mini 기반 실시간 돌봄 챗봇 시스템"
 tags: ["chatbot", "openai", "gpt", "stt", "tts", "tcp-udp", "caregiving"]
 categories: ["프로젝트"]

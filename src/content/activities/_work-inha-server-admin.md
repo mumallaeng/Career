@@ -2,7 +2,7 @@
 title: "인하공업전문대학 인공지능빅데이터센터 서버 운영"
 date: 2022-02-28T00:00:00+09:00
 draft: false
-author: "YONMILK"
+
 description: "서버 인프라 구축 및 운영 관리"
 tags: ["work", "server-administration", "infrastructure", "system-management"]
 categories: ["업무경험"]
@@ -35,7 +35,7 @@ content_type: "server"
 - **성능 최적화**: 데이터베이스 쿼리 최적화 및 인덱스 관리
 
 ### 웹 서버 호스팅
-- **Java Spring Boot**: Java 기반 웹 애플리케이션 서버 구축
+- **Java Spring Boot**: Java 기반 웹 애플리케이션 서버
 - **Node.js**: JavaScript 기반 웹 서비스 호스팅
 - **외부 접속 구성**: 도메인 설정 및 SSL 인증서 적용
 - **로드 밸런싱**: 트래픽 분산을 위한 서버 구성
