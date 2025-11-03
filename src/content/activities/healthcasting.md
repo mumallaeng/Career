@@ -128,9 +128,10 @@ content_type: "project"
 
 
 
+
 ### 1. 장염 분석 결과
 
-<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=16qjscD6IPtaJcGhPj_WkEshwtbwWnyl0" name="trend_chart">
+<img alt="1-1 장염환자수와검색어트랜드분석" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=16qjscD6IPtaJcGhPj_WkEshwtbwWnyl0" name="trend_chart"/>
 
 #### 검색 트렌드와 실제 환자 수의 상관관계
 - **네이버 검색 트렌드**와 실제 장염 환자 수의 변화 패턴이 매우 유사
@@ -138,20 +139,24 @@ content_type: "project"
 - **구글 검색 트렌드**도 환자 수와 유사한 패턴을 보이나, 네이버보다는 일관성이 다소 낮음
 - 검색 트렌드 데이터를 활용한 조기 경보 시스템의 타당성 입증
 
-<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1C67Cd19upkgAUTOF8c2zSli2hZAIe69X" name="trend_chart">
-
-<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1yrIVTz3q3nGFpJcJcIVKF8o6VI7Zo_4M" name="trend_chart">
+<br/><br/><br/>
 
 #### 기상 변수와 장염 발생의 상관관계
+
+<img alt="3-1 기상데이터와_장염환자_상관관계" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1C67Cd19upkgAUTOF8c2zSli2hZAIe69X" />
+
+<img alt="3-2 기상데이터와_장염환자" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1yrIVTz3q3nGFpJcJcIVKF8o6VI7Zo_4M" />
 
 - **일교차(-0.66)**: 음의 상관관계로 일교차가 작을수록 환자 수 증가
 - **최저 습도(0.50)**: 양의 상관관계로 최저 습도가 높을수록 환자 수 증가
 - 온도 및 습도가 **극값(변곡점)에 도달하는 시점**에서 환자 수 급증 현상 관측
 - 여름철 고온다습 환경과 겨울철 환경 변화가 장염 발생에 영향
 
-<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1UwfcSbiWqXXb7O_mHOvgctU3tdK6abJQ" name="trend_chart">
+<br/><br/><br/>
 
 #### 연령별 장염 발생 패턴
+
+<img alt="2-2 연령별_환자분석" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1UwfcSbiWqXXb7O_mHOvgctU3tdK6abJQ" />
 
 - **0~9세 아동층**에서 장염 환자 수가 압도적으로 많음
 - 연령이 증가할수록 장염 발생률이 감소하는 경향
@@ -159,22 +164,28 @@ content_type: "project"
 - **2020년 3월**: 최근 5년간 최소 환자 수 기록 (287,005명, COVID-19 영향 추정)
 - 계절별로는 **여름(7-8월)**과 **겨울(1월)** 에 환자 수가 크게 증가
 
+<br/><br/><br/>
+
 ### 2. 식중독 관련 감염병 분석
 
-<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1CyvjdY-FTRG_DcC19LSW0GsOV-CrBabz" name="trend_chart">
-
 #### 네이버 트렌드와 환자 수의 상관관계
+
+<img alt="1-2 장염환자수와네이버검색어트랜드" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1CyvjdY-FTRG_DcC19LSW0GsOV-CrBabz" />
 
 - 식중독 검색 트렌드와 실제 환자 수가 유사한 계절적 패턴을 보임
 - 여름철(6-8월)에 검색량과 환자 수가 동시에 급증
 
-<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=11UKkCocp4DS80inFfpdDFuQ69Zc7SiBh" name="trend_chart">
+<br/><br/><br/>
 
 #### 일교차와의 상관관계
+
+<img alt="3-4 장염일교차" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=11UKkCocp4DS80inFfpdDFuQ69Zc7SiBh" />
 
 - 서울 지역 데이터 기준으로 일교차와 식중독 발생 패턴 분석
 - 일교차가 큰 **봄철(4-5월)**과 가을철에 환자 수 증가 경향
 - 여름철에는 일교차가 작아도 고온으로 인한 환자 수 증가
+
+<br/><br/><br/>
 
 ### 3. 결론
 
@@ -183,7 +194,7 @@ content_type: "project"
 - 구글보다는 네이버 검색 트렌드가 국내 질병 발생 예측에 더 적합
 
 
-***
+---
 
 ### 4. 예측 및 제안
 
@@ -206,24 +217,3 @@ content_type: "project"
    - 여름철(7-8월) 장염 및 식중독 대비 필요
    - 보건의 날(4월 7일) 행사와 연계한 국민 건강 캠페인 가능
 
-***
-
-#### 향후 과제
-
-**단기 목표**
-- **질병 범위 확대**: 식중독, 인후염, 독감 등 추가 질병군으로 분석 확장
-- **지역별 분석**: 전국 단위 분석에서 시/도별 세분화된 경보 체계 구축
-- **경보 임계값 설정**: 통계적 기법을 활용한 과학적 경보 기준 수립
-
-**중장기 목표**
-- **실시간 모니터링 시스템**: 자동화된 데이터 수집 및 분석 파이프라인 구축
-- **시각화 대시보드**: 일반 국민이 쉽게 이해할 수 있는 인터랙티브 웹 대시보드 개발
-- **예측 모델 고도화**: 머신러닝/딥러닝 기반 질병 발생 예측 모델 개발
-- **모바일 알림 서비스**: 사용자 위치 및 연령대 기반 맞춤형 건강 경보 푸시 알림
-- **공공 데이터 API 제공**: 다른 연구자 및 기관이 활용할 수 있는 오픈 API 개발
-
-**기술적 개선 사항**
-- SQLAlchemy를 활용한 데이터베이스 연결 개선
-- 데이터 파이프라인 자동화 (Apache Airflow 등)
-- 클라우드 기반 인프라 구축 (AWS, GCP)
-- CI/CD 파이프라인 구축  

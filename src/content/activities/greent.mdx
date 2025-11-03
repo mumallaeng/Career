@@ -1,0 +1,233 @@
+---
+title: "GreenT"
+startDate: 2025-02-05T00:00:00+09:00
+endDate: 2025-02-27T00:00:00+09:00
+draft: false
+
+description: "IoT 스마트 농업 자동화 시스템"
+tags: ["iot", "raspberry-pi", "arduino", "smart-farming"]
+categories: ["프로젝트"]
+featured: true
+type: "팀 프로젝트"
+role: "팀원"
+content_type: "project"
+---
+
+import { ImgTag } from '@/components/MDXRenderer';
+
+[yonmilk/GreenT](https://github.com/yonmilk/GreenT)
+[addinedu-ros-8th/iot-repo-6](https://github.com/addinedu-ros-8th/iot-repo-6)
+
+{/* more */}
+
+> *(KDT) ROS2와 인공지능을 활용한 자율주행 로봇 개발자 양성과정 8기* 교육과정 내에서 Internet of Things를 주제로한 과제입니다.
+
+IoT 센서와 자동화 시스템을 활용한 스마트 농업 자동화 시스템 개발 프로젝트입니다.
+하드웨어 컨트롤러 개발과 백엔드 시스템 구축을 주로 담당하였습니다.
+
+
+## 프로젝트 개요
+- **기간**: 2025.02.05 ~ 2025.02.27 (4주)
+- **역할**: 하드웨어 컨트롤러 개발 및 시스템 통합 담당
+- **팀명**: Druid
+
+### 프로젝트 배경 및 목표
+
+- 기술을 통해 농업을 최적화하기 위해 고안된 스마트팜 프로젝트
+- 다양한 IoT 디바이스, 센서, 자동화 시스템을 통합하여 농업 효율성을 높임
+  - 환경 조건에 따른 자동 관개 시스템
+  - 토양 수분, 온도, 습도 실시간 모니터링
+  - 작물 수확량 및 자원 사용량 최적화를 위한 데이터 분석
+  - 농장 관리를 위한 사용자 친화적인 인터페이스
+
+
+### **Druid** 팀원 및 역할
+
+| 역할 | 이름 (GitHub ID) | 주요 업무 요약 |
+|------|------------------|----------------------------------------------------------|
+| 팀원 | 김연우 ([@yonmilk](https://github.com/yonmilk)) | - 센서 및 액추에이터 연동을 위한 시스템 컨트롤러 개발<br />- PyQt5 GUI와 하드웨어 시스템 간 실시간 통신 구현<br />- MySQL 데이터베이스 통합<br />- GUI 및 통신 설계 |
+| 팀원 | 박정배 ([@pjb804](https://github.com/pjb804)) | - 하드웨어 설계 및 구축<br />- 3D 프린터를 활용한 프로토타입 제작<br />- 데이터베이스 설계 및 구현<br />- PyQt5 GUI 개발 및 데이터베이스간 연동 |
+| 팀장 | 임동욱 ([@Donguk-popo](https://github.com/Donguk-popo)) | - 시스템 아키텍처 설계<br />- 하드웨어 구축 및 테스트<br />- PyQt5 UI 프로토타입 구축 및 GUI 개발<br />- GUI와 데이터베이스간 연동 및 테스트 |
+
+
+### 기술 스택
+
+| 분류             | 기술 요소 |
+|------------------|------------------------------------------------------------------|
+| 언어 | Python, C++ |
+| 하드웨어 | Raspberry Pi 4, Arduino, ESP32 |
+| 센서 | 토양 수분 센서, 온습도 센서 (DHT), 조도 센서, RFID |
+| 액추에이터 | 워터 펌프, 스텝 모터, LED 조명, 선풍기 |
+| 통신 | Serial, TCP/IP(서버 간 데이터 전송) |
+| GUI | PyQt5 |
+| 데이터베이스 | MySQL |
+| 영상 처리 | OpenCV, Raspberry Pi Camera |
+| 라이브러리 | mysql-connector-python, python-dotenv, pyserial |
+| 협업 도구 | Git, Slack, Jira, Confluence |
+
+
+
+### 주요 담당 업무
+
+**센서 및 하드웨어 연동**
+- 아두이노, Raspberry Pi, 센서 연동을 통한 자동 급수, 출입 제어 시스템 개발
+- 토양 수분 센서를 활용한 수분 감지 및 자동 워터 펌프 제어 기능 구현 (아두이노 C++ 라이브러리 활용)
+  - DHT: 온습도 센서 제어 및 데이터 수집
+  - Servo: 서보모터 출입문 개폐 시스템
+  - Stepper: 스텝모터를 이용한 카메라 각도 조절
+  - MFRC522: RFID 리더 제어 및 태그 인식
+- Raspberry Pi 카메라 영상 스트리밍 구현
+- RFID 인식 기반 출입 제어 기능을 시스템 제어 로직에 통합
+
+**시스템 통합 및 데이터 관리**
+- GUI 및 통신 설계
+- Python 기반 시스템 컨트롤러 개발
+- 시리얼 통신을 통한 하드웨어와 소프트웨어 연동
+- MySQL 데이터베이스를 활용한 센서 데이터 및 사용자 정보 관리
+- PyQt5 GUI와 하드웨어 시스템 간 실시간 통신 구현
+
+
+## 프로젝트 결과 및 자료
+
+<ImgTag
+  driveUrl="https://drive.google.com/open?id=1O1IGhex2rDv8oe5J9Etf9UhljiR5cNDs"
+  alt="rfid_open_door"/>
+
+<div className="image-grid image-grid--uniform">
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/1WAlpZJircLF6WdhsT3kNnCUKPA9LZWbe/view?usp=sharing"
+    alt="01.start"/>
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/1j2RPl_TkKKsHaTtan1zNzkE2yMQ2FQ41/view?usp=sharing"
+    alt="02.admin_signin"/>
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/1MlzarxRQXCgu6say_frp_YoTL5h8Gu44/view?usp=sharing"
+    alt="03.admin_main"/>
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/1je6zRMmiFVwtdxDRvM0tr__XA0xcLMm5/view?usp=sharing"
+    alt="04.admin_user_info"/>
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/12DjIzuTPMyxvqKx-Qv5Gh_Me96N-MKM6/view?usp=sharing"
+    alt="05.reset_pw"/>
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/1yPXoK8X552bUO4osxO6qadvDq8AA8mEu/view?usp=sharing"
+    alt="06.admin_kit"/>
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/1E0hnVZmee51z77Q78xLEjvvlDMkkh6i-/view?usp=sharing"
+    alt="07.admin_plant"/>
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/11375faxYx-E7Ma70BFLxFZ74RYuRg6uS/view?usp=sharing"
+    alt="08.sign_up"/>
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/143P70yewwssM2g_3TRMYbUwm2yle8vD6/view?usp=sharing"
+    alt="09.admin_user_info"/>
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/16yhTlfGFsDzmtOl9eZWQcfHsOcl0ervs/view?usp=sharing"
+    alt="10.user-register"/>
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/1exZAexhm9D3ydUMzOZezLdRETbSuJ2kP/view?usp=sharing"
+    alt="11.kit_rental"/>
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/18QinRzk5ZfiNO2dg7Ng2UfAepTQ6pC-z/view?usp=sharing"
+    alt="12.kit-rental_detail"/>
+</div>
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/1teerxyg1VQ9ZKezBFLUqYCMVy43lYTdD/view?usp=sharing"
+    alt="13.plant_detail"/>
+
+<br/>
+<br/>
+<br/>
+
+### 프로토타입(3d Modeling)
+
+<ImgTag
+  driveUrl="https://drive.google.com/open?id=1lOGR4EkrPZw8yRUssJC20PZcJJ2oJALe"
+  alt="각_부품이_모여서"/>
+
+<div className="image-grid image-grid--uniform">
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/1NCPlvEkelo4qStvrAbLuMmpjBpOWt2ig/view?usp=sharing"
+    alt="하나의_키트를_이루고"/>
+  <ImgTag
+    driveUrl="https://drive.google.com/open?id=1FVDxzjtdNEi5-Ii7vXIR42PUUMYL89MX&usp=drive_fs"
+    alt="각_키트들이_모여"/>
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/12H4UYvFkJBOoik4OTuHfjq6FgWGcuKhC/view?usp=sharing"
+    alt="세트가_되며"/>
+</div>
+
+<ImgTag
+  driveUrl="https://drive.google.com/file/d/1mNsLyERpimx5qGS9FneLBObQMzet95mj/view?usp=sharing"
+  alt="하나의_스마트팜_완성"/>
+
+
+<br/>
+<br/>
+<br/>
+
+
+### 시스템 구조
+
+- Farm Service(Kit 한 개)
+- Farm Controller(하드웨어 제어)
+- GreenT Service(Farm Kit 전체)
+- Admin Service(관리자 GUI)
+- User Service(사용자 GUI)
+
+<div className="image-grid image-grid--uniform">
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/1APH6N1Mw3fXuNaRD6Am5cB-W8pcZUVH_/view?usp=sharing"
+    alt="sa_hardware_architecture"/>
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/1ZRNxP2tPOIlPEGFsnhWffzlStNzUFCp_/view?usp=sharing"
+    alt="sa_software_architecture"/>
+</div>
+
+### 데이터 구조
+
+<ImgTag
+  driveUrl="https://drive.google.com/file/d/1TOZmVWY5E4qudPO2HvSiUZfVBRZaRamv/view?usp=sharing"
+  alt="database_all"/>
+
+<div className="image-grid image-grid--uniform">
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/1_RKzJU8chaGmn7ACcOifmbGSSLnAQSzy/view?usp=sharing"
+    alt="database-1"/>
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/1xUGBCVyPwa66Zkrrmb1675S4LGuM3dOM/view?usp=sharing"
+    alt="database-2"/>
+
+
+  <ImgTag
+    driveUrl="https://drive.google.com/file/d/12ySVUz4wdlRGfRjq5QTPGK7whIOCD4dF/view?usp=drive_link"
+    alt="database-3"/>
+
+</div>
+
+{/* 
+# Jira(최종 개발 일정)
+
+<ImgTag
+  driveUrl="https://drive.google.com/file/d/1asgFtb99myOl4V7NAHR9BnWS0vehD-Gj/view?usp=sharing"
+  alt="jira-1"/>
+
+<ImgTag
+  driveUrl="https://drive.google.com/file/d/1rOkW1wgu-aVvK-wJdy6nZtbBmjGdCBkp/view?usp=sharing"
+  alt="jira-2"/>
+ */}
