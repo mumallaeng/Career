@@ -60,9 +60,94 @@
 /* Image Grid Styles */
 .image-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
     margin: 2rem 0;
+    padding: 0;
+}
+
+.image-grid:has(> :nth-child(2)):not(:has(> :nth-child(3))) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.mdx-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: zoom-in;
+}
+
+.mdx-image:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+}
+
+.mdx-lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+    animation: mdx-lightbox-fade 0.2s ease-out;
+    backdrop-filter: blur(8px);
+}
+
+.mdx-lightbox-image {
+    max-width: min(90vw, 1200px);
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+@keyframes mdx-lightbox-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.image-grid.image-grid--uniform {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: center;
+    justify-items: center;
+}
+
+.image-grid.image-grid--uniform:has(> :nth-child(2)):not(:has(> :nth-child(3))) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.image-grid.image-grid--uniform > * {
+    width: 100%;
+    max-width: 100%;
+}
+
+.image-grid.image-grid--uniform > img,
+.image-grid.image-grid--uniform .image-item > img,
+.image-grid.image-grid--uniform .mdx-image {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    justify-self: center;
+    align-self: center;
+}
+
+.image-grid.image-grid--uniform .image-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 0;
 }
 

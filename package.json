@@ -11,8 +11,13 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/react": "^3.1.1",
+    "@next/mdx": "^16.0.1",
+    "@types/mdx": "^2.0.13",
     "deepmerge-ts": "^7.1.5",
     "next": "15.5.2",
+    "next-mdx-remote": "^5.0.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-markdown": "^10.1.0",

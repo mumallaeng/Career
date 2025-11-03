@@ -7,7 +7,6 @@ export interface FrontMatter {
   date: string;
   startDate?: string;
   endDate?: string;
-  author?: string;
   description: string;
   tags: string[];
   categories: string[];
@@ -26,7 +25,3 @@ export interface Content {
   preview: string;
   thumbnailUrl?: string;
 }
-
-export type ContentType = 'projects' | 'activities';
-
-export type Locale = 'ko' | 'en';

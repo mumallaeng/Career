@@ -2,7 +2,7 @@
 title: "2019 기능경기대회 사이버보안 직종 금메달"
 date: 2019-04-08T00:00:00+09:00
 draft: false
-author: "YONMILK"
+
 description: "경기도기능경기위원회 금메달 수상"
 tags: ["award", "cybersecurity", "competition", "gold-medal"]
 categories: ["수상내역", "직무경험"]

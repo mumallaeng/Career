@@ -2,7 +2,7 @@
 title: "2022 오픈소스컨트리뷰션아카데미 대상"
 date: 2022-12-06T00:00:00+09:00
 draft: false
-author: "YONMILK"
+
 description: "과학기술정보통신부장관 대상 수상"
 tags: ["award", "open-source", "rustpython", "grand-prize"]
 categories: ["수상내역"]

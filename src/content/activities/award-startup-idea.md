@@ -2,7 +2,7 @@
 title: "산학협력 공동교육캠프 창업아이디어 경진대회 대상"
 date: 2021-06-04T00:00:00+09:00
 draft: false
-author: "YONMILK"
+
 description: "공학기술교육혁신선도센터 대상 수상"
 tags: ["award", "startup", "business-idea", "grand-prize"]
 categories: ["수상내역"]

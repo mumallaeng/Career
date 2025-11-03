@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { FrontMatter, Content, ContentType } from '@/types/content';
+import { FrontMatter, Content } from '@/types/content';
 
 function parseFrontMatter(fileContent: string): { frontMatter: FrontMatter; content: string } {
   const frontMatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
@@ -42,7 +42,29 @@ function parseFrontMatter(fileContent: string): { frontMatter: FrontMatter; cont
   return { frontMatter: frontMatter as unknown as FrontMatter, content };
 }
 
+function driveUrlToId(driveUrl: string): string | null {
+  const match = driveUrl.match(/(?:\/d\/|id=)([a-zA-Z0-9_-]+)/);
+  return match ? match[1] : null;
+}
+
+function transformDriveUrl(driveUrl: string): string | undefined {
+  const fileId = driveUrlToId(driveUrl);
+  if (!fileId) {
+    return undefined;
+  }
+  return `https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=${fileId}`;
+}
+
 function extractFirstImage(content: string): string | undefined {
+  // Try to find ImgTag component with driveUrl
+  const customImgMatch = content.match(/<ImgTag[^>]*driveUrl=["']([^"']+)["'][^>]*\/?>/i);
+  if (customImgMatch) {
+    const transformed = transformDriveUrl(customImgMatch[1]);
+    if (transformed) {
+      return transformed;
+    }
+  }
+
   // Try to find HTML img tag first
   const htmlImgMatch = content.match(/<img[^>]+src=["']([^"']+)["']/);
   if (htmlImgMatch) {
@@ -58,24 +80,24 @@ function extractFirstImage(content: string): string | undefined {
   return undefined;
 }
 
-function getContentData(contentType: ContentType): Content[] {
-  const contentDir = path.join(process.cwd(), `src/content/${contentType}`);
+export function getActivitiesData(): Content[] {
+  const contentDir = path.join(process.cwd(), 'src/content/activities');
 
   if (!fs.existsSync(contentDir)) {
     return [];
   }
 
   const files = fs.readdirSync(contentDir)
-    .filter(file => file.endsWith('.md') && !file.startsWith('_'));
+    .filter(file => (file.endsWith('.md') || file.endsWith('.mdx')) && !file.startsWith('_'));
 
-  const previewLength = contentType === 'projects' ? 150 : 120;
+  const previewLength = 120;
 
   const items = files.map(file => {
     const filePath = path.join(contentDir, file);
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const { frontMatter, content } = parseFrontMatter(fileContent);
 
-    const slug = file.replace('.md', '');
+    const slug = file.replace(/\.(md|mdx)$/, '');
 
     // Create preview from content
     const preview = content
@@ -101,19 +123,6 @@ function getContentData(contentType: ContentType): Content[] {
     const dateB = b.frontMatter.endDate || b.frontMatter.date;
     return new Date(dateB).getTime() - new Date(dateA).getTime();
   });
-}
-
-export function getProjectsData(): Content[] {
-  return getContentData('projects');
-}
-
-export function getActivitiesData(): Content[] {
-  return getContentData('activities');
-}
-
-export function getProjectBySlug(slug: string): Content | null {
-  const projects = getProjectsData();
-  return projects.find(project => project.slug === slug) || null;
 }
 
 export function getActivityBySlug(slug: string): Content | null {

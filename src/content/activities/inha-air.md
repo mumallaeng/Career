@@ -12,7 +12,8 @@ type: "팀 프로젝트"
 content_type: "project"
 ---
 
-[yonmilk/INHA_AIR](https://github.com/yonmilk/INHA_AIR)
+[yonmilk/INHA_AIR](https://github.com/yonmilk/INHA_AIR) \
+[yonmilk/INHA_AIR_TEAM](https://github.com/yonmilk/INHA_AIR_TEAM)
 
 
 <!--more-->

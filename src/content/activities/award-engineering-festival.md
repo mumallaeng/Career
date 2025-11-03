@@ -2,7 +2,7 @@
 title: "2021 공학페스티벌 창의적 종합설계 경진대회 동상"
 date: 2021-11-04T00:00:00+09:00
 draft: false
-author: "YONMILK"
+
 description: "과학기술정보통신부장관 동상 수상"
 tags: ["award", "iot", "engineering", "bronze-medal"]
 categories: ["수상내역"]

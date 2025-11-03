@@ -65,7 +65,6 @@ export default function ActivitiesFilter({ activities }: ActivitiesFilterProps) 
             key={activity.slug}
             item={activity}
             index={index}
-            type="activity"
           />
         ))}
       </div>
