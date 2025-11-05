@@ -1,0 +1,43 @@
+@startuml DoraSystemSequence
+
+actor User
+participant "views.GUI" as GUI
+participant "core.controller" as Controller
+participant "core.socket_client" as SocketClient
+participant "network.tcp_server" as TCP
+participant "core.dispatcher" as Dispatcher
+participant "interface.handler" as Interface
+participant "ai.module" as AI
+participant "db.query" as DB
+participant "common.logger" as Logger
+
+== 시스템 시작 ==
+main.py -> TCP : start_server() (thread로)
+main.py -> GUI : PyQt GUI 실행
+
+== 요청 흐름 ==
+User -> GUI : 사용자 입력 (ex. 채팅)
+GUI -> Controller : 이벤트 처리 요청
+Controller -> SocketClient : JSON 메시지 전송
+SocketClient -> TCP : TCP 요청 전송
+
+== 서버 처리 ==
+TCP -> Dispatcher : JSON 메시지(command 포함) 전달
+Dispatcher -> Interface : command 핸들러 실행
+
+alt 감정 분석 등 AI 처리
+Interface -> AI : gpt_wrapper / emotion_analyzer
+end
+
+Interface -> DB : 데이터 조회 또는 저장
+Interface -> Logger : 로그 기록
+
+Interface --> Dispatcher : 결과 반환
+Dispatcher --> TCP : 응답 반환
+
+== 응답 흐름 ==
+TCP --> SocketClient : 응답 전송
+SocketClient --> Controller : 결과 전달
+Controller --> GUI : 화면 업데이트
+
+@enduml

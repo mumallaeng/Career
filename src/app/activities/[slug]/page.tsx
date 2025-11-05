@@ -74,7 +74,7 @@ export default async function ActivityDetailPage({
           </header>
 
           <div className="post-body">
-            {slug === 'greent' ? (
+            {activity.fileExtension === 'mdx' ? (
               <MDXRenderer content={activity.content} />
             ) : (
               <MarkdownRenderer content={activity.content} />

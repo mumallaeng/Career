@@ -125,6 +125,7 @@ export function getActivitiesData(): Content[] {
     const { frontMatter, content } = parseFrontMatter(fileContent);
 
     const slug = file.replace(/\.(md|mdx)$/, '');
+    const fileExtension: 'md' | 'mdx' = file.endsWith('.mdx') ? 'mdx' : 'md';
 
     // Create preview from content
     const preview = content
@@ -148,6 +149,7 @@ export function getActivitiesData(): Content[] {
       preview,
       thumbnailUrl,
       thumbnailHasExplicitSize,
+      fileExtension,
     };
   });
 
@@ -194,5 +196,6 @@ export function getProfileData(): Content | null {
     preview,
     thumbnailUrl,
     thumbnailHasExplicitSize,
+    fileExtension: 'md',
   };
 }

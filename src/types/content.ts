@@ -25,4 +25,5 @@ export interface Content {
   preview: string;
   thumbnailUrl?: string;
   thumbnailHasExplicitSize?: boolean;
+  fileExtension: 'md' | 'mdx';
 }

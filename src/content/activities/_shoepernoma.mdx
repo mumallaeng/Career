@@ -3,16 +3,18 @@ title: "Shoepernoma"
 startDate: 2025-04-09T00:00:00+09:00
 endDate: 2025-05-27T00:00:00+09:00
 draft: false
-
 description: "매장 연동형 신발 피킹 로봇 시스템"
 tags: ["ros2", "robotics", "automation", "picking-system", "database", "tcp-udp"]
 categories: ["프로젝트"]
-featured: true
 type: "팀 프로젝트"
 role: "팀장"
 content_type: "project"
 ---
 
+import { ImgTag } from '@/components/MDXRenderer';
+
+[yonmilk/Shoepernoma](https://github.com/yonmilk/Shoepernoma) \
+[addinedu-ros-8th/ros-repo-3](https://github.com/addinedu-ros-8th/ros-repo-3)
 
 
 > *(KDT) ROS2와 인공지능을 활용한 자율주행 로봇 개발자 양성과정 8기* 교육과정 내에서 진행된 파이널 과제입니다. \
@@ -20,7 +22,9 @@ content_type: "project"
 
 매장 연동형 자율주행 로봇을 활용해 신발 상자를 자동으로 피킹(Picking)하고 전달하는 스마트 물류 솔루션입니다.
 
-<!--more-->
+
+{/* more */}
+
 
 ## 프로젝트 개요
 - **기간**: 2025.04.09 ~ 2025.05.27 (6주)
@@ -37,10 +41,10 @@ content_type: "project"
 
 | 역할 | 이름   | 주요 업무 요약 |
 |------|--------|----------------------------------------------------------|
-| 팀장 | 김연우 | - MainService 구조화 및 ROS2 통신 처리<br>- Task 처리 로직 및 ROS Action 연동<br>- 로봇 암 제어 및 rack/cart controller 개발<br>- Manager GUI 통신 구조 개선<br>- AI 모듈/DB 통합 및 시스템 리팩토링 |
-| 팀원 | 나덕윤 | - YOLO 기반 AI 모델 학습 및 라벨링<br>- 객체 인식 결과 MainServer 연동<br>- Manager GUI 상 로봇 상태 표시 구현<br>- 로그인 및 UI 흐름 설계 |
-| 팀원 | 남상기 | - 자율주행 기능 (TEB, 경로 계획, Waypoint)<br>- IMU, LiDAR, 초음파 센서 통신 처리<br>- ArUco 기반 절대 위치 추정<br>- Domain Bridge 및 통신 구조 설계 |
-| 팀원 | 심채훈 | - SLAM 및 Navigation 환경 설정<br>- ArUco 기반 위치 보정<br>- Battery/SSID 센서 퍼블리싱 및 DB 연동<br>- UDP 기반 영상 송신<br>- GUI 기본 기능 구현 |
+| 팀장 | 김연우 | - MainService 구조화 및 ROS2 통신 처리<br/>- Task 처리 로직 및 ROS Action 연동<br/>- 로봇 암 제어 및 rack/cart controller 개발<br/>- Manager GUI 통신 구조 개선<br/>- AI 모듈/DB 통합 및 시스템 리팩토링 |
+| 팀원 | 나덕윤 | - YOLO 기반 AI 모델 학습 및 라벨링<br/>- 객체 인식 결과 MainServer 연동<br/>- Manager GUI 상 로봇 상태 표시 구현<br/>- 로그인 및 UI 흐름 설계 |
+| 팀원 | 남상기 | - 자율주행 기능 (TEB, 경로 계획, Waypoint)<br/>- IMU, LiDAR, 초음파 센서 통신 처리<br/>- ArUco 기반 절대 위치 추정<br/>- Domain Bridge 및 통신 구조 설계 |
+| 팀원 | 심채훈 | - SLAM 및 Navigation 환경 설정<br/>- ArUco 기반 위치 보정<br/>- Battery/SSID 센서 퍼블리싱 및 DB 연동<br/>- UDP 기반 영상 송신<br/>- GUI 기본 기능 구현 |
 
 ***
 
