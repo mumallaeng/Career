@@ -1,0 +1,18 @@
+---
+title: 
+---
+
+@startuml DoraSystem_UserRequest
+
+actor User
+participant "views.GUI" as GUI
+participant "core.controller" as Controller
+participant "core.socket_client" as SocketClient
+participant "network.tcp_server" as TCP
+
+User -> GUI : 사용자 입력 (ex. 채팅)
+GUI -> Controller : 이벤트 처리 요청
+Controller -> SocketClient : JSON 메시지 전송
+SocketClient -> TCP : TCP 요청 전송
+
+@enduml

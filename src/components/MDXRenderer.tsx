@@ -5,6 +5,7 @@ import { serialize } from 'next-mdx-remote/serialize';
 import { useState, useEffect, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import remarkGfm from 'remark-gfm';
+import PlantUmlDiagram from '@/components/PlantUmlDiagram';
 
 interface MDXRendererProps {
   content: string;
@@ -104,6 +105,14 @@ const components = {
   code: ({ children, className }: { children?: ReactNode; className?: string }) => {
     const isInline = !className;
     const codeContent = String(children || '');
+    const languageClass = className ? className.toLowerCase() : '';
+    const isPlantUmlBlock = !isInline && /language-plantuml/.test(languageClass);
+
+    if (isPlantUmlBlock) {
+      return (
+        <PlantUmlDiagram content={codeContent} />
+      );
+    }
 
     if (isInline) {
       return (

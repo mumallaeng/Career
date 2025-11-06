@@ -6,6 +6,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import { deepmerge } from 'deepmerge-ts';
+import PlantUmlDiagram from '@/components/PlantUmlDiagram';
 
 interface MarkdownRendererProps {
   content: string;
@@ -91,6 +92,14 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             const isInline = !className;
             // Convert children to string to avoid NaN errors
             const codeContent = String(children || '');
+            const languageClass = className ? className.toLowerCase() : '';
+            const isPlantUmlBlock = !isInline && /language-plantuml/.test(languageClass);
+
+            if (isPlantUmlBlock) {
+              return (
+                <PlantUmlDiagram content={codeContent} />
+              );
+            }
 
             if (isInline) {
               return (

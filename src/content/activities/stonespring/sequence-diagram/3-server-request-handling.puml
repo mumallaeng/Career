@@ -1,0 +1,22 @@
+---
+title: 
+---
+
+@startuml DoraSystem_ServerRequestHandling
+
+participant "network.tcp_server" as TCP
+participant "core.dispatcher" as Dispatcher
+participant "interface.handler" as Interface
+participant "db.query" as DB
+participant "common.logger" as Logger
+
+TCP -> Dispatcher : JSON 메시지 전달 (command 포함)
+Dispatcher -> Interface : command 핸들러 실행
+
+Interface -> DB : 데이터 조회 또는 저장
+Interface -> Logger : 로그 기록
+
+Interface --> Dispatcher : 결과 반환
+Dispatcher --> TCP : 응답 반환
+
+@enduml

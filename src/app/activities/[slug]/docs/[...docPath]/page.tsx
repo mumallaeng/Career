@@ -4,12 +4,14 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import MDXRenderer from '@/components/MDXRenderer';
+import PlantUmlDiagram from '@/components/PlantUmlDiagram';
+import { containsPlantUml, isPlantUmlExtension } from '@/lib/plantuml';
 
 const ACTIVITIES_ROOT = path.join(process.cwd(), 'src/content/activities');
 
 function isSupportedDoc(fileName: string): boolean {
   const extension = path.extname(fileName).toLowerCase();
-  return extension === '.md' || extension === '.mdx';
+  return extension === '.md' || extension === '.mdx' || isPlantUmlExtension(extension);
 }
 
 function collectDocPaths(slug: string, segments: string[] = []): string[][] {
@@ -64,6 +66,111 @@ function resolveDocPath(slug: string, docPath: string[]): string | null {
   return resolvedPath;
 }
 
+function parseFrontMatter(fileContent: string): {
+  frontMatter: Record<string, string>;
+  body: string;
+} {
+  const frontMatterRegex = /^---\n([\s\S]*?)\n---\n?/;
+  const match = fileContent.match(frontMatterRegex);
+
+  if (!match) {
+    return {
+      frontMatter: {},
+      body: fileContent,
+    };
+  }
+
+  const frontMatterContent = match[1];
+  const frontMatterLines = frontMatterContent.split('\n');
+  const frontMatter: Record<string, string> = {};
+
+  for (const line of frontMatterLines) {
+    if (!line.trim() || line.startsWith('#')) {
+      continue;
+    }
+
+    const separatorIndex = line.indexOf(':');
+    if (separatorIndex === -1) {
+      continue;
+    }
+
+    const key = line.slice(0, separatorIndex).trim();
+    let value = line.slice(separatorIndex + 1).trim();
+
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
+    }
+
+    frontMatter[key] = value;
+  }
+
+  const body = fileContent.slice(match[0].length).trimStart();
+
+  return { frontMatter, body };
+}
+
+function inferTitleFromPath(docPath: string[]): string {
+  const lastSegment = docPath[docPath.length - 1] ?? '';
+  const baseName = lastSegment.replace(/\.[^.]+$/, '');
+  return baseName
+    .split(/[-_]/)
+    .filter(Boolean)
+    .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
+    .join(' ');
+}
+
+function getActivityTitle(slug: string): string | null {
+  const possibleExtensions = ['.mdx', '.md'];
+
+  for (const ext of possibleExtensions) {
+    const candidatePath = path.join(ACTIVITIES_ROOT, `${slug}${ext}`);
+
+    if (!fs.existsSync(candidatePath) || !fs.statSync(candidatePath).isFile()) {
+      continue;
+    }
+
+    const fileContent = fs.readFileSync(candidatePath, 'utf8');
+    const { frontMatter } = parseFrontMatter(fileContent);
+
+    if (frontMatter.title) {
+      return frontMatter.title;
+    }
+  }
+
+  return null;
+}
+
+function formatSegmentLabel(segment: string): string {
+  const baseName = segment.replace(/\.[^.]+$/, '');
+  const parts = baseName
+    .split(/[-_]/)
+    .filter(Boolean)
+    .map((part) => part.trim());
+
+  const filtered = parts.filter((part) => !/^\d+$/.test(part));
+  const usableParts = filtered.length > 0 ? filtered : parts;
+
+  return usableParts
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+function isPlantUmlDocument(extension: string, body: string): boolean {
+  return isPlantUmlExtension(extension) || containsPlantUml(body);
+}
+
+function createContextClass(label: string): string {
+  const normalised = label
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return normalised ? `doc-context-${normalised}` : 'doc-context-general';
+}
+
 export function generateStaticParams() {
   if (!fs.existsSync(ACTIVITIES_ROOT)) {
     return [];
@@ -102,29 +209,43 @@ export default async function ActivityDocPage({
 
   const fileExtension = path.extname(filePath).toLowerCase();
   const fileContents = fs.readFileSync(filePath, 'utf8');
-  const fileName = path.basename(filePath);
+  const { frontMatter, body } = parseFrontMatter(fileContents);
+  const title = frontMatter.title || inferTitleFromPath(docPath);
+  const parentSegment = docPath.length > 1 ? docPath[docPath.length - 2] : (docPath[0] ?? slug);
+  const docLabel = formatSegmentLabel(parentSegment);
+  const projectLabel = getActivityTitle(slug) || inferTitleFromPath([slug]);
+  const contextClass = createContextClass(docLabel);
+  const isPlantUml = isPlantUmlDocument(fileExtension, body);
 
   return (
     <div className="min-h-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <nav className="back-nav mb-6">
           <Link href={`/activities/${slug}`} className="back-link">
-            ← {slug} 상세로 돌아가기
+            ← {projectLabel}/
           </Link>
         </nav>
 
         <article>
           <header className="post-header">
             <h1 className="post-title">
-              {fileName}
+              {title}
             </h1>
+            <p className="doc-label">
+              {docLabel}
+            </p>
           </header>
 
-          <div className="post-body">
-            {fileExtension === '.mdx' ? (
-              <MDXRenderer content={fileContents} />
+          <div className={`post-body ${contextClass}`}>
+            {isPlantUml ? (
+              <PlantUmlDiagram
+                content={body}
+                alt={title || docLabel || 'PlantUML diagram'}
+              />
+            ) : fileExtension === '.mdx' ? (
+              <MDXRenderer content={body} />
             ) : (
-              <MarkdownRenderer content={fileContents} />
+              <MarkdownRenderer content={body} />
             )}
           </div>
         </article>

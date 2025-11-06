@@ -1,0 +1,16 @@
+---
+title: 
+---
+
+@startuml DoraSystem_ResponseFlow
+
+participant "network.tcp_server" as TCP
+participant "core.socket_client" as SocketClient
+participant "core.controller" as Controller
+participant "views.GUI" as GUI
+
+TCP --> SocketClient : 응답 전송
+SocketClient --> Controller : 결과 전달
+Controller --> GUI : 화면 업데이트
+
+@enduml
