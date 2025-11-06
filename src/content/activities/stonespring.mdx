@@ -133,14 +133,14 @@ import { ImgTag } from '@/components/MDXRenderer';
 </div>
 
 <div className="image-grid image-grid--uniform">
-    <img width="812" height="944" alt="GUI-1" src="https://github.com/user-attachments/assets/727c8bba-e7ee-4d9d-acdf-89890ce06d35" />
-    <img width="462" height="429" alt="GUI-2" src="https://github.com/user-attachments/assets/cfd2effd-db09-4302-ac78-0af839638d0e" />
-    <img width="812" height="944" alt="GUI-3" src="https://github.com/user-attachments/assets/9a204c07-a5ae-4332-9a0f-6a71ad2f22a1" />
-    <img width="812" height="944" alt="GUI-4" src="https://github.com/user-attachments/assets/37fe0616-0042-4dec-8a69-2a0bf05cce93" />
-    <img width="612" height="544" alt="GUI-5" src="https://github.com/user-attachments/assets/132d82f7-a984-4e0c-b4e3-af98bfa880ba" />
-    <img width="812" height="944" alt="GUI-6" src="https://github.com/user-attachments/assets/5bf33799-a90d-44b7-bffb-c761b25546a1" />
-    <img width="812" height="944" alt="GUI-7" src="https://github.com/user-attachments/assets/42de39c4-9a43-4496-8320-6eef5eaeb784" />
-    <img width="812" height="944" alt="GUI-8" src="https://github.com/user-attachments/assets/9892507e-a484-4dd3-9d64-819ef9e6711b" />
+    <ImgTag src="https://github.com/user-attachments/assets/727c8bba-e7ee-4d9d-acdf-89890ce06d35" alt="GUI-1" />
+    <ImgTag src="https://github.com/user-attachments/assets/cfd2effd-db09-4302-ac78-0af839638d0e" alt="GUI-2" />
+    <ImgTag src="https://github.com/user-attachments/assets/9a204c07-a5ae-4332-9a0f-6a71ad2f22a1" alt="GUI-3" />
+    <ImgTag src="https://github.com/user-attachments/assets/37fe0616-0042-4dec-8a69-2a0bf05cce93" alt="GUI-4" />
+    <ImgTag src="https://github.com/user-attachments/assets/132d82f7-a984-4e0c-b4e3-af98bfa880ba" alt="GUI-5" />
+    <ImgTag src="https://github.com/user-attachments/assets/5bf33799-a90d-44b7-bffb-c761b25546a1" alt="GUI-6" />
+    <ImgTag src="https://github.com/user-attachments/assets/42de39c4-9a43-4496-8320-6eef5eaeb784" alt="GUI-7" />
+    <ImgTag src="https://github.com/user-attachments/assets/9892507e-a484-4dd3-9d64-819ef9e6711b" alt="GUI-8" />
 </div>
 
 <br/>
@@ -166,13 +166,13 @@ import { ImgTag } from '@/components/MDXRenderer';
     - `MFCCGenerator`로 배치 단위 로딩, EarlyStopping(patience=30)과 ModelCheckpoint로 학습 안정화
 - 평가:
     <div className="image-grid image-grid--uniform">
-        <img width="1979" height="780" alt="voice_emotion_model-1" src="https://github.com/user-attachments/assets/806f7d21-405a-48b8-9817-c2ebe6ec5c2a" />
-        <img width="1389" height="490" alt="voice_emotion_model-2" src="https://github.com/user-attachments/assets/13e8ea25-c8cc-47c7-9ef2-70353f106061" />
+        <ImgTag src="https://github.com/user-attachments/assets/806f7d21-405a-48b8-9817-c2ebe6ec5c2a" alt="voice_emotion_model-1" />
+        <ImgTag src="https://github.com/user-attachments/assets/13e8ea25-c8cc-47c7-9ef2-70353f106061" alt="voice_emotion_model-2" />
     </div>
 
     <div className="image-grid image-grid--uniform">
-        <img width="1389" height="490" alt="voice_emotion_model-3" src="https://github.com/user-attachments/assets/6e905ef4-f75d-4acc-94be-c83d156a4b4a" />
-        <img width="1189" height="490" alt="voice_emotion_model-4" src="https://github.com/user-attachments/assets/f6a55d25-2644-4183-80b7-50b08bfce0ac" />
+        <ImgTag src="https://github.com/user-attachments/assets/6e905ef4-f75d-4acc-94be-c83d156a4b4a" alt="voice_emotion_model-3" />
+        <ImgTag src="https://github.com/user-attachments/assets/f6a55d25-2644-4183-80b7-50b08bfce0ac" alt="voice_emotion_model-4" />
     </div>
     - 학습/검증 손실 곡선을 모니터링하며 최저 `val_loss` 모델을 채택
     - 7-class 학습에서 epoch 100~300 구간에서 안정 수렴하며, confusion matrix로 클래스별 오분류를 검토
@@ -195,8 +195,8 @@ import { ImgTag } from '@/components/MDXRenderer';
 - 평가:
     - 8:2로 분할한 검증 세트에서 `classification_report`를 산출
     <div className="image-grid image-grid--uniform">
-        <img width="640" height="480" alt="face_emotion_model-1" src="https://github.com/user-attachments/assets/7a371d42-ef53-49e9-bbd7-05a50331c946" />
-        <img width="600" height="500" alt="face_emotion_model-2" src="https://github.com/user-attachments/assets/dba18366-505b-4414-97ae-8f022595fd3c" />
+        <ImgTag src="https://github.com/user-attachments/assets/7a371d42-ef53-49e9-bbd7-05a50331c946" alt="face_emotion_model-1" />
+        <ImgTag src="https://github.com/user-attachments/assets/dba18366-505b-4414-97ae-8f022595fd3c" alt="face_emotion_model-2" />
     </div>
     - happy 클래스 F1 ≈ 0.89로 최고 성능, angry/sad는 0.75~0.78 범위에서 상호 오분류가 발생
     - 혼동 행렬을 분석해 분노/슬픔 데이터 보강 계획을 수립
@@ -216,7 +216,7 @@ import { ImgTag } from '@/components/MDXRenderer';
     - 입력 `(30, 99)`을 사용하는 LSTM(64, ReLU) → Dense(32, ReLU) → Softmax(len(actions)) 구조
     - 학습 완료 후 실시간 추론에 사용할 가중치를 저장
 - 평가:
-    <img width="1189" height="590" alt="gesture-model" src="https://github.com/user-attachments/assets/6dd93f00-cfbe-4a39-a9f3-91bfbe155f34" />
+    <ImgTag src="https://github.com/user-attachments/assets/6dd93f00-cfbe-4a39-a9f3-91bfbe155f34" alt="gesture-model" />
     - `gesture_recognize.py` 실시간 테스트에서 확률 0.8 미만 결과를 무시하고, 동일 추론이 3프레임 연속일 때만 제스처로 확정
     - 조명 변화와 배경 노이즈 환경에서 반복 시연하며 사용자별 인식률을 검증
 
@@ -227,7 +227,7 @@ import { ImgTag } from '@/components/MDXRenderer';
 
 **최종 목표**
 
-<img width="1342" height="1304" alt="system_architecture" src="https://github.com/user-attachments/assets/9338e507-90f2-4a2b-bcde-e46244e95df5" />
+<ImgTag src="https://github.com/user-attachments/assets/9338e507-90f2-4a2b-bcde-e46244e95df5" alt="system_architecture" />
 
 
 
@@ -235,15 +235,15 @@ import { ImgTag } from '@/components/MDXRenderer';
 <div className="image-grid image-grid--uniform">
     <div>
         <div>v0.1.0</div>
-        <img width="964" height="625" alt="system_architecture_0 1 0" src="https://github.com/user-attachments/assets/9c4f1c9f-fe3b-4aea-8269-1d31b73fe3a7" />
+        <ImgTag src="https://github.com/user-attachments/assets/9c4f1c9f-fe3b-4aea-8269-1d31b73fe3a7" alt="system_architecture_0 1 0" />
     </div>
     <div>
         <div>v0.2.0</div>
-        <img width="1054" height="444" alt="system_architecture_0 2 0" src="https://github.com/user-attachments/assets/c6a0802a-d7f6-4f65-9540-92d96f49bba5" />
+        <ImgTag src="https://github.com/user-attachments/assets/c6a0802a-d7f6-4f65-9540-92d96f49bba5" alt="system_architecture_0 2 0" />
     </div>
     <div>
         <div>v0.3.0</div>
-        <img width="945" height="765" alt="system_architecture_0 3 0" src="https://github.com/user-attachments/assets/ab7c4907-e848-4ec9-917a-27735a0b1799" />
+        <ImgTag src="https://github.com/user-attachments/assets/ab7c4907-e848-4ec9-917a-27735a0b1799" alt="system_architecture_0 3 0" />
     </div>     
 </div> 
 
@@ -251,23 +251,23 @@ import { ImgTag } from '@/components/MDXRenderer';
 
 [참고 자료](/activities/stonespring/docs/database-structure.md)
 
-<img width="2160" height="2082" alt="data_structure" src="https://github.com/user-attachments/assets/fa27f37a-c672-40be-b6ed-12fc9f636d69" />
+<ImgTag src="https://github.com/user-attachments/assets/fa27f37a-c672-40be-b6ed-12fc9f636d69" alt="data_structure" />
 
 <div className="image-grid image-grid--uniform">
-    <img width="1278" height="1312" alt="data_structure_1" src="https://github.com/user-attachments/assets/53cf7340-fd70-4858-9208-d503022752e5" />
-    <img width="1268" height="1694" alt="data_structure_2" src="https://github.com/user-attachments/assets/a9a5daec-c050-4fb1-a389-adee8604d8c7" />
-    <img width="1200" height="640" alt="data_structure_3" src="https://github.com/user-attachments/assets/ebd618ef-2eb0-4d11-84a4-d597554bd1b2" />
+    <ImgTag src="https://github.com/user-attachments/assets/53cf7340-fd70-4858-9208-d503022752e5" alt="data_structure_1" />
+    <ImgTag src="https://github.com/user-attachments/assets/a9a5daec-c050-4fb1-a389-adee8604d8c7" alt="data_structure_2" />
+    <ImgTag src="https://github.com/user-attachments/assets/ebd618ef-2eb0-4d11-84a4-d597554bd1b2" alt="data_structure_3" />
 </div>
 
 
 ### Sequence Diagram
 
 <div className="image-grid image-grid--uniform">
-    <img width="1616" height="893" alt="sequence_diagram_1" src="https://github.com/user-attachments/assets/fb54ee8e-b56b-4a6e-af74-4c4cd09cafb1" />
-    <img width="1163" height="572" alt="sequence_diagram_2" src="https://github.com/user-attachments/assets/e34831d3-ff66-4c7a-925e-013b16baa10e" />
-    <img width="1690" height="607" alt="sequence_diagram_3" src="https://github.com/user-attachments/assets/325dbfaa-1b34-4865-81c1-dfb173f4ce0a" />
-    <img width="1214" height="895" alt="sequence_diagram_4" src="https://github.com/user-attachments/assets/a98c8385-c77b-4f21-aa72-f8211441c04f" />
-    <img width="1837" height="643" alt="sequence_diagram_5" src="https://github.com/user-attachments/assets/6bbe332a-72aa-4fac-94f3-b39fdd9b4357" />
+    <ImgTag src="https://github.com/user-attachments/assets/fb54ee8e-b56b-4a6e-af74-4c4cd09cafb1" alt="sequence_diagram_1" />
+    <ImgTag src="https://github.com/user-attachments/assets/e34831d3-ff66-4c7a-925e-013b16baa10e" alt="sequence_diagram_2" />
+    <ImgTag src="https://github.com/user-attachments/assets/325dbfaa-1b34-4865-81c1-dfb173f4ce0a" alt="sequence_diagram_3" />
+    <ImgTag src="https://github.com/user-attachments/assets/a98c8385-c77b-4f21-aa72-f8211441c04f" alt="sequence_diagram_4" />
+    <ImgTag src="https://github.com/user-attachments/assets/6bbe332a-72aa-4fac-94f3-b39fdd9b4357" alt="sequence_diagram_5" />
 </div>
 
 
@@ -284,8 +284,8 @@ bash run.sh
 생각했던 것보다 프로젝트 기간이 짧아, 최종 목표로 설계했던 기능들을 모두 구현하지 못한 점이 아쉬웠습니다.
 
 <div className="image-grid image-grid--uniform">
-    <img width="1760" height="1558" alt="emotion_1" src="https://github.com/user-attachments/assets/1ad488aa-af80-4040-bfe5-7cfcf982042a" />
-    <img width="574" height="208" alt="emotion_2" src="https://github.com/user-attachments/assets/67084492-d31b-49e0-8d97-eb2b79f017ba" />
+    <ImgTag src="https://github.com/user-attachments/assets/1ad488aa-af80-4040-bfe5-7cfcf982042a" alt="emotion_1" />
+    <ImgTag src="https://github.com/user-attachments/assets/67084492-d31b-49e0-8d97-eb2b79f017ba" alt="emotion_2" />
 </div>
 
 아까 데이터 보여줄 때, Chat에 펫 이모션이 있었는데, 오른쪽과 같은 아스키 아트 형태의 이모티콘임.

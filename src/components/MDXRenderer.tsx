@@ -2,10 +2,52 @@
 
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
-import { useState, useEffect, ReactNode } from 'react';
+import { useState, useEffect, useRef, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import remarkGfm from 'remark-gfm';
 import PlantUmlDiagram from '@/components/PlantUmlDiagram';
+
+const handleLegacyImages = (
+  container: HTMLElement | null,
+  setLightboxImage: (value: string | null) => void
+) => {
+  if (!container) {
+    return;
+  }
+
+  const images = Array.from(container.querySelectorAll<HTMLImageElement>('img:not([data-has-lightbox="true"])'));
+  if (images.length === 0) {
+    return;
+  }
+
+  const handleClick = (event: Event) => {
+    const target = event.currentTarget as HTMLImageElement | null;
+    if (!target) {
+      return;
+    }
+    setLightboxImage(target.currentSrc || target.src || null);
+  };
+
+  images.forEach((img) => {
+    if (img.dataset.lightboxBound === 'true') {
+      return;
+    }
+    img.dataset.lightboxBound = 'true';
+    if (!img.style.cursor) {
+      img.style.cursor = 'zoom-in';
+    }
+    img.addEventListener('click', handleClick);
+  });
+
+  return () => {
+    images.forEach((img) => {
+      if (img.dataset.lightboxBound === 'true') {
+        img.removeEventListener('click', handleClick);
+        delete img.dataset.lightboxBound;
+      }
+    });
+  };
+};
 
 interface MDXRendererProps {
   content: string;
@@ -38,6 +80,7 @@ const RotatedImage = ({ src, alt, style, className = '', ...props }: { src?: str
         alt={alt || ''}
         style={style}
         className={`mdx-image ${className}`.trim()}
+        data-has-lightbox="true"
         loading="lazy"
         onClick={() => setLightboxImage(src ?? null)}
         {...props}
@@ -104,8 +147,10 @@ const components = {
   ),
   code: ({ children, className }: { children?: ReactNode; className?: string }) => {
     const isInline = !className;
-    const codeContent = String(children || '');
-    const languageClass = className ? className.toLowerCase() : '';
+    const codeContent = Array.isArray(children)
+      ? children.map((child) => String(child ?? '')).join('')
+      : String(children ?? '');
+    const languageClass = typeof className === 'string' ? className.toLowerCase() : '';
     const isPlantUmlBlock = !isInline && /language-plantuml/.test(languageClass);
 
     if (isPlantUmlBlock) {
@@ -131,6 +176,8 @@ const components = {
 
 export default function MDXRenderer({ content }: MDXRendererProps) {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
+  const [fallbackLightboxImage, setFallbackLightboxImage] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     async function compileMDX() {
@@ -144,14 +191,36 @@ export default function MDXRenderer({ content }: MDXRendererProps) {
     compileMDX();
   }, [content]);
 
+  useEffect(() => {
+    return handleLegacyImages(containerRef.current, setFallbackLightboxImage);
+  }, [content]);
+
   if (!mdxSource) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-semibold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-strong:text-gray-900 dark:prose-strong:text-gray-100 prose-ul:text-gray-700 dark:prose-ul:text-gray-300 prose-ol:text-gray-700 dark:prose-ol:text-gray-300">
-      <MDXRemote {...mdxSource} components={components} />
-    </div>
+    <>
+      <div
+        ref={containerRef}
+        className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-semibold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-strong:text-gray-900 dark:prose-strong:text-gray-100 prose-ul:text-gray-700 dark:prose-ul:text-gray-300 prose-ol:text-gray-700 dark:prose-ol:text-gray-300"
+      >
+        <MDXRemote {...mdxSource} components={components} />
+      </div>
+
+      {fallbackLightboxImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4 cursor-pointer"
+          onClick={() => setFallbackLightboxImage(null)}
+        >
+          <img
+            src={fallbackLightboxImage}
+            alt="Full size"
+            className="max-w-full max-h-full object-contain"
+          />
+        </div>
+      )}
+    </>
   );
 }
 
@@ -160,7 +229,8 @@ export default function MDXRenderer({ content }: MDXRendererProps) {
 
 // Google Drive Image Component
 interface ImgTagProps {
-  driveUrl: string;
+  driveUrl?: string;
+  src?: string;
   name?: string;
   alt?: string;
   className?: string;
@@ -174,19 +244,27 @@ function DriveUrlToID(driveUrl: string): string | null {
 }
 
 // Google Drive URL에서 파일 ID 추출 및 duckduckgo로 이미지 링크 생성
-export function ImgTag({ driveUrl, name = '', alt = '', className = '', ...restProps }: ImgTagProps) {
-  const fileId = DriveUrlToID(driveUrl);
+export function ImgTag({ driveUrl, src: fallbackSrc, name = '', alt = '', className = '', ...restProps }: ImgTagProps) {
+  let resolvedSrc: string | null = null;
 
-  if (!fileId) {
-    console.error('Invalid Google Drive URL');
+  if (driveUrl && typeof driveUrl === 'string' && driveUrl.trim() !== '') {
+    const fileId = DriveUrlToID(driveUrl.trim());
+
+    if (!fileId) {
+      console.error('Invalid Google Drive URL');
+      return null;
+    }
+
+    resolvedSrc = `https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=${fileId}`;
+  } else if (fallbackSrc && typeof fallbackSrc === 'string' && fallbackSrc.trim() !== '') {
+    resolvedSrc = fallbackSrc.trim();
+  } else {
     return null;
   }
 
-  const directUrl = `https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=${fileId}`;
-
   return (
     <RotatedImage
-      src={directUrl}
+      src={resolvedSrc}
       name={name}
       alt={alt}
       className={className}

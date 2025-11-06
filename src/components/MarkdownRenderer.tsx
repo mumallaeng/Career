@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, ReactNode } from 'react';
+import { useState, useRef, useEffect, ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -25,6 +25,7 @@ const safeChildren = (children: ReactNode): ReactNode => {
 
 export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   // Custom sanitize schema to allow style tags, class attributes, and video
   const customSchema = deepmerge(defaultSchema, {
     attributes: {
@@ -40,9 +41,52 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
     tagNames: ['style', 'video', 'source', 'div', 'img', 'h3', 'p', 'strong'],
   });
 
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) {
+      return;
+    }
+
+    const images = Array.from(container.querySelectorAll<HTMLImageElement>('img:not([data-has-lightbox="true"])'));
+    if (images.length === 0) {
+      return;
+    }
+
+    const handleClick = (event: Event) => {
+      const target = event.currentTarget as HTMLImageElement | null;
+      if (!target) {
+        return;
+      }
+      setLightboxImage(target.currentSrc || target.src || null);
+    };
+
+    images.forEach((img) => {
+      if (img.dataset.lightboxBound === 'true') {
+        return;
+      }
+      img.dataset.lightboxBound = 'true';
+      if (!img.style.cursor) {
+        img.style.cursor = 'zoom-in';
+      }
+      img.addEventListener('click', handleClick);
+    });
+
+    return () => {
+      images.forEach((img) => {
+        if (img.dataset.lightboxBound === 'true') {
+          img.removeEventListener('click', handleClick);
+          delete img.dataset.lightboxBound;
+        }
+      });
+    };
+  }, [content]);
+
   return (
     <>
-      <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-semibold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-strong:text-gray-900 dark:prose-strong:text-gray-100 prose-ul:text-gray-700 dark:prose-ul:text-gray-300 prose-ol:text-gray-700 dark:prose-ol:text-gray-300">
+      <div
+        ref={containerRef}
+        className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-semibold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-strong:text-gray-900 dark:prose-strong:text-gray-100 prose-ul:text-gray-700 dark:prose-ul:text-gray-300 prose-ol:text-gray-700 dark:prose-ol:text-gray-300"
+      >
         <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, [rehypeSanitize, customSchema]]}
@@ -79,6 +123,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
               src={src}
               alt={alt || ''}
               className="rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+              data-has-lightbox="true"
               loading="lazy"
               onClick={() => setLightboxImage(typeof src === 'string' ? src : null)}
             />
@@ -90,9 +135,10 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           ),
           code: ({ children, className }) => {
             const isInline = !className;
-            // Convert children to string to avoid NaN errors
-            const codeContent = String(children || '');
-            const languageClass = className ? className.toLowerCase() : '';
+            const codeContent = Array.isArray(children)
+              ? children.map((child) => String(child ?? '')).join('')
+              : String(children ?? '');
+            const languageClass = typeof className === 'string' ? className.toLowerCase() : '';
             const isPlantUmlBlock = !isInline && /language-plantuml/.test(languageClass);
 
             if (isPlantUmlBlock) {

@@ -180,11 +180,13 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
-.image-grid img {
+.image-grid img,
+.image-grid .mdx-image {
     width: 100%;
     height: auto;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
+    cursor: zoom-in;
 }
 
 .image-grid .cert-info {
