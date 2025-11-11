@@ -6,6 +6,7 @@ import { useState, useEffect, useRef, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import remarkGfm from 'remark-gfm';
 import PlantUmlDiagram from '@/components/PlantUmlDiagram';
+import { drive1AssetMap, getDrive1AssetById } from '@/data/drive1-assets';
 
 const handleLegacyImages = (
   container: HTMLElement | null,
@@ -151,7 +152,7 @@ const components = {
       ? children.map((child) => String(child ?? '')).join('')
       : String(children ?? '');
     const languageClass = typeof className === 'string' ? className.toLowerCase() : '';
-    const isPlantUmlBlock = !isInline && /language-plantuml/.test(languageClass);
+    const isPlantUmlBlock = !isInline && (/language-plantuml/.test(languageClass) || codeContent.trim().startsWith('@startuml'));
 
     if (isPlantUmlBlock) {
       return (
@@ -172,6 +173,9 @@ const components = {
       </code>
     );
   },
+  PlantUmlDiagram: (props: { content: string; alt?: string }) => (
+    <PlantUmlDiagram {...props} />
+  ),
 };
 
 export default function MDXRenderer({ content }: MDXRendererProps) {
@@ -184,6 +188,10 @@ export default function MDXRenderer({ content }: MDXRendererProps) {
       const compiled = await serialize(content, {
         mdxOptions: {
           remarkPlugins: [remarkGfm],
+        },
+        scope: {
+          drive1AssetMap,
+          getDrive1AssetById,
         },
       });
       setMdxSource(compiled);

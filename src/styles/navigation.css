@@ -63,44 +63,113 @@
     height: 20px;
 }
 
-/* Language Toggle */
-.language-toggle {
-    display: flex;
-    align-items: center;
+.github-tooltip {
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
 }
 
-.lang-switch {
+.github-link:hover .github-tooltip,
+.github-link:focus .github-tooltip {
+    opacity: 1;
+}
+
+.mail-link {
+    position: relative;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
     color: #000000;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 700;
-    width: 20px;
-    height: 20px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.3s ease;
-    letter-spacing: -0.02em;
-    position: relative;
+    width: 28px;
+    height: 22px;
 }
 
-.lang-switch:hover {
+.mail-icon {
+    width: 28px;
+    height: 22px;
+}
+
+.mail-tooltip {
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.mail-link:hover .mail-tooltip,
+.mail-link:focus .mail-tooltip {
+    opacity: 1;
+}
+
+.mail-link:hover .mail-icon,
+.mail-link:focus .mail-icon {
     opacity: 0.6;
 }
 
-.lang-current {
-    display: inline-block;
-    transition: opacity 0.3s ease;
+.phone-link {
+    position: relative;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #000000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
 }
 
-.lang-target {
-    display: none;
+.phone-icon {
+    width: 22px;
+    height: 22px;
 }
 
-.lang-switch:hover .lang-current {
-    display: none;
+.phone-tooltip {
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
 }
 
-.lang-switch:hover .lang-target {
-    display: inline-block;
+.phone-link:hover .phone-tooltip,
+.phone-link:focus .phone-tooltip {
+    opacity: 1;
+}
+
+.phone-link:hover .phone-icon,
+.phone-link:focus .phone-icon {
+    opacity: 0.6;
 }

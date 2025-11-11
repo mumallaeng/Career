@@ -48,6 +48,7 @@
     max-width: 100%;
     height: auto;
     display: inline-block;
+    cursor: zoom-in;
 }
 
 .plantuml-code {
@@ -58,6 +59,24 @@
     overflow-x: auto;
     font-family: ui-monospace, SFMono-Regular, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
     font-size: 0.95rem;
+}
+
+.plantuml-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+}
+
+.plantuml-lightbox-image {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
 }
 
 .post-body.doc-context-interface-specification table th:nth-child(3),

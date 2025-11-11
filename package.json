@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "prebuild": "npm run sync:drive1",
     "build": "next build",
     "build:turbo": "next build --turbopack",
     "export": "next build && next export",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync:drive1": "tsx scripts/sync-drive1.ts"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -32,6 +34,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
+    "tsx": "^4.19.2",
     "typescript": "^5"
   }
 }

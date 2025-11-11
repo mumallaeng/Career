@@ -7,9 +7,9 @@ export default function HomePage() {
   return (
     <div className="activities-container">
       {/* Section Header */}
-      <header className="section-header">
+      {/* <header className="section-header">
         <h1 className="section-title">활동</h1>
-      </header>
+      </header> */}
 
       {/* Activities Filter and Grid */}
       <ActivitiesFilter activities={activities} />

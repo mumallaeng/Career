@@ -130,7 +130,7 @@ content_type: "project"
 
 ### 1. 장염 분석 결과
 
-<img alt="1-1 장염환자수와검색어트랜드분석" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=16qjscD6IPtaJcGhPj_WkEshwtbwWnyl0" name="trend_chart"/>
+<img alt="1-1 장염환자수와검색어트랜드분석" src="https://github.com/user-attachments/assets/9b4eed84-c5e7-473e-a8a5-07df32e9ab24" name="trend_chart"/>
 
 #### 검색 트렌드와 실제 환자 수의 상관관계
 - **네이버 검색 트렌드**와 실제 장염 환자 수의 변화 패턴이 매우 유사
@@ -142,9 +142,9 @@ content_type: "project"
 
 #### 기상 변수와 장염 발생의 상관관계
 
-<img alt="3-1 기상데이터와_장염환자_상관관계" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1C67Cd19upkgAUTOF8c2zSli2hZAIe69X" />
+<img alt="3-1 기상데이터와_장염환자_상관관계" src="https://github.com/user-attachments/assets/06abce50-732d-44b2-a35c-a5a610a28f58" />
 
-<img alt="3-2 기상데이터와_장염환자" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1yrIVTz3q3nGFpJcJcIVKF8o6VI7Zo_4M" />
+<img alt="3-2 기상데이터와_장염환자" src="https://github.com/user-attachments/assets/053d2930-5f72-4bf7-a9f7-33ff3c18158a" />
 
 - **일교차(-0.66)**: 음의 상관관계로 일교차가 작을수록 환자 수 증가
 - **최저 습도(0.50)**: 양의 상관관계로 최저 습도가 높을수록 환자 수 증가
@@ -155,7 +155,7 @@ content_type: "project"
 
 #### 연령별 장염 발생 패턴
 
-<img alt="2-2 연령별_환자분석" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1UwfcSbiWqXXb7O_mHOvgctU3tdK6abJQ" />
+<img alt="2-2 연령별_환자분석" src="https://github.com/user-attachments/assets/16627e84-49b1-4141-ae32-4af2cfce32ad"  />
 
 - **0~9세 아동층**에서 장염 환자 수가 압도적으로 많음
 - 연령이 증가할수록 장염 발생률이 감소하는 경향
@@ -169,7 +169,7 @@ content_type: "project"
 
 #### 네이버 트렌드와 환자 수의 상관관계
 
-<img alt="1-2 장염환자수와네이버검색어트랜드" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1CyvjdY-FTRG_DcC19LSW0GsOV-CrBabz" />
+<img alt="1-2 장염환자수와네이버검색어트랜드" src="https://github.com/user-attachments/assets/c22c2811-1040-4e06-afeb-3dde54a6daf9" />
 
 - 식중독 검색 트렌드와 실제 환자 수가 유사한 계절적 패턴을 보임
 - 여름철(6-8월)에 검색량과 환자 수가 동시에 급증
@@ -178,7 +178,7 @@ content_type: "project"
 
 #### 일교차와의 상관관계
 
-<img alt="3-4 장염일교차" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=11UKkCocp4DS80inFfpdDFuQ69Zc7SiBh" />
+<img alt="3-4 장염일교차" src="https://github.com/user-attachments/assets/4f37baac-5724-4cea-8f6e-10edd5573673" />
 
 - 서울 지역 데이터 기준으로 일교차와 식중독 발생 패턴 분석
 - 일교차가 큰 **봄철(4-5월)**과 가을철에 환자 수 증가 경향

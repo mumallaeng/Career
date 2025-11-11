@@ -16,6 +16,8 @@ export interface FrontMatter {
   role?: string;
   thumbnail?: string;
   content_type?: string;
+  recommendation_priority?: number;
+  thumbnail_asset_id?: string;
 }
 
 export interface Content {

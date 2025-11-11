@@ -27,6 +27,14 @@
 # media files (uploaded to drive separately)
 src/content/media/
 
+# drive1 sync output (keep placeholder only)
+public/import-data/*
+!public/import-data/.gitkeep
+
+# rclone runtime artifacts
+.rclone-bin/
+.rclone-config/
+
 # debug
 npm-debug.log*
 yarn-debug.log*

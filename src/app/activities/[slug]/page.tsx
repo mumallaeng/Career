@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getActivitiesData, getActivityBySlug } from '@/lib/content';
-import MarkdownRenderer from '@/components/MarkdownRenderer';
 import MDXRenderer from '@/components/MDXRenderer';
 import CertificateGrid from '@/components/CertificateGrid';
 
@@ -74,11 +73,7 @@ export default async function ActivityDetailPage({
           </header>
 
           <div className="post-body">
-            {activity.fileExtension === 'mdx' ? (
-              <MDXRenderer content={activity.content} />
-            ) : (
-              <MarkdownRenderer content={activity.content} />
-            )}
+            <MDXRenderer content={activity.content} />
             {slug === 'certificate' && (
               <>
                 <h2 className="text-2xl font-semibold mb-5 mt-10 text-gray-900 dark:text-gray-100 leading-tight">자격증 목록</h2>

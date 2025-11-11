@@ -1,5 +1,5 @@
 import { getProfileData } from '@/lib/content';
-import MarkdownRenderer from '@/components/MarkdownRenderer';
+import MDXRenderer from '@/components/MDXRenderer';
 
 export default function ProfilePage() {
   const profile = getProfileData();
@@ -23,7 +23,7 @@ export default function ProfilePage() {
           </header>
 
           <div className="post-body">
-            <MarkdownRenderer content={profile.content} />
+            <MDXRenderer content={profile.content} />
           </div>
         </article>
       </div>

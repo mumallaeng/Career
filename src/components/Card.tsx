@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Content } from '@/types/content';
 import { formatActivityDate } from '@/lib/utils/date';
+import TagList from '@/components/TagList';
 
 interface CardProps {
   item: Content;
@@ -49,18 +50,9 @@ export default function Card({ item, index }: CardProps) {
         <div className="activity-content">
           <div className="activity-meta">
             <time className="activity-date">
-              {formatActivityDate(item.frontMatter.endDate || item.frontMatter.date)}
+              {formatActivityDate(item.frontMatter.startDate || item.frontMatter.endDate || item.frontMatter.date)}
             </time>
-            {item.frontMatter.categories && (
-              <span className="activity-category">
-                {item.frontMatter.categories[0]}
-              </span>
-            )}
-            <div className="activity-tags">
-              {item.frontMatter.tags?.map((tag) => (
-                <span key={tag} className="tag">#{tag}</span>
-              ))}
-            </div>
+            <TagList tags={item.frontMatter.tags} className="activity-tags single-line" />
           </div>
         </div>
       </article>

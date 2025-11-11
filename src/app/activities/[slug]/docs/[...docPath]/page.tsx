@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import MarkdownRenderer from '@/components/MarkdownRenderer';
 import MDXRenderer from '@/components/MDXRenderer';
 import PlantUmlDiagram from '@/components/PlantUmlDiagram';
 import { containsPlantUml, isPlantUmlExtension } from '@/lib/plantuml';
@@ -242,10 +241,8 @@ export default async function ActivityDocPage({
                 content={body}
                 alt={title || docLabel || 'PlantUML diagram'}
               />
-            ) : fileExtension === '.mdx' ? (
-              <MDXRenderer content={body} />
             ) : (
-              <MarkdownRenderer content={body} />
+              <MDXRenderer content={body} />
             )}
           </div>
         </article>

@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { FrontMatter, Content } from '@/types/content';
+import { drive1AssetMap } from '@/data/drive1-assets';
 
 interface ThumbnailData {
   url: string;
@@ -66,6 +67,16 @@ function hasExplicitSize(tag: string): boolean {
   const styleAttribute = /\bstyle\s*=\s*(?:["'][^"']*(?:width|height)[^"']*["']|\{\{[^}]*\b(?:width|height)\b[^}]*}})/i;
 
   return widthAttribute.test(tag) || heightAttribute.test(tag) || styleAttribute.test(tag);
+}
+
+function resolveDrive1Thumbnail(assetId?: string): ThumbnailData | undefined {
+  if (!assetId) return undefined;
+  const asset = drive1AssetMap[assetId as keyof typeof drive1AssetMap];
+  if (!asset) return undefined;
+  return {
+    url: asset.publicPath,
+    hasExplicitDimensions: false,
+  };
 }
 
 function extractFirstImage(content: string): ThumbnailData | undefined {
@@ -135,9 +146,10 @@ export function getActivitiesData(): Content[] {
       .substring(0, previewLength) + '...';
 
     // Extract thumbnail: use frontMatter.thumbnail if available, otherwise extract from content
-    const extractedThumbnail = frontMatter.thumbnail
-      ? { url: frontMatter.thumbnail, hasExplicitDimensions: false }
-      : extractFirstImage(content);
+    const extractedThumbnail = resolveDrive1Thumbnail(frontMatter.thumbnail_asset_id)
+      ?? (frontMatter.thumbnail
+        ? { url: frontMatter.thumbnail, hasExplicitDimensions: false }
+        : extractFirstImage(content));
 
     const thumbnailUrl = extractedThumbnail?.url;
     const thumbnailHasExplicitSize = extractedThumbnail?.hasExplicitDimensions ?? false;
@@ -154,8 +166,8 @@ export function getActivitiesData(): Content[] {
   });
 
   return items.sort((a, b) => {
-    const dateA = a.frontMatter.endDate || a.frontMatter.date;
-    const dateB = b.frontMatter.endDate || b.frontMatter.date;
+    const dateA = a.frontMatter.startDate || a.frontMatter.endDate || a.frontMatter.date;
+    const dateB = b.frontMatter.startDate || b.frontMatter.endDate || b.frontMatter.date;
     return new Date(dateB).getTime() - new Date(dateA).getTime();
   });
 }
