@@ -57,7 +57,7 @@ title:
 |--------|------|------|
 | emotion_analysis_id | INT (PK) | 감정 분석 고유 ID |
 | user_id | INT (FK) | 사용자 ID (User 테이블 참조) |
-| chat_id | INT (FK) | 사용자 요청과 펫의 응답 채팅 한 세트에 대한 ID (Chat 테이블 참조)<br>video_path, voice_path, message 데이터를 분석하여 face_emotion, voice_emotion, text_emotion 도출 |
+| chat_id | INT (FK) | 사용자 요청과 펫의 응답 채팅 한 세트에 대한 ID (Chat 테이블 참조)<br/>video_path, voice_path, message 데이터를 분석하여 face_emotion, voice_emotion, text_emotion 도출 |
 | face_emotion | VARCHAR(50) | 얼굴 표정 감정 분석 (예: happy) |
 | voice_emotion | VARCHAR(50) | 목소리 감정 |
 | text_emotion | VARCHAR(50) | 텍스트 감정 분석 |

@@ -200,8 +200,11 @@ export default function MDXRenderer({ content }: MDXRendererProps) {
   }, [content]);
 
   useEffect(() => {
+    if (!mdxSource) {
+      return undefined;
+    }
     return handleLegacyImages(containerRef.current, setFallbackLightboxImage);
-  }, [content]);
+  }, [mdxSource]);
 
   if (!mdxSource) {
     return <div>Loading...</div>;

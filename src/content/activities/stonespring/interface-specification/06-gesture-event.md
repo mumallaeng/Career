@@ -48,6 +48,6 @@ gesture|qpzja|wave|5001
 | 필드명               | 타입     | 필수 | 설명                                       | 매핑 DB 컬럼            |
 | ----------------- | ------ | -- | ---------------------------------------- | ------------------- |
 | event             | STRING | 예  | `"gesture"` 고정                           | -                   |
-| userId            | STRING | 예  | 사용자 식별자<br>(User의 외부 식별자에 매핑 예정 시 고려 필요) | -                   |
+| userId            | STRING | 예  | 사용자 식별자<br/>(User의 외부 식별자에 매핑 예정 시 고려 필요) | -                   |
 | gesture           | STRING | 예  | 감지된 제스처 이름                               | recognized_gesture  |
 | trainingSettingId | INT    | 예  | 훈련 설정 ID                                 | training_setting_id |
