@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { drive1Assets } from '@/data/drive1-assets';
 
 export default function CertificateGrid() {
