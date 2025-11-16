@@ -1,21 +1,28 @@
-import { certificates } from '@/data/certificates';
+import { drive1Assets } from '@/data/drive1-assets';
 
 export default function CertificateGrid() {
+  const certificates = drive1Assets
+    .filter(asset => asset.type === 'certificate')
+    .sort((a, b) => {
+      const dateCompare = (b.startDate ?? '').localeCompare(a.startDate ?? '');
+      if (dateCompare !== 0) return dateCompare;
+      return a.filename.localeCompare(b.filename);
+    });
+
   return (
     <div className="image-grid">
-      {certificates.map((cert) => {
-        const expirationText = (!cert.expirationDate || cert.expirationDate === '없음')
-          ? '만료없음'
-          : cert.expirationDate;
+      {certificates.map(cert => {
+        const key = Array.isArray(cert.act_id) ? cert.act_id.join('-') : cert.act_id;
+        const issueDate = cert.startDate ? new Date(cert.startDate).toLocaleDateString('ko-KR') : '발급일 미상';
+        const organization = cert.description ?? '';
 
         return (
-          <div key={cert.id} className="image-item">
-            <img src={cert.imageCopyPath} alt={cert.name} />
+          <div key={`${key}-${cert.filename}`} className="image-item">
+            <img src={cert.publicPath} alt={cert.name} />
             <div className="cert-info">
               <h3>{cert.name}</h3>
-              <p>{cert.organization}</p>
-              <p>{cert.issueDate} ~ {expirationText}</p>
-              <p>{cert.type}</p>
+              {organization && <p>{organization}</p>}
+              <p>{issueDate}</p>
             </div>
           </div>
         );

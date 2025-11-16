@@ -6,7 +6,8 @@ import { useState, useEffect, useRef, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import remarkGfm from 'remark-gfm';
 import PlantUmlDiagram from '@/components/PlantUmlDiagram';
-import { drive1AssetMap, getDrive1AssetById } from '@/data/drive1-assets';
+import DriveAssetGrid from '@/components/DriveAssetGrid';
+import { drive1AssetMap, getDrive1AssetById, getDrive1AssetsByActId } from '@/data/drive1-assets';
 
 const handleLegacyImages = (
   container: HTMLElement | null,
@@ -176,6 +177,7 @@ const components = {
   PlantUmlDiagram: (props: { content: string; alt?: string }) => (
     <PlantUmlDiagram {...props} />
   ),
+  DriveAssetGrid,
 };
 
 export default function MDXRenderer({ content }: MDXRendererProps) {

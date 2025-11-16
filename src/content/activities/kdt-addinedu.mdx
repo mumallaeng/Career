@@ -12,6 +12,7 @@ thumbnail_asset_id: "kdt-addinedu-grand-prize"
 ---
 
 import { ImgTag } from '@/components/MDXRenderer';
+import DriveAssetGrid from '@/components/DriveAssetGrid';
 
 {/* more */}
 
@@ -43,19 +44,9 @@ import { ImgTag } from '@/components/MDXRenderer';
 
 <br/>
 
-{(() => {
-  const achievementAward = getDrive1AssetById('kdt-addinedu-achievement-award');
-  const grandPrize = getDrive1AssetById('kdt-addinedu-grand-prize');
-  const completionCertificate = getDrive1AssetById('kdt-addinedu-completion-certificate');
+<DriveAssetGrid actId="kdt-addinedu" start={-2} /> 
 
-  return (
-    <div className="image-grid image-grid--uniform">
-      <img src={grandPrize.publicPath} alt={grandPrize.name} />
-      <img src={achievementAward.publicPath} alt={achievementAward.name} />
-      <img src={completionCertificate.publicPath} alt={completionCertificate.name} />
-    </div>
-  );
-})()}
+<DriveAssetGrid actId="kdt-addinedu" end={3} /> 
 
 **활동 내용**
 
