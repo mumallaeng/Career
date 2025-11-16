@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next"
 import { getActivitiesData } from '@/lib/content';
 import ActivitiesFilter from '@/components/ActivitiesFilter';
 
@@ -13,6 +14,7 @@ export default function HomePage() {
 
       {/* Activities Filter and Grid */}
       <ActivitiesFilter activities={activities} />
+      <Analytics/>
     </div>
   );
 }

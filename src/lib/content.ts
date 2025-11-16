@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { FrontMatter, Content } from '@/types/content';
-import { drive1AssetMap } from '@/data/drive1-assets';
+import { drive1AssetMap, getDrive1AssetByFilename, getDrive1AssetsByActId } from '@/data/drive1-assets';
 
 interface ThumbnailData {
   url: string;
@@ -79,6 +79,39 @@ function resolveDrive1Thumbnail(assetId?: string): ThumbnailData | undefined {
   };
 }
 
+function resolveThumbnailFromFrontMatter(frontMatter: FrontMatter): ThumbnailData | undefined {
+  const thumbnailFromAssetId = resolveDrive1Thumbnail(frontMatter.thumbnail_asset_id);
+  if (thumbnailFromAssetId) {
+    return thumbnailFromAssetId;
+  }
+
+  const rawThumbnail = frontMatter.thumbnail?.trim();
+  if (!rawThumbnail) {
+    return undefined;
+  }
+
+  const assetFromFilename = getDrive1AssetByFilename(rawThumbnail);
+  if (assetFromFilename) {
+    return {
+      url: assetFromFilename.publicPath,
+      hasExplicitDimensions: false,
+    };
+  }
+
+  const transformedDriveUrl = transformDriveUrl(rawThumbnail);
+  if (transformedDriveUrl) {
+    return {
+      url: transformedDriveUrl,
+      hasExplicitDimensions: false,
+    };
+  }
+
+  return {
+    url: rawThumbnail,
+    hasExplicitDimensions: false,
+  };
+}
+
 function extractFirstImage(content: string): ThumbnailData | undefined {
   // Try to find ImgTag component with driveUrl
   const customImgMatch = content.match(/(<ImgTag[^>]*driveUrl=["']([^"']+)["'][^>]*\/?>(?:<\/ImgTag>)?)/i);
@@ -89,6 +122,19 @@ function extractFirstImage(content: string): ThumbnailData | undefined {
       return {
         url: transformed,
         hasExplicitDimensions: hasExplicitSize(fullMatch),
+      };
+    }
+  }
+
+  // Try to find DriveAssetGrid usage
+  const gridMatch = content.match(/<DriveAssetGrid[^>]*actId=["']([^"']+)["'][^>]*\/?>/i);
+  if (gridMatch) {
+    const actId = gridMatch[1].trim();
+    const assets = getDrive1AssetsByActId(actId);
+    if (assets.length > 0) {
+      return {
+        url: assets[0].publicPath,
+        hasExplicitDimensions: false,
       };
     }
   }
@@ -146,10 +192,8 @@ export function getActivitiesData(): Content[] {
       .substring(0, previewLength) + '...';
 
     // Extract thumbnail: use frontMatter.thumbnail if available, otherwise extract from content
-    const extractedThumbnail = resolveDrive1Thumbnail(frontMatter.thumbnail_asset_id)
-      ?? (frontMatter.thumbnail
-        ? { url: frontMatter.thumbnail, hasExplicitDimensions: false }
-        : extractFirstImage(content));
+    const extractedThumbnail = resolveThumbnailFromFrontMatter(frontMatter)
+      ?? extractFirstImage(content);
 
     const thumbnailUrl = extractedThumbnail?.url;
     const thumbnailHasExplicitSize = extractedThumbnail?.hasExplicitDimensions ?? false;
@@ -194,9 +238,8 @@ export function getProfileData(): Content | null {
     .trim()
     .substring(0, 150) + '...';
 
-  const extractedThumbnail = frontMatter.thumbnail
-    ? { url: frontMatter.thumbnail, hasExplicitDimensions: false }
-    : extractFirstImage(content);
+  const extractedThumbnail = resolveThumbnailFromFrontMatter(frontMatter)
+    ?? extractFirstImage(content);
 
   const thumbnailUrl = extractedThumbnail?.url;
   const thumbnailHasExplicitSize = extractedThumbnail?.hasExplicitDimensions ?? false;

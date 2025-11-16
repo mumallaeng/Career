@@ -7,7 +7,7 @@ import { createPortal } from 'react-dom';
 import remarkGfm from 'remark-gfm';
 import PlantUmlDiagram from '@/components/PlantUmlDiagram';
 import DriveAssetGrid from '@/components/DriveAssetGrid';
-import { drive1AssetMap, getDrive1AssetById, getDrive1AssetsByActId } from '@/data/drive1-assets';
+import { drive1AssetMap, getDrive1AssetsByActId } from '@/data/drive1-assets';
 
 const handleLegacyImages = (
   container: HTMLElement | null,
@@ -187,13 +187,18 @@ export default function MDXRenderer({ content }: MDXRendererProps) {
 
   useEffect(() => {
     async function compileMDX() {
+      const constants = {
+        test2_end: 3 * (9 + 4) + 1,
+      };
+
       const compiled = await serialize(content, {
         mdxOptions: {
           remarkPlugins: [remarkGfm],
         },
         scope: {
           drive1AssetMap,
-          getDrive1AssetById,
+          getDrive1AssetsByActId,
+          constants,
         },
       });
       setMdxSource(compiled);

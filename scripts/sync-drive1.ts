@@ -128,7 +128,7 @@ async function ensureLocalRootSymlinks(): Promise<boolean> {
     await mkdir(path.dirname(destinationPath), { recursive: true });
     await rm(destinationPath, { force: true });
     await symlink(sourcePath, destinationPath, 'file');
-    console.info(`Linked ${asset.id} -> ${destinationPath}`);
+    console.info(`Linked ${asset.filename} -> ${destinationPath}`);
   }
 
   return true;
@@ -147,7 +147,7 @@ async function downloadAssets(rcloneBinary: string) {
 
   for (const { asset, destination, remote } of downloadTargets) {
     if (!shouldDownload) {
-      console.info(`Skipping download for ${asset.id} (SKIP_DRIVE1_DOWNLOAD=1).`);
+      console.info(`Skipping download for ${asset.filename} (SKIP_DRIVE1_DOWNLOAD=1).`);
       continue;
     }
 

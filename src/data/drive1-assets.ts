@@ -1233,17 +1233,9 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: ['기능경기대회', '1위(금메달)'],
-    filename: '190408-기능경기대회-1위(금메달)_copy.jpg',
-    name: '기능경기대회 1위(금메달)',
-    type: 'award',
-    startDate: '2019-04-08',
-  },
-
-  {
     act_id: ['성일정보고등학교', '기능경기대회', '사진'],
-    filename: '190408-기능경기대회-사진_copy.jpg',
-    name: '기능경기대회 사진',
+    filename: '190408-기능경기대회-2.jpg',
+    name: '기능경기대회 사진 2',
     type: 'photo',
     startDate: '2019-04-08',
   },
@@ -1252,23 +1244,6 @@ const drive1AssetBlueprints = [
     act_id: ['성일정보고등학교', '기능경기대회', '사진'],
     filename: '190408-기능경기대회-1.jpg',
     name: '기능경기대회 사진 1',
-    type: 'photo',
-    startDate: '2019-04-08',
-  },
-
-  {
-    act_id: ['성일정보고등학교', '기능경기대회', '사진'],
-    filename: '190408-기능경기대회-2.jpg',
-    name: '기능경기대회 사진 2',
-    type: 'photo',
-    startDate: '2019-04-08',
-  },
-
-
-  {
-    act_id: ['기능경기대회', '사진'],
-    filename: '190408-기능경기대회-3.jpg',
-    name: '기능경기대회 사진 3',
     type: 'photo',
     startDate: '2019-04-08',
   },
@@ -1599,6 +1574,14 @@ const drive1AssetBlueprints = [
     name: '포트폴리오',
     type: 'portfolio',
     startDate: '2019-05-03',
+  },
+
+  {
+    act_id: ['기능경기대회', '1위(금메달)'],
+    filename: '190408-기능경기대회-1위(금메달)_copy.jpg',
+    name: '기능경기대회 1위(금메달)',
+    type: 'award',
+    startDate: '2019-04-08',
   },
 
   {
@@ -2182,19 +2165,27 @@ export const drive1AssetMap = drive1Assets.reduce((map, asset) => {
   return map;
 }, {} as Record<string, Drive1AssetDefinition>);
 
-function getDrive1AssetById(id: string): Drive1AssetDefinition {
-  const asset = drive1AssetMap[id];
-  if (!asset) {
-    throw new Error(`Drive1 asset not found: ${id}`);
-  }
-  return asset;
+const drive1AssetFilenameMap = drive1Assets.reduce((map, asset) => {
+  map[asset.filename.trim().toLowerCase()] = asset;
+  return map;
+}, {} as Record<string, Drive1AssetDefinition>);
+
+export function getDrive1AssetByFilename(filename: string): Drive1AssetDefinition | undefined {
+  const normalized = filename.trim().toLowerCase();
+  return drive1AssetFilenameMap[normalized];
 }
 
-export { getDrive1AssetById };
-
 export function getDrive1AssetsByActId(actId: string): readonly Drive1AssetDefinition[] {
+  const normalizedTarget = actId.trim().toLowerCase();
   return drive1Assets.filter(asset => {
     const ids = Array.isArray(asset.act_id) ? asset.act_id : [asset.act_id];
-    return ids.includes(actId);
+    return ids.some(id => {
+      const normalizedId = id.trim().toLowerCase();
+      return (
+        normalizedId === normalizedTarget ||
+        normalizedId.includes(normalizedTarget) ||
+        normalizedTarget.includes(normalizedId)
+      );
+    });
   });
 }
