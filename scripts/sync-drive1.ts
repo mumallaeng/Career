@@ -8,6 +8,7 @@ import {
   mkdir,
   readdir,
   rm,
+  stat,
   symlink,
   writeFile,
 } from 'node:fs/promises';
@@ -35,6 +36,15 @@ const assets: NormalizedAsset[] = drive1Assets.map(asset => ({
   publicPath: ensureLeadingSlash(asset.publicPath),
 }));
 const publicDirectories = Array.from(new Set(assets.map(asset => getPublicDirectory(asset.publicPath))));
+const remoteDirectories = Array.from(
+  new Set(
+    assets.map(asset => {
+      const parts = asset.remotePath.split('/');
+      parts.pop();
+      return parts.join('/');
+    }),
+  ),
+);
 
 function getPublicDirectory(publicPath: string): string {
   const relative = publicPath.replace(/^\//, '');
@@ -93,6 +103,16 @@ async function pathExists(target?: string | null): Promise<boolean> {
   }
 }
 
+async function fileExists(target?: string | null): Promise<boolean> {
+  if (!target) return false;
+  try {
+    const stats = await stat(target);
+    return stats.isFile();
+  } catch {
+    return false;
+  }
+}
+
 async function ensureLegacySymlink(): Promise<boolean> {
   if (!legacyLocalDir) return false;
   if (assets.length === 0) return false;
@@ -118,12 +138,8 @@ async function ensureLocalRootSymlinks(): Promise<boolean> {
   }
 
   for (const asset of assets) {
-    const sourcePath = path.join(localRoot, ...asset.remotePath.split('/'));
+    const sourcePath = await resolveLocalAssetPath(asset);
     const destinationPath = path.join(publicRoot, asset.publicPath.replace(/^\//, ''));
-
-    if (!(await pathExists(sourcePath))) {
-      throw new Error(`Local Drive1 file not found: ${sourcePath}`);
-    }
 
     await mkdir(path.dirname(destinationPath), { recursive: true });
     await rm(destinationPath, { force: true });
@@ -136,6 +152,50 @@ async function ensureLocalRootSymlinks(): Promise<boolean> {
 
 function buildRemoteSpec(remotePath: string): string {
   return remotePath.includes(':') ? remotePath : `${remoteBase}${remotePath}`;
+}
+
+function getNormalizationVariants(value: string): string[] {
+  const variants = new Set<string>();
+  variants.add(value);
+  try {
+    variants.add(value.normalize('NFC'));
+  } catch {
+    // ignore
+  }
+  try {
+    variants.add(value.normalize('NFD'));
+  } catch {
+    // ignore
+  }
+  return Array.from(variants);
+}
+
+function isDirectoryNotFoundError(error: unknown): boolean {
+  if (!(error instanceof Error)) {
+    return false;
+  }
+  return /directory not found/i.test(error.message);
+}
+
+function copyRemoteAssetWithVariants(rcloneBinary: string, remotePath: string, destination: string) {
+  const variants = getNormalizationVariants(remotePath);
+  let lastError: Error | null = null;
+  for (const variant of variants) {
+    try {
+      runCommand(rcloneBinary, ['copyto', buildRemoteSpec(variant), destination]);
+      return;
+    } catch (error) {
+      if (isDirectoryNotFoundError(error)) {
+        lastError = error as Error;
+        continue;
+      }
+      throw error;
+    }
+  }
+  if (lastError) {
+    throw lastError;
+  }
+  throw new Error(`Failed to copy remote asset ${remotePath}`);
 }
 
 async function downloadAssets(rcloneBinary: string) {
@@ -153,7 +213,7 @@ async function downloadAssets(rcloneBinary: string) {
 
     await mkdir(path.dirname(destination), { recursive: true });
     console.info(`Copying ${remote} -> ${destination}`);
-    runCommand(rcloneBinary, ['copyto', remote, destination]);
+    copyRemoteAssetWithVariants(rcloneBinary, asset.remotePath, destination);
   }
 }
 
@@ -268,24 +328,165 @@ async function ensureRcloneConfig(): Promise<void> {
   console.info(`Wrote RCLONE_CONFIG to ${configPath}`);
 }
 
+function addRemotePathToSet(remotePath: string, target: Set<string>) {
+  getNormalizationVariants(remotePath).forEach(variant => {
+    target.add(variant);
+  });
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+async function resolveLocalAssetPath(asset: NormalizedAsset): Promise<string> {
+  if (!localRoot) {
+    throw new Error('DRIVE1_LOCAL_ROOT is not configured.');
+  }
+
+  const relativeSegments = asset.remotePath.split('/');
+  const filename = relativeSegments[relativeSegments.length - 1] ?? asset.filename;
+  const directCandidates = new Set<string>();
+  const baseCandidate = path.join(localRoot, ...relativeSegments);
+  directCandidates.add(baseCandidate);
+
+  getNormalizationVariants(asset.remotePath).forEach(relative => {
+    directCandidates.add(path.join(localRoot, ...relative.split('/')));
+  });
+
+  for (const candidate of directCandidates) {
+    if (await fileExists(candidate)) {
+      return candidate;
+    }
+  }
+
+  const directorySegments = [...relativeSegments];
+  directorySegments.pop();
+  const directoryPath = path.join(localRoot, ...directorySegments);
+
+  if (await pathExists(directoryPath)) {
+    const { name, ext } = path.parse(filename);
+    const conflictPattern = new RegExp(
+      `^${escapeRegExp(name)}(?:[\\s()_-].+)?${escapeRegExp(ext)}$`,
+      'i',
+    );
+    const entries = await readdir(directoryPath);
+    for (const entry of entries) {
+      if (!conflictPattern.test(entry)) {
+        continue;
+      }
+      const candidate = path.join(directoryPath, entry);
+      if (await fileExists(candidate)) {
+        console.info(`Resolved ${filename} to local variant ${entry}`);
+        return candidate;
+      }
+    }
+  }
+
+  throw new Error(`Local Drive1 file not found: ${baseCandidate}`);
+}
+
+async function listRemoteFiles(rcloneBinary: string): Promise<Set<string>> {
+  const remoteFiles = new Set<string>();
+
+  for (const directory of remoteDirectories) {
+    const remoteSpec = buildRemoteSpec(directory);
+    const args = ['lsf', remoteSpec, '--files-only', '--format=p', '--recursive'];
+
+    try {
+      const { stdout } = runCommand(rcloneBinary, args);
+      stdout
+        .split('\n')
+        .map(entry => entry.trim())
+        .filter(Boolean)
+        .forEach(entry => {
+          const normalizedEntry = entry.replace(/\/$/, '');
+          const remotePath = directory ? `${directory}/${normalizedEntry}` : normalizedEntry;
+          addRemotePathToSet(remotePath, remoteFiles);
+        });
+    } catch (error) {
+      console.warn(`Unable to list remote directory ${remoteSpec}: ${(error as Error).message}`);
+    }
+  }
+
+  return remoteFiles;
+}
+
+async function uploadMissingRemoteAssets(
+  rcloneBinary: string,
+  remoteFiles: Set<string>,
+): Promise<void> {
+  const missingAssets = assets.filter(asset => {
+    const variants = getNormalizationVariants(asset.remotePath);
+    return !variants.some(variant => remoteFiles.has(variant));
+  });
+
+  if (missingAssets.length === 0) {
+    console.info('All Drive1 assets are present on the remote.');
+    return;
+  }
+
+  if (!localRoot) {
+    const missingList = missingAssets.map(asset => `- ${asset.remotePath}`).join('\n');
+    throw new Error(
+      `Remote Drive1 storage is missing ${missingAssets.length} assets:\n${missingList}\n` +
+        'Provide DRIVE1_LOCAL_ROOT to upload them automatically.',
+    );
+  }
+
+  for (const asset of missingAssets) {
+    const localSource = await resolveLocalAssetPath(asset);
+
+    removeRemotePathIfExists(rcloneBinary, asset.remotePath);
+    console.info(`Uploading missing asset ${asset.remotePath} from ${localSource}`);
+    runCommand(rcloneBinary, ['copyto', localSource, buildRemoteSpec(asset.remotePath)]);
+    addRemotePathToSet(asset.remotePath, remoteFiles);
+  }
+}
+
+function removeRemotePathIfExists(rcloneBinary: string, remotePath: string) {
+  const remoteSpec = buildRemoteSpec(remotePath);
+  const deleteCommands: Array<{ args: string[]; suppressErrors?: boolean }> = [
+    { args: ['deletefile', remoteSpec], suppressErrors: true },
+    { args: ['purge', remoteSpec], suppressErrors: true },
+  ];
+
+  for (const { args, suppressErrors } of deleteCommands) {
+    try {
+      runCommand(rcloneBinary, args);
+    } catch (error) {
+      if (!suppressErrors) {
+        throw error;
+      }
+    }
+  }
+}
+
 async function main() {
   try {
-    if (await ensureLocalRootSymlinks()) {
-      return;
-    }
+    const usingLocalRoot = await ensureLocalRootSymlinks();
+    const usingLegacySource = !usingLocalRoot && (await ensureLegacySymlink());
 
-    if (await ensureLegacySymlink()) {
-      return;
-    }
+    const shouldUseRemote =
+      shouldDownload && !usingLocalRoot && !usingLegacySource;
+    const needsRemoteInspection = shouldUseRemote || Boolean(localRoot);
 
-    if (!shouldDownload) {
-      console.info('No local root configured and downloads are disabled. Nothing to do.');
+    if (!needsRemoteInspection) {
+      console.info('No remote operations required.');
       return;
     }
 
     await ensureRcloneConfig();
     const rcloneBinary = await ensureRcloneBinary();
-    await downloadAssets(rcloneBinary);
+    const remoteFiles = await listRemoteFiles(rcloneBinary);
+    await uploadMissingRemoteAssets(rcloneBinary, remoteFiles);
+
+    if (shouldUseRemote) {
+      await downloadAssets(rcloneBinary);
+    } else if (usingLocalRoot || usingLegacySource) {
+      console.info('Local asset symlinks configured; skipping download stage.');
+    } else {
+      console.info('Downloads are disabled via SKIP_DRIVE1_DOWNLOAD=1.');
+    }
   } catch (error) {
     console.error(error);
     process.exitCode = 1;

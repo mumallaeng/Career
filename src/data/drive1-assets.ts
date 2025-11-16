@@ -77,6 +77,15 @@ const drive1AssetBlueprints = [
   },
 
   {
+    act_id: ['개인', '자격증'],
+    filename: '170629-ITQ_copy.jpg',
+    name: 'ITQ',
+    type: 'certificate',
+    startDate: '2017-06-29',
+    endDate: '2018-11-29',
+  },
+
+  {
     act_id: '성일정보고등학교',
     filename: '170714-일본어능력경시대회-최우수상(1위)_copy.jpg',
     name: '일본어능력경시대회 최우수상(1위)',
@@ -157,6 +166,14 @@ const drive1AssetBlueprints = [
   },
 
   {
+    act_id: ['개인', '자격증'],
+    filename: '181025-전산회계2급_copy.png',
+    name: '전산회계2급',
+    type: 'certificate',
+    startDate: '2018-10-25',
+  },
+
+  {
     act_id: '성일정보고등학교',
     filename: '181030-NCS수리능력경진대회-장려상(3위)_copy.jpg',
     name: 'NCS수리능력경진대회 장려상(3위)',
@@ -165,7 +182,15 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: '개인',
+    act_id: ['개인', '자격증'],
+    filename: '181111-GTQ-photo_copy.jpg',
+    name: 'GTQ 포토샵 1급',
+    type: 'certificate',
+    startDate: '2018-11-11',
+  },
+
+  {
+    act_id: ['개인', '자격증'],
     filename: '181113-PC정비사2급_copy.jpg',
     name: 'PC정비사 2급',
     type: 'certificate',
@@ -605,7 +630,15 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: '개인',
+    act_id: ['개인', '자격증'],
+    filename: '190111-SWCD3_copy.jpg',
+    name: 'SWCD 3급',
+    type: 'certificate',
+    startDate: '2019-01-11',
+  },
+
+  {
+    act_id: ['개인', '자격증'],
     filename: '190305-네트워크관리사2급_copy.jpg',
     name: '네트워크관리사 2급',
     type: 'certificate',
@@ -1593,6 +1626,14 @@ const drive1AssetBlueprints = [
   },
 
   {
+    act_id: ['개인', '자격증'],
+    filename: '190605-SMAT3_copy.jpg',
+    name: 'SMAT3',
+    type: 'certificate',
+    startDate: '2019-06-05',
+  },
+
+  {
     act_id: '성일정보고등학교',
     filename: '190717-교과우수상-전자상거래실무_copy.jpg',
     name: '교과우수상 전자상거래실무',
@@ -1601,11 +1642,27 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: '개인',
+    act_id: ['개인', '자격증'],
     filename: '190718-정보처리기능사_copy.jpg',
     name: '정보처리기능사',
     type: 'certificate',
     startDate: '2019-07-18',
+  },
+
+  {
+    act_id: ['개인', '자격증'],
+    filename: '190807-전자상거래운용사_copy.jpg',
+    name: '전자상거래운용사',
+    type: 'certificate',
+    startDate: '2019-07-18',
+  },
+
+  {
+    act_id: ['개인', '자격증'],
+    filename: 'CCNA_자격_인증.jpg',
+    name: 'CCNA',
+    type: 'certificate',
+    startDate: '2019-08-30',
   },
 
   {
@@ -1657,6 +1714,14 @@ const drive1AssetBlueprints = [
   },
 
   {
+    act_id: ['개인', '자격증'],
+    filename: '200117-GTQ-il_copy.jpg',
+    name: 'GTQ 일러스트레이터',
+    type: 'certificate',
+    startDate: '2020-01-17',
+  },
+
+  {
     act_id: ['아르바이트', '뉴스킨'],
     filename: '200805-아르바이트-뉴스킨-교육훈련서약서_copy.jpg',
     name: '아르바이트 뉴스킨 교육훈련서약서',
@@ -1670,6 +1735,14 @@ const drive1AssetBlueprints = [
     name: '아르바이트 뉴스킨 근로계약서',
     type: 'None',
     startDate: '2020-08-06',
+  },
+
+  {
+    act_id: ['개인', '자격증'],
+    filename: '201113-컴활1급_copy.jpg',
+    name: '컴활1급',
+    type: 'certificate',
+    startDate: '2020-11-13',
   },
 
   {
@@ -2018,7 +2091,7 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: '개인',
+    act_id: ['개인', '자격증'],
     filename: '220215-운전면허증1종보통_copy.jpg',
     name: '운전면허증 1종보통',
     type: 'certificate',
