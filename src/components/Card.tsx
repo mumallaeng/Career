@@ -20,6 +20,10 @@ export default function Card({ item, index }: CardProps) {
 
   const hasThumbnail = Boolean(item.thumbnailUrl);
   const hasExplicitThumbnailSize = Boolean(item.thumbnailHasExplicitSize);
+  const { startDate, endDate, date } = item.frontMatter;
+  const activityDate = (startDate || endDate)
+    ? formatActivityDate(startDate, endDate)
+    : formatActivityDate(date);
 
   return (
     <Link href={`/activities/${item.slug}`} className="activity-link">
@@ -50,7 +54,7 @@ export default function Card({ item, index }: CardProps) {
         <div className="activity-content">
           <div className="activity-meta">
             <time className="activity-date">
-              {formatActivityDate(item.frontMatter.startDate || item.frontMatter.endDate || item.frontMatter.date)}
+              {activityDate}
             </time>
             <TagList tags={item.frontMatter.tags} className="activity-tags single-line" />
           </div>
