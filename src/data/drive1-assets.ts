@@ -142,27 +142,11 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: ['성일정보고등학교', '씽크잡스'],
-    filename: '180817-씽크잡스-수료증_copy.jpg',
-    name: '씽크잡스 수료증',
-    type: 'certificate',
-    startDate: '2018-08-17',
-  },
-
-  {
-    act_id: ['성일정보고등학교', '씽크잡스'],
-    filename: '180817-씽크잡스-우수상_copy.jpg',
-    name: '씽크잡스 우수상',
+    act_id: '성일정보고등학교',
+    filename: '181030-NCS수리능력경진대회-장려상(3위)_copy.jpg',
+    name: 'NCS수리능력경진대회 장려상(3위)',
     type: 'award',
-    startDate: '2018-08-17',
-  },
-
-  {
-    act_id: ['성일정보고등학교', '씽크잡스'],
-    filename: '180817-씽크잡스-포트폴리오_copy.jpg',
-    name: '씽크잡스 포트폴리오',
-    type: 'portfolio',
-    startDate: '2018-08-17',
+    startDate: '2018-10-30',
   },
 
   {
@@ -171,14 +155,6 @@ const drive1AssetBlueprints = [
     name: '전산회계2급',
     type: 'certificate',
     startDate: '2018-10-25',
-  },
-
-  {
-    act_id: '성일정보고등학교',
-    filename: '181030-NCS수리능력경진대회-장려상(3위)_copy.jpg',
-    name: 'NCS수리능력경진대회 장려상(3위)',
-    type: 'award',
-    startDate: '2018-10-30',
   },
 
   {
@@ -197,29 +173,46 @@ const drive1AssetBlueprints = [
     startDate: '2018-11-13',
   },
 
-  {
-    act_id: ['성일정보고등학교', '씽크잡스'],
-    filename: '181116-씽크잡스-콘텐츠리더상_copy.jpg',
-    name: '씽크잡스 콘텐츠리더상',
-    type: 'None',
-    startDate: '2018-11-16',
-  },
 
-  {
-    act_id: '성일정보고등학교',
-    filename: '181228-컴퓨터그래픽_포스터만들기대회-0_copy.jpg',
-    name: '컴퓨터그래픽 포스터만들기대회 0',
-    type: 'None',
-    startDate: '2018-12-28',
-  },
+  // {
+  //   act_id: '성일정보고등학교',
+  //   filename: '181128-0927-00.JPG',
+  //   name: '컴퓨터그래픽 포스터만들기대회 0',
+  //   type: 'None',
+  //   startDate: '2018-11-28',
+  // },
 
-  {
-    act_id: '성일정보고등학교',
-    filename: '181228-컴퓨터그래픽_포스터만들기대회-1_copy.jpg',
-    name: '컴퓨터그래픽 포스터만들기대회 1',
-    type: 'None',
-    startDate: '2018-12-28',
-  },
+  // {
+  //   act_id: '성일정보고등학교',
+  //   filename: '181128-2042-00.JPG',
+  //   name: '컴퓨터그래픽 포스터만들기대회 1',
+  //   type: 'None',
+  //   startDate: '2018-11-28',
+  // },
+
+  // {
+  //   act_id: '성일정보고등학교',
+  //   filename: '181128-2230-00.JPG',
+  //   name: '컴퓨터그래픽 포스터만들기대회 2',
+  //   type: 'None',
+  //   startDate: '2018-11-28',
+  // },
+
+  // {
+  //   act_id: '성일정보고등학교',
+  //   filename: '181128-2230-01.JPG',
+  //   name: '컴퓨터그래픽 포스터만들기대회 3',
+  //   type: 'None',
+  //   startDate: '2018-11-28',
+  // },
+
+  // {
+  //   act_id: '성일정보고등학교',
+  //   filename: '181128-2230-02.JPG',
+  //   name: '컴퓨터그래픽 포스터만들기대회 4',
+  //   type: 'None',
+  //   startDate: '2018-11-28',
+  // },
 
   {
     act_id: '성일정보고등학교',
@@ -250,6 +243,182 @@ const drive1AssetBlueprints = [
     filename: '190107-스크래치대회_copy.jpg',
     name: '스크래치대회',
     type: 'None',
+    startDate: '2019-01-07',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '씽크잡스'],
+    filename: '181116-1358-00.jpeg',
+    name: '드림쉽 콘서트',
+    type: 'None',
+    startDate: '2018-11-16',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '씽크잡스'],
+    filename: '181116-1437-01.jpeg',
+    name: '드림쉽 콘서트',
+    type: 'None',
+    startDate: '2018-11-16',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '씽크잡스'],
+    filename: '181116-1437-00.jpeg',
+    name: '드림쉽 콘서트',
+    type: 'None',
+    startDate: '2018-11-16',
+  },
+  
+  {
+    act_id: ['성일정보고등학교', '씽크잡스'],
+    filename: '181116-1711-00.JPG',
+    name: '드림쉽 콘서트',
+    type: 'None',
+    startDate: '2018-11-16',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '씽크잡스'],
+    filename: '181116-1400-00.jpeg',
+    name: '드림쉽 콘서트',
+    type: 'None',
+    startDate: '2018-11-16',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '씽크잡스'],
+    filename: '180817-씽크잡스-수료증_copy.jpg',
+    name: '씽크잡스 수료증',
+    type: 'certificate',
+    startDate: '2018-08-17',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '씽크잡스'],
+    filename: '180817-씽크잡스-우수상_copy.jpg',
+    name: '씽크잡스 우수상',
+    type: 'award',
+    startDate: '2018-08-17',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '씽크잡스'],
+    filename: '181116-씽크잡스-콘텐츠리더상_copy.jpg',
+    name: '씽크잡스 콘텐츠리더상',
+    type: 'None',
+    startDate: '2018-11-16',
+  },
+
+  // {
+  //   act_id: ['성일정보고등학교', '씽크잡스'],
+  //   filename: '180817-씽크잡스-포트폴리오_copy.jpg',
+  //   name: '씽크잡스 포트폴리오',
+  //   type: 'portfolio',
+  //   startDate: '2018-08-17',
+  // },
+
+  {
+    act_id: ['성일정보고등학교', '심화1팀1기업'],
+    filename: '181114-1303-00.JPG',
+    name: '항공세미나',
+    type: 'None',
+    startDate: '2018-11-14',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '심화1팀1기업'],
+    filename: '181114-1312-00.JPG',
+    name: '항공세미나',
+    type: 'None',
+    startDate: '2018-11-14',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '심화1팀1기업'],
+    filename: '181114-1622-00.JPG',
+    name: '항공세미나',
+    type: 'None',
+    startDate: '2018-11-14',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '심화1팀1기업'],
+    filename: '181114-1628-00.JPG',
+    name: '항공세미나',
+    type: 'None',
+    startDate: '2018-11-14',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '심화1팀1기업'],
+    filename: '181114-1702-00.JPG',
+    name: '항공세미나',
+    type: 'None',
+    startDate: '2018-11-14',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '심화1팀1기업'],
+    filename: '181114-1741-02.JPG',
+    name: '인천국제공항공사 견학',
+    type: 'None',
+    startDate: '2018-11-14',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '심화1팀1기업'],
+    filename: '181114-1741-00.JPG',
+    name: '인천국제공항공사 견학',
+    type: 'None',
+    startDate: '2018-11-14',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '심화1팀1기업'],
+    filename: '181114-1741-01.JPG',
+    name: '인천국제공항공사 견학',
+    type: 'None',
+    startDate: '2018-11-14',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '심화1팀1기업'],
+    filename: '181114-1747-00.JPG',
+    name: '인천국제공항공사 견학',
+    type: 'None',
+    startDate: '2018-11-14',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '심화1팀1기업'],
+    filename: '190107-1305-00.jpeg',
+    name: '심화1팀1기업 최종 강평회 0',
+    type: 'None',
+    startDate: '2019-01-07',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '심화1팀1기업'],
+    filename: '190107-1306-00.jpeg',
+    name: '심화1팀1기업 최종 강평회 1',
+    type: 'None',
+    startDate: '2019-01-07',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '심화1팀1기업'],
+    filename: '190107-1309-00.jpeg',
+    name: '심화1팀1기업 최종 강평회 2',
+    type: 'None',
+    startDate: '2019-01-07',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '심화1팀1기업'],
+    filename: '190107-심화1팀1기업-수료증_copy.jpg',
+    name: '심화1팀1기업 수료증',
+    type: 'certificate',
     startDate: '2019-01-07',
   },
 
@@ -618,14 +787,6 @@ const drive1AssetBlueprints = [
     filename: '190107-심화1팀1기업-결과보고서-9_copy.jpg',
     name: '심화1팀1기업 결과보고서 9',
     type: 'None',
-    startDate: '2019-01-07',
-  },
-
-  {
-    act_id: ['성일정보고등학교', '심화1팀1기업'],
-    filename: '190107-심화1팀1기업-수료증_copy.jpg',
-    name: '심화1팀1기업 수료증',
-    type: 'certificate',
     startDate: '2019-01-07',
   },
 
@@ -1267,7 +1428,7 @@ const drive1AssetBlueprints = [
 
   {
     act_id: ['성일정보고등학교', '기능경기대회', '사진'],
-    filename: '190408-기능경기대회-2.jpg',
+    filename: '190408-기능경기대회-2_copy.jpg',
     name: '기능경기대회 사진 2',
     type: 'photo',
     startDate: '2019-04-08',
@@ -1275,7 +1436,7 @@ const drive1AssetBlueprints = [
 
   {
     act_id: ['성일정보고등학교', '기능경기대회', '사진'],
-    filename: '190408-기능경기대회-1.jpg',
+    filename: '190408-기능경기대회-1_copy.jpg',
     name: '기능경기대회 사진 1',
     type: 'photo',
     startDate: '2019-04-08',
@@ -1594,7 +1755,7 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: '개인',
+    act_id: ['개인', 'KGITBANK'],
     filename: '190503-케이지아이티뱅크-수료증_copy.jpg',
     name: '케이지아이티뱅크 수료증',
     type: 'certificate',
@@ -1631,6 +1792,14 @@ const drive1AssetBlueprints = [
     name: 'SMAT3',
     type: 'certificate',
     startDate: '2019-06-05',
+  },
+
+  {
+    act_id: '성일정보고등학교',
+    filename: '190611-1233-00_copy.JPG',
+    name: '졸업사진 촬영날',
+    type: 'photo',
+    startDate: '2019-06-11',
   },
 
   {
@@ -1699,17 +1868,17 @@ const drive1AssetBlueprints = [
 
   {
     act_id: '성일정보고등학교',
-    filename: '200110-기능상_copy.jpg',
-    name: '기능상',
-    type: 'None',
+    filename: '200110-졸업장_copy.jpg',
+    name: '졸업장',
+    type: 'certificate',
     startDate: '2020-01-10',
   },
 
   {
-    act_id: '성일정보고등학교',
-    filename: '200110-졸업장_copy.jpg',
-    name: '졸업장',
-    type: 'certificate',
+    act_id: ['성일정보고등학교', '기능경기대회'],
+    filename: '200110-기능상_copy.jpg',
+    name: '기능상',
+    type: 'None',
     startDate: '2020-01-10',
   },
 
@@ -2207,7 +2376,7 @@ const drive1AssetBlueprints = [
 
   {
     act_id: 'kdt-addinedu',
-    filename: '250527-1754-00.JPG',
+    filename: '250527-1754-00_copy.JPG',
     name: '수료식 단체사진 01',
     type: 'None',
     startDate: '2025-05-27',
@@ -2215,11 +2384,12 @@ const drive1AssetBlueprints = [
 
   {
     act_id: 'kdt-addinedu',
-    filename: '250527-1810-00.JPG',
+    filename: '250527-1810-00_copy.JPG',
     name: '수료식 단체사진 02',
     type: 'None',
     startDate: '2025-05-27',
   },
+
 ] as const satisfies readonly Drive1AssetBlueprint[];
 
 const buildDrive1Asset = (asset: Drive1AssetBlueprint): Drive1AssetDefinition => ({
