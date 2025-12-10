@@ -80,7 +80,7 @@ const drive1AssetBlueprints = [
     act_id: ['개인', '자격증'],
     filename: '170629-ITQ_copy.jpg',
     name: 'ITQ',
-    type: 'certificate',
+    type: '자격증',
     startDate: '2017-06-29',
     endDate: '2018-11-29',
   },
@@ -153,7 +153,7 @@ const drive1AssetBlueprints = [
     act_id: ['개인', '자격증'],
     filename: '181025-전산회계2급_copy.png',
     name: '전산회계2급',
-    type: 'certificate',
+    type: '자격증',
     startDate: '2018-10-25',
   },
 
@@ -161,7 +161,7 @@ const drive1AssetBlueprints = [
     act_id: ['개인', '자격증'],
     filename: '181111-GTQ-photo_copy.jpg',
     name: 'GTQ 포토샵 1급',
-    type: 'certificate',
+    type: '자격증',
     startDate: '2018-11-11',
   },
 
@@ -169,50 +169,17 @@ const drive1AssetBlueprints = [
     act_id: ['개인', '자격증'],
     filename: '181113-PC정비사2급_copy.jpg',
     name: 'PC정비사 2급',
-    type: 'certificate',
+    type: '자격증',
     startDate: '2018-11-13',
   },
 
-
-  // {
-  //   act_id: '성일정보고등학교',
-  //   filename: '181128-0927-00.JPG',
-  //   name: '컴퓨터그래픽 포스터만들기대회 0',
-  //   type: 'None',
-  //   startDate: '2018-11-28',
-  // },
-
-  // {
-  //   act_id: '성일정보고등학교',
-  //   filename: '181128-2042-00.JPG',
-  //   name: '컴퓨터그래픽 포스터만들기대회 1',
-  //   type: 'None',
-  //   startDate: '2018-11-28',
-  // },
-
-  // {
-  //   act_id: '성일정보고등학교',
-  //   filename: '181128-2230-00.JPG',
-  //   name: '컴퓨터그래픽 포스터만들기대회 2',
-  //   type: 'None',
-  //   startDate: '2018-11-28',
-  // },
-
-  // {
-  //   act_id: '성일정보고등학교',
-  //   filename: '181128-2230-01.JPG',
-  //   name: '컴퓨터그래픽 포스터만들기대회 3',
-  //   type: 'None',
-  //   startDate: '2018-11-28',
-  // },
-
-  // {
-  //   act_id: '성일정보고등학교',
-  //   filename: '181128-2230-02.JPG',
-  //   name: '컴퓨터그래픽 포스터만들기대회 4',
-  //   type: 'None',
-  //   startDate: '2018-11-28',
-  // },
+  {
+    act_id: '성일정보고등학교',
+    filename: '190104-영어UCC-장려상(4위)_copy.jpg',
+    name: '영어UCC 장려상(4위)',
+    type: 'award',
+    startDate: '2019-01-04',
+  },
 
   {
     act_id: '성일정보고등학교',
@@ -224,10 +191,42 @@ const drive1AssetBlueprints = [
 
   {
     act_id: '성일정보고등학교',
-    filename: '190104-영어UCC-장려상(4위)_copy.jpg',
-    name: '영어UCC 장려상(4위)',
-    type: 'award',
-    startDate: '2019-01-04',
+    filename: '181128-0927-00.JPG',
+    name: '컴퓨터그래픽 포스터만들기대회 0',
+    type: 'None',
+    startDate: '2018-11-28',
+  },
+
+  {
+    act_id: '성일정보고등학교',
+    filename: '181128-2042-00.JPG',
+    name: '컴퓨터그래픽 포스터만들기대회 1',
+    type: 'None',
+    startDate: '2018-11-28',
+  },
+
+  {
+    act_id: '성일정보고등학교',
+    filename: '181128-2230-00.JPG',
+    name: '컴퓨터그래픽 포스터만들기대회 2',
+    type: 'None',
+    startDate: '2018-11-28',
+  },
+
+  {
+    act_id: '성일정보고등학교',
+    filename: '181128-2230-01.JPG',
+    name: '컴퓨터그래픽 포스터만들기대회 3',
+    type: 'None',
+    startDate: '2018-11-28',
+  },
+
+  {
+    act_id: '성일정보고등학교',
+    filename: '181128-2230-02.JPG',
+    name: '컴퓨터그래픽 포스터만들기대회 4',
+    type: 'None',
+    startDate: '2018-11-28',
   },
 
   {
@@ -290,7 +289,7 @@ const drive1AssetBlueprints = [
     act_id: ['성일정보고등학교', '씽크잡스'],
     filename: '180817-씽크잡스-수료증_copy.jpg',
     name: '씽크잡스 수료증',
-    type: 'certificate',
+    type: '수료증',
     startDate: '2018-08-17',
   },
 
@@ -306,7 +305,7 @@ const drive1AssetBlueprints = [
     act_id: ['성일정보고등학교', '씽크잡스'],
     filename: '181116-씽크잡스-콘텐츠리더상_copy.jpg',
     name: '씽크잡스 콘텐츠리더상',
-    type: 'None',
+    type: 'award',
     startDate: '2018-11-16',
   },
 
@@ -418,7 +417,7 @@ const drive1AssetBlueprints = [
     act_id: ['성일정보고등학교', '심화1팀1기업'],
     filename: '190107-심화1팀1기업-수료증_copy.jpg',
     name: '심화1팀1기업 수료증',
-    type: 'certificate',
+    type: '수료증',
     startDate: '2019-01-07',
   },
 
@@ -794,7 +793,7 @@ const drive1AssetBlueprints = [
     act_id: ['개인', '자격증'],
     filename: '190111-SWCD3_copy.jpg',
     name: 'SWCD 3급',
-    type: 'certificate',
+    type: '자격증',
     startDate: '2019-01-11',
   },
 
@@ -802,7 +801,7 @@ const drive1AssetBlueprints = [
     act_id: ['개인', '자격증'],
     filename: '190305-네트워크관리사2급_copy.jpg',
     name: '네트워크관리사 2급',
-    type: 'certificate',
+    type: '자격증',
     startDate: '2019-03-05',
   },
 
@@ -1428,7 +1427,15 @@ const drive1AssetBlueprints = [
 
   {
     act_id: ['성일정보고등학교', '기능경기대회', '사진'],
-    filename: '190408-기능경기대회-2_copy.jpg',
+    filename: '190408-기능경기대회-6 copy.jpg',
+    name: '기능경기대회 사진 1',
+    type: 'photo',
+    startDate: '2019-04-08',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '기능경기대회', '사진'],
+    filename: '190408-기능경기대회-5 copy.jpg',
     name: '기능경기대회 사진 2',
     type: 'photo',
     startDate: '2019-04-08',
@@ -1436,8 +1443,24 @@ const drive1AssetBlueprints = [
 
   {
     act_id: ['성일정보고등학교', '기능경기대회', '사진'],
-    filename: '190408-기능경기대회-1_copy.jpg',
-    name: '기능경기대회 사진 1',
+    filename: '190408-기능경기대회-4 copy.jpg',
+    name: '기능경기대회 사진 3',
+    type: 'photo',
+    startDate: '2019-04-08',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '기능경기대회', '사진'],
+    filename: '190411(20190507_134101).jpg',
+    name: '기능경기대회 사진 4',
+    type: 'photo',
+    startDate: '2019-04-08',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '기능경기대회', '사진'],
+    filename: '190416-1152-00-기능경기대회-현수막 copy.JPG',
+    name: '기능경기대회 사진 5',
     type: 'photo',
     startDate: '2019-04-08',
   },
@@ -1758,7 +1781,7 @@ const drive1AssetBlueprints = [
     act_id: ['개인', 'KGITBANK'],
     filename: '190503-케이지아이티뱅크-수료증_copy.jpg',
     name: '케이지아이티뱅크 수료증',
-    type: 'certificate',
+    type: '수료증 ',
     startDate: '2019-05-03',
   },
 
@@ -1790,7 +1813,7 @@ const drive1AssetBlueprints = [
     act_id: ['개인', '자격증'],
     filename: '190605-SMAT3_copy.jpg',
     name: 'SMAT3',
-    type: 'certificate',
+    type: '자격증',
     startDate: '2019-06-05',
   },
 
@@ -1814,7 +1837,7 @@ const drive1AssetBlueprints = [
     act_id: ['개인', '자격증'],
     filename: '190718-정보처리기능사_copy.jpg',
     name: '정보처리기능사',
-    type: 'certificate',
+    type: '자격증',
     startDate: '2019-07-18',
   },
 
@@ -1822,7 +1845,7 @@ const drive1AssetBlueprints = [
     act_id: ['개인', '자격증'],
     filename: '190807-전자상거래운용사_copy.jpg',
     name: '전자상거래운용사',
-    type: 'certificate',
+    type: '자격증',
     startDate: '2019-07-18',
   },
 
@@ -1830,8 +1853,40 @@ const drive1AssetBlueprints = [
     act_id: ['개인', '자격증'],
     filename: 'CCNA_자격_인증.jpg',
     name: 'CCNA',
-    type: 'certificate',
-    startDate: '2019-08-30',
+    type: '자격증',
+    startDate: '2019-08-14',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '동아리', 'IT네트워크동아리'],
+    filename: '190828-1117-00.jpeg',
+    name: 'IT네트워크동아리 1',
+    type: '활동',
+    startDate: '2019-08-28',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '동아리', 'IT네트워크동아리'],
+    filename: '190828-중소기업 기술보호를 위한 모의 해킹 체험(IT네트워크동아리)-1 copy.jpg',
+    name: 'IT네트워크동아리 2',
+    type: '활동',
+    startDate: '2019-08-28',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '동아리', 'IT네트워크동아리'],
+    filename: '190828-중소기업 기술보호를 위한 모의 해킹 체험(IT네트워크동아리)-2 copy.jpg',
+    name: 'IT네트워크동아리 3',
+    type: '활동',
+    startDate: '2019-08-28',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '동아리', 'IT네트워크동아리'],
+    filename: '190828-중소기업 기술보호를 위한 모의 해킹 체험(IT네트워크동아리)-3 copy.jpg',
+    name: 'IT네트워크동아리 4',
+    type: '활동',
+    startDate: '2019-08-28',
   },
 
   {
@@ -1854,7 +1909,7 @@ const drive1AssetBlueprints = [
     act_id: ['성일정보고등학교', '성남일자리센터', '성남시장'],
     filename: '191101-특성화고맞춤형교육-수료증_copy.jpg',
     name: '특성화고맞춤형교육 수료증',
-    type: 'certificate',
+    type: '수료증',
     startDate: '2019-11-01',
   },
 
@@ -1870,7 +1925,7 @@ const drive1AssetBlueprints = [
     act_id: '성일정보고등학교',
     filename: '200110-졸업장_copy.jpg',
     name: '졸업장',
-    type: 'certificate',
+    type: '수료증',
     startDate: '2020-01-10',
   },
 
@@ -1886,7 +1941,7 @@ const drive1AssetBlueprints = [
     act_id: ['개인', '자격증'],
     filename: '200117-GTQ-il_copy.jpg',
     name: 'GTQ 일러스트레이터',
-    type: 'certificate',
+    type: '자격증',
     startDate: '2020-01-17',
   },
 
@@ -1910,7 +1965,7 @@ const drive1AssetBlueprints = [
     act_id: ['개인', '자격증'],
     filename: '201113-컴활1급_copy.jpg',
     name: '컴활1급',
-    type: 'certificate',
+    type: '자격증',
     startDate: '2020-11-13',
   },
 
@@ -2222,7 +2277,7 @@ const drive1AssetBlueprints = [
     act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
     filename: '210604-산학협력공동교육캠프-수료증_copy.jpg',
     name: '산학협력공동교육캠프 수료증',
-    type: 'certificate',
+    type: '수료증',
     startDate: '2021-06-04',
   },
 
@@ -2263,7 +2318,7 @@ const drive1AssetBlueprints = [
     act_id: ['개인', '자격증'],
     filename: '220215-운전면허증1종보통_copy.jpg',
     name: '운전면허증 1종보통',
-    type: 'certificate',
+    type: '자격증',
     startDate: '2022-02-15',
   },
 
@@ -2303,7 +2358,7 @@ const drive1AssetBlueprints = [
     act_id: '2022-OSSCA',
     filename: '22 OSSCA Challenges 수료증_245_김연우_copy.jpg',
     name: 'Challenges 수료증',
-    type: 'certificate',
+    type: '수료증',
     startDate: '2022-08-10',
   },
 
@@ -2311,7 +2366,7 @@ const drive1AssetBlueprints = [
     act_id: '2022-OSSCA',
     filename: '22 오픈소스 컨트리뷰션 아카데미 수료증_RustPython_김연우_copy.jpg',
     name: '수료증',
-    type: 'certificate',
+    type: '수료증',
     startDate: '2022-10-14',
   },
 
@@ -2360,7 +2415,7 @@ const drive1AssetBlueprints = [
     act_id: 'kdt-addinedu',
     filename: '250527-애드인에듀-수료증_copy.jpg',
     name: '수료증',
-    type: 'certificate',
+    type: '수료증',
     startDate: '2023-05-27',
     description: '애드인에듀 아카데미 구로가산센터장',
   },

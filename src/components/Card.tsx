@@ -47,16 +47,16 @@ export default function Card({ item, index }: CardProps) {
         <div
           className={`activity-title-container ${hasThumbnail ? 'has-thumbnail' : 'no-thumbnail'}`}
         >
+        </div>
+        <div className="activity-content">
           <h3 className="activity-title">
             {item.frontMatter.title}
           </h3>
-        </div>
-        <div className="activity-content">
           <div className="activity-meta">
             <time className="activity-date">
               {activityDate}
             </time>
-            <TagList tags={item.frontMatter.tags} className="activity-tags single-line" />
+            {/* <TagList tags={item.frontMatter.tags} className="activity-tags single-line" /> */}
           </div>
         </div>
       </article>
