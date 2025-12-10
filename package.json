@@ -19,7 +19,7 @@
     "@types/mdx": "^2.0.13",
     "@vercel/analytics": "^1.5.0",
     "deepmerge-ts": "^7.1.5",
-    "next": "15.5.2",
+    "next": "^15.5.7",
     "next-mdx-remote": "^5.0.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
@@ -34,8 +34,11 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.5.2",
+    "eslint-config-next": "^15.5.7",
     "tsx": "^4.19.2",
     "typescript": "^5"
+  },
+  "overrides": {
+    "mdast-util-to-hast": "13.2.1"
   }
 }
