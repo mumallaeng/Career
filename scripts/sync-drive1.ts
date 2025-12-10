@@ -8,6 +8,7 @@ import {
   mkdir,
   readdir,
   rm,
+  rename,
   stat,
   symlink,
   writeFile,
@@ -150,6 +151,47 @@ async function ensureLocalRootSymlinks(): Promise<boolean> {
   return true;
 }
 
+async function ensureNfcLocalAssets(): Promise<void> {
+  if (!localRoot) {
+    return;
+  }
+
+  for (const asset of assets) {
+    const targetSegments = asset.remotePath.split('/').map(segment => normalizeToNfc(segment));
+    const targetPath = path.join(localRoot, ...targetSegments);
+
+    const candidates = new Set<string>();
+    getNormalizationVariants(asset.remotePath).forEach(variant => {
+      candidates.add(path.join(localRoot, ...variant.split('/')));
+    });
+
+    let existingPath: string | null = null;
+    for (const candidate of candidates) {
+      if (await fileExists(candidate)) {
+        existingPath = candidate;
+        break;
+      }
+    }
+
+    if (!existingPath) {
+      continue;
+    }
+
+    if (existingPath === targetPath) {
+      continue;
+    }
+
+    if (await fileExists(targetPath)) {
+      console.info(`NFC target already exists; skipping rename: ${targetPath}`);
+      continue;
+    }
+
+    await mkdir(path.dirname(targetPath), { recursive: true });
+    await rename(existingPath, targetPath);
+    console.info(`Normalized to NFC: ${existingPath} -> ${targetPath}`);
+  }
+}
+
 function buildRemoteSpec(remotePath: string): string {
   return remotePath.includes(':') ? remotePath : `${remoteBase}${remotePath}`;
 }
@@ -170,11 +212,19 @@ function getNormalizationVariants(value: string): string[] {
   return Array.from(variants);
 }
 
+function normalizeToNfc(value: string): string {
+  try {
+    return value.normalize('NFC');
+  } catch {
+    return value;
+  }
+}
+
 function isDirectoryNotFoundError(error: unknown): boolean {
   if (!(error instanceof Error)) {
     return false;
   }
-  return /directory not found/i.test(error.message);
+  return /directory not found/i.test(error.message) || /found file when looking for folder/i.test(error.message);
 }
 
 function copyRemoteAssetWithVariants(rcloneBinary: string, remotePath: string, destination: string) {
@@ -463,6 +513,7 @@ function removeRemotePathIfExists(rcloneBinary: string, remotePath: string) {
 
 async function main() {
   try {
+    await ensureNfcLocalAssets();
     const usingLocalRoot = await ensureLocalRootSymlinks();
     const usingLegacySource = !usingLocalRoot && (await ensureLegacySymlink());
 

@@ -35,6 +35,22 @@ export type Drive1AssetDefinition = Drive1AssetBlueprint & {
   publicPath: string;
 };
 
+function getNormalizationVariants(value: string): string[] {
+  const variants = new Set<string>();
+  variants.add(value);
+  try {
+    variants.add(value.normalize('NFC'));
+  } catch {
+    // ignore
+  }
+  try {
+    variants.add(value.normalize('NFD'));
+  } catch {
+    // ignore
+  }
+  return Array.from(variants);
+}
+
 const drive1AssetBlueprints = [
   {
     act_id: '네임컴작명연구소',
@@ -357,6 +373,21 @@ const drive1AssetBlueprints = [
     startDate: '2018-11-14',
   },
 
+  {
+    act_id: ['성일정보고등학교', '심화1팀1기업'],
+    filename: '181114-1702-01 copy.JPG',
+    name: '항공세미나',
+    type: 'None',
+    startDate: '2018-11-14',
+  },
+
+  {
+    act_id: ['성일정보고등학교', '심화1팀1기업'],
+    filename: '181114-1702-02 copy.JPG',
+    name: '항공세미나',
+    type: 'None',
+    startDate: '2018-11-14',
+  },
   {
     act_id: ['성일정보고등학교', '심화1팀1기업'],
     filename: '181114-1741-02.JPG',
@@ -1945,6 +1976,13 @@ const drive1AssetBlueprints = [
     type: '자격증',
     startDate: '2020-01-17',
   },
+  {
+    act_id: ['인하공업전문대학', '학점은행제'],
+    filename: '인하공전_학점은행제.png',
+    name: '인하공전 및 학점은행제 로고',
+    type: 'thumbnail',
+    startDate: '2020-03-02',
+  },
 
   {
     act_id: ['아르바이트', '뉴스킨'],
@@ -2465,7 +2503,9 @@ export const drive1AssetMap = drive1Assets.reduce((map, asset) => {
 }, {} as Record<string, Drive1AssetDefinition>);
 
 const drive1AssetFilenameMap = drive1Assets.reduce((map, asset) => {
-  map[asset.filename.trim().toLowerCase()] = asset;
+  getNormalizationVariants(asset.filename).forEach(variant => {
+    map[variant.trim().toLowerCase()] = asset;
+  });
   return map;
 }, {} as Record<string, Drive1AssetDefinition>);
 
