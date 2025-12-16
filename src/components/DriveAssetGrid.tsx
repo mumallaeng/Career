@@ -1,10 +1,15 @@
 import type { CSSProperties } from 'react';
 
 import { ImgTag } from '@/components/MDXRenderer';
-import { getDrive1AssetsByActId } from '@/data/drive1-assets';
+import { drive1Assets, getDrive1AssetsByActId } from '@/data/drive1-assets';
+
+function normalizeQuery(query: string | undefined): string | undefined {
+  return query?.trim().toLowerCase();
+}
 
 type DriveAssetGridProps = {
-  actId: string;
+  actId?: string;
+  name?: string;
   className?: string;
   start?: number;
   end?: number;
@@ -16,8 +21,19 @@ function normalizeIndex(index: number, length: number): number {
   return Math.max(length + index, 0);
 }
 
-export default function DriveAssetGrid({ actId, className, start, end, layout }: DriveAssetGridProps) {
-  let assets = getDrive1AssetsByActId(actId);
+export default function DriveAssetGrid({ actId, name, className, start, end, layout }: DriveAssetGridProps) {
+  const normalizedActId = normalizeQuery(actId);
+  const normalizedName = normalizeQuery(name);
+
+  let assets: ReturnType<typeof getDrive1AssetsByActId> = [];
+
+  if (normalizedActId) {
+    assets = getDrive1AssetsByActId(actId!);
+  }
+
+  if ((assets.length === 0 || !normalizedActId) && normalizedName) {
+    assets = drive1Assets.filter(asset => normalizeQuery(asset.name)?.includes(normalizedName));
+  }
 
   if (start !== undefined || end !== undefined) {
     const length = assets.length;

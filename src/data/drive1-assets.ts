@@ -2442,6 +2442,54 @@ const drive1AssetBlueprints = [
   },
 
   {
+    act_id: ['학점은행제', '학사'],
+    filename: '김연우-영문-학위증명서-202512111236.jpg',
+    name: '학점은행제 학위증명서(영문)',
+    type: 'None',
+    startDate: '2023-01-18',
+  },
+
+  // {
+  //   act_id: ['학점은행제', '학사'],
+  //   filename: '김연우-영문-성적증명서-20251216????.jpg',
+  //   name: '학점은행제 성적증명서(영문)',
+  //   type: 'None',
+  //   startDate: '2023-01-18',
+  // },
+
+  {
+    act_id: ['인하공업전문대학', '학사'],
+    filename: 'inha_technical_college_Transcript.jpg',
+    name: '인하공업전문대학 성적증명서(영문)',
+    type: 'None',
+    startDate: '2020-03-02',
+  },
+
+  {
+    act_id: ['학점은행제', '학사'],
+    filename: '김연우-국문-학위증명서-202512111235.jpg',
+    name: '학점은행제 학위증명서(국문)',
+    type: 'None',
+    startDate: '2023-01-18',
+  },
+
+  {
+    act_id: ['학점은행제', '학사'],
+    filename: '김연우-국문-성적증명서-202512111238.jpg',
+    name: '학점은행제 성적증명서(국문)',
+    type: 'None',
+    startDate: '2023-01-18',
+  },
+
+  {
+    act_id: ['인하공업전문대학', '학사'],
+    filename: '인하공업전문대학_성적증명서.jpg',
+    name: '인하공업전문대학 성적증명서(국문)',
+    type: 'None',
+    startDate: '2020-03-02',
+  },
+
+  {
     act_id: 'kdt-addinedu',
     filename: '250527-애드인에듀-공로상_copy.jpg',
     name: '공로상',
