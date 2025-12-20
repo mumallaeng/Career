@@ -2065,6 +2065,30 @@ const drive1AssetBlueprints = [
   },
 
   {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모'],
+    filename: 'USAMO.png',
+    name: 'USAMO 로고',
+    type: 'None',
+    startDate: '2021-06-01',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '인공지능빅데이터센터', '근로장학생'],
+    filename: 'C-AI-D.png',
+    name: '인공지능 빅데이터 센터 로고',
+    type: 'None',
+    startDate: '2021-06-01',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '인공지능빅데이터센터', '근로장학생'],
+    filename: '국가근로장학금-근로내역증명서-최종.jpg',
+    name: '인공지능 빅데이터 센터 근로장학생 근로내역증명서(주민번호 뒷자리 가림)',
+    type: 'None',
+    startDate: '2021-06-01',
+  },
+
+  {
     act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
     filename: '210603-산학협력공동교육캠프-0_copy.jpg',
     name: '산학협력공동교육캠프 0',
@@ -2434,7 +2458,23 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '교사연수', '인천시교육청', '인천시교사연수'],
+    act_id: ['IT4U', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: 'USAMO-9.jpeg',
+    name: 'IT4U',
+    type: 'None',
+    startDate: '2021-07-06',
+  },
+
+  {
+    act_id: ['IT4U', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: 'USAMO-10.jpeg',
+    name: 'IT4U',
+    type: 'None',
+    startDate: '2021-07-06',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '교사연수', '인천시교육청', '인천시교사연수', '인천교사연수21하계'],
     filename: '210726-교사연수-0.png',
     name: '인천시 교육청 교사연수 0',
     type: 'None',
@@ -2443,7 +2483,7 @@ const drive1AssetBlueprints = [
 
 
   {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '교사연수', '인천시교육청', '인천시교사연수'],
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '교사연수', '인천시교육청', '인천시교사연수', '인천교사연수21하계'],
     filename: '210802-0907-00.jpg',
     name: '인천시 교육청 교사연수 1',
     type: 'None',
@@ -2516,6 +2556,15 @@ const drive1AssetBlueprints = [
 
   {
     act_id: ['공학페스티벌', '창의적종합설계경진대회', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '21-공학페스티벌-경진대회-참가인증서.jpg',
+    name: '창의적종합설계경진대회 참가인증서',
+    type: 'award',
+    startDate: '2021-11-12',
+    description: '대한상공회의소'
+  },
+
+  {
+    act_id: ['공학페스티벌', '창의적종합설계경진대회', '인하공업전문대학', 'USAMO', '유사모'],
     filename: '211104-창의적종합설계경진대회-동상.png',
     name: '창의적종합설계경진대회 동상',
     type: 'None',
@@ -2525,18 +2574,276 @@ const drive1AssetBlueprints = [
   {
     act_id: ['공학페스티벌', '창의적종합설계경진대회', '인하공업전문대학', 'USAMO', '유사모'],
     filename: '211112-창의적종합설계경진대회-상장_copy.jpg',
-    name: '창의적종합설계경진대회 상장',
+    name: '창의적종합설계경진대회 특별상',
     type: 'award',
     startDate: '2021-11-12',
     description: '대한상공회의소'
   },
 
   {
-    act_id: ['M&A경진대회', '인하공업전문대학', 'USAMO', '유사모'],
+    act_id: ['공학페스티벌', '창의적종합설계경진대회', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: 'USAMO-26.jpeg',
+    name: '창의적종합설계경진대회 특별상 목록',
+    type: 'award',
+    startDate: '2021-11-12',
+  },
+
+  {
+    act_id: ['공학페스티벌', '창의적종합설계경진대회', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '창의공학경진대회 시연영상.mp4',
+    name: '창의적종합설계경진대회 시연영상',
+    type: 'award',
+    startDate: '2021-11-12',
+    description: '대한상공회의소'
+  },
+
+  {
+    act_id: ['공학페스티벌', '창의적종합설계경진대회', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '창의공학경진대회 발표영상.mp4',
+    name: '창의적종합설계경진대회 발표',
+    type: 'award',
+    startDate: '2021-11-12',
+    description: '대한상공회의소'
+  },
+
+  {
+    act_id: ['해커톤', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '211029-1232-01.jpg',
+    name: '해커톤',
+    type: 'None',
+    startDate: '2021-10-29',
+  },
+  
+  {
+    act_id: ['해커톤', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '211030-0006-01.jpg',
+    name: '해커톤',
+    type: 'None',
+    startDate: '2021-10-30',
+  },
+
+  {
+    act_id: ['해커톤', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '211030-1932-01.jpg',
+    name: '해커톤',
+    type: 'None',
+    startDate: '2021-10-30',
+  },
+
+  {
+    act_id: ['해커톤', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '211031-1300-00.jpg',
+    name: '해커톤',
+    type: 'None',
+    startDate: '2021-10-31',
+  },
+
+  {
+    act_id: ['해커톤', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '211031-1638-00.jpg',
+    name: '해커톤',
+    type: 'None',
+    startDate: '2021-10-31',
+  },
+
+  {
+    act_id: ['해커톤', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '해커톤_PPT_감속기 기어 이상_AYE8Tt.mp4',
+    name: '해커톤',
+    type: 'None',
+    startDate: '2021-10-31',
+  },
+
+  {
+    act_id: ['해커톤', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '해커톤_PPT_전동기 기어 이상_E5a2ZH.mp4',
+    name: '해커톤',
+    type: 'None',
+    startDate: '2021-10-31',
+  },
+
+  {
+    act_id: ['해커톤', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '해커톤_PPT_정상_KH2RZq.mp4',
+    name: '해커톤',
+    type: 'None',
+    startDate: '2021-10-31',
+  },
+
+  {
+    act_id: ['세미나', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: 'USAMO-15.jpeg',
+    name: '대학원-세미나',
+    type: 'None',
+    startDate: '2021-11-01',
+  },
+
+  {
+    act_id: ['세미나', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: 'USAMO-16.jpeg',
+    name: '대학원-세미나',
+    type: 'None',
+    startDate: '2021-11-01',
+  },
+
+  {
+    act_id: ['세미나', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: 'USAMO-17.jpeg',
+    name: '대학원-세미나',
+    type: 'None',
+    startDate: '2021-11-01',
+  },
+
+  {
+    act_id: ['세미나', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: 'USAMO-18.jpeg',
+    name: '대학원-세미나',
+    type: 'None',
+    startDate: '2021-11-01',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '교사연수', '전라남도교육청', '전라남도교사연수'],
+    filename: '211106-전라남도교육청-교사연수.png',
+    name: '전라남도 교육청 교사연수',
+    type: 'None',
+    startDate: '2021-11-06',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '교사연수', '전라남도교육청', '전라남도교사연수'],
+    filename: 'USAMO-19.jpeg',
+    name: '전라남도 교육청 교사연수',
+    type: 'None',
+    startDate: '2021-11-06',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '교사연수', '전라남도교육청', '전라남도교사연수', '전라남도교사연수21동계'],
+    filename: 'USAMO-22.jpeg',
+    name: '전라남도 교육청 교사연수',
+    type: 'None',
+    startDate: '2021-11-06',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '교사연수', '전라남도교육청', '전라남도교사연수', '전라남도교사연수21동계'],
+    filename: '211106-1651-00.jpg',
+    name: '전라남도 교육청 교사연수',
+    type: 'None',
+    startDate: '2021-11-06',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '서버세미나'],
+    filename: 'USAMO-23.jpeg',
+    name: '서버세미나',
+    type: 'None',
+    startDate: '2021-11-12',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '서버세미나'],
+    filename: 'USAMO-24.jpeg',
+    name: '서버세미나',
+    type: 'None',
+    startDate: '2021-11-12',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '서버세미나'],
+    filename: 'USAMO-25.jpeg',
+    name: '서버세미나',
+    type: 'None',
+    startDate: '2021-11-12',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강'],
+    filename: 'USAMO-20.jpeg',
+    name: '교수님_특강',
+    type: 'None',
+    startDate: '2021-12-06',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강'],
+    filename: 'USAMO-21.jpeg',
+    name: '교수님_특강',
+    type: 'None',
+    startDate: '2021-12-06',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강'],
+    filename: 'USAMO-31.jpeg',
+    name: '한백전자 특강',
+    type: 'None',
+    startDate: '2021-11-17',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강'],
+    filename: 'USAMO-32.jpeg',
+    name: '한백전자 특강',
+    type: 'None',
+    startDate: '2021-11-17',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강'],
+    filename: 'USAMO-33.jpeg',
+    name: '한백전자 특강',
+    type: 'None',
+    startDate: '2021-11-17',
+  },
+  
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강'],
+    filename: 'USAMO-34.jpeg',
+    name: '한백전자 특강',
+    type: 'None',
+    startDate: '2021-11-17',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강'],
+    filename: 'USAMO-36.jpeg',
+    name: '한백전자 특강',
+    type: 'None',
+    startDate: '2021-11-17',
+  },
+
+  {
+    act_id: ['M&A경진대회', '인하공업전문대학'],
+    filename: 'M&A경진대회-발표영상.mp4',
+    name: 'M&A경진대회',
+    type: 'None',
+    startDate: '2021-12-13',
+  },
+
+  {
+    act_id: ['M&A경진대회', '인하공업전문대학'],
     filename: '211213-인하공전-M&A경진대회-은상_copy.jpg',
     name: '인하공전 M&A경진대회 은상',
     type: 'None',
     startDate: '2021-12-13',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '서비스학부예제'],
+    filename: 'USAMO-54.jpeg',
+    name: '서비스학부 예제 제작',
+    type: 'None',
+    startDate: '2022-01-04',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '인천시교사연수22동계'],
+    filename: 'USAMO-50.jpeg',
+    name: '인천시교사연수22동계',
+    type: 'None',
+    startDate: '2022-01-21',
   },
 
   {
