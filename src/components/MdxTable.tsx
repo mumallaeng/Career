@@ -6,14 +6,23 @@ interface MdxTableProps {
   children?: ReactNode;
 }
 
-const isTableElement = (node: ReactNode): node is ReactElement =>
-  React.isValidElement(node) && node.type === 'table';
+type ElementWithChildren = ReactElement<{ children?: ReactNode }>;
 
-const normalizeCells = (row: ReactElement, rowIndex: number): ReactElement => {
+const hasChildrenProp = (props: unknown): props is { children?: ReactNode } =>
+  typeof props === 'object' && props !== null && 'children' in props;
+
+const isElementWithChildren = (node: ReactNode): node is ElementWithChildren =>
+  React.isValidElement(node) && hasChildrenProp(node.props);
+
+const isTableElement = (node: ReactNode): node is ElementWithChildren =>
+  isElementWithChildren(node) && node.type === 'table';
+
+const normalizeCells = (row: ElementWithChildren, rowIndex: number): ElementWithChildren => {
   const cells = React.Children.toArray(row.props.children);
   const normalized = cells.map((cell, cellIndex) => {
     if (React.isValidElement(cell) && cell.type === 'th') {
-      return React.createElement('td', { ...cell.props, key: cellIndex }, cell.props.children);
+      const cellElement = cell as ElementWithChildren;
+      return React.createElement('td', { key: cellIndex }, cellElement.props.children);
     }
     if (React.isValidElement(cell)) {
       return React.cloneElement(cell, { key: cellIndex });
@@ -24,16 +33,16 @@ const normalizeCells = (row: ReactElement, rowIndex: number): ReactElement => {
   return React.cloneElement(row, { key: rowIndex }, normalized);
 };
 
-const extractRows = (section: ReactElement): ReactElement[] =>
+const extractRows = (section: ElementWithChildren): ElementWithChildren[] =>
   React.Children.toArray(section.props.children)
-    .filter((child): child is ReactElement => React.isValidElement(child))
+    .filter((child): child is ElementWithChildren => isElementWithChildren(child))
     .map((row, index) => normalizeCells(row, index));
 
-const transformTableForColumnHead = (table: ReactElement): ReactElement => {
+const transformTableForColumnHead = (table: ElementWithChildren): ElementWithChildren => {
   const tableChildren = React.Children.toArray(table.props.children);
   const otherChildren: ReactNode[] = [];
-  let theadRows: ReactElement[] = [];
-  let tbodyRows: ReactElement[] = [];
+  let theadRows: ElementWithChildren[] = [];
+  let tbodyRows: ElementWithChildren[] = [];
 
   tableChildren.forEach((child) => {
     if (!React.isValidElement(child)) {
@@ -41,12 +50,12 @@ const transformTableForColumnHead = (table: ReactElement): ReactElement => {
       return;
     }
 
-    if (child.type === 'thead') {
+    if (child.type === 'thead' && isElementWithChildren(child)) {
       theadRows = extractRows(child);
       return;
     }
 
-    if (child.type === 'tbody') {
+    if (child.type === 'tbody' && isElementWithChildren(child)) {
       tbodyRows = extractRows(child);
       return;
     }

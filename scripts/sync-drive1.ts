@@ -5,6 +5,7 @@ import {
   chmod,
   constants as fsConstants,
   copyFile,
+  lstat,
   mkdir,
   readdir,
   rm,
@@ -139,8 +140,19 @@ async function ensureLocalRootSymlinks(): Promise<boolean> {
   }
 
   for (const asset of assets) {
-    const sourcePath = await resolveLocalAssetPath(asset);
+    let sourcePath: string;
+    try {
+      sourcePath = await resolveLocalAssetPath(asset);
+    } catch (error) {
+      console.warn(`Skipping missing local asset: ${asset.remotePath} (${(error as Error).message})`);
+      continue;
+    }
     const destinationPath = path.join(publicRoot, asset.publicPath.replace(/^\//, ''));
+
+    if (!(await fileExists(sourcePath))) {
+      console.warn(`Skipping local asset (source missing): ${sourcePath}`);
+      continue;
+    }
 
     await mkdir(path.dirname(destinationPath), { recursive: true });
     await rm(destinationPath, { force: true });
@@ -148,7 +160,47 @@ async function ensureLocalRootSymlinks(): Promise<boolean> {
     console.info(`Linked ${asset.filename} -> ${destinationPath}`);
   }
 
+  for (const asset of assets) {
+    const destinationPath = path.join(publicRoot, asset.publicPath.replace(/^\//, ''));
+    try {
+      const stats = await lstat(destinationPath);
+      if (!stats.isSymbolicLink()) {
+        continue;
+      }
+      await stat(destinationPath);
+    } catch {
+      await rm(destinationPath, { force: true });
+      console.warn(`Removed broken symlink: ${destinationPath}`);
+    }
+  }
+
   return true;
+}
+
+async function removeBrokenSymlinks(rootDir: string): Promise<void> {
+  if (!(await pathExists(rootDir))) {
+    return;
+  }
+
+  const entries = await readdir(rootDir, { withFileTypes: true });
+  for (const entry of entries) {
+    const entryPath = path.join(rootDir, entry.name);
+    if (entry.isDirectory()) {
+      await removeBrokenSymlinks(entryPath);
+      continue;
+    }
+
+    if (!entry.isSymbolicLink()) {
+      continue;
+    }
+
+    try {
+      await stat(entryPath);
+    } catch {
+      await rm(entryPath, { force: true });
+      console.warn(`Removed broken symlink: ${entryPath}`);
+    }
+  }
 }
 
 async function ensureNfcLocalAssets(): Promise<void> {
@@ -525,6 +577,8 @@ async function main() {
       console.info('No remote operations required.');
       return;
     }
+
+    await removeBrokenSymlinks(path.join(publicRoot, 'import-data'));
 
     await ensureRcloneConfig();
     const rcloneBinary = await ensureRcloneBinary();

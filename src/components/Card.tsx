@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { Content } from '@/types/content';
 import { formatActivityDate } from '@/lib/utils/date';
-import TagList from '@/components/TagList';
 
 interface CardProps {
   item: Content;
