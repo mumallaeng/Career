@@ -3,7 +3,7 @@ title: "AI 교육용 Python 블록 프로그래밍 웹 플랫폼"
 startDate: 2021-08-01T00:00:00+09:00
 endDate: 2022-02-28T00:00:00+09:00
 draft: false
-
+thumbnail: "block-coding(codeb).png"
 tags: ["python", "education", "visual-programming", "pyodide", "webassembly", "ai-education"]
 categories: ["프로젝트"]
 featured: true
@@ -11,31 +11,56 @@ type: "팀 프로젝트"
 content_type: "project"
 ---
 
-*상업용으로 사용되어 **코드 공개가 불가능**합니다.*
-
-인하공업전문대학 전공 동아리 USAMO에서 진행한 프로젝트입니다.
-기존에 선배님들께서 개발해오신 플랫폼을 유지보수하고, 새로운 기능을 개발하는 역할을 맡았습니다.
-해당 플랫폼은 목적에 따라 DIY, CodeB, PyoT 등 여러 버전이 존재합니다. 
-교내 과목뿐만 아니라 K-MOOC, 인천시 교육청 교사연수 등의 실제 교육에 사용되었습니다. 
+import DriveAssetGrid from '@/components/DriveAssetGrid';
 
 {/* more */}
- 
+
+> 상업용으로 사용되어 *코드 공개가 불가능*합니다.
+
+인하공업전문대학 전공 동아리 USAMO에서 진행한 프로젝트입니다. \
+기존에 선배님들께서 개발해오신 플랫폼을 유지보수하고, 새로운 기능을 개발하는 역할을 맡았습니다. \
+해당 플랫폼은 목적에 따라 DIY, CodeB, PyoT 등 여러 버전이 존재합니다. \
+교내 과목뿐만 아니라 K-MOOC, 인천시 교육청 교사연수 등의 실제 교육에 사용되었습니다. \
+
+
 ## 프로젝트 개요
-- **기간**: 2021.08 ~ 2022.02 (7개월)
-- **역할**: 플랫폼 유지보수 및 기능 개발
 
-## 사용 도구
-- **언어**: Python, HTML, CSS, JavaScript
-- **런타임**: **Node.js**
-- **라이브러리**: Pyodide, Blockly 등
-- **데이터베이스**: Oracle RDBMS
-- **버전관리**: Git, GitHub
-- **협업**: Notion, Discord 등
+**기간**: 2021.08 ~ 2022.02 (7개월)
 
+**기술 스택**
 
+| 분류             | 기술 요소 |
+|------------------|---------------------------------|
+| 언어            | Python, HTML, CSS, JavaScript |
+| 런타임 | Node.js |
+| 라이브러리 및 프레임워크 | Express, Pyodide, Blockly 등 |
+| 데이터베이스 | Oracle |
+| 버전관리 및 협업 도구 | Git, GitHub, Notion, Discord |
 
-## 주요 작업 내용
+### 논문 작성 및 제출
 
+한국컴퓨터정보학회와 인공지능교육학회의 동계학술대회에 논문을 작성하여 제출하였습니다. \
+인공지능교육학회에는 아쉽게도 게재되지 않았지만, 한국컴퓨터정보학회에는 게재되어 아래 자료에서 확인할 수 있습니다.
+
+- [인공지능 융합 직업 교육을 위한 파이썬 블록과 텍스트 공동 코딩 플랫폼 설계](https://koreascience.kr/article/CFKO202223650478401.pdf)
+- [한국컴퓨터정보학회 2022년 동계학술대회 논문 발표자료 - 컴퓨터교육 II (구두)](https://youtu.be/bv_fxzsZWWI?si=HpAewWENpMHfukMX)
+- [DBPIA](https://www.dbpia.co.kr/author/authorDetail?ancId=260445979)
+{/* http://aied.or.kr/sub_album/view.php?idx=1360&board_name=photo_album&mode=&page=1&search=&find=&ori_name=%EB%92%A4&folder_num=%EB%92%A4&tmp_name=%EC%95%9E&s_menu=&s_menu2=&cate_name= */}
+
+인공지능교육학회.mp4
+
+한국컴퓨터정보학회.mp4
+
+논문 내의 플랫폼은 CodeB 버전입니다.
+
+### CodeB 
+
+<DriveAssetGrid name="CodeB" layout={[100]} />
+
+AI 교육에 맞춰 개발된 블록 코딩 플랫폼입니다. \
+2021년 인천시 교육청 교사연수, 전라남도 교육청 교사연수, 교내 교양 수업(인공지능(AI)개론) 등의 수업에 사용되었습니다.
+
+**주요 역할 및 개선사항**
 - Pyodide(Python 웹 인터프리터) 버전 업그레이드에 따른 호환성 개선
 - 강의 콘텐츠에 필요한 블록 개발 및 수정
 - **실시간 콘솔 출력 기능 개선**: Console이 Python 코드가 모두 실행된 후에 출력되어 인터프리터처럼 동작하지 않는 문제 해결(반복문 출력은 불가능)
@@ -43,19 +68,40 @@ content_type: "project"
   - 파일 크기 제한 및 경로 확인 등 예외 처리
   - 바이너리로 저장되는 파일에 대한 인코딩 처리
 - Matplotlib 한글 깨짐 현상을 초기 설정 시에 한글 폰트로 자동 설정되도록 개선
-  - koreanize-matplotlib 라이브러리는 2022년 5월에 발표되어 사용하지 못함
-- statsmodels, biopython, keras 등 외부 라이브러리 추가
-- 그외 기타 버그 수정 및 개선
+  - koreanize-matplotlib 라이브러리는 2022년 5월에 발표되어 사용하지 못함(당시 2021.08~2022.02)
+- statsmodels, Biopython, keras 등 외부 라이브러리 추가
+이외에도 각종 버그 수정 및 기능 개선 작업에 참여했습니다. 
 
-## 프로젝트 관련 자료
+### DIY
 
-**DIY** Python 입문용
+<DriveAssetGrid name="DIY" layout={[100]} />
 
-**CodeB** AI 교육용
+2021 공학페스티벌 창의적 종합설계 경진대회에 참가하였습니다.
+- 기존 DIY 플랫폼에 IoT 교육을 위한 기능을 추가
+- 연구 및 기술 검증을 중심으로 발표하여 플랫폼의 가능성을 어필
+- 실제 산업인 기계 고장 진단과의 예제를 통해 향후 발전 가능성 제시
 
-**PyoT** IoT 교육용
 
-강의 자료 제작 및 조교(보조강사) 활동
+창의공학경진대회 발표영상.mp4
 
-서버 운영
+
+창의공학경진대회 시연영상.mp4
+
+
+### PyoT
+
+<DriveAssetGrid name="PyoT" layout={[100]} />
+
+
+- 경진대회에서 설계한 IoT 교육 플랫폼을 발전시켜 새로운 PyOT 프로젝트로 해커톤에 출전
+- 시연 중점으로 발표하여 다양한 예제를 시연하며 플랫폼의 완성도를 어필
+- 2박 3일 동안 팀원들과 함께 작업하며 돈독한 팀워크 형성
+
+해커톤_PPT_감속기 기어 이상_AYE8Tt.mp4
+
+해커톤_PPT_전동기 기어 이상_E5a2ZH.mp4
+
+해커톤_PPT_정상_KH2RZq.mp4 
+
+
 

@@ -2081,6 +2081,30 @@ const drive1AssetBlueprints = [
   },
 
   {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '프로젝트', '블록코딩'],
+    filename: 'block-coding(codeb).png',
+    name: 'CodeB',
+    type: 'None',
+    startDate: '2021-07-01',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '프로젝트', '블록코딩'],
+    filename: 'block-coding(pyot).png',
+    name: 'PyoT',
+    type: 'None',
+    startDate: '2021-08-01',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '프로젝트', '블록코딩'],
+    filename: 'block-coding(DIY).png',
+    name: 'DIY',
+    type: 'None',
+    startDate: '2021-06-01',
+  },
+
+  {
     act_id: ['인하공업전문대학', 'USAMO', '유사모', '인공지능빅데이터센터', '근로장학생'],
     filename: '국가근로장학금-근로내역증명서-최종.jpg',
     name: '인공지능 빅데이터 센터 근로장학생 근로내역증명서(주민번호 뒷자리 가림)',
@@ -2813,19 +2837,19 @@ const drive1AssetBlueprints = [
     type: 'None',
     startDate: '2021-11-17',
   },
-
+  
   {
     act_id: ['M&A경진대회', '인하공업전문대학'],
-    filename: 'M&A경진대회-발표영상.mp4',
-    name: 'M&A경진대회',
+    filename: '211213-인하공전-M&A경진대회-은상_copy.jpg',
+    name: '인하공전 M&A경진대회 은상',
     type: 'None',
     startDate: '2021-12-13',
   },
 
   {
     act_id: ['M&A경진대회', '인하공업전문대학'],
-    filename: '211213-인하공전-M&A경진대회-은상_copy.jpg',
-    name: '인하공전 M&A경진대회 은상',
+    filename: 'M&A경진대회-발표영상.mp4',
+    name: 'M&A경진대회',
     type: 'None',
     startDate: '2021-12-13',
   },
