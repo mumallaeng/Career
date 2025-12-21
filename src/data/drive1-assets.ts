@@ -2112,262 +2112,6 @@ const drive1AssetBlueprints = [
     startDate: '2021-06-01',
   },
 
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-0_copy.jpg',
-    name: '산학협력공동교육캠프 0',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-10_copy.jpg',
-    name: '산학협력공동교육캠프 10',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-11_copy.jpg',
-    name: '산학협력공동교육캠프 11',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-12_copy.jpg',
-    name: '산학협력공동교육캠프 12',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-13_copy.jpg',
-    name: '산학협력공동교육캠프 13',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-14_copy.jpg',
-    name: '산학협력공동교육캠프 14',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-15_copy.jpg',
-    name: '산학협력공동교육캠프 15',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-16_copy.jpg',
-    name: '산학협력공동교육캠프 16',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-17_copy.jpg',
-    name: '산학협력공동교육캠프 17',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-18_copy.jpg',
-    name: '산학협력공동교육캠프 18',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-19_copy.jpg',
-    name: '산학협력공동교육캠프 19',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-1_copy.jpg',
-    name: '산학협력공동교육캠프 1',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-20_copy.jpg',
-    name: '산학협력공동교육캠프 20',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-21_copy.jpg',
-    name: '산학협력공동교육캠프 21',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-22_copy.jpg',
-    name: '산학협력공동교육캠프 22',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-23_copy.jpg',
-    name: '산학협력공동교육캠프 23',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-24_copy.jpg',
-    name: '산학협력공동교육캠프 24',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-25_copy.jpg',
-    name: '산학협력공동교육캠프 25',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-26_copy.jpg',
-    name: '산학협력공동교육캠프 26',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-27_copy.jpg',
-    name: '산학협력공동교육캠프 27',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-28_copy.jpg',
-    name: '산학협력공동교육캠프 28',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-29_copy.jpg',
-    name: '산학협력공동교육캠프 29',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-2_copy.jpg',
-    name: '산학협력공동교육캠프 2',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-30_copy.jpg',
-    name: '산학협력공동교육캠프 30',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-3_copy.jpg',
-    name: '산학협력공동교육캠프 3',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-4_copy.jpg',
-    name: '산학협력공동교육캠프 4',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-5_copy.jpg',
-    name: '산학협력공동교육캠프 5',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-6_copy.jpg',
-    name: '산학협력공동교육캠프 6',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-7_copy.jpg',
-    name: '산학협력공동교육캠프 7',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-8_copy.jpg',
-    name: '산학협력공동교육캠프 8',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210603-산학협력공동교육캠프-9_copy.jpg',
-    name: '산학협력공동교육캠프 9',
-    type: 'None',
-    startDate: '2021-06-03',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210604-0902-01.JPG',
-    name: '산학협력공동교육캠프',
-    type: 'None',
-    startDate: '2021-06-04',
-  },
-
   // {
   //   act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
   //   filename: '210604-0909-00.JPG',
@@ -2378,7 +2122,31 @@ const drive1AssetBlueprints = [
 
   {
     act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '210604-0.png',
+    name: '산학협력공동교육캠프',
+    type: 'None',
+    startDate: '2021-06-04',
+  },
+
+  {
+    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '210604-0902-01.JPG',
+    name: '산학협력공동교육캠프',
+    type: 'None',
+    startDate: '2021-06-04',
+  },
+
+  {
+    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
     filename: '210604-0909-01.JPG',
+    name: '산학협력공동교육캠프',
+    type: 'None',
+    startDate: '2021-06-04',
+  },
+
+  {
+    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '210604.jpg',
     name: '산학협력공동교육캠프',
     type: 'None',
     startDate: '2021-06-04',
@@ -2400,37 +2168,21 @@ const drive1AssetBlueprints = [
     startDate: '2021-06-04',
   },
 
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210604-0.png',
-    name: '산학협력공동교육캠프',
-    type: 'None',
-    startDate: '2021-06-04',
-  },
+  // {
+  //   act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
+  //   filename: '210604-1940-00.jpg',
+  //   name: '산학협력공동교육캠프',
+  //   type: 'None',
+  //   startDate: '2021-06-04',
+  // },
 
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210604.jpg',
-    name: '산학협력공동교육캠프',
-    type: 'None',
-    startDate: '2021-06-04',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210604-1940-00.jpg',
-    name: '산학협력공동교육캠프',
-    type: 'None',
-    startDate: '2021-06-04',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210604-1940-01.jpg',
-    name: '산학협력공동교육캠프',
-    type: 'None',
-    startDate: '2021-06-04',
-  },
+  // {
+  //   act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
+  //   filename: '210604-1940-01.jpg',
+  //   name: '산학협력공동교육캠프',
+  //   type: 'None',
+  //   startDate: '2021-06-04',
+  // },
 
   {
     act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
@@ -2474,7 +2226,7 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: ['IT4U', '인하공업전문대학', 'USAMO', '유사모'],
+    act_id: ['IT4U', '인하공업전문대학', 'USAMO', '유사모', '발표'],
     filename: '210706-1548-00.png',
     name: 'IT4U',
     type: 'None',
@@ -2482,7 +2234,7 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: ['IT4U', '인하공업전문대학', 'USAMO', '유사모'],
+    act_id: ['IT4U', '인하공업전문대학', 'USAMO', '유사모', '수강'],
     filename: 'USAMO-9.jpeg',
     name: 'IT4U',
     type: 'None',
@@ -2556,7 +2308,7 @@ const drive1AssetBlueprints = [
 
   {
     act_id: ['공학페스티벌', '창의적종합설계경진대회', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '21-공학페스티벌-1.png',
+    filename: '21-공학페스티벌-3.png',
     name: '온라인 전시회',
     type: 'None',
     startDate: '2021-11-11',
@@ -2572,7 +2324,7 @@ const drive1AssetBlueprints = [
 
   {
     act_id: ['공학페스티벌', '창의적종합설계경진대회', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '21-공학페스티벌-3.png',
+    filename: '21-공학페스티벌-1.png',
     name: '온라인 전시회',
     type: 'None',
     startDate: '2021-11-11',
@@ -2580,8 +2332,16 @@ const drive1AssetBlueprints = [
 
   {
     act_id: ['공학페스티벌', '창의적종합설계경진대회', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '21-공학페스티벌-경진대회-참가인증서.jpg',
-    name: '창의적종합설계경진대회 참가인증서',
+    filename: 'USAMO-26.jpeg',
+    name: '창의적종합설계경진대회 특별상 목록',
+    type: 'award',
+    startDate: '2021-11-12',
+  },
+
+  {
+    act_id: ['공학페스티벌', '창의적종합설계경진대회', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '211112-창의적종합설계경진대회-상장_copy.jpg',
+    name: '창의적종합설계경진대회 특별상',
     type: 'award',
     startDate: '2021-11-12',
     description: '대한상공회의소'
@@ -2597,19 +2357,11 @@ const drive1AssetBlueprints = [
 
   {
     act_id: ['공학페스티벌', '창의적종합설계경진대회', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '211112-창의적종합설계경진대회-상장_copy.jpg',
-    name: '창의적종합설계경진대회 특별상',
+    filename: '21-공학페스티벌-경진대회-참가인증서.jpg',
+    name: '창의적종합설계경진대회 참가인증서',
     type: 'award',
     startDate: '2021-11-12',
     description: '대한상공회의소'
-  },
-
-  {
-    act_id: ['공학페스티벌', '창의적종합설계경진대회', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: 'USAMO-26.jpeg',
-    name: '창의적종합설계경진대회 특별상 목록',
-    type: 'award',
-    startDate: '2021-11-12',
   },
 
   {
@@ -2702,32 +2454,32 @@ const drive1AssetBlueprints = [
     startDate: '2021-10-31',
   },
 
-  {
-    act_id: ['세미나', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: 'USAMO-15.jpeg',
-    name: '대학원-세미나',
-    type: 'None',
-    startDate: '2021-11-01',
-  },
+  // {
+  //   act_id: ['세미나', '인하공업전문대학', 'USAMO', '유사모'],
+  //   filename: 'USAMO-15.jpeg',
+  //   name: '대학원-세미나',
+  //   type: 'None',
+  //   startDate: '2021-11-01',
+  // },
+
+  // {
+  //   act_id: ['세미나', '인하공업전문대학', 'USAMO', '유사모'],
+  //   filename: 'USAMO-16.jpeg',
+  //   name: '대학원-세미나',
+  //   type: 'None',
+  //   startDate: '2021-11-01',
+  // },
+
+  // {
+  //   act_id: ['세미나', '인하공업전문대학', 'USAMO', '유사모'],
+  //   filename: 'USAMO-17.jpeg',
+  //   name: '대학원-세미나',
+  //   type: 'None',
+  //   startDate: '2021-11-01',
+  // },
 
   {
-    act_id: ['세미나', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: 'USAMO-16.jpeg',
-    name: '대학원-세미나',
-    type: 'None',
-    startDate: '2021-11-01',
-  },
-
-  {
-    act_id: ['세미나', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: 'USAMO-17.jpeg',
-    name: '대학원-세미나',
-    type: 'None',
-    startDate: '2021-11-01',
-  },
-
-  {
-    act_id: ['세미나', '인하공업전문대학', 'USAMO', '유사모'],
+    act_id: ['세미나', '인하공업전문대학', 'USAMO', '유사모', '수강'],
     filename: 'USAMO-18.jpeg',
     name: '대학원-세미나',
     type: 'None',
@@ -2743,22 +2495,6 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '교사연수', '전라남도교육청', '전라남도교사연수'],
-    filename: 'USAMO-19.jpeg',
-    name: '전라남도 교육청 교사연수',
-    type: 'None',
-    startDate: '2021-11-06',
-  },
-
-  {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '교사연수', '전라남도교육청', '전라남도교사연수', '전라남도교사연수21동계'],
-    filename: 'USAMO-22.jpeg',
-    name: '전라남도 교육청 교사연수',
-    type: 'None',
-    startDate: '2021-11-06',
-  },
-
-  {
     act_id: ['인하공업전문대학', 'USAMO', '유사모', '교사연수', '전라남도교육청', '전라남도교사연수', '전라남도교사연수21동계'],
     filename: '211106-1651-00.jpg',
     name: '전라남도 교육청 교사연수',
@@ -2767,31 +2503,39 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '서버세미나'],
-    filename: 'USAMO-23.jpeg',
-    name: '서버세미나',
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '교사연수', '전라남도교육청', '전라남도교사연수'],
+    filename: 'USAMO-19.jpeg',
+    name: '전라남도 교육청 교사연수',
     type: 'None',
-    startDate: '2021-11-12',
+    startDate: '2021-11-06',
   },
 
-  {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '서버세미나'],
-    filename: 'USAMO-24.jpeg',
-    name: '서버세미나',
-    type: 'None',
-    startDate: '2021-11-12',
-  },
+  // {
+  //   act_id: ['인하공업전문대학', 'USAMO', '유사모', '서버세미나'],
+  //   filename: 'USAMO-23.jpeg',
+  //   name: '서버세미나',
+  //   type: 'None',
+  //   startDate: '2021-11-12',
+  // },
 
   {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '서버세미나'],
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '서버세미나', '발표'],
     filename: 'USAMO-25.jpeg',
     name: '서버세미나',
     type: 'None',
     startDate: '2021-11-12',
   },
 
+  // {
+  //   act_id: ['인하공업전문대학', 'USAMO', '유사모', '서버세미나'],
+  //   filename: 'USAMO-24.jpeg',
+  //   name: '서버세미나',
+  //   type: 'None',
+  //   startDate: '2021-11-12',
+  // },
+
   {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강'],
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강', '수강'],
     filename: 'USAMO-20.jpeg',
     name: '교수님_특강',
     type: 'None',
@@ -2799,7 +2543,7 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강'],
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강', '수강'],
     filename: 'USAMO-21.jpeg',
     name: '교수님_특강',
     type: 'None',
@@ -2807,7 +2551,7 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강'],
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강', '수강'],
     filename: 'USAMO-31.jpeg',
     name: '한백전자 특강',
     type: 'None',
@@ -2815,36 +2559,36 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강'],
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강', '수강'],
     filename: 'USAMO-32.jpeg',
     name: '한백전자 특강',
     type: 'None',
     startDate: '2021-11-17',
   },
 
-  {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강'],
-    filename: 'USAMO-33.jpeg',
-    name: '한백전자 특강',
-    type: 'None',
-    startDate: '2021-11-17',
-  },
+  // {
+  //   act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강', '수강'],
+  //   filename: 'USAMO-33.jpeg',
+  //   name: '한백전자 특강',
+  //   type: 'None',
+  //   startDate: '2021-11-17',
+  // },
   
-  {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강'],
-    filename: 'USAMO-34.jpeg',
-    name: '한백전자 특강',
-    type: 'None',
-    startDate: '2021-11-17',
-  },
+  // {
+  //   act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강', '수강'],
+  //   filename: 'USAMO-34.jpeg',
+  //   name: '한백전자 특강',
+  //   type: 'None',
+  //   startDate: '2021-11-17',
+  // },
 
-  {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강'],
-    filename: 'USAMO-36.jpeg',
-    name: '한백전자 특강',
-    type: 'None',
-    startDate: '2021-11-17',
-  },
+  // {
+  //   act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강', '수강'],
+  //   filename: 'USAMO-36.jpeg',
+  //   name: '한백전자 특강',
+  //   type: 'None',
+  //   startDate: '2021-11-17',
+  // },
   
   {
     act_id: ['M&A경진대회', '인하공업전문대학'],

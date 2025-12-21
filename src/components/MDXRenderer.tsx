@@ -9,6 +9,8 @@ import { createPortal } from 'react-dom';
 import remarkGfm from 'remark-gfm';
 import PlantUmlDiagram from '@/components/PlantUmlDiagram';
 import DriveAssetGrid from '@/components/DriveAssetGrid';
+import GradeGrid from '@/components/GradeGrid';
+import MdxTable from '@/components/MdxTable';
 import { drive1AssetMap, getDrive1AssetByFilename, getDrive1AssetsByActId } from '@/data/drive1-assets';
 
 const handleLegacyImages = (
@@ -315,6 +317,8 @@ const components = {
     <PlantUmlDiagram {...props} />
   ),
   DriveAssetGrid,
+  GradeGrid,
+  Table: MdxTable,
 };
 
 export default function MDXRenderer({ content }: MDXRendererProps) {

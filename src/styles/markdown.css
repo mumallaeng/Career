@@ -39,6 +39,49 @@
     transition: background-color 0.2s ease;
 }
 
+.grade-grid {
+    display: grid;
+    grid-template-columns: var(--grade-grid-columns, minmax(0, 3fr) minmax(0, 1fr));
+    gap: 24px;
+    align-items: start;
+}
+
+.mdx-table--column-head table tbody td:first-child {
+    background-color: #f5f5f7;
+    font-weight: 600;
+    color: #1d1d1f;
+    border-right: 2px solid #e8e8ed;
+}
+
+.mdx-table--column-head table thead {
+    display: none;
+}
+
+.mdx-table--column-head table th {
+    background-color: transparent;
+    font-weight: 400;
+    color: inherit;
+    border-bottom: 1px solid #e8e8ed;
+}
+
+.mdx-table--column-head table tbody tr:last-child td:first-child {
+    border-bottom: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    .mdx-table--column-head table tbody td:first-child {
+        background-color: #2a2a2e;
+        color: #f5f5f7;
+        border-right: 2px solid #3a3a3e;
+    }
+}
+
+@media (max-width: 720px) {
+    .grade-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
 .plantuml-figure {
     margin: 2rem 0;
     text-align: center;
