@@ -4,11 +4,12 @@
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import { useState, useEffect, useRef, ReactNode } from 'react';
+import Link from 'next/link';
 import { createPortal } from 'react-dom';
 import remarkGfm from 'remark-gfm';
 import PlantUmlDiagram from '@/components/PlantUmlDiagram';
 import DriveAssetGrid from '@/components/DriveAssetGrid';
-import { drive1AssetMap, getDrive1AssetsByActId } from '@/data/drive1-assets';
+import { drive1AssetMap, getDrive1AssetByFilename, getDrive1AssetsByActId } from '@/data/drive1-assets';
 
 const handleLegacyImages = (
   container: HTMLElement | null,
@@ -65,6 +66,139 @@ const safeChildren = (children: ReactNode): ReactNode => {
     return '';
   }
   return children;
+};
+
+const resolveActivityLink = (href: string): { href: string; isInternal: boolean } => {
+  const trimmedHref = href.trim();
+
+  if (!trimmedHref) {
+    return { href: trimmedHref, isInternal: false };
+  }
+
+  if (trimmedHref.startsWith('/') || trimmedHref.startsWith('#')) {
+    return { href: trimmedHref, isInternal: trimmedHref.startsWith('/') };
+  }
+
+  if (/^[a-z][a-z0-9+.-]*:/i.test(trimmedHref)) {
+    return { href: trimmedHref, isInternal: false };
+  }
+
+  let pathPart = trimmedHref;
+  let query = '';
+  let hash = '';
+
+  const hashIndex = pathPart.indexOf('#');
+  if (hashIndex !== -1) {
+    hash = pathPart.slice(hashIndex);
+    pathPart = pathPart.slice(0, hashIndex);
+  }
+
+  const queryIndex = pathPart.indexOf('?');
+  if (queryIndex !== -1) {
+    query = pathPart.slice(queryIndex);
+    pathPart = pathPart.slice(0, queryIndex);
+  }
+
+  let normalizedPath = pathPart.replace(/^\.\//, '');
+  normalizedPath = normalizedPath.replace(/\.(mdx|md)$/i, '');
+
+  return {
+    href: `/activities/${normalizedPath}${query}${hash}`,
+    isInternal: true,
+  };
+};
+
+const MdxLink = ({ href = '', children, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+  const resolved = resolveActivityLink(href);
+
+  if (resolved.isInternal) {
+    return (
+      <Link href={resolved.href} {...props}>
+        {safeChildren(children)}
+      </Link>
+    );
+  }
+
+  return (
+    <a href={resolved.href} {...props}>
+      {safeChildren(children)}
+    </a>
+  );
+};
+
+interface VideoTagProps {
+  filename?: string;
+  src?: string;
+  title?: string;
+  className?: string;
+  controls?: boolean;
+  autoPlay?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+  playsInline?: boolean;
+  poster?: string;
+}
+
+const resolveVideoSource = (filename?: string, src?: string): string | null => {
+  const rawValue = (filename ?? src ?? '').trim();
+  if (!rawValue) {
+    return null;
+  }
+
+  const asset = getDrive1AssetByFilename(rawValue);
+  if (asset) {
+    return asset.publicPath;
+  }
+
+  if (/\.mp4$/i.test(rawValue)) {
+    return `/import-data/highlight/${rawValue}`;
+  }
+
+  if (rawValue.startsWith('/') || /^[a-z][a-z0-9+.-]*:/i.test(rawValue)) {
+    return rawValue;
+  }
+
+  return null;
+};
+
+const VideoTag = ({
+  filename,
+  src,
+  title = '',
+  className = '',
+  controls = true,
+  autoPlay = false,
+  loop = false,
+  muted = false,
+  playsInline = true,
+  poster,
+}: VideoTagProps) => {
+  const resolvedSrc = resolveVideoSource(filename, src);
+  if (!resolvedSrc) {
+    console.error('VideoTag: missing or invalid source', { filename, src });
+    return null;
+  }
+
+  const resolvedPoster = resolveVideoSource(poster);
+  const titleText = title.trim();
+
+  return (
+    <video
+      className={`mdx-video ${className}`.trim()}
+      controls={controls}
+      controlsList="nodownload"
+      disablePictureInPicture
+      autoPlay={autoPlay}
+      loop={loop}
+      muted={muted}
+      playsInline={playsInline}
+      poster={resolvedPoster ?? undefined}
+      onContextMenu={(event) => event.preventDefault()}
+    >
+      <source src={resolvedSrc} type="video/mp4" />
+      {titleText ? `${titleText} 영상` : '동영상을 재생할 수 없습니다.'}
+    </video>
+  );
 };
 
 // Custom Image component with rotation support
@@ -141,6 +275,8 @@ const components = {
       {safeChildren(children)}
     </td>
   ),
+  a: MdxLink,
+  VideoTag,
   img: RotatedImage,
   ImgTag,
   blockquote: ({ children }: { children?: ReactNode }) => (

@@ -2672,6 +2672,14 @@ const drive1AssetBlueprints = [
 
   {
     act_id: ['해커톤', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '해커톤-발표.mp4',
+    name: '해커톤',
+    type: 'None',
+    startDate: '2021-10-31',
+  },
+
+  {
+    act_id: ['해커톤', '인하공업전문대학', 'USAMO', '유사모'],
     filename: '해커톤_PPT_감속기 기어 이상_AYE8Tt.mp4',
     name: '해커톤',
     type: 'None',
@@ -2871,6 +2879,32 @@ const drive1AssetBlueprints = [
   },
 
   {
+    act_id: ['논문', '인공지능교육학회', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '인공지능 융합 직업 교육을 위한 파이썬 블록과 텍스트 공동 코딩 모듈 설계.mp4',
+    name: '인공지능교육학회 2021년 동계학술대회 논문',
+    type: 'None',
+    startDate: '2022-12-10',
+  },
+
+  {
+    act_id: ['논문', '한국컴퓨터정보학회', '인하공업전문대학', 'USAMO', '유사모'],
+    filename: '직업교육과 인공지능 융합을 위한 파이썬 비주얼 프로그래밍 모듈 설계.mp4',
+    name: '한국컴퓨터정보학회 2022년 동계학술대회 논문',
+    type: 'None',
+    startDate: '2022-01-01',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'INHA_AIR.mp4',
+    name: 'INHA AIR 시연 영상',
+    type: 'None',
+    startDate: '2021-06-04',
+    remotePathOverride: 'Photos/Projects/INHA_AIR/INHA_AIR.mp4',
+  },
+
+
+  {
     act_id: ['개인', '자격증'],
     filename: '220215-운전면허증1종보통_copy.jpg',
     name: '운전면허증 1종보통',
@@ -3007,11 +3041,20 @@ const drive1AssetBlueprints = [
   },
 
   {
+    act_id: ['addinedu', 'StoneSpring'],
+    filename: '전체동작.mp4',
+    name: 'StoneSpring 전체동작 영상',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'Photos/Projects/StoneSpring/전체동작.mp4',
+  },
+
+  {
     act_id: 'kdt-addinedu',
     filename: '250527-애드인에듀-공로상_copy.jpg',
     name: '공로상',
     type: 'award',
-    startDate: '2023-05-27',
+    startDate: '2025-05-27',
     description: '애드인에듀 아카데미 구로가산센터장',
   },
 
@@ -3020,7 +3063,7 @@ const drive1AssetBlueprints = [
     filename: '250527-애드인에듀-수료증_copy.jpg',
     name: '수료증',
     type: '수료증',
-    startDate: '2023-05-27',
+    startDate: '2025-05-27',
     description: '애드인에듀 아카데미 구로가산센터장',
   },
 
@@ -3029,7 +3072,7 @@ const drive1AssetBlueprints = [
     filename: '250527-애드인에듀-최우수상_copy.jpg',
     name: '최우수상',
     type: 'award',
-    startDate: '2023-05-27',
+    startDate: '2025-05-27',
     description: '애드인에듀 아카데미 구로가산센터장',
   },
 
