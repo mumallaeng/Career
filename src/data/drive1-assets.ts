@@ -2504,7 +2504,7 @@ const drive1AssetBlueprints = [
 
   {
     act_id: ['인하공업전문대학', 'USAMO', '유사모', '교사연수', '전라남도교육청', '전라남도교사연수'],
-    filename: 'USAMO-19.jpeg',
+    filename: 'USAMO-19.jpeg.png',
     name: '전라남도 교육청 교사연수',
     type: 'None',
     startDate: '2021-11-06',
@@ -2722,8 +2722,8 @@ const drive1AssetBlueprints = [
 
   {
     act_id: '2022-OSSCA',
-    filename: 'RustPython_photos_05.JPG',
-    name: 'RustPython 팀 사진 05',
+    filename: 'RustPython_photos_03.JPG',
+    name: 'RustPython 팀 사진 03',
     type: 'None',
     startDate: '2022-07-09',
   },
@@ -2840,7 +2840,6 @@ const drive1AssetBlueprints = [
     startDate: '2020-03-02',
   },
 
-  
 
   {
     act_id: ['addinedu', 'StoneSpring'],
@@ -2849,6 +2848,15 @@ const drive1AssetBlueprints = [
     type: 'None',
     startDate: '2025-04-07',
     remotePathOverride: 'Photos/Projects/StoneSpring/전체동작.mp4',
+  },
+  
+  {
+    act_id: 'kdt-addinedu',
+    filename: '250527-애드인에듀-최우수상_copy.jpg',
+    name: '최우수상',
+    type: 'award',
+    startDate: '2025-05-27',
+    description: '애드인에듀 아카데미 구로가산센터장',
   },
 
   {
@@ -2871,15 +2879,6 @@ const drive1AssetBlueprints = [
 
   {
     act_id: 'kdt-addinedu',
-    filename: '250527-애드인에듀-최우수상_copy.jpg',
-    name: '최우수상',
-    type: 'award',
-    startDate: '2025-05-27',
-    description: '애드인에듀 아카데미 구로가산센터장',
-  },
-
-  {
-    act_id: 'kdt-addinedu',
     filename: '250527-1754-00_copy.JPG',
     name: '수료식 단체사진 01',
     type: 'None',
@@ -2893,6 +2892,14 @@ const drive1AssetBlueprints = [
     type: 'None',
     startDate: '2025-05-27',
   },
+
+  // {
+  //   act_id: 'shoepernoma',
+  //   filename: '시스템_아키텍처(희망).drawio.png',
+  //   name: 'shoepernoma 시스템 아키텍처',
+  //   type: 'None',
+  //   startDate: '2025-05-27',
+  // },
 
 ] as const satisfies readonly Drive1AssetBlueprint[];
 

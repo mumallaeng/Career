@@ -4,7 +4,8 @@
 .post-body table {
     width: 100%;
     border-collapse: collapse;
-    margin: 2rem 0;
+    margin-top: 0;
+    margin-bottom: 2rem;
     font-size: 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -22,12 +23,14 @@
     font-weight: 600;
     color: #1d1d1f;
     border-bottom: 2px solid #e8e8ed;
+    white-space: nowrap;
 }
 
 .post-body td {
-    padding: 14px 20px;
+    padding: 10px 20px;
     border-bottom: 1px solid #e8e8ed;
     color: #1d1d1f;
+    white-space: nowrap;
 }
 
 .post-body tbody tr:last-child td {
@@ -51,6 +54,7 @@
     font-weight: 600;
     color: #1d1d1f;
     border-right: 2px solid #e8e8ed;
+    margin-bottom: 1rem;
 }
 
 .mdx-table--column-head table thead {
@@ -135,7 +139,7 @@
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
-    margin: 2rem 0;
+    margin: 1rem 0;
     padding: 0;
 }
 
@@ -144,7 +148,6 @@
 }
 
 .image-grid > p {
-    margin: 0;
     display: contents;
 }
 
@@ -183,6 +186,7 @@
     padding: 2rem;
     cursor: zoom-out;
     animation: mdx-lightbox-fade 0.2s ease-out;
+    -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
 }
 
@@ -229,6 +233,7 @@
     object-fit: contain;
     justify-self: center;
     align-self: center;
+    margin-bottom: 1rem;
 }
 
 .image-grid.image-grid--uniform .image-item {
@@ -258,6 +263,7 @@
     object-fit: contain;
     display: block;
     cursor: zoom-in;
+    margin: 1rem 0;
 }
 
 .image-grid .cert-info {
@@ -373,30 +379,36 @@
 .post-body blockquote {
     border-left: 4px solid #007aff;
     padding-left: 1rem;
-    margin: 1.5rem 0;
+    margin: 1.5rem 0 0.75rem;
     color: #6e6e73;
     font-style: italic;
+}
+
+/* Bold-only lines */
+.post-body p > strong:first-child:last-child {
+    display: inline-block;
+    margin: 0;
 }
 
 /* Headings spacing in markdown */
 .post-body h1 {
     margin-top: 3rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .post-body h2 {
     margin-top: 2.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .post-body h3 {
-    margin-top: 2rem;
-    margin-bottom: 0.75rem;
+    margin-top: 5rem;
+    margin-bottom: 0.5rem;
 }
 
 .post-body h4 {
     margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.1rem;
 }
 
 /* First heading shouldn't have top margin */

@@ -60,7 +60,7 @@ import { ImgTag } from '@/components/MDXRenderer';
 | **인프라/통신** | Python socket TCP/UDP 서버 |
 
 
-### 주요 기능 및 역할
+### 주요 담당 업무
 
 **AI 채팅 시스템 개발**
 - OpenAI API를 사용한 GPT-4o-mini 모델 스트리밍 출력 구현
@@ -85,31 +85,11 @@ import { ImgTag } from '@/components/MDXRenderer';
 
 ## 프로젝트 결과 및 자료
 
-
-**설계 자료**
-- [Software Requirement Specification (SRS)](stonespring/docs/software-requirements-specification.md)
-- [Interface Specification](https://github.com/addinedu-ros-8th/deeplearning-repo-3/wiki/Interface-Specification)
-    - [Login/Signup](stonespring/docs/interface-specification/01-login-signup.md)
-    - [Chat Message](stonespring/docs/interface-specification/02-chat-message.md)
-    - [User Emotion Analysis Result](stonespring/docs/interface-specification/03-user-emotion-analysis-result.md)
-    - [Pet Character Setting](stonespring/docs/interface-specification/04-pet-character-setting.md)
-    - [Pet Training Setting](stonespring/docs/interface-specification/05-pet-training-setting.md)
-    - [Gesture Event](stonespring/docs/interface-specification/06-gesture-event.md)
-    - [User Setting](stonespring/docs/interface-specification/07-user-setting.md)
-    - [Log](stonespring/docs/interface-specification/08-log.md)
-    - [Video Stream](stonespring/docs/interface-specification/09-video-stream.md)
-    - [Audio Stream](stonespring/docs/interface-specification/10-audio-stream.md)
-- [Diagrams](stonespring/docs/diagram.mdx)
-- [GUI Specification](stonespring/docs/gui-specification.mdx)
-- [Implementation](stonespring/docs/implementation.md)
-
+<VideoTag filename="전체동작.mp4" title="StoneSpring 전체동작" />
+{/* ![전체동작](https://github.com/user-attachments/assets/6c8050f3-1440-40ec-9f67-f2b3d8110960) */}
 
 ### 구현
 
-
-{/* ![전체동작](https://github.com/user-attachments/assets/6c8050f3-1440-40ec-9f67-f2b3d8110960) */}
-
-<VideoTag filename="전체동작.mp4" title="StoneSpring 전체동작" />
 
 
 
@@ -216,14 +196,30 @@ import { ImgTag } from '@/components/MDXRenderer';
 <br/><br/><br/>
 
 
-### System Architecture
+### 설계
+
+- [Software Requirement Specification (SRS)](stonespring/docs/software-requirements-specification.md)
+- [Interface Specification](https://github.com/addinedu-ros-8th/deeplearning-repo-3/wiki/Interface-Specification)
+    - [Login/Signup](stonespring/docs/interface-specification/01-login-signup.md)
+    - [Chat Message](stonespring/docs/interface-specification/02-chat-message.md)
+    - [User Emotion Analysis Result](stonespring/docs/interface-specification/03-user-emotion-analysis-result.md)
+    - [Pet Character Setting](stonespring/docs/interface-specification/04-pet-character-setting.md)
+    - [Pet Training Setting](stonespring/docs/interface-specification/05-pet-training-setting.md)
+    - [Gesture Event](stonespring/docs/interface-specification/06-gesture-event.md)
+    - [User Setting](stonespring/docs/interface-specification/07-user-setting.md)
+    - [Log](stonespring/docs/interface-specification/08-log.md)
+    - [Video Stream](stonespring/docs/interface-specification/09-video-stream.md)
+    - [Audio Stream](stonespring/docs/interface-specification/10-audio-stream.md)
+- [Diagrams](stonespring/docs/diagram.mdx)
+- [GUI Specification](stonespring/docs/gui-specification.mdx)
+- [Implementation](stonespring/docs/implementation.md)
+
+
+#### 시스템 구조
 
 **최종 목표**
 
 <ImgTag src="https://github.com/user-attachments/assets/9338e507-90f2-4a2b-bcde-e46244e95df5" alt="system_architecture" />
-
-
-
 
 <div className="image-grid image-grid--uniform">
     <div>
@@ -240,7 +236,7 @@ import { ImgTag } from '@/components/MDXRenderer';
     </div>     
 </div> 
 
-### Data Structure
+#### Data Structure
 
 [참고 자료](/activities/stonespring/docs/database-structure.md)
 
@@ -253,7 +249,7 @@ import { ImgTag } from '@/components/MDXRenderer';
 </div>
 
 
-### Sequence Diagram
+#### Sequence Diagram
 
 <div className="image-grid image-grid--uniform">
     <ImgTag src="https://github.com/user-attachments/assets/fb54ee8e-b56b-4a6e-af74-4c4cd09cafb1" alt="sequence_diagram_1" />
@@ -264,7 +260,7 @@ import { ImgTag } from '@/components/MDXRenderer';
 </div>
 
 
-## 설치 및 실행 방법
+### 설치 및 실행 방법
 
 ```shell
 bash run.sh
@@ -281,5 +277,5 @@ bash run.sh
     <ImgTag src="https://github.com/user-attachments/assets/67084492-d31b-49e0-8d97-eb2b79f017ba" alt="emotion_2" />
 </div>
 
-아까 데이터 보여줄 때, Chat에 펫 이모션이 있었는데, 오른쪽과 같은 아스키 아트 형태의 이모티콘임.
+데이터 구조에서 Chat에 펫 이모션이 있었는데, 오른쪽과 같은 아스키 아트 형태의 이모티콘임.
 이를 향후 우리의 로봇인 Pinky와 결합하여 디스플레이에 띄워, 돌봄 챗봇에서 돌봄 로봇으로 업그레이드하는 것을 목표로 하려함. */}

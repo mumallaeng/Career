@@ -16,6 +16,8 @@
     margin-bottom: 20px;
     letter-spacing: -0.03em;
     line-height: 1.1;
+    word-break: keep-all;
+    overflow-wrap: break-word;
 }
 
 .doc-label {
