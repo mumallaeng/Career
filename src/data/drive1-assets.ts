@@ -2551,7 +2551,7 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강', '수강'],
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강', 'ABC아카데미'],
     filename: 'USAMO-31.jpeg',
     name: '한백전자 특강',
     type: 'None',
@@ -2559,7 +2559,7 @@ const drive1AssetBlueprints = [
   },
 
   {
-    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강', '수강'],
+    act_id: ['인하공업전문대학', 'USAMO', '유사모', '특강', 'ABC아카데미'],
     filename: 'USAMO-32.jpeg',
     name: '한백전자 특강',
     type: 'None',
@@ -2690,6 +2690,62 @@ const drive1AssetBlueprints = [
 
   {
     act_id: '2022-OSSCA',
+    filename: 'RustPython_photos_07.JPG',
+    name: 'RustPython 팀 사진 07',
+    type: 'None',
+    startDate: '2022-07-09',
+  },
+
+  {
+    act_id: '2022-OSSCA',
+    filename: 'RustPython_photos_13.png',
+    name: 'RustPython 팀 사진 13',
+    type: 'None',
+    startDate: '2022-07-09',
+  },
+
+  {
+    act_id: '2022-OSSCA',
+    filename: 'RustPython_photos_14.png',
+    name: 'RustPython 팀 사진 14',
+    type: 'None',
+    startDate: '2022-07-09',
+  },
+
+  {
+    act_id: '2022-OSSCA',
+    filename: 'RustPython_photos_02.JPG',
+    name: 'RustPython 팀 사진 02',
+    type: 'None',
+    startDate: '2022-07-09',
+  },
+
+  {
+    act_id: '2022-OSSCA',
+    filename: 'RustPython_photos_05.JPG',
+    name: 'RustPython 팀 사진 05',
+    type: 'None',
+    startDate: '2022-07-09',
+  },
+
+  {
+    act_id: '2022-OSSCA',
+    filename: 'RustPython_photos_10.jpg',
+    name: 'RustPython 팀 사진 10',
+    type: 'None',
+    startDate: '2022-07-09',
+  },
+
+  {
+    act_id: '2022-OSSCA',
+    filename: 'RustPython_photos_15.png',
+    name: 'RustPython 팀 사진 15',
+    type: 'None',
+    startDate: '2022-07-09',
+  },
+
+  {
+    act_id: '2022-OSSCA',
     filename: '22 OSSCA Challenges 수료증_245_김연우_copy.jpg',
     name: 'Challenges 수료증',
     type: '수료증',
@@ -2783,6 +2839,8 @@ const drive1AssetBlueprints = [
     type: 'None',
     startDate: '2020-03-02',
   },
+
+  
 
   {
     act_id: ['addinedu', 'StoneSpring'],
