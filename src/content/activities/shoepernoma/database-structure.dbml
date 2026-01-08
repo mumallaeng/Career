@@ -1,0 +1,150 @@
+Table User {
+  user_id integer [primary key]
+  user_name varchar
+  user_role user_role_enum
+  password varchar
+}
+
+Enum user_role_enum {
+  ADMIN
+  WORKER
+}
+
+Table ShoesModel {
+  shoes_model_id integer [primary key]
+  name text
+  size integer
+  color_name color_name_enum
+}
+
+Table Location {
+  location_id integer [primary key]
+  name text
+  floor_level integer
+  zone_number integer
+  map_x float
+  map_y float
+  aruco_id integer [null]
+  updated_at timestamp
+  destination text
+}
+
+Enum color_name_enum {
+  black
+  white
+  snow
+  red
+  tomato
+  salmon
+  coral
+  pink
+  magenta
+  hotpink
+  raspberry
+  orange
+  chocolate
+  yellow
+  khaki
+  gold
+  green
+  greenyellow
+  olive
+  olivedrab
+  azure
+  skyblue
+  aqua
+  aquamarine
+  cyan
+  blue
+  navy
+  violet
+  lavender
+  indigo
+  purple
+}
+
+Table Inventory {
+  inventory_id integer [primary key]
+  location_id integer [ref: > Location.location_id]
+  shoes_model_id integer [ref: > ShoesModel.shoes_model_id]
+  quantity integer
+  last_updated timestamp
+}
+
+Table QRCode {
+  qrcode_id integer [primary key]
+  inventory_id integer [ref: > Inventory.inventory_id]
+  qrcode_data varchar
+}
+
+Table RosCars {
+  roscar_id integer [primary key]
+  roscar_name varchar
+  battery_percentage integer
+  operational_status operational_status_enum
+  roscar_ip_v4 text
+}
+
+Enum operational_status_enum {
+  STANDBY
+  DRIVING
+  CHARGING
+  ERROR
+  EMERGENCY_STOP
+}
+
+Table RosCarDrivingStatus {
+  driving_status_id integer [primary key]
+  roscar_id integer [ref: > RosCars.roscar_id]
+  status_type roscar_driving_status_enum
+  is_enabled boolean
+}
+
+Enum roscar_driving_status_enum {
+  PICKUP
+  DELIVERY
+  RETURN
+  PRECISION_STOP
+  GO_TO_STANDBY_ZONE
+  GO_TO_CHARGING_ZONE
+  DISCONNECT
+}
+
+Table Delivery {
+  delivery_id integer [primary key]
+  roscar_id integer [ref: > RosCars.roscar_id]
+  user_id integer [ref: > User.user_id, null]
+  driving_status_id integer [ref: > RosCarDrivingStatus.driving_status_id]
+  delivery_status delivery_status_enum
+  delivery_start_time timestamp
+  delivery_end_time timestamp
+}
+
+Enum delivery_status_enum {
+  TO_DO
+  IN_PROGRESS
+  COMPLETING
+}
+
+Table Task {
+  task_id integer [primary key]
+  delivery_id integer [ref: > Delivery.delivery_id]
+  shoes_id integer [ref: > ShoesModel.shoes_model_id]
+  task_status task_status_enum
+  task_start_time timestamp
+  task_end_time timestamp
+  location_id integer [ref: > Location.location_id]
+}
+
+Enum task_status_enum {
+  TO_DO
+  IN_PROGRESS
+  DONE
+}
+
+Table RosCarConnectionStatus {
+  status_id integer [primary key]
+  roscar_id integer [ref: > RosCars.roscar_id]
+  is_connected boolean
+  last_heartbeat timestamp
+}

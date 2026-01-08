@@ -1,0 +1,46 @@
+@startuml
+title [AI 기능] 인식 및 추론 처리 흐름
+
+participant "Video Sender" as Video
+participant "Object Detector" as Detector
+participant "AI Module" as AI
+participant "Main Service" as Main
+database "InferenceResult DB" as DB
+
+== 프레임 수신 및 분석 요청 ==
+
+activate Video
+Video -> Detector : 영상 프레임 수신 (로봇 ID, 프레임 ID, 시간 포함)
+deactivate Video
+
+activate Detector
+Detector -> AI : 프레임 분석 요청
+deactivate Detector
+
+== AI 추론 및 결과 전달 ==
+
+activate AI
+AI -> AI : YOLOv8 추론 수행
+AI --> Detector : 인식 결과 반환 (예: 사람, 91%)
+deactivate AI
+
+== 결과 전송 및 판단 ==
+
+activate Detector
+Detector -> Main : 인식 결과 전달 (객체, 신뢰도, 위치 포함)
+deactivate Detector
+
+activate Main
+Main -> Main : 객체 기반 상황 판단
+
+alt 객체가 사람일 경우
+    Main -> MobileController : 긴급 정지 요청
+else 객체가 협업로봇일 경우
+    Main -> MobileController : 일시 정지 요청
+else 기타 객체
+    Main -> Main : 작업 상태 갱신
+end
+
+Main -> DB : 인식 결과 저장
+deactivate Main
+@enduml

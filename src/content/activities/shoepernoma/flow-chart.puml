@@ -1,0 +1,24 @@
+@startuml Inventory_Lookup_Request
+title 2. Inventory Lookup & Request Flowchart
+start
+:User Scans QR Code;
+:Parse QR Code to Data;
+:Send SearchItemByQRCode;
+:DB SELECT item info;
+:Receive Item Info;
+:Display Item Info;
+if (User Action == Request?) then (yes)
+  :User Clicks Request;
+  :Send InventoryRequest;
+  :DB INSERT Task and Delivery;
+  :Receive Task ID;
+  :Send PickupCommand to Mobile;
+  :Mobile Arrives and Reports;
+  :Update Status to IN_PROGRESS;
+  stop
+else (no)
+  :User Clicks Add to Cart;
+  :Save to Cache and Update UI;
+  stop
+endif
+@enduml

@@ -1,0 +1,33 @@
+@startuml
+title [IS] 상품 정보 조회 및 장바구니 담기 흐름
+
+actor 사용자 as User
+participant "Staff 전용 GUI" as Staff
+participant "Main Service" as Main
+database "상품 관련 DB\n(QR코드, 재고, 모델, 위치)" as DB
+
+== QR 스캔 및 상품 조회 ==
+
+User -> Staff : QR코드 스캔
+activate Staff
+Staff -> Staff : QR코드 데이터 파싱 (예: QR20250430X001)
+
+Staff -> Main : QR코드 기반 상품 조회 요청
+activate Main
+Main -> DB : 상품 정보, 재고, 위치 정보 조회
+activate DB
+DB --> Main : 상품명, 사이즈, 색상, 재고 수량, 보관 위치 반환
+deactivate DB
+Main --> Staff : 상품 상세 정보 응답
+deactivate Main
+
+Staff -> Staff : 화면에 상품 정보 표시
+
+== 장바구니 담기 ==
+
+User -> Staff : "장바구니 담기" 선택
+Staff -> Staff : 장바구니 목록에 항목 추가
+Staff -> Staff : 장바구니 UI 갱신
+
+deactivate Staff
+@enduml

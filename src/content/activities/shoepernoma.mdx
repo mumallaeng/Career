@@ -55,9 +55,9 @@ import DriveAssetGrid from '@/components/DriveAssetGrid';
 |------------------|------------------------------------------------------------------|
 | 로봇 미들웨어  | ROS2, Nav2, TF2 |
 | 언어            | Python, C++ |
-| SLAM & 위치추정 | Cartographer, ArUco |
-| 센서 융합      | LiDAR, IMU, Ultrasonic, Camera |
-| 객체 인식      | OpenCV, YOLO |
+| SLAM & 위치추정 | Cartographer SLAM, ArUco, Lifecycle Node |
+| 센서 융합      | LiDAR, IMU, Ultrasonic, Camera, Micro-ROS |
+| 객체 인식      | OpenCV, YOLOv8n |
 | GUI           | PyQt6 |
 | 통신       | TCP, UDP(영상 전송), ROS2(Action/Service/Topic) |
 | 데이터베이스 | MySQL, ORM |
@@ -91,10 +91,8 @@ import DriveAssetGrid from '@/components/DriveAssetGrid';
 
 ### 구현
 
-재고 조회
-스캔 결과
-배송 요청
-요청 취소
+<DriveAssetGrid actId="Shoepernoma"/>
+
 
 주행 시행착오
 
@@ -104,8 +102,17 @@ import DriveAssetGrid from '@/components/DriveAssetGrid';
 객체 탐지
 대시보드
 
+#### GUI
+
+
 
 ### 설계
+
+- [User Requirements Specification (URS)](shoepernoma/user-requirements.md)
+- [System Requirements Specification (SRS)](shoepernoma/system-requirements.md)
+- [Interface Specification](shoepernoma/interface-specification.md)
+- [Scenario](shoepernoma/scenario.md)
+- [GUI Specification](shoepernoma/gui-specification.md)
 
 #### 시스템 구조
 
@@ -113,15 +120,15 @@ import DriveAssetGrid from '@/components/DriveAssetGrid';
 
 #### 지도
 
-#### 통신(인터페이스 명세서)
 
-#### 시나리오
+#### 시퀀스 다이어그램
 
 재고 조회
 배송 요청
 Roscar 주행
 
 #### 전체 주행 상태
+
 
 #### 데이터 구조
 

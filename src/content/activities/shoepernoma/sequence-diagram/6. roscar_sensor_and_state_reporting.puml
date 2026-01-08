@@ -1,0 +1,39 @@
+@startuml
+title [로봇] 센서 및 상태 보고 흐름
+
+participant "Mobile Controller" as Mobile
+participant "Main Service" as Main
+participant "Staff PC" as StaffPC
+participant "Manager PC" as ManagerPC
+database "roscar_status_log\n(로봇 상태 기록 DB)" as DB
+
+== 로봇 상태 보고 ==
+
+activate Mobile
+Mobile -> Main : 센서 및 상태 정보 전송\n(로봇 ID, 배터리, 상태, 센서, 압력 등)
+deactivate Mobile
+
+activate Main
+Main -> Main : 내부 상태 정보 갱신 처리
+
+Main -> DB : 로봇 상태 기록 요청 (로그 저장)
+activate DB
+DB --> Main : 저장 완료
+deactivate DB
+
+== 상태 전파 ==
+
+Main -> StaffPC : 로봇 상태 정보 전송 (TCP 방식)\n예: 배터리, 주행 상태, 압력
+Main -> ManagerPC : 센서 및 위치 정보 전송 (ROS2 방식)\n예: 센서 정상, 위치 좌표
+deactivate Main
+
+note right of DB
+예시 보고 내용:
+- 로봇 ID: RB02
+- 작업 ID: TASK-101
+- 배터리: 72%
+- 상태: 주행 중 (DRIVING)
+- 센서 상태: 정상 (OK)
+- 보고 시각: 14:03:22
+end note
+@enduml

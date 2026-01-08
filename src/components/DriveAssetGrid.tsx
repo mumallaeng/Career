@@ -21,6 +21,13 @@ function normalizeIndex(index: number, length: number): number {
   return Math.max(length + index, 0);
 }
 
+const imageExtensions = new Set(['jpg', 'jpeg', 'png', 'svg', 'gif', 'webp', 'avif', 'heic']);
+
+function isImageAsset(filename: string): boolean {
+  const ext = filename.split('.').pop()?.toLowerCase();
+  return ext ? imageExtensions.has(ext) : false;
+}
+
 export default function DriveAssetGrid({ actId, name, className, start, end, layout }: DriveAssetGridProps) {
   const normalizedActId = normalizeQuery(actId);
   const normalizedName = normalizeQuery(name);
@@ -34,6 +41,8 @@ export default function DriveAssetGrid({ actId, name, className, start, end, lay
   if ((assets.length === 0 || !normalizedActId) && normalizedName) {
     assets = drive1Assets.filter(asset => normalizeQuery(asset.name)?.includes(normalizedName));
   }
+
+  assets = assets.filter(asset => isImageAsset(asset.filename));
 
   if (start !== undefined || end !== undefined) {
     const length = assets.length;
@@ -56,7 +65,7 @@ export default function DriveAssetGrid({ actId, name, className, start, end, lay
   return (
     <div className={className ?? 'image-grid image-grid--uniform'} style={containerStyle}>
       {assets.map(asset => (
-        <div key={asset.filename}>
+        <div key={asset.publicPath}>
           <ImgTag src={asset.publicPath} alt={asset.name || asset.filename} />
         </div>
       ))}

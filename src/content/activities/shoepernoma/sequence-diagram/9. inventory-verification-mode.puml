@@ -1,0 +1,44 @@
+@startuml
+title [관리자 기능] 재고 파악 모드 및 수동 검수 흐름
+
+actor 관리자 as Manager
+participant "Manager GUI" as GUI
+participant "Main Service" as Main
+participant "Mobile Controller" as Mobile
+database "Inventory DB\n(QR코드, 재고, 신발 모델, 로그 포함)" as DB
+
+== 재고 파악 모드 시작 ==
+
+Manager -> GUI : [재고 파악 모드 실행] 클릭
+activate GUI
+GUI -> Main : 재고 파악 모드 시작 요청 (관리자 ID 포함)
+deactivate GUI
+
+activate Main
+Main -> Mobile : 자동 재고 스캔 명령 전송 (모드: AUTO_SCAN)
+deactivate Main
+
+== 로봇의 스캔 및 조회 ==
+
+activate Mobile
+Mobile -> Mobile : QR 또는 ArUco 마커 스캔 수행
+
+Mobile -> DB : 상품 정보 조회 요청 (스캔된 코드 기반)
+activate DB
+DB --> Mobile : 상품명, 사이즈, 수량, 보관 위치 등 응답
+deactivate DB
+
+Mobile -> DB : 재고 이벤트 기록 (스캔 결과 저장)
+activate DB
+DB --> Mobile : 기록 완료
+deactivate DB
+
+Mobile -> Main : 재고 스캔 결과 전달 (상품 상세 정보 포함)
+deactivate Mobile
+
+== 결과 표시 ==
+
+activate Main
+Main -> GUI : 스캔 결과 응답 전달 (화면에 표시할 정보 포함)
+deactivate Main
+@enduml

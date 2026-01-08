@@ -1,0 +1,54 @@
+@startuml
+title 사용자 단말 초기화 및 인증 흐름 (공통)
+
+actor 사용자 as User
+participant "GUI\n(Staff 또는 Manager)" as GUI
+participant "Main Service" as Main
+database "사용자 DB" as DB
+
+== GUI 실행 및 서버 연결 ==
+
+User -> GUI : 프로그램 실행
+activate GUI
+GUI -> Main : 서버 연결 요청
+activate Main
+Main --> GUI : 서버 연결 성공 응답
+deactivate Main
+
+alt 서버 연결이 성공한 경우
+    GUI -> GUI : 로그인 화면 표시
+    User -> GUI : 아이디 및 비밀번호 입력
+    GUI -> Main : 로그인 요청 전달
+    activate Main
+
+    Main -> DB : 사용자 정보 조회
+    activate DB
+    DB --> Main : 사용자 정보 반환 (역할, 인증 정보 등)
+    deactivate DB
+
+    Main -> Main : 비밀번호 검증
+
+    alt 비밀번호가 일치하는 경우
+        alt 사용자가 Staff인 경우
+            Main -> DB : GUI 레이아웃 데이터 조회
+            activate DB
+            DB --> Main : 레이아웃 데이터 반환
+            deactivate DB
+            Main --> GUI : 로그인 성공 (역할: Staff)
+        else 사용자가 Manager인 경우
+            Main -> DB : 대시보드 데이터 조회
+            activate DB
+            DB --> Main : 관리자 대시보드 정보 반환
+            deactivate DB
+            Main --> GUI : 로그인 성공 (역할: Manager)
+        end
+    else 비밀번호가 틀린 경우
+        Main --> GUI : 로그인 실패 (사유: 인증 실패)
+    end
+
+    deactivate Main
+else 서버 연결이 실패한 경우
+    GUI -> GUI : 연결 실패 메시지 표시
+end
+deactivate GUI
+@enduml

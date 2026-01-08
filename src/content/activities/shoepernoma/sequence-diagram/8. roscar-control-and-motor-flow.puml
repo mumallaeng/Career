@@ -1,0 +1,62 @@
+@startuml
+title [로봇] 제어 및 동작 처리 흐름
+
+participant "Main Service" as Main
+participant "Mobile Controller" as Mobile
+participant "Motor Controller" as Motor
+participant "Staff PC" as Staff
+participant "Manager PC" as Manager
+
+== 이동 명령 시작 ==
+
+activate Main
+Main -> Mobile : 로봇 이동 명령 전송 (로봇 ID, 목적지, 속도)
+deactivate Main
+
+activate Mobile
+Mobile -> Motor : 경로 이동 명령 실행 (이동 경로 포함)
+deactivate Mobile
+
+== 이동 중 장애물 감지 ==
+
+loop 이동 중 반복 감시
+    activate Motor
+    Motor -> Mobile : 장애물 감지 알림 (거리, 방향)
+    deactivate Motor
+
+    activate Mobile
+    Mobile -> Main : 장애물 상황 보고 (로봇 ID, 거리, 방향)
+    deactivate Mobile
+
+    activate Main
+    Main -> Mobile : 회피 명령 전송 (회전 방향 등)
+    deactivate Main
+
+    activate Mobile
+    Mobile -> Motor : 회피 동작 실행 요청
+    deactivate Mobile
+end
+
+== 이동 완료 및 피드백 처리 ==
+
+activate Motor
+Motor -> Mobile : 이동 결과 및 위치 피드백 전송
+deactivate Motor
+
+activate Mobile
+Mobile -> Main : 명령 실행 결과 보고 (로봇 ID, 성공 여부)
+deactivate Mobile
+
+== 결과 처리 ==
+
+activate Main
+alt 이동이 성공한 경우
+    Main -> Main : 상태 갱신 및 완료 처리
+else 이동이 실패한 경우
+    par Manager 및 Staff에게 에러 보고
+        Main -> Manager : 에러 정보 전송 (로봇 ID, 오류 내용, 시간)
+        Main -> Staff : 에러 정보 전송 (로봇 ID, 오류 내용, 시간)
+    end
+end
+deactivate Main
+@enduml

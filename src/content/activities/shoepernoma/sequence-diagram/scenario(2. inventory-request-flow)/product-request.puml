@@ -1,0 +1,58 @@
+@startuml
+title [배송] 로봇을 통한 재고 픽업 및 응답 흐름 (수정됨)
+
+actor 사용자 as User
+participant "Staff GUI" as GUI
+participant "Main Service" as Main
+participant "Mobile Controller" as Robot
+database "RosCars DB\n(작업, 배송, 신발 모델, 위치)" as DB
+
+== 재고 요청 시작 ==
+
+User -> GUI : "배송 요청" 버튼 클릭
+activate GUI
+GUI -> Main : 재고 요청 전달 (상품 목록 포함)
+activate Main
+
+note right of Main
+예시:
+- 나이키 101 모델, 수량 2개, 위치 1  
+- 나이키 103 모델, 수량 1개, 위치 2
+end note
+
+Main -> DB : 새로운 배송 요청 생성 (상태: 준비 중)
+activate DB
+DB --> Main : 생성된 배송 ID 반환 (예: DEL-501)
+deactivate DB
+
+== 배송 작업 생성 ==
+
+loop 상품 목록 반복
+    loop 수량만큼 반복
+        Main -> DB : 배송 작업(Task) 정보 요청 (배송 ID 포함)
+        activate DB
+        DB --> Main : 작업 ID 반환
+        deactivate DB
+    end
+end
+
+== 로봇 명령 전달 및 이동 ==
+
+Main -> Robot : 픽업 명령 전송 (배송 ID, 작업 ID 목록 포함)
+activate Robot
+Robot -> DB : 경로 이동 및 재고 정보 업데이트
+activate DB
+DB --> Robot : 업데이트 완료 응답
+deactivate DB
+Robot -> Main : 도착 보고 (배송 완료 상태 전달)
+deactivate Robot
+
+== 응답 및 UI 처리 ==
+
+Main --> GUI : 배송 응답 전송 (배송 ID, 작업 상태 포함)
+deactivate Main
+GUI -> GUI : 배송 상태 표시 (예: 배송중)
+GUI -> GUI : 장바구니 비우기 및 UI 갱신
+deactivate GUI
+
+@enduml

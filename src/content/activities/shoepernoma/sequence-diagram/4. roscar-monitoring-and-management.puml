@@ -1,0 +1,53 @@
+@startuml
+title [관리자 기능] 로봇 상태 확인 / 등록 / 삭제 및 위치 실시간 확인
+
+actor 관리자 as Manager
+participant "Manager GUI" as GUI
+participant "Main Service" as Main
+participant "Mobile Controller" as Mobile
+database "RosCars DB" as DB
+
+== 로봇 상태 확인, 등록, 삭제 요청 ==
+
+Manager -> GUI : 메뉴 클릭 또는 정보 입력
+activate GUI
+GUI -> Main : 요청 전송 (종류 및 데이터 포함)
+deactivate GUI
+
+activate Main
+alt 상태 확인 요청인 경우
+    Main -> Mobile : 로봇 상태 요청 (로봇 ID)
+    activate Mobile
+    Mobile --> Main : 로봇 상태 정보 응답
+    deactivate Mobile
+    Main --> GUI : 상태 정보 전달
+elseif 등록 요청인 경우
+    Main -> DB : 로봇 정보 등록
+    activate DB
+    DB --> Main : 등록 완료
+    deactivate DB
+    Main --> GUI : 등록 결과 응답 (성공)
+elseif 삭제 요청인 경우
+    Main -> DB : 로봇 정보 삭제
+    activate DB
+    DB --> Main : 삭제 완료
+    deactivate DB
+    Main --> GUI : 삭제 결과 응답 (성공)
+end
+deactivate Main
+
+== 로봇 위치 실시간 확인 ==
+
+Manager -> GUI : 위치 확인 탭 클릭
+
+loop 일정 주기 반복 (예: 5초마다)
+    GUI -> Main : 로봇 위치 요청 (로봇 ID)
+    activate Main
+    Main -> Mobile : 현재 위치 요청
+    activate Mobile
+    Mobile --> Main : 위치 정보 응답 (X, Y, Z 좌표)
+    deactivate Mobile
+    Main --> GUI : 위치 정보 전달
+    deactivate Main
+end
+@enduml
