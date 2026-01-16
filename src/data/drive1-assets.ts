@@ -2905,78 +2905,24 @@ const drive1AssetBlueprints = [
     remotePathOverride: 'Photos/Projects/Shoepernoma/D7.주행LIVE-2.gif',
   },
 
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '개발과정-아루코마커.gif',
-    name: '구현',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/개발과정-아루코마커.mp4',
-  },
+// /// 여기가 메인 두 개
+//   {
+//     act_id: ['addinedu', 'Shoepernoma'],
+//     filename: '개발과정-주행시행착오-모음(2배속).gif',
+//     name: '구현',
+//     type: 'None',
+//     startDate: '2025-04-09',
+//     remotePathOverride: 'Photos/Projects/Shoepernoma/개발과정-주행시행착오-모음(2배속).gif',
+//   },
 
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '구현설명1-초기위치보정.png',
-    name: '구현',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/구현설명1-초기위치보정.png',
-  },
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '구현설명2-A*알고리즘.jpeg',
-    name: '구현',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/구현설명2-A*알고리즘.jpeg',
-  },
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '구현설명3-A*알고리즘.jpeg',
-    name: '구현',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/구현설명3-A*알고리즘.jpeg',
-  },
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '구현설명4-Cartographer.gif',
-    name: '구현',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/구현설명4-Cartographer.gif',
-  },
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '구현설명5-kalman-filter.png',
-    name: '구현',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/구현설명5-kalman-filter.png',
-  },
-
-/// 여기가 메인 두 개
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '개발과정-주행시행착오-모음(2배속).gif',
-    name: '구현',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/개발과정-주행시행착오-모음(2배속).gif',
-  },
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '둠칫둠칫(2배속).gif',
-    name: '구현',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/둠칫둠칫(2배속).gif',
-  },
+//   {
+//     act_id: ['addinedu', 'Shoepernoma'],
+//     filename: '둠칫둠칫(2배속).gif',
+//     name: '구현',
+//     type: 'None',
+//     startDate: '2025-04-09',
+//     remotePathOverride: 'Photos/Projects/Shoepernoma/둠칫둠칫(2배속).gif',
+//   },
 
 // 아래부터 따로
 
@@ -3019,17 +2965,6 @@ const drive1AssetBlueprints = [
     remotePathOverride: 'Photos/Projects/Shoepernoma/개발과정-주행시행착오-3.gif',
   },
 
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '개발과정-주행시행착오-4-중간에벽비빔.gif',
-    name: '구현',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/개발과정-주행시행착오-4-중간에벽비빔.gif',
-  },
-
-
   {
     act_id: ['addinedu', 'Shoepernoma'],
     filename: '개발과정-주행시행착오-5.gif',
@@ -3051,61 +2986,70 @@ const drive1AssetBlueprints = [
 
   {
     act_id: ['addinedu', 'Shoepernoma'],
-    filename: 'System_Flow.png',
-    name: '구현', 
+    filename: '개발과정-주행시행착오-4-중간에벽비빔.gif',
+    name: '구현',
     type: 'None',
     startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/System_Flow.png',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/개발과정-주행시행착오-4-중간에벽비빔.gif',
+  },
+
+  //// 여기까지 주행 영상
+  //// 아래부터는 기술 설명용
+
+  {
+    act_id: ['addinedu', 'Shoepernoma'],
+    filename: '(판넬)센서퓨전.png',
+    name: '설명 참고 사진',
+    type: 'None',
+    startDate: '2025-04-09',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/(판넬)센서퓨전.png',
+  },
+
+  
+  {
+    act_id: ['addinedu', 'Shoepernoma'],
+    filename: '구현설명4-Cartographer.gif',
+    name: '구현',
+    type: 'None',
+    startDate: '2025-04-09',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/구현설명4-Cartographer.gif',
   },
 
   {
     act_id: ['addinedu', 'Shoepernoma'],
-    filename: 'G1.상품QR코드스캔.png',
+    filename: '구현설명2-A*알고리즘.jpeg',
     name: '구현',
     type: 'None',
     startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/G1.상품QR코드스캔.png',
-  },
-
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: 'G2.스캔결과.png',
-    name: '구현',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/G2.스캔결과.png',
-  },
-
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: 'G3.배송요청.png',
-    name: '구현',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/G3.배송요청.png',
-  },
-
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: 'G4.요청취소.png',
-    name: '구현',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/G4.요청취소.png',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/구현설명2-A*알고리즘.jpeg',
   },
 
   {
     act_id: ['addinedu', 'Shoepernoma'],
-    filename: 'gui_manager.png',
+    filename: '구현설명3-A*알고리즘.jpeg',
     name: '구현',
     type: 'None',
     startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/gui_manager.png',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/구현설명3-A*알고리즘.jpeg',
   },
 
+  {
+    act_id: ['addinedu', 'Shoepernoma'],
+    filename: '개발과정-아루코마커.gif',
+    name: '구현',
+    type: 'None',
+    startDate: '2025-04-09',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/개발과정-아루코마커.gif',
+  },
+
+  {
+    act_id: ['addinedu', 'Shoepernoma'],
+    filename: '구현설명1-초기위치보정.png',
+    name: '구현',
+    type: 'None',
+    startDate: '2025-04-09',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/구현설명1-초기위치보정.png',
+  },
   {
     act_id: ['addinedu', 'Shoepernoma'],
     filename: '(판넬)ARUCO마커초기포즈보정.png',
@@ -3176,16 +3120,6 @@ const drive1AssetBlueprints = [
 
   {
     act_id: ['addinedu', 'Shoepernoma'],
-    filename: '(판넬)센서퓨전.png',
-    name: '설명 참고 사진',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/(판넬)센서퓨전.png',
-  },
-
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
     filename: '(판넬)Thumbnail.png',
     name: '설명 참고 사진',
     type: 'None',
@@ -3194,6 +3128,80 @@ const drive1AssetBlueprints = [
   },
 
 
+  {
+    act_id: ['addinedu', 'Shoepernoma'],
+    filename: '구현설명(이거뭐지).png',
+    name: '구현',
+    type: 'None',
+    startDate: '2025-04-09',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/구현설명(이거뭐지).png',
+  },
+
+  {
+    act_id: ['addinedu', 'Shoepernoma'],
+    filename: '구현설명5-kalman-filter.png',
+    name: '구현',
+    type: 'None',
+    startDate: '2025-04-09',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/구현설명5-kalman-filter.png',
+  },
+
+  {
+    act_id: ['addinedu', 'Shoepernoma'],
+    filename: 'System_Flow.png',
+    name: '구현', 
+    type: 'None',
+    startDate: '2025-04-09',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/System_Flow.png',
+  },
+
+  {
+    act_id: ['addinedu', 'Shoepernoma'],
+    filename: 'G1.상품QR코드스캔.png',
+    name: '구현',
+    type: 'None',
+    startDate: '2025-04-09',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/G1.상품QR코드스캔.png',
+  },
+
+
+  {
+    act_id: ['addinedu', 'Shoepernoma'],
+    filename: 'G2.스캔결과.png',
+    name: '구현',
+    type: 'None',
+    startDate: '2025-04-09',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/G2.스캔결과.png',
+  },
+
+
+  {
+    act_id: ['addinedu', 'Shoepernoma'],
+    filename: 'G3.배송요청.png',
+    name: '구현',
+    type: 'None',
+    startDate: '2025-04-09',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/G3.배송요청.png',
+  },
+
+
+  {
+    act_id: ['addinedu', 'Shoepernoma'],
+    filename: 'G4.요청취소.png',
+    name: '구현',
+    type: 'None',
+    startDate: '2025-04-09',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/G4.요청취소.png',
+  },
+
+  {
+    act_id: ['addinedu', 'Shoepernoma'],
+    filename: 'gui_manager.png',
+    name: '구현',
+    type: 'None',
+    startDate: '2025-04-09',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/gui_manager.png',
+  },
 
   {
     act_id: ['addinedu', 'Shoepernoma'],

@@ -30,6 +30,9 @@ import DriveAssetGrid from '@/components/DriveAssetGrid';
 - ROS2 기반 자율주행 로봇 개발 및 AI 영상 처리 기술 적용
 - GUI 연동으로 실시간 재고 관리 및 피킹 요청 처리
 
+LiDAR+IMU 기반 2D SLAM(Cartographer)으로 지도를 작성하고 자율주행에는 Nav2이 사용되었습니다. \
+OpenCV ArUco Marker를 활용해 주행 초기 위치 보정과 근접 정렬/도킹 기능을 구현했습니다. \
+YOLOv8n 모델로 신발 상자 객체 인식을 수행하고, Python 기반 GUI로 로봇 상태 및 재고 현황을 실시간으로 모니터링할 수 있습니다.
 
 
 ## 프로젝트 개요
@@ -37,7 +40,7 @@ import DriveAssetGrid from '@/components/DriveAssetGrid';
 <Table head="column">
 |     |     |
 |-----|-----|
-| 기간 | 2025.04.09 ~ 2025.05.27 (6주) |
+| 기간 | 2025.04.09 ~ 2025.05.27 (7주) |
 | 팀명 | Secondary Wave |
 | 로봇이름 | ROScar |
 | 로봇그룹 | ROScars(로스카츠 🐷) |
@@ -51,7 +54,20 @@ import DriveAssetGrid from '@/components/DriveAssetGrid';
 | 팀원 | 심채훈 | - SLAM 및 Navigation 환경 설정<br/>- ArUco 기반 위치 보정<br/>- Battery/SSID 센서 퍼블리싱 및 DB 연동<br/>- UDP 기반 영상 송신<br/>- GUI 기본 기능 구현 |
 
 
-### 기술 스택
+### 주요 주행 기술
+
+| 기능 | 기술 |
+| --- | --- |
+| 지도/SLAM | LiDAR+IMU 2D SLAM (Cartographer) |
+| 초기 위치 보정 | ArUco 마커 기반 `/initialpose` 보정 (OpenCV ArUco + Cartographer trajectory restart) |
+| 자율 주행/경로 계획 | Nav2 (NavFn 전역 플래너 + DWB 로컬 플래너 + 코스트맵) |
+| 웨이포인트 주행 | Nav2 FollowWaypoints 액션 |
+| 근접 정렬/도킹 | ArUco 기반 PID 정렬 |
+| 시각화 | RViz (SLAM/주행 뷰 분리) |
+| IMU 노이즈 보정 | 칼만 필터 기반 안정화 |
+
+
+### 전체 기술 스택
 
 | 분류             | 기술 요소 |
 |------------------|------------------------------------------------------------------|
@@ -93,27 +109,108 @@ import DriveAssetGrid from '@/components/DriveAssetGrid';
 
 ### 구현
 
+하드웨어와 함께 제공된 ROS2 워크스페이스 [pinky_violet](https://github.com/pinklab-art/pinky_violet)에서 필요한 패키지를 Shopernoma에 맞게 수정하여 사용했습니다. \
+주요 패키지로는 `pinky_cartographer`, `pinky_navigation`, `pinky_bringup`가 있습니다.
+
+| 패키지명 | 패키지 기능 | 변경/적용 내용 |
+| --- | --- | --- |
+| `pinky_cartographer` | Cartographer 기반 SLAM/지도 생성 | 그대로 사용(기능/설정 변경 없음) |
+| `pinky_navigation` | Nav2 주행 스택(플래너/컨트롤러/코스트맵) | 맵 파일 교체, `nav2_params.yaml` 튜닝(footprint/robot_radius 등) |
+| `pinky_bringup` | 모터/배터리/센서 초기화 런치 | 모터/배터리 노드는 그대로 사용. <br/> 센서 및 카메라는 별도로 구현 |
+
+
 #### 주행 기술
 
 <DriveAssetGrid actId="Shoepernoma" start={2} end={3} layout={[100]} />
 
 <DriveAssetGrid actId="Shoepernoma" start={3} end={5} layout={[50, 50]} />
 
-<VideoTag filename="개발과정-아루코마커.mp4" />
-
+<br/>
+<br/>
+<br/>
 
 **주행 시행착오(발전 과정)**
 
 <VideoTag filename="개발과정-주행시행착오-모음.mp4" />
 
+<DriveAssetGrid actId="Shoepernoma" start={5} end={11} />
 
-<DriveAssetGrid actId="Shoepernoma" start={5} />
+<DriveAssetGrid actId="Shoepernoma" start={11} end={12} layout={[100]} />
 
-기본 주행
-정밀 정차
-집품 확인(micro-ros)
-객체 탐지
-대시보드
+##### 1. 센서 입력 수집
+
+<DriveAssetGrid actId="Shoepernoma" start={12} end={13} layout={[50, 50]} />
+
+- 모터와 배터리 노드는 `pinky_bringup`의 기존 노드를 그대로 사용
+  - 센서(퍼블리셔의 기본 설정은 표준 ROS 드라이버)
+      - 제조사 SDK로 센서 값을 직접 읽기 위해 `mobile_controller`에 센서 퍼블리셔 노드 별도 구현
+          - IMU: ICM20948
+          - LiDAR: SLLidar SDK
+          - 초음파: GPIO
+  - 카메라
+      - ROS 이미지 토픽 대신 메인 스레드에서 Picamera2로 직접 캡처
+      - 프레임을 UDP로 스트리밍 전송하면서, 같은 프레임으로 [ArUco 정렬(PID)](##### 6. [ArUco PID] 근접 정렬/도킹)을 수행
+      - 정렬 결과 /cmd_vel 퍼블리시는 메인 루프에서 ArucoAlign.process_frame()이 직접 수행
+      - rclpy.spin(align_node)는 ROS 노드 유지/콜백 처리를 위해 별도 스레드에서 실행
+
+
+##### 2. SLAM 및 지도 작성
+
+<DriveAssetGrid actId="Shoepernoma" start={13} end={14} layout={[100]} />
+
+- Cartographer 기반 SLAM/지도 생성 기능을 그대로 사용
+- LiDAR(`/scan`) + IMU(`/imu`) 융합으로 `/map`, `/tf` 생성
+- Nav2와 연동되는 지도로 사용
+
+
+##### 3. [Nav2] 자율주행
+
+- `pinky_navigation`에서 Nav2 주행 스택(플래너/컨트롤러/코스트맵) 기능을 사용
+- 전역 플래너: NavFn, 로컬 플래너: DWB
+- global/local costmap 구성 및 velocity smoother 사용
+- 맵 파일 교체와 `nav2_params.yaml` 튜닝(footprint/robot_radius 등)을 적용
+
+
+##### 3. [Nav2] 자율주행
+
+- `pinky_navigation`에서 Nav2 주행 스택(플래너/컨트롤러/코스트맵) 기능을 사용
+- 전역 플래너: NavFn, 로컬 플래너: DWB
+- global/local costmap 구성 및 velocity smoother 사용
+- 맵 파일 교체와 `nav2_params.yaml` 튜닝(footprint/robot_radius 등)을 적용
+
+
+##### 4. [FollowWaypoints] 웨이포인트 주행
+
+<DriveAssetGrid actId="Shoepernoma" start={14} end={16} layout={[50, 50]} />
+
+- Nav2 `FollowWaypoints` 액션을 사용해 웨이포인트를 순차 주행
+- `roscars/mobile_controller/nav_drive/waypoint_follower.cpp`에서 액션 클라이언트 구현
+- `/cart/is_on` 상태에 따라 다음 웨이포인트 묶음을 전송
+
+##### 5. [ArUco `/initialpose`] 초기 위치 보정
+
+- ArUco 마커를 검출해 `/initialpose`를 퍼블리시
+- `pinky_navigation/initialpose.py`가 Cartographer trajectory 재시작으로 초기 위치 반영
+- 구현 파일: `roscars/aruco_mapper/aruco_mapper/initialpose_custom.py`, `roscars/pinky_navigation/pinky_navigation/initialpose.py`
+
+<img src="assets/tech-info/구현설명1-초기위치보정.png" alt="초기 위치 보정" />
+<img src="assets/tech-info/ebe4c22a-1d52-4b0f-8b5a-76ef869df283.png" alt="ArUco Marker" />
+
+##### 6. [ArUco PID] 근접 정렬/도킹
+
+- 카메라 프레임에서 ArUco 마커 오차를 계산해 PID 제어로 정렬
+- ArUco 마커의 좌우/거리 오차 → PID 속도 명령(`/cmd_vel`) 생성 → 목표 거리/각도 도달 시 정지
+- 구현 파일: `roscars/video_sender/video_sender/aruco_align.py`
+
+<img src="assets/tech-info/ba6455b7-dfc2-41d7-b3af-bba6ab931d1b.png" alt="PID 직진 피드백" />
+
+##### 7. [Kalman Filter] IMU 노이즈 보정
+
+- IMU 노이즈 보정은 문서상 개념으로만 정리됨
+- 별도의 칼만 필터 노드는 확인되지 않음
+
+<img src="assets/tech-info/구현설명5-kalman-filter.png" alt="Kalman Filter" />
+
 
 #### GUI
 
@@ -144,4 +241,7 @@ Roscar 주행
 
 
 #### 데이터 구조
+
+
+#### Hardware 구성
 
