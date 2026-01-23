@@ -1,5 +1,5 @@
 @startuml
-title [관리자 기능] 로봇 상태 확인 / 등록 / 삭제 및 위치 실시간 확인
+title [관리자 기능] 로봇 상태 확인 · 등록 · 삭제 및 위치 실시간 확인
 
 actor 관리자 as Manager
 participant "Manager GUI" as GUI

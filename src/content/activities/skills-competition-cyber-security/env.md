@@ -19,7 +19,7 @@
 
 ### 지급 재료
 - UTP Cable: CAT.5E 또는 CAT.6 다이렉트 2M (선수수 x 8)
-- 이동저장장치: read/write 240M/s이상, 128GB 이상 (소프트웨어 배포/과제 제출용)
+- 이동저장장치: read·write 240M/s이상, 128GB 이상 (소프트웨어 배포·과제 제출용)
 
 ### 경기장 시설 및 장비
 #### 컴퓨터(PC)
@@ -41,12 +41,12 @@
   - 수량: 선수당 1대, 심사용 1대, 예비용 2대
 
 #### 보안 장비
-- **모델**: 시큐아이, TW/SECUI MF2 50
+- **모델**: 시큐아이, TW·SECUI MF2 50
 - **수량**: 선수당 1대, 심사용 1대, 예비용 2대
 
 ### 운영체제 및 소프트웨어
 - **Windows Server 2019**: Standard Version 1809 17763.107
-- **GNU/Linux CentOS**: x86_64 Everything ISO 최신 이미지
+- **GNU·Linux CentOS**: x86_64 Everything ISO 최신 이미지
 - **Windows 10**: Business Editions Version 1809 17763.253
 - **VMware Workstation**: 15 이상
 - **MS Office**: 2016 이상 (심사용)

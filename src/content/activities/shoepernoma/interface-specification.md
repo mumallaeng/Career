@@ -39,9 +39,9 @@ title: Interface Specification
 | Offset | Length | Name       | Type     | Description                 |
 |--------|--------|------------|----------|-----------------------------|
 | 0      | 2      | cmd        | char[2]  | "AU"                        |
-| 2      | 1      | status     | uint8    | 0x00 성공 / 0x01 실패       |
+| 2      | 1      | status     | uint8    | 0x00 성공 · 0x01 실패       |
 | 3      | 4      | user_id    | uint32   | 사용자 ID (Big Endian)      |
-| 7      | 1      | user_role  | uint8    | 사용자 역할(STAFF/MANAGER)  |
+| 7      | 1      | user_role  | uint8    | 사용자 역할(STAFF·MANAGER)  |
 
 ---
 
@@ -62,7 +62,7 @@ title: Interface Specification
 | Offset | Length | Name       | Type     | Description                |
 |--------|--------|------------|----------|----------------------------|
 | 0      | 2      | cmd        | char[2]  | "IS"                       |
-| 2      | 1      | status     | uint8    | 0x00 성공 / 0x01 실패      |
+| 2      | 1      | status     | uint8    | 0x00 성공 · 0x01 실패      |
 | 3      | 32     | name       | char[32] | 상품 이름 (UTF-8)          |
 | 35     | 4      | size       | uint32   | 사이즈 (Little Endian)     |
 | 39     | 16     | color      | char[16] | 색상 이름 (UTF-8)          |
@@ -101,7 +101,7 @@ title: Interface Specification
 | Offset | Length | Name         | Type     | Description                   |
 |--------|--------|--------------|----------|-------------------------------|
 | 0      | 2      | cmd          | char[2]  | "IR"                          |
-| 2      | 1      | status       | uint8    | 0x00 성공 / 0x01 실패         |
+| 2      | 1      | status       | uint8    | 0x00 성공 · 0x01 실패         |
 | 3      | 4      | delivery_id  | uint32   | 생성된 Delivery ID            |
 | 7      | 4      | first_task_id| uint32   | 첫 번째 Task ID               |
 
@@ -127,7 +127,7 @@ title: Interface Specification
 | Offset | Length | Name         | Type     | Description                 |
 |--------|--------|--------------|----------|-----------------------------|
 | 0      | 2      | cmd          | char[2]  | "CD"                        |
-| 2      | 1      | status       | uint8    | 0x00 성공 / 0x01 실패       |
+| 2      | 1      | status       | uint8    | 0x00 성공 · 0x01 실패       |
 | 3      | 4      | delivery_id  | uint32   | 요청된 Delivery ID (Big Endian) |
 
 **총 크기:** 7 bytes
@@ -137,7 +137,7 @@ title: Interface Specification
 ### [TR] 작업 상태 확인 요청
 
 **방향:** Staff GUI → Main Service
-**설명:** 로그인 후 남은 작업 상태 확인 (진행 중/완료 Task)
+**설명:** 로그인 후 남은 작업 상태 확인 (진행 중·완료 Task)
 
 **Request**
 
@@ -151,7 +151,7 @@ title: Interface Specification
 | Offset | Length              | Name              | Type        | Description                   |
 |--------|---------------------|-------------------|-------------|-------------------------------|
 | 0      | 2                   | cmd               | char[2]     | "TR"                          |
-| 2      | 1                   | status            | uint8       | 0x00 성공 / 0x01 실패         |
+| 2      | 1                   | status            | uint8       | 0x00 성공 · 0x01 실패         |
 | 3      | 2                   | done_count        | uint16      | 완료된 Task 수 (Big Endian)   |
 | 5      | 1                   | in_progress_count | uint8       | 진행 중 Task 수               |
 | 6      | N × 36              | in_progress_items | struct[]    | 진행 중인 Task 목록           |
@@ -243,7 +243,7 @@ title: Interface Specification
 | Offset | Length | Name    | Type    | Description              |
 |--------|--------|---------|---------|--------------------------|
 | 0      | 2      | cmd     | char[2] | "IN"                     |
-| 2      | 1      | status  | uint8   | 0x00 성공 / 0x01 실패    |
+| 2      | 1      | status  | uint8   | 0x00 성공 · 0x01 실패    |
 
 **result_code 매핑**
 
@@ -251,7 +251,7 @@ title: Interface Specification
 |--------|-----------------|
 | 0x00   | Person          |
 | 0x01   | Roscar          |
-| 0xFF   | 기타/알 수 없음 |
+| 0xFF   | 기타·알 수 없음 |
 
 ---
 
@@ -293,7 +293,7 @@ title: Interface Specification
 | `/task_progress`              | TaskProgress            | Task 진행 상태                    |
 | `/task_complete`              | TaskComplete            | Task 완료 알림                    |
 | `/log_event`                  | LogEvent                | 시스템 이벤트 로그                |
-| `/roscar_register`            | RoscarRegister          | 로봇 등록/상태 공유               |
+| `/roscar_register`            | RoscarRegister          | 로봇 등록·상태 공유               |
 | `/start_task`                 | StartTask               | Task 시작 명령                    |
 | `/lidar_scan`                 | LidarScan               | Lidar 스캔 데이터                 |
 | `/imu_status`                 | ImuStatus               | IMU 센서 데이터                   |

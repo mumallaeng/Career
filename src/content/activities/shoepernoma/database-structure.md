@@ -382,7 +382,7 @@ WAIT, PROGRESS_START, COMPLET, CANCEL, FAILE
 
 * ✅ **ERD 관계도 설명용 문장**
 * ✅ **외래키 관계 요약 표**
-* ✅ **API 설계 (REST / ROS2 Service 기준)**
-* ✅ **논문/과제용 DB 설계 설명 문단**
+* ✅ **API 설계 (REST · ROS2 Service 기준)**
+* ✅ **논문·과제용 DB 설계 설명 문단**
 
 어디까지 쓸 건지 말해주면 그 용도에 맞게 다듬어줄게.

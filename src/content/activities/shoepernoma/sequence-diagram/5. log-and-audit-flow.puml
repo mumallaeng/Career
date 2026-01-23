@@ -7,7 +7,7 @@ participant "Main Service" as Main
 database "Log DB\n(작업, 재고, 로봇, 출고 로그 포함)" as DB
 
 loop 로그 탭 클릭 시마다
-    Manager -> GUI : 로그 탭 선택 (예: 작업/재고/로봇/출고)
+    Manager -> GUI : 로그 탭 선택 (예: 작업·재고·로봇·출고)
     activate GUI
     GUI -> Main : 로그 조회 요청 (종류, 기간, 키워드 등)
     deactivate GUI

@@ -46,7 +46,7 @@ Client의 요청 없이도 Server가 먼저 Response를 전달하는 방식이 �
 | 메시지 식별 방식 | `Cmd` 필드로 메시지 종류 구분 (예: `TS`)          |
 | 수신 처리 구조  | Receiver Thread 또는 Event Loop 기반 처리    |
 | 메시지 파싱 방식 | MessageUtils 또는 전용 디코더 사용              |
-| 예외 상황 대비  | 연결 끊김, 비정상 상태 감지 및 멀티 사용자/멀티 스레드 처리 필요 |
+| 예외 상황 대비  | 연결 끊김, 비정상 상태 감지 및 멀티 사용자·멀티 스레드 처리 필요 |
 
 ---
 
@@ -63,8 +63,8 @@ Client의 요청 없이도 Server가 먼저 Response를 전달하는 방식이 �
 | 기술             | 특징                             |
 | -------------- | ------------------------------ |
 | WebSocket      | HTTP Handshake 후 TCP 기반 양방향 통신 |
-| gRPC Streaming | HTTP/2 기반 스트리밍, RPC와 실시간성 결합   |
-| MQTT           | 경량 Pub/Sub 구조, IoT 환경에 적합      |
+| gRPC Streaming | HTTP·2 기반 스트리밍, RPC와 실시간성 결합   |
+| MQTT           | 경량 Pub·Sub 구조, IoT 환경에 적합      |
 
 현재 구조에서는 위 대안 기술이 필수는 아니며, 적용 필요성도 낮다.
 

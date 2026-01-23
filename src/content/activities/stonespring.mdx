@@ -27,14 +27,14 @@ import { ImgTag } from '@/components/MDXRenderer';
 사용자의 외로움을 덜어주고, 일상생활에서 필요한 정보를 비서처럼 알려주며, 정신 건강을 챙겨주는 돌봄 챗봇 GUI 프로그램입니다. \
 향후에는 실제 돌봄 로봇과 결합하여 정서적 교감과 실질적 도움을 동시에 제공하는 통합 서비스를 목표로 개발했습니다.
 - 사용자 감정 분석 기반 정서 케어 챗봇
-- 표정/음성 인식, 자연어 처리, 일정 관리까지 GUI 통합 제공
-- PyQt5 기반 데스크탑 앱 + GPT-4o-mini 스트리밍 응답 + DeepFace/Whisper 기반 감정 인식
+- 표정·음성 인식, 자연어 처리, 일정 관리까지 GUI 통합 제공
+- PyQt5 기반 데스크탑 앱 + GPT-4o-mini 스트리밍 응답 + DeepFace·Whisper 기반 감정 인식
 
 
 ## 프로젝트 개요
 
 - **기간**: 
-    - 2025.02.27 ~ 2025.04.07 (5주/팀프로젝트)
+    - 2025.02.27 ~ 2025.04.07 (5주·팀프로젝트)
 - **팀명**: 낭만(浪漫; NangMan)
 
 
@@ -42,7 +42,7 @@ import { ImgTag } from '@/components/MDXRenderer';
 |--------|--------|------|
 | 팀장   | 김연우  ([@mumallaeng](https://github.com/mumallaeng)) | 프로젝트 초기 설계<br/>PyQt 채팅 GUI 제작<br /> 실시간 AI 채팅 기능(TTS, STT, 스트리밍 출력 등) 구현 |
 | 팀원   | 나덕윤 ([@YuSoYu](https://github.com/YuSoYu)) | 음성 감정 모델 개발 (CNN+LSTM)<br/>MFCC 추출 및 데이터 전처리<br/>마이크 테스트 및 성능 개선 |
-| 팀원   | 심채훈 ([@Huni0128](https://github.com/Huni0128)) | 제스처 인식 모듈화<br/>MLP/SVC 얼굴 감정 모델 개발<br/>PyQt 기반 GUI 통합 |
+| 팀원   | 심채훈 ([@Huni0128](https://github.com/Huni0128)) | 제스처 인식 모듈화<br/>MLP·SVC 얼굴 감정 모델 개발<br/>PyQt 기반 GUI 통합 |
 | 팀원   | 임동욱 ([@Donguk-popo](https://github.com/Donguk-popo)) | 제스처 모델 학습 |
 
 
@@ -54,10 +54,10 @@ import { ImgTag } from '@/components/MDXRenderer';
 | **데스크톱 UI** | PyQt5 |
 | **대화 엔진** | OpenAI Responses API (GPT-4o-mini), python-dotenv |
 | **음성 인터페이스** | whispercpp_kit (Whisper large-v2), PyAudio, gTTS, playsound |
-| **비전/제스처** | OpenCV, Mediapipe, DeepFace(ArcFace) + scikit-learn MLP |
-| **음성 감정 분석** | TensorFlow/Keras, librosa |
+| **비전·제스처** | OpenCV, Mediapipe, DeepFace(ArcFace) + scikit-learn MLP |
+| **음성 감정 분석** | TensorFlow·Keras, librosa |
 | **데이터베이스** | MySQL, mysql-connector-python |
-| **인프라/통신** | Python socket TCP/UDP 서버 |
+| **인프라·통신** | Python socket TCP·UDP 서버 |
 
 
 ### 주요 담당 업무
@@ -68,8 +68,8 @@ import { ImgTag } from '@/components/MDXRenderer';
 - 케어 상황에 맞는 답변 시나리오 강화 및 학습 데이터 정제
 
 **실시간 통신 시스템 구축**
-- TCP/UDP 양방향 통신 기반 실시간 챗봇 메시지 송수신 구성
-- 채팅 UI/UX 개선을 위한 통신 최적화
+- TCP·UDP 양방향 통신 기반 실시간 챗봇 메시지 송수신 구성
+- 채팅 UI·UX 개선을 위한 통신 최적화
 
 **음성 인터페이스 개발**
 - Whisper.cpp 기반 STT 모델(Large-v2) 연동
@@ -147,7 +147,7 @@ import { ImgTag } from '@/components/MDXRenderer';
         <ImgTag src="https://github.com/user-attachments/assets/6e905ef4-f75d-4acc-94be-c83d156a4b4a" alt="voice_emotion_model-3" />
         <ImgTag src="https://github.com/user-attachments/assets/f6a55d25-2644-4183-80b7-50b08bfce0ac" alt="voice_emotion_model-4" />
     </div>
-    - 학습/검증 손실 곡선을 모니터링하며 최저 `val_loss` 모델을 채택
+    - 학습·검증 손실 곡선을 모니터링하며 최저 `val_loss` 모델을 채택
     - 7-class 학습에서 epoch 100~300 구간에서 안정 수렴하며, confusion matrix로 클래스별 오분류를 검토
 
 <br/>
@@ -171,8 +171,8 @@ import { ImgTag } from '@/components/MDXRenderer';
         <ImgTag src="https://github.com/user-attachments/assets/7a371d42-ef53-49e9-bbd7-05a50331c946" alt="face_emotion_model-1" />
         <ImgTag src="https://github.com/user-attachments/assets/dba18366-505b-4414-97ae-8f022595fd3c" alt="face_emotion_model-2" />
     </div>
-    - happy 클래스 F1 ≈ 0.89로 최고 성능, angry/sad는 0.75~0.78 범위에서 상호 오분류가 발생
-    - 혼동 행렬을 분석해 분노/슬픔 데이터 보강 계획을 수립
+    - happy 클래스 F1 ≈ 0.89로 최고 성능, angry·sad는 0.75~0.78 범위에서 상호 오분류가 발생
+    - 혼동 행렬을 분석해 분노·슬픔 데이터 보강 계획을 수립
 
 <br/>
 
@@ -200,7 +200,7 @@ import { ImgTag } from '@/components/MDXRenderer';
 
 - [Software Requirement Specification (SRS)](stonespring/software-requirements-specification.md)
 - [Interface Specification](https://github.com/addinedu-ros-8th/deeplearning-repo-3/wiki/Interface-Specification)
-    - [Login/Signup](stonespring/interface-specification/01-login-signup.md)
+    - [Login·Signup](stonespring/interface-specification/01-login-signup.md)
     - [Chat Message](stonespring/interface-specification/02-chat-message.md)
     - [User Emotion Analysis Result](stonespring/interface-specification/03-user-emotion-analysis-result.md)
     - [Pet Character Setting](stonespring/interface-specification/04-pet-character-setting.md)

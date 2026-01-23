@@ -1,15 +1,15 @@
 ---
-title: Login / SignUp
+title: Login · SignUp
 ---
 
 ## 개요
 
 | 항목 | 내용 |
 |------|------|
-| 구분 | 로그인 / 회원가입 |
-| 목적 | 사용자 인증 또는 계정 생성 요청/응답 |
+| 구분 | 로그인 · 회원가입 |
+| 목적 | 사용자 인증 또는 계정 생성 요청·응답 |
 | 데이터 형식 | JSON |
-| 사용 프로토콜 | TCP / UDP / CoAP / MQTT (공통 포맷 사용) |
+| 사용 프로토콜 | TCP · UDP · CoAP · MQTT (공통 포맷 사용) |
 
 ---
 
@@ -112,7 +112,7 @@ title: Login / SignUp
 
 ## 프로토콜별 전송 방식 예시
 
-### TCP / UDP
+### TCP · UDP
 
 * 소켓 통신으로 JSON 그대로 전송
 * 구분자: 개행(`\n`) 또는 길이 프레임
@@ -133,5 +133,5 @@ title: Login / SignUp
 | 항목      | 값                                     |
 | ------- | ------------------------------------- |
 | Method  | POST                                  |
-| URI     | coap://host/user/signup or user/login |
+| URI     | coap://host/user/signup or user·login |
 | Payload | 위 JSON 메시지                            |

@@ -73,7 +73,7 @@ tasks 리스트를 priority 기준 내림차순 정렬
 함수 make_command(robot, task):
     NavigationGoal 메시지 생성
     - roscar_id = robot.roscar_id
-    - goal_x/y = task.pickup_x/y
+    - goal_x·y = task.pickup_x·y
     반환: 메시지 객체
 
 함수 send_command(cmd_msg):

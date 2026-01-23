@@ -12,7 +12,7 @@ title:
 |------|------|
 | 구분 | 실시간 영상 스트림 전송 |
 | 목적 | 클라이언트가 요청한 영상 스트림을 서버가 전송 |
-| 데이터 형식 | 요청/응답: JSON, 스트림: Binary (JPEG) |
+| 데이터 형식 | 요청·응답: JSON, 스트림: Binary (JPEG) |
 | 사용 프로토콜 | UDP |
 
 ---
@@ -34,7 +34,7 @@ title:
 | ------- | ------ | -- | --------------------------------- |
 | command | STRING | 예  | `"get_video_stream"` 명령           |
 | videoId | INT    | 예  | 영상 고유 ID                          |
-| quality | STRING | 예  | 영상 품질 (`low` / `medium` / `high`) |
+| quality | STRING | 예  | 영상 품질 (`low` · `medium` · `high`) |
 | fps     | INT    | 예  | 초당 프레임 수                          |
 
 ---

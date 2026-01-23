@@ -14,7 +14,7 @@
   - CB-W-01, CB-W-02: DHCP를 통한 자동 IP 할당
   - Ex-Win: External 네트워크 DHCP 클라이언트
 
-- **GNU/Linux CentOS**
+- **GNU·Linux CentOS**
   - CB-L-01: 4GB RAM, GNOME Desktop 설치
   - ns1, www: 2GB RAM, 최소 설치
   - Ex-ns: 2GB RAM, 최소 설치
@@ -27,17 +27,17 @@
 ##### 2. 네트워크 구성
 
 **VLAN 구성**:
-- VLAN 10 (Web): 172.30.10.0/24 - Fa0/1~Fa0/2
-- VLAN 20 (System): 172.30.20.0/24 - Fa0/3~Fa0/4  
-- VLAN 30 (Security): 172.30.30.0/24 - Fa0/5~Fa0/6
-- VLAN 80 (DMZ): 192.168.150.0/25 - Fa0/11~Fa0/14
+- VLAN 10 (Web): 172.30.10.0/24 - Fa0·1~Fa0·2
+- VLAN 20 (System): 172.30.20.0/24 - Fa0·3~Fa0·4  
+- VLAN 30 (Security): 172.30.30.0/24 - Fa0·5~Fa0·6
+- VLAN 80 (DMZ): 192.168.150.0/25 - Fa0·11~Fa0·14
 - VLAN 99 (Native): 사용하지 않는 모든 인터페이스
-- VLAN 100 (External): 69.123.44.0/27 - Fa0/15~Fa0/18
+- VLAN 100 (External): 69.123.44.0/27 - Fa0·15~Fa0·18
 
 **Trunk Port 설정**:
-- Fa0/19: Internal VLAN만 허용
-- Fa0/21: DMZ VLAN만 허용
-- Fa0/23: External VLAN만 허용
+- Fa0·19: Internal VLAN만 허용
+- Fa0·21: DMZ VLAN만 허용
+- Fa0·23: External VLAN만 허용
 
 ##### 3. 스위치 설정 (CB-SW)
 - 호스트 이름: CB-SW
@@ -65,7 +65,7 @@
   - sw.kg.com: 172.30.30.100
   - terminal.kg.com: 192.168.150.10
 
-##### 6. 웹/FTP 서버 구성 (www)
+##### 6. 웹·FTP 서버 구성 (www)
 - 웹 서비스: www.kg.com 또는 kg.com 접속 시 홈페이지 표시
 - 기본 디렉토리: /var/www/kg.com
 - 사용자 홈페이지: web001~web005 (www.kg.com/~userid)
@@ -86,7 +86,7 @@
 ### 2과제: 보안 구성 및 분석 (5시간)
 
 #### 과제 개요
-1과제에서 구축한 토폴로지에 내/외부 보안 위협에 대한 추가 설정 및 시스템/네트워크/어플리케이션 보안 취약점을 탐지하고 대응 정책을 마련합니다.
+1과제에서 구축한 토폴로지에 내·외부 보안 위협에 대한 추가 설정 및 시스템·네트워크·어플리케이션 보안 취약점을 탐지하고 대응 정책을 마련합니다.
 
 #### 주요 보안 설정
 
@@ -130,8 +130,8 @@
 
 **도메인 사용자 정책**:
 - 문서 폴더 리디렉션: \\DC\users (C:\kg\user)
-- 로그인/로그아웃 로깅:
-  - 형식: Login/Logout,날짜,시간,사용자명,접속서버이름
+- 로그인·로그아웃 로깅:
+  - 형식: Login·Logout,날짜,시간,사용자명,접속서버이름
   - 저장: C:\UsersLog\사용자명.log
 
 ##### 3. 어플리케이션 보안
@@ -178,7 +178,7 @@
    - 결과: attacker 바탕화면에 192hosts.txt 저장
 
 2. TestSRV 서버 취약점 분석 (nmap 사용)
-   - OS/프로토콜, 버전, 포트, 취약점 파악
+   - OS·프로토콜, 버전, 포트, 취약점 파악
    - 사용자 계정 발견
    - 분석 결과 문서화 (비번호.docx)
 

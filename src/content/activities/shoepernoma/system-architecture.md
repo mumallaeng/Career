@@ -61,9 +61,9 @@ title: System Architecture
 
 ### Main Service 프로세스
 - **ROS2 기반 로봇 통신 제어**
-- Worker / 관리자와의 중앙 통신 처리
+- Worker · 관리자와의 중앙 통신 처리
 - **스케줄 기반 동작 전환 로직**
-  - 가동 / 대기 / 순찰 등 시간 조건 처리
+  - 가동 · 대기 · 순찰 등 시간 조건 처리
 - 데이터베이스 요청 및 처리
 - 기타 시스템 상태 및 이벤트 관리
 
@@ -84,7 +84,7 @@ title: System Architecture
 
 ---
 
-## User / Admin GUI
+## User · Admin GUI
 
 ### User GUI (PyQt 기반, 일반 사용자용)
 - 작업 요청 생성
@@ -93,7 +93,7 @@ title: System Architecture
 - **Main Service와 TCP (양방향) 통신**
 
 ### Admin GUI (PyQt 기반, 관리자용)
-- 로봇 등록 / 삭제
+- 로봇 등록 · 삭제
 - 실시간 상태 확인
 - 로그 및 통계 분석
 - **Main Service와 ROS2 (양방향) 통신**
@@ -112,7 +112,7 @@ title: System Architecture
 
 ### 주요 컴포넌트 사양
 
-| Component | Specification / Details |
+| Component | Specification · Details |
 |---|---|
 | Main Processor | Raspberry Pi 5, 8GB RAM |
 | Camera | Pi Camera, 5MP |
@@ -138,7 +138,7 @@ title: System Architecture
 | MISO | 9 | IN | SPI master in (from LCD) |
 | SCL (CLK) | 11 | OUT | SPI Clock |
 | CS | 8 | OUT | SPI Chip Select |
-| DC | 7 | OUT | Data / Command switch |
+| DC | 7 | OUT | Data · Command switch |
 | RST | 1 | OUT | LCD Reset |
 | BL (PWM) | 12 | OUT | LCD backlight control |
 

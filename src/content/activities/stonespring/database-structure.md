@@ -72,8 +72,8 @@ title:
 |--------|------|------|
 | character_id | INT (PK) | 성격 고유 ID |
 | user_id | INT (FK) | 사용자 ID |
-| speech | TEXT | 말투: 반말/존댓말 등 |
-| character | TEXT | 외향적/내향적 |
+| speech | TEXT | 말투: 반말·존댓말 등 |
+| character | TEXT | 외향적·내향적 |
 | res_setting | TEXT | 응답할 때 참고해야하는 기본 설정 내용 (예시: 땅콩 알레르기가 있어 등) |
 
 ---

@@ -16,7 +16,7 @@
 
 ### Pinky Violet Specifications
 
-| Component | Specification / Details |
+| Component | Specification · Details |
 |---------|--------------------------|
 | Main Processor | Raspberry Pi 5, 8GB RAM |
 | Camera | Pi Camera, Resolution: 5 MP |
@@ -45,7 +45,7 @@
 |  | MISO | 9 | IN | SPI Master In |
 |  | SCL (CLK) | 11 | OUT | SPI Clock |
 |  | CS | 8 | OUT | SPI Chip Select |
-|  | DC | 7 | OUT | Data / Command Select |
+|  | DC | 7 | OUT | Data · Command Select |
 |  | RST | 1 | OUT | LCD Reset |
 |  | BL (PWM) | 12 | OUT | Backlight PWM Control |
 | IMU Sensor | SDA | 2 | IO | I2C Data |
@@ -114,14 +114,14 @@
 
 | 연결 장치 | 핀 이름 | GPIO 번호 | 설명 |
 |----------|--------|-----------|------|
-| LiDAR | RX / TX | 14 / 15 | 라이다 송·수신 |
-| LCD | MOSI / MISO / SCL / CS / DC / RST | 10 / 9 / 11 / 8 / 7 / 1 | SPI 통신 |
+| LiDAR | RX · TX | 14 · 15 | 라이다 송·수신 |
+| LCD | MOSI · MISO · SCL · CS · DC · RST | 10 · 9 · 11 · 8 · 7 · 1 | SPI 통신 |
 | LCD Backlight | BL | 12 | LCD 밝기(PWM 제어) |
-| IMU 센서 | SDA / SCL | 2 / 3 | I2C 통신 |
-| 초음파 센서 | TRIG / ECHO | 23 / 24 | 거리 측정 신호 |
-| IR 센서 | IR1 / IR2 / IR3 | 16 / 20 / 21 | IR 감지 입력 |
-| DC 모터 (좌) | AIN1 / AIN2 / PWMA | 17 / 27 / 18 | 좌측 모터 방향·속도 제어 |
-| DC 모터 (우) | BIN1 / BIN2 / PWMB | 5 / 6 / 13 | 우측 모터 방향·속도 제어 |
+| IMU 센서 | SDA · SCL | 2 · 3 | I2C 통신 |
+| 초음파 센서 | TRIG · ECHO | 23 · 24 | 거리 측정 신호 |
+| IR 센서 | IR1 · IR2 · IR3 | 16 · 20 · 21 | IR 감지 입력 |
+| DC 모터 (좌) | AIN1 · AIN2 · PWMA | 17 · 27 · 18 | 좌측 모터 방향·속도 제어 |
+| DC 모터 (우) | BIN1 · BIN2 · PWMB | 5 · 6 · 13 | 우측 모터 방향·속도 제어 |
 | 모터 드라이버 | STBY | 25 | 모터 대기 모드 |
 | 부저 | BUZZER | 22 | 부저 제어 |
 

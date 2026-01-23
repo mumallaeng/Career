@@ -34,7 +34,7 @@ import DriveAssetGrid from '@/components/DriveAssetGrid';
 
 | 구분         | 사양                                                                                                                   |
 | ---------- | -------------------------------------------------------------------------------------------------------------------- |
-| CPU        | 듀얼 CPU / 개당 36코어(총 72코어)                                        |
+| CPU        | 듀얼 CPU · 개당 36코어(총 72코어)                                        |
 | VGA(GPU)   | NVIDIA Quadro RTX 8000(총 4개)                                                                                              |
 | RAM        | 512GB (515717 MiB 표기와 규모상 일치)                                                                                        |
 | 저장장치     | 약 12TB |
@@ -47,18 +47,18 @@ import DriveAssetGrid from '@/components/DriveAssetGrid';
 서버 구축 및 운영 지원을 위주로 담당하였습니다. 해당 업무에 대한 모든 내용을 문서화하여 다음 근로장학생에게 인수인계하였습니다. \
 이외에도 센터 서버 사용자를 위한 Docker 환경 구축과 강의에 필요한 환경 설정(Windows + Ubuntu 멀티부팅 등)을 담당하였습니다.
 
-- 서버 포맷 및 OS 설치/기본 세팅
-- 원격 접속/보안/네트워크 운영(SSH·방화벽·포트)
+- 서버 포맷 및 OS 설치·기본 세팅
+- 원격 접속·보안·네트워크 운영(SSH·방화벽·포트)
     - `openssh-server` 설치 및 서비스 동작 확인(`netstat -ntlp`)
-    - `firewalld` 설치 후 포트 오픈(22/tcp, 8000/tcp) 및 포트 포워딩 구성  
+    - `firewalld` 설치 후 포트 오픈(22·tcp, 8000·tcp) 및 포트 포워딩 구성  
     - 원격 지원 도구 설치: TeamViewer, VNC, Chrome 원격 데스크톱 등의 환경 구성
 - 개발·서비스 구동 환경 구성(서버 운영 관점)
     - 포맷 후 기본 소프트웨어 설치 (Node.js, Java, MySQL, DBeaver, Git, Eclipse, 작업 폴더 구성, 백업 불러오기 등)
-    - 서버 재부팅 후 필요한 서비스 점검/구동 ( node 서버, DBMS 상태 확인, VNC, Spring Boot 실행 등)  
+    - 서버 재부팅 후 필요한 서비스 점검·구동 ( node 서버, DBMS 상태 확인, VNC, Spring Boot 실행 등)  
     - crontab으로 1시간 단위 Git pull 자동화
-- GPU 드라이버 / CUDA · cuDNN 설치 및 검증
-    - NVIDIA 드라이버 설치(자동/수동) 및 `nvidia-smi`로 설치
-    - CUDA 환경변수(PATH/LD_LIBRARY_PATH) 설정 및 `nvcc -V`로 설치 확인, cuDNN 적용 확인
+- GPU 드라이버 · CUDA · cuDNN 설치 및 검증
+    - NVIDIA 드라이버 설치(자동·수동) 및 `nvidia-smi`로 설치
+    - CUDA 환경변수(PATH·LD_LIBRARY_PATH) 설정 및 `nvcc -V`로 설치 확인, cuDNN 적용 확인
 - Clonezilla 기반 이미지 백업 및 복구 프로세스 문서화
 - [센터 서버 사용자](https://www.inhatc.ac.kr/kr/460/subview.do?enc=Zm5jdDF8QEB8JTJGY29tYkJicyUyRmtyJTJGMiUyRjExJTJGNzE0MyUyRnZpZXcuZG8lM0ZmaW5kV29yZCUzRCU1QkFJJTVEJTI2cGFnZSUzRDMlMjZmaW5kVHlwZSUzRHNqJTI2)를 위한 Docker 환경 구축
     - Docker, Docker Compose 설치 및 권한 설정
