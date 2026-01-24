@@ -38,6 +38,7 @@ YOLOv8n 모델로 신발 상자 객체 인식을 수행하고, Python 기반 GUI
 ## 프로젝트 개요
 
 <Table head="column">
+
 |     |     |
 |-----|-----|
 | 기간 | 2025.04.09 ~ 2025.05.27 (7주) |
@@ -102,12 +103,12 @@ YOLOv8n 모델로 신발 상자 객체 인식을 수행하고, Python 기반 GUI
 - 코드 네이밍·디렉토리 통일, 문서화 및 유지보수성 향상
 
 
-## 프로젝트 결과 및 자료
+# 프로젝트 결과 및 자료
 
 <VideoTag filename="통합영상.mp4" title="Shoepernoma 통합영상" />
 
 
-### 구현
+## 구현
 
 하드웨어와 함께 제공된 ROS2 워크스페이스 [pinky_violet](https://github.com/pinklab-art/pinky_violet)에서 필요한 패키지를 Shopernoma에 맞게 수정하여 사용했습니다. \
 주요 패키지로는 `pinky_cartographer`, `pinky_navigation`, `pinky_bringup`가 있습니다.
@@ -119,7 +120,7 @@ YOLOv8n 모델로 신발 상자 객체 인식을 수행하고, Python 기반 GUI
 | `pinky_bringup` | 모터·배터리·센서 초기화 런치 | 모터·배터리 노드는 그대로 사용. <br/> 센서 및 카메라는 별도로 구현 |
 
 
-#### 주행 기술
+## 주행 기술
 
 <DriveAssetGrid actId="Shoepernoma" start={2} end={3} layout={[100]} />
 
@@ -137,7 +138,7 @@ YOLOv8n 모델로 신발 상자 객체 인식을 수행하고, Python 기반 GUI
 
 <DriveAssetGrid actId="Shoepernoma" start={11} end={12} layout={[100]} />
 
-##### 1. 센서 입력 수집
+### 1. 센서 입력 수집
 
 <DriveAssetGrid actId="Shoepernoma" start={12} end={13} layout={[100]} />
 
@@ -161,7 +162,7 @@ YOLOv8n 모델로 신발 상자 객체 인식을 수행하고, Python 기반 GUI
 <br/>
 <br/>
 
-##### 2. SLAM 및 지도 작성
+### 2. SLAM 및 지도 작성
 
 <DriveAssetGrid actId="Shoepernoma" start={13} end={14} layout={[100]} />
 
@@ -176,7 +177,7 @@ YOLOv8n 모델로 신발 상자 객체 인식을 수행하고, Python 기반 GUI
 <br/>
 
 
-##### 3. [Nav2] 자율주행
+### 3. [Nav2] 자율주행
 
 - 전역 플래너: NavFn (Dijkstra)
 - 로컬 플래너: DWB
@@ -225,7 +226,7 @@ Nav2는 이 costmap을 사용하여 경로 계획과 장애물 회피를 수행�
 <br/>
 <br/>
 
-##### 4. [FollowWaypoints] 웨이포인트 주행
+### 4. [FollowWaypoints] 웨이포인트 주행
 
 <DriveAssetGrid actId="Shoepernoma" start={16} end={17} layout={[100]} />
 
@@ -244,12 +245,11 @@ Nav2는 이 costmap을 사용하여 경로 계획과 장애물 회피를 수행�
     - A* 호출은 실행되지만 유효한 최단 경로를 만들지 못할 수 있음 
 */}
 
-
 <br/>
 <br/>
 <br/>
 
-##### 5. [ArUco `/initialpose`] 초기 위치 보정
+### 5. [ArUco `/initialpose`] 초기 위치 보정
 
 <DriveAssetGrid actId="Shoepernoma" start={17} end={19} layout={[33, 66]} />
 
@@ -292,9 +292,7 @@ Nav2는 이 costmap을 사용하여 경로 계획과 장애물 회피를 수행�
 <br/>
 
 
-
-
-##### 6. [ArUco PID] 근접 정렬·도킹
+### 6. [ArUco PID] 근접 정렬·도킹
 
 <DriveAssetGrid actId="Shoepernoma" start={19} end={20} layout={[100]} />
 
@@ -309,7 +307,7 @@ Nav2는 이 costmap을 사용하여 경로 계획과 장애물 회피를 수행�
 <br/>
 <br/>
 
-##### 7. [Kalman Filter] IMU 노이즈 보정
+### 7. [Kalman Filter] IMU 노이즈 보정
 
 <DriveAssetGrid actId="Shoepernoma" start={20} end={21} layout={[100]} />
 
@@ -321,14 +319,56 @@ Nav2는 이 costmap을 사용하여 경로 계획과 장애물 회피를 수행�
 <br/>
 <br/>
 
-#### GUI
+### 8. [Micro-ROS + Platform.io + Docker] MCU 센서 통신
+
+Rack과 Cart에서 집품을 확인하는 기능에 ESP32 MCU 펌웨어가 사용되었습니다. \
+보드의 설정은 Platform.io로 관리되며, 시리얼 통신으로 센서 데이터를 얻습니다. \
+Micro-ROS agent로 ROS2 네트워크와 통신합니다. 이는 Docker로 배포하여 환경 설정을 간소화했습니다.
+
+{/* PlatformIO: 임베디드 보드(ESP32 등)용 펌웨어를 빌드/업로드/모니터링까지 통합 관리해주는 개발 환경(IDE/CLI) */}
+{/* Micro-ROS: ROS 2를 MCU(마이크로컨트롤러)에서도 쓰기 위한 경량 통신/실행 스택으로, 에이전트를 통해 ROS 2 네트워크와 브릿지됨 */}
+{/* Docker: 개발/배포 환경을 컨테이너 이미지로 패키징해 동일한 실행 환경을 재현하는 가상화 도구 */}
+{/* PlatformIO vs Docker: PlatformIO는 MCU 펌웨어의 개발·배포(보드 업로드), Docker는 애플리케이션 런타임 환경을 컨테이너로 재현·배포하는 도구로 목적과 레벨이 다름 */}
+
+**Micro-ROS agent 실행 절차(컨테이너)** 
+
+PlatformIO 타깃 보드: `esp32dev`(cart), `esp32-s3-devkitc-1`(rack)
+
+1. [ROScar Docker 이미지](https://hub.docker.com/r/yonmilk/roscars) 내려받기 <br/> 
+    ```
+    docker pull yonmilk/roscars:rack-esp32-s3-wroom-1-0.1.0
+    ```
+2. MCU 연결 및 디바이스 확인(호스트) <br/>
+     USB 연결 후 `/dev/ttyACM*` 또는 `/dev/ttyUSB*` 확인
+3. 컨테이너 실행 + 시리얼 디바이스 매핑 <br/>
+    ```
+    docker run --rm -it --device /dev/ttyACM0 --group-add dialout yonmilk/roscars:rack-esp32-s3-wroom-1-0.1.0
+    ```
+4. 컨테이너 내부에서 Micro-ROS agent 실행 <br/>
+    ```
+    ros2 run micro_ros_agent serial --dev /dev/ttyACM0 -b 115200 -v4
+    ```
+5. 연결 확인 <br/>
+  Agent 로그에 XRCE-DDS 세션/클라이언트 연결 로그가 출력되는지 확인
+
+
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+## GUI
 
 <DriveAssetGrid actId="Shoepernoma" start={21} end={22} layout={[100]} />
 <DriveAssetGrid actId="Shoepernoma" start={22} end={25}/>
 <DriveAssetGrid actId="Shoepernoma" start={26} end={27} layout={[100]} />
 
 
-### 설계
+## 설계
 
 - [User Requirements Specification (URS)](shoepernoma/user-requirements.md)
 - [System Requirements Specification (SRS)](shoepernoma/system-requirements.md)
@@ -336,33 +376,33 @@ Nav2는 이 costmap을 사용하여 경로 계획과 장애물 회피를 수행�
 - [Scenario](shoepernoma/scenario.md)
 - [GUI Specification](shoepernoma/gui-specification.md)
 
-#### 시스템 구조
+## 시스템 구조
 
 <DriveAssetGrid actId="Shoepernoma" start={27} end={29} layout={[33, 66]}/>
 
 
-#### 지도
+## 지도
 
 <DriveAssetGrid actId="Shoepernoma" start={29} end={31} layout={[33, 66]}/>
 
-#### 시퀀스 다이어그램
+## 시퀀스 다이어그램
 
 <DriveAssetGrid actId="Shoepernoma" start={31} end={-7} />
 
 
-#### 주요 ROS 통신 인터페이스
+## 주요 ROS 통신 인터페이스
 
 <DriveAssetGrid actId="Shoepernoma" start={-7} end={-6} layout={[100]}/>
 
-#### 전체 주행 상태
+## 전체 주행 상태
 
 <DriveAssetGrid actId="Shoepernoma" start={-6} end={-5} layout={[100]}/>
 
-#### 데이터 구조
+## 데이터 구조
 
 <DriveAssetGrid actId="Shoepernoma" start={-5} end={-3} layout={[100]}/>
 
-#### Hardware 구성
+## Hardware 구성
 
 <DriveAssetGrid actId="Shoepernoma" start={-1} layout={[100]}/>
 
