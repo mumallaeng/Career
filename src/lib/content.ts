@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { FrontMatter, Content } from '@/types/content';
-import { drive1AssetMap, getDrive1AssetByFilename, getDrive1AssetsByActId } from '@/data/drive1-assets';
+import { onedriveAssetMap, getOneDriveAssetByFilename, getOneDriveAssetsByActId } from '@/data/onedrive-assets';
 
 interface ThumbnailData {
   url: string;
@@ -69,9 +69,9 @@ function hasExplicitSize(tag: string): boolean {
   return widthAttribute.test(tag) || heightAttribute.test(tag) || styleAttribute.test(tag);
 }
 
-function resolveDrive1Thumbnail(assetId?: string): ThumbnailData | undefined {
+function resolveOneDriveThumbnail(assetId?: string): ThumbnailData | undefined {
   if (!assetId) return undefined;
-  const asset = drive1AssetMap[assetId as keyof typeof drive1AssetMap];
+  const asset = onedriveAssetMap[assetId as keyof typeof onedriveAssetMap];
   if (!asset) return undefined;
   return {
     url: asset.publicPath,
@@ -80,7 +80,7 @@ function resolveDrive1Thumbnail(assetId?: string): ThumbnailData | undefined {
 }
 
 function resolveThumbnailFromFrontMatter(frontMatter: FrontMatter): ThumbnailData | undefined {
-  const thumbnailFromAssetId = resolveDrive1Thumbnail(frontMatter.thumbnail_asset_id);
+  const thumbnailFromAssetId = resolveOneDriveThumbnail(frontMatter.thumbnail_asset_id);
   if (thumbnailFromAssetId) {
     return thumbnailFromAssetId;
   }
@@ -90,7 +90,7 @@ function resolveThumbnailFromFrontMatter(frontMatter: FrontMatter): ThumbnailDat
     return undefined;
   }
 
-  const assetFromFilename = getDrive1AssetByFilename(rawThumbnail);
+  const assetFromFilename = getOneDriveAssetByFilename(rawThumbnail);
   if (assetFromFilename) {
     return {
       url: assetFromFilename.publicPath,
@@ -130,7 +130,7 @@ function extractFirstImage(content: string): ThumbnailData | undefined {
   const gridMatch = content.match(/<DriveAssetGrid[^>]*actId=["']([^"']+)["'][^>]*\/?>/i);
   if (gridMatch) {
     const actId = gridMatch[1].trim();
-    const assets = getDrive1AssetsByActId(actId);
+    const assets = getOneDriveAssetsByActId(actId);
     if (assets.length > 0) {
       return {
         url: assets[0].publicPath,

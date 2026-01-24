@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { drive1Assets } from '@/data/drive1-assets';
+import { onedriveAssets } from '@/data/onedrive-assets';
 
 export default function CertificateGrid() {
-  const certificates = drive1Assets
+  const certificates = onedriveAssets
     .filter(asset => asset.type === 'certificate')
     .sort((a, b) => {
       const dateCompare = (b.startDate ?? '').localeCompare(a.startDate ?? '');

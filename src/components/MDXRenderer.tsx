@@ -11,7 +11,7 @@ import PlantUmlDiagram from '@/components/PlantUmlDiagram';
 import DriveAssetGrid from '@/components/DriveAssetGrid';
 import GradeGrid from '@/components/GradeGrid';
 import MdxTable from '@/components/MdxTable';
-import { drive1AssetMap, getDrive1AssetByFilename, getDrive1AssetsByActId } from '@/data/drive1-assets';
+import { onedriveAssetMap, getOneDriveAssetByFilename, getOneDriveAssetsByActId } from '@/data/onedrive-assets';
 
 const handleLegacyImages = (
   container: HTMLElement | null,
@@ -147,7 +147,7 @@ const resolveVideoSource = (filename?: string, src?: string): string | null => {
     return null;
   }
 
-  const asset = getDrive1AssetByFilename(rawValue);
+  const asset = getOneDriveAssetByFilename(rawValue);
   if (asset) {
     return asset.publicPath;
   }
@@ -337,8 +337,8 @@ export default function MDXRenderer({ content }: MDXRendererProps) {
           remarkPlugins: [remarkGfm],
         },
         scope: {
-          drive1AssetMap,
-          getDrive1AssetsByActId,
+          onedriveAssetMap,
+          getOneDriveAssetsByActId,
           constants,
         },
       });

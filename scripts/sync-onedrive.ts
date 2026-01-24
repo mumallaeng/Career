@@ -15,25 +15,25 @@ import {
   writeFile,
 } from 'node:fs/promises';
 
-import { drive1Assets, type Drive1AssetDefinition } from '../src/data/drive1-assets';
+import { onedriveAssets, type OneDriveAssetDefinition } from '../src/data/onedrive-assets';
 
-type NormalizedAsset = Drive1AssetDefinition & {
+type NormalizedAsset = OneDriveAssetDefinition & {
   remotePath: string;
   publicPath: string;
 };
 
 const projectRoot = process.cwd();
 const publicRoot = path.join(projectRoot, 'public');
-const defaultRemoteBase = 'oow214-1drive:';
-const remoteBase = normalizeRemoteBase(process.env.DRIVE1_REMOTE_BASE ?? defaultRemoteBase);
-const localRoot = process.env.DRIVE1_LOCAL_ROOT;
-const legacyLocalDir = process.env.DRIVE1_LOCAL_SOURCE;
-const shouldDownload = process.env.SKIP_DRIVE1_DOWNLOAD === '1' ? false : true;
+const defaultRemoteBase = 'oow214-onedrive:';
+const remoteBase = normalizeRemoteBase(process.env.ONEDRIVE_REMOTE_BASE ?? defaultRemoteBase);
+const localRoot = process.env.ONEDRIVE_LOCAL_ROOT;
+const legacyLocalDir = process.env.ONEDRIVE_LOCAL_SOURCE;
+const shouldDownload = process.env.SKIP_ONEDRIVE_DOWNLOAD === '1' ? false : true;
 const rcloneCacheDir = path.join(projectRoot, '.rclone-bin');
 const rcloneConfigDir = path.join(projectRoot, '.rclone-config');
 
-const assets: NormalizedAsset[] = drive1Assets.map(asset => ({
-  ...(asset as Drive1AssetDefinition),
+const assets: NormalizedAsset[] = onedriveAssets.map(asset => ({
+  ...(asset as OneDriveAssetDefinition),
   remotePath: trimSlashes(asset.remotePath),
   publicPath: ensureLeadingSlash(asset.publicPath),
 }));
@@ -119,12 +119,12 @@ async function ensureLegacySymlink(): Promise<boolean> {
   if (!legacyLocalDir) return false;
   if (assets.length === 0) return false;
   if (publicDirectories.length !== 1) {
-    throw new Error('Legacy DRIVE1_LOCAL_SOURCE can only be used when all assets share one directory.');
+    throw new Error('Legacy ONEDRIVE_LOCAL_SOURCE can only be used when all assets share one directory.');
   }
   const targetRelative = publicDirectories[0];
   const targetDir = path.join(publicRoot, targetRelative);
   if (!(await pathExists(legacyLocalDir))) {
-    throw new Error(`DRIVE1_LOCAL_SOURCE does not exist: ${legacyLocalDir}`);
+    throw new Error(`ONEDRIVE_LOCAL_SOURCE does not exist: ${legacyLocalDir}`);
   }
 
   await mkdir(path.dirname(targetDir), { recursive: true });
@@ -309,7 +309,7 @@ async function downloadAssets(rcloneBinary: string) {
 
   for (const { asset, destination, remote } of downloadTargets) {
     if (!shouldDownload) {
-      console.info(`Skipping download for ${asset.filename} (SKIP_DRIVE1_DOWNLOAD=1).`);
+      console.info(`Skipping download for ${asset.filename} (SKIP_ONEDRIVE_DOWNLOAD=1).`);
       continue;
     }
 
@@ -442,7 +442,7 @@ function escapeRegExp(value: string): string {
 
 async function resolveLocalAssetPath(asset: NormalizedAsset): Promise<string> {
   if (!localRoot) {
-    throw new Error('DRIVE1_LOCAL_ROOT is not configured.');
+    throw new Error('ONEDRIVE_LOCAL_ROOT is not configured.');
   }
 
   const relativeSegments = asset.remotePath.split('/');
@@ -484,7 +484,7 @@ async function resolveLocalAssetPath(asset: NormalizedAsset): Promise<string> {
     }
   }
 
-  throw new Error(`Local Drive1 file not found: ${baseCandidate}`);
+  throw new Error(`Local OneDrive file not found: ${baseCandidate}`);
 }
 
 async function listRemoteFiles(rcloneBinary: string): Promise<Set<string>> {
@@ -523,15 +523,15 @@ async function uploadMissingRemoteAssets(
   });
 
   if (missingAssets.length === 0) {
-    console.info('All Drive1 assets are present on the remote.');
+    console.info('All OneDrive assets are present on the remote.');
     return;
   }
 
   if (!localRoot) {
     const missingList = missingAssets.map(asset => `- ${asset.remotePath}`).join('\n');
     throw new Error(
-      `Remote Drive1 storage is missing ${missingAssets.length} assets:\n${missingList}\n` +
-        'Provide DRIVE1_LOCAL_ROOT to upload them automatically.',
+      `Remote OneDrive storage is missing ${missingAssets.length} assets:\n${missingList}\n` +
+        'Provide ONEDRIVE_LOCAL_ROOT to upload them automatically.',
     );
   }
 
@@ -590,7 +590,7 @@ async function main() {
     } else if (usingLocalRoot || usingLegacySource) {
       console.info('Local asset symlinks configured; skipping download stage.');
     } else {
-      console.info('Downloads are disabled via SKIP_DRIVE1_DOWNLOAD=1.');
+      console.info('Downloads are disabled via SKIP_ONEDRIVE_DOWNLOAD=1.');
     }
   } catch (error) {
     console.error(error);

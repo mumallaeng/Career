@@ -1,7 +1,7 @@
 const remoteBasePath = 'Photos/Highlight/';
 const publicBasePath = '/import-data/highlight/';
 
-type Drive1AssetBlueprint = {
+type OneDriveAssetBlueprint = {
   /**
    * Unique identifier used by MDX/TS files to look up metadata.
    */
@@ -17,14 +17,14 @@ type Drive1AssetBlueprint = {
   endDate?: string;
   description?: string;
   /**
-   * Optional override for Drive1 path (relative to the drive root).
+   * Optional override for OneDrive path (relative to the drive root).
    */
   remotePathOverride?: string;
 };
 
-export type Drive1AssetDefinition = Drive1AssetBlueprint & {
+export type OneDriveAssetDefinition = OneDriveAssetBlueprint & {
   /**
-   * Path inside Drive1 (relative to the drive root), e.g.
+   * Path inside OneDrive (relative to the drive root), e.g.
    * "Photos/Highlight/_copy/foo.jpg".
    */
   remotePath: string;
@@ -51,7 +51,7 @@ function getNormalizationVariants(value: string): string[] {
   return Array.from(variants);
 }
 
-const drive1AssetBlueprints = [
+const onedriveAssetBlueprints = [
   {
     act_id: '네임컴작명연구소',
     filename: '020309-네임컴작명연구소-0_copy.jpg',
@@ -3427,39 +3427,39 @@ const drive1AssetBlueprints = [
   //   startDate: '2025-05-27',
   // },
 
-] as const satisfies readonly Drive1AssetBlueprint[];
+] as const satisfies readonly OneDriveAssetBlueprint[];
 
-const buildDrive1Asset = (asset: Drive1AssetBlueprint): Drive1AssetDefinition => ({
+const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinition => ({
   ...asset,
   remotePath: asset.remotePathOverride ?? `${remoteBasePath}${asset.filename}`,
   publicPath: `${publicBasePath}${asset.filename}`,
 });
 
-export const drive1Assets = drive1AssetBlueprints.map(buildDrive1Asset) as readonly Drive1AssetDefinition[];
+export const onedriveAssets = onedriveAssetBlueprints.map(buildOneDriveAsset) as readonly OneDriveAssetDefinition[];
 
-export const drive1AssetMap = drive1Assets.reduce((map, asset) => {
+export const onedriveAssetMap = onedriveAssets.reduce((map, asset) => {
   const ids = Array.isArray(asset.act_id) ? asset.act_id : [asset.act_id];
   ids.forEach(id => {
     map[id] = asset;
   });
   return map;
-}, {} as Record<string, Drive1AssetDefinition>);
+}, {} as Record<string, OneDriveAssetDefinition>);
 
-const drive1AssetFilenameMap = drive1Assets.reduce((map, asset) => {
+const onedriveAssetFilenameMap = onedriveAssets.reduce((map, asset) => {
   getNormalizationVariants(asset.filename).forEach(variant => {
     map[variant.trim().toLowerCase()] = asset;
   });
   return map;
-}, {} as Record<string, Drive1AssetDefinition>);
+}, {} as Record<string, OneDriveAssetDefinition>);
 
-export function getDrive1AssetByFilename(filename: string): Drive1AssetDefinition | undefined {
+export function getOneDriveAssetByFilename(filename: string): OneDriveAssetDefinition | undefined {
   const normalized = filename.trim().toLowerCase();
-  return drive1AssetFilenameMap[normalized];
+  return onedriveAssetFilenameMap[normalized];
 }
 
-export function getDrive1AssetsByActId(actId: string): readonly Drive1AssetDefinition[] {
+export function getOneDriveAssetsByActId(actId: string): readonly OneDriveAssetDefinition[] {
   const normalizedTarget = actId.trim().toLowerCase();
-  return drive1Assets.filter(asset => {
+  return onedriveAssets.filter(asset => {
     const ids = Array.isArray(asset.act_id) ? asset.act_id : [asset.act_id];
     return ids.some(id => {
       const normalizedId = id.trim().toLowerCase();

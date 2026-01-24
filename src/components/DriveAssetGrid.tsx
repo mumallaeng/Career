@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 
 import { ImgTag } from '@/components/MDXRenderer';
-import { drive1Assets, getDrive1AssetsByActId } from '@/data/drive1-assets';
+import { onedriveAssets, getOneDriveAssetsByActId } from '@/data/onedrive-assets';
 
 function normalizeQuery(query: string | undefined): string | undefined {
   return query?.trim().toLowerCase();
@@ -32,14 +32,14 @@ export default function DriveAssetGrid({ actId, name, className, start, end, lay
   const normalizedActId = normalizeQuery(actId);
   const normalizedName = normalizeQuery(name);
 
-  let assets: ReturnType<typeof getDrive1AssetsByActId> = [];
+  let assets: ReturnType<typeof getOneDriveAssetsByActId> = [];
 
   if (normalizedActId) {
-    assets = getDrive1AssetsByActId(actId!);
+    assets = getOneDriveAssetsByActId(actId!);
   }
 
   if ((assets.length === 0 || !normalizedActId) && normalizedName) {
-    assets = drive1Assets.filter(asset => normalizeQuery(asset.name)?.includes(normalizedName));
+    assets = onedriveAssets.filter(asset => normalizeQuery(asset.name)?.includes(normalizedName));
   }
 
   assets = assets.filter(asset => isImageAsset(asset.filename));
