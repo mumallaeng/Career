@@ -9,6 +9,7 @@ interface ActivitiesFilterProps {
 }
 
 export default function ActivitiesFilter({ activities }: ActivitiesFilterProps) {
+  const showContentTypeFilter = false;
   const [selectedType, setSelectedType] = useState<string>('all');
   const [sortOrder, setSortOrder] = useState<'recommended' | 'newest' | 'oldest' | 'name'>('recommended');
 
@@ -108,17 +109,19 @@ export default function ActivitiesFilter({ activities }: ActivitiesFilterProps) 
         </div>
 
         {/* Content Type Filter */}
-        <div className="content-type-filter">
-          {contentTypes.map(type => (
-            <button
-              key={type}
-              onClick={() => setSelectedType(type)}
-              className={`filter-button ${selectedType === type ? 'active' : ''}`}
-            >
-              {getTypeDisplayName(type)}
-            </button>
-          ))}
-        </div>
+        {showContentTypeFilter && (
+          <div className="content-type-filter">
+            {contentTypes.map(type => (
+              <button
+                key={type}
+                onClick={() => setSelectedType(type)}
+                className={`filter-button ${selectedType === type ? 'active' : ''}`}
+              >
+                {getTypeDisplayName(type)}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Activities Grid */}
