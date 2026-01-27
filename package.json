@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "prebuild": "npm run sync:onedrive",
+    "prebuild": "npm run sync:onedrive && du -sh public/import-data",
     "build": "next build",
     "build:turbo": "next build --turbopack",
     "export": "next build && next export",
     "start": "next start",
     "lint": "eslint",
-    "sync:onedrive": "tsx scripts/sync-onedrive.ts"
+    "sync:onedrive": "tsx scripts/sync-onedrive.ts",
+    "derive:onedrive": "tsx scripts/build-onedrive-derivatives.ts"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

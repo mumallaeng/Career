@@ -1,5 +1,7 @@
 const remoteBasePath = 'Photos/Highlight/';
 const publicBasePath = '/import-data/highlight/';
+const derivedRemoteBasePath = 'Photos/Derived/';
+const derivedPublicBasePath = '/import-data/derived/';
 
 type OneDriveAssetBlueprint = {
   /**
@@ -33,6 +35,23 @@ export type OneDriveAssetDefinition = OneDriveAssetBlueprint & {
    * Public path served by Next.js. Must start with "/".
    */
   publicPath: string;
+
+  /**
+   * Original remote/public paths for fallback or non-image usage.
+   */
+  remotePathOriginal: string;
+  publicPathOriginal: string;
+
+  /**
+   * Derived asset paths for resized images.
+   */
+  remotePathThumb: string;
+  publicPathThumb: string;
+
+  /**
+   * Whether this asset should be resized into derived variants.
+   */
+  isResizableImage: boolean;
 };
 
 function getNormalizationVariants(value: string): string[] {
@@ -49,6 +68,18 @@ function getNormalizationVariants(value: string): string[] {
     // ignore
   }
   return Array.from(variants);
+}
+
+function isResizableImageFilename(filename: string): boolean {
+  return /\.(jpe?g|png|webp)$/i.test(filename);
+}
+
+function buildDerivedRemotePath(size: 'thumb' | 'large', filename: string): string {
+  return `${derivedRemoteBasePath}${size}/${filename}`;
+}
+
+function buildDerivedPublicPath(size: 'thumb' | 'large', filename: string): string {
+  return `${derivedPublicBasePath}${size}/${filename}`;
 }
 
 const onedriveAssetBlueprints = [
@@ -3429,11 +3460,27 @@ const onedriveAssetBlueprints = [
 
 ] as const satisfies readonly OneDriveAssetBlueprint[];
 
-const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinition => ({
-  ...asset,
-  remotePath: asset.remotePathOverride ?? `${remoteBasePath}${asset.filename}`,
-  publicPath: `${publicBasePath}${asset.filename}`,
-});
+const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinition => {
+  const remotePathOriginal = asset.remotePathOverride ?? `${remoteBasePath}${asset.filename}`;
+  const publicPathOriginal = `${publicBasePath}${asset.filename}`;
+  const isResizableImage = isResizableImageFilename(asset.filename);
+
+  const remotePathLarge = isResizableImage ? buildDerivedRemotePath('large', asset.filename) : remotePathOriginal;
+  const publicPathLarge = isResizableImage ? buildDerivedPublicPath('large', asset.filename) : publicPathOriginal;
+  const remotePathThumb = isResizableImage ? buildDerivedRemotePath('thumb', asset.filename) : remotePathOriginal;
+  const publicPathThumb = isResizableImage ? buildDerivedPublicPath('thumb', asset.filename) : publicPathOriginal;
+
+  return {
+    ...asset,
+    remotePath: remotePathLarge,
+    publicPath: publicPathLarge,
+    remotePathOriginal,
+    publicPathOriginal,
+    remotePathThumb,
+    publicPathThumb,
+    isResizableImage,
+  };
+};
 
 export const onedriveAssets = onedriveAssetBlueprints.map(buildOneDriveAsset) as readonly OneDriveAssetDefinition[];
 
@@ -3455,6 +3502,15 @@ const onedriveAssetFilenameMap = onedriveAssets.reduce((map, asset) => {
 export function getOneDriveAssetByFilename(filename: string): OneDriveAssetDefinition | undefined {
   const normalized = filename.trim().toLowerCase();
   return onedriveAssetFilenameMap[normalized];
+}
+
+export function getOneDriveAssetUrl(
+  asset: OneDriveAssetDefinition,
+  size: 'thumb' | 'large' | 'original' = 'large',
+): string {
+  if (size === 'thumb') return asset.publicPathThumb;
+  if (size === 'original') return asset.publicPathOriginal;
+  return asset.publicPath;
 }
 
 export function getOneDriveAssetsByActId(actId: string): readonly OneDriveAssetDefinition[] {

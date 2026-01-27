@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { onedriveAssets } from '@/data/onedrive-assets';
+import { getOneDriveAssetUrl, onedriveAssets } from '@/data/onedrive-assets';
 
 export default function CertificateGrid() {
   const certificates = onedriveAssets
@@ -19,7 +19,7 @@ export default function CertificateGrid() {
 
         return (
           <div key={`${key}-${cert.filename}`} className="image-item">
-            <img src={cert.publicPath} alt={cert.name} />
+          <img src={getOneDriveAssetUrl(cert, 'thumb')} alt={cert.name} />
             <div className="cert-info">
               <h3>{cert.name}</h3>
               {organization && <p>{organization}</p>}

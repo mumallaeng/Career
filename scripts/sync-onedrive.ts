@@ -22,6 +22,14 @@ type NormalizedAsset = OneDriveAssetDefinition & {
   publicPath: string;
 };
 
+type SyncTarget = {
+  asset: NormalizedAsset;
+  remotePath: string;
+  publicPath: string;
+  fallbackRemotePath?: string;
+  label: 'large' | 'thumb' | 'original';
+};
+
 const projectRoot = process.cwd();
 const publicRoot = path.join(projectRoot, 'public');
 const defaultRemoteBase = 'oow214-onedrive:';
@@ -36,12 +44,46 @@ const assets: NormalizedAsset[] = onedriveAssets.map(asset => ({
   ...(asset as OneDriveAssetDefinition),
   remotePath: trimSlashes(asset.remotePath),
   publicPath: ensureLeadingSlash(asset.publicPath),
+  remotePathOriginal: trimSlashes(asset.remotePathOriginal),
+  publicPathOriginal: ensureLeadingSlash(asset.publicPathOriginal),
+  remotePathThumb: trimSlashes(asset.remotePathThumb),
+  publicPathThumb: ensureLeadingSlash(asset.publicPathThumb),
 }));
-const publicDirectories = Array.from(new Set(assets.map(asset => getPublicDirectory(asset.publicPath))));
+
+const syncTargets: SyncTarget[] = assets.flatMap(asset => {
+  if (asset.isResizableImage) {
+    return [
+      {
+        asset,
+        remotePath: asset.remotePath,
+        publicPath: asset.publicPath,
+        fallbackRemotePath: asset.remotePathOriginal,
+        label: 'large',
+      },
+      {
+        asset,
+        remotePath: asset.remotePathThumb,
+        publicPath: asset.publicPathThumb,
+        fallbackRemotePath: asset.remotePathOriginal,
+        label: 'thumb',
+      },
+    ];
+  }
+  return [
+    {
+      asset,
+      remotePath: asset.remotePathOriginal,
+      publicPath: asset.publicPathOriginal,
+      label: 'original',
+    },
+  ];
+});
+
+const publicDirectories = Array.from(new Set(syncTargets.map(target => getPublicDirectory(target.publicPath))));
 const remoteDirectories = Array.from(
   new Set(
-    assets.map(asset => {
-      const parts = asset.remotePath.split('/');
+    syncTargets.map(target => {
+      const parts = target.remotePath.split('/');
       parts.pop();
       return parts.join('/');
     }),
@@ -139,15 +181,19 @@ async function ensureLocalRootSymlinks(): Promise<boolean> {
     return false;
   }
 
-  for (const asset of assets) {
+  for (const target of syncTargets) {
     let sourcePath: string;
     try {
-      sourcePath = await resolveLocalAssetPath(asset);
+      sourcePath = await resolveLocalAssetPath(
+        target.asset,
+        target.remotePath,
+        target.fallbackRemotePath,
+      );
     } catch (error) {
-      console.warn(`Skipping missing local asset: ${asset.remotePath} (${(error as Error).message})`);
+      console.warn(`Skipping missing local asset: ${target.remotePath} (${(error as Error).message})`);
       continue;
     }
-    const destinationPath = path.join(publicRoot, asset.publicPath.replace(/^\//, ''));
+    const destinationPath = path.join(publicRoot, target.publicPath.replace(/^\//, ''));
 
     if (!(await fileExists(sourcePath))) {
       console.warn(`Skipping local asset (source missing): ${sourcePath}`);
@@ -157,11 +203,11 @@ async function ensureLocalRootSymlinks(): Promise<boolean> {
     await mkdir(path.dirname(destinationPath), { recursive: true });
     await rm(destinationPath, { force: true });
     await symlink(sourcePath, destinationPath, 'file');
-    console.info(`Linked ${asset.filename} -> ${destinationPath}`);
+    console.info(`Linked ${target.asset.filename} -> ${destinationPath}`);
   }
 
-  for (const asset of assets) {
-    const destinationPath = path.join(publicRoot, asset.publicPath.replace(/^\//, ''));
+  for (const target of syncTargets) {
+    const destinationPath = path.join(publicRoot, target.publicPath.replace(/^\//, ''));
     try {
       const stats = await lstat(destinationPath);
       if (!stats.isSymbolicLink()) {
@@ -276,38 +322,64 @@ function isDirectoryNotFoundError(error: unknown): boolean {
   if (!(error instanceof Error)) {
     return false;
   }
-  return /directory not found/i.test(error.message) || /found file when looking for folder/i.test(error.message);
+  return (
+    /directory not found/i.test(error.message) ||
+    /found file when looking for folder/i.test(error.message) ||
+    /file not found/i.test(error.message) ||
+    /object not found/i.test(error.message)
+  );
 }
 
-function copyRemoteAssetWithVariants(rcloneBinary: string, remotePath: string, destination: string) {
-  const variants = getNormalizationVariants(remotePath);
-  let lastError: Error | null = null;
-  for (const variant of variants) {
-    try {
-      runCommand(rcloneBinary, ['copyto', buildRemoteSpec(variant), destination]);
-      return;
-    } catch (error) {
-      if (isDirectoryNotFoundError(error)) {
-        lastError = error as Error;
-        continue;
+function copyRemoteAssetWithVariants(
+  rcloneBinary: string,
+  remotePath: string,
+  destination: string,
+  fallbackRemotePath?: string,
+) {
+  const attemptCopy = (pathToCopy: string): void => {
+    const variants = getNormalizationVariants(pathToCopy);
+    let lastError: Error | null = null;
+    for (const variant of variants) {
+      try {
+        runCommand(rcloneBinary, ['copyto', buildRemoteSpec(variant), destination]);
+        return;
+      } catch (error) {
+        if (isDirectoryNotFoundError(error)) {
+          lastError = error as Error;
+          continue;
+        }
+        throw error;
       }
+    }
+    if (lastError) {
+      throw lastError;
+    }
+    throw new Error(`Failed to copy remote asset ${pathToCopy}`);
+  };
+
+  try {
+    attemptCopy(remotePath);
+    return;
+  } catch (error) {
+    if (!fallbackRemotePath || fallbackRemotePath === remotePath) {
       throw error;
     }
+    if (!isDirectoryNotFoundError(error)) {
+      throw error;
+    }
+    console.warn(`Missing derived asset ${remotePath}, falling back to ${fallbackRemotePath}`);
+    attemptCopy(fallbackRemotePath);
   }
-  if (lastError) {
-    throw lastError;
-  }
-  throw new Error(`Failed to copy remote asset ${remotePath}`);
 }
 
 async function downloadAssets(rcloneBinary: string) {
-  const downloadTargets = assets.map(asset => ({
-    asset,
-    destination: path.join(publicRoot, asset.publicPath.replace(/^\//, '')),
-    remote: buildRemoteSpec(asset.remotePath),
+  const downloadTargets = syncTargets.map(target => ({
+    ...target,
+    destination: path.join(publicRoot, target.publicPath.replace(/^\//, '')),
+    remote: buildRemoteSpec(target.remotePath),
   }));
 
-  for (const { asset, destination, remote } of downloadTargets) {
+  for (const { asset, destination, remote, remotePath, fallbackRemotePath, label } of downloadTargets) {
     if (!shouldDownload) {
       console.info(`Skipping download for ${asset.filename} (SKIP_ONEDRIVE_DOWNLOAD=1).`);
       continue;
@@ -315,7 +387,10 @@ async function downloadAssets(rcloneBinary: string) {
 
     await mkdir(path.dirname(destination), { recursive: true });
     console.info(`Copying ${remote} -> ${destination}`);
-    copyRemoteAssetWithVariants(rcloneBinary, asset.remotePath, destination);
+    copyRemoteAssetWithVariants(rcloneBinary, remotePath, destination, fallbackRemotePath);
+    if (label !== 'original' && remotePath === fallbackRemotePath) {
+      console.info(`Downloaded fallback asset for ${asset.filename} (${label}).`);
+    }
   }
 }
 
@@ -440,18 +515,22 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-async function resolveLocalAssetPath(asset: NormalizedAsset): Promise<string> {
+async function resolveLocalAssetPath(
+  asset: NormalizedAsset,
+  remotePath: string,
+  fallbackRemotePath?: string,
+): Promise<string> {
   if (!localRoot) {
     throw new Error('ONEDRIVE_LOCAL_ROOT is not configured.');
   }
 
-  const relativeSegments = asset.remotePath.split('/');
+  const relativeSegments = remotePath.split('/');
   const filename = relativeSegments[relativeSegments.length - 1] ?? asset.filename;
   const directCandidates = new Set<string>();
   const baseCandidate = path.join(localRoot, ...relativeSegments);
   directCandidates.add(baseCandidate);
 
-  getNormalizationVariants(asset.remotePath).forEach(relative => {
+  getNormalizationVariants(remotePath).forEach(relative => {
     directCandidates.add(path.join(localRoot, ...relative.split('/')));
   });
 
@@ -482,6 +561,10 @@ async function resolveLocalAssetPath(asset: NormalizedAsset): Promise<string> {
         return candidate;
       }
     }
+  }
+
+  if (fallbackRemotePath && fallbackRemotePath !== remotePath) {
+    return resolveLocalAssetPath(asset, fallbackRemotePath);
   }
 
   throw new Error(`Local OneDrive file not found: ${baseCandidate}`);
@@ -518,7 +601,7 @@ async function uploadMissingRemoteAssets(
   remoteFiles: Set<string>,
 ): Promise<void> {
   const missingAssets = assets.filter(asset => {
-    const variants = getNormalizationVariants(asset.remotePath);
+    const variants = getNormalizationVariants(asset.remotePathOriginal);
     return !variants.some(variant => remoteFiles.has(variant));
   });
 
@@ -528,7 +611,7 @@ async function uploadMissingRemoteAssets(
   }
 
   if (!localRoot) {
-    const missingList = missingAssets.map(asset => `- ${asset.remotePath}`).join('\n');
+    const missingList = missingAssets.map(asset => `- ${asset.remotePathOriginal}`).join('\n');
     throw new Error(
       `Remote OneDrive storage is missing ${missingAssets.length} assets:\n${missingList}\n` +
         'Provide ONEDRIVE_LOCAL_ROOT to upload them automatically.',
@@ -536,13 +619,32 @@ async function uploadMissingRemoteAssets(
   }
 
   for (const asset of missingAssets) {
-    const localSource = await resolveLocalAssetPath(asset);
+    const localSource = await resolveLocalAssetPath(asset, asset.remotePathOriginal);
 
-    removeRemotePathIfExists(rcloneBinary, asset.remotePath);
-    console.info(`Uploading missing asset ${asset.remotePath} from ${localSource}`);
-    runCommand(rcloneBinary, ['copyto', localSource, buildRemoteSpec(asset.remotePath)]);
-    addRemotePathToSet(asset.remotePath, remoteFiles);
+    removeRemotePathIfExists(rcloneBinary, asset.remotePathOriginal);
+    console.info(`Uploading missing asset ${asset.remotePathOriginal} from ${localSource}`);
+    runCommand(rcloneBinary, ['copyto', localSource, buildRemoteSpec(asset.remotePathOriginal)]);
+    addRemotePathToSet(asset.remotePathOriginal, remoteFiles);
   }
+}
+
+function warnMissingDerivedAssets(remoteFiles: Set<string>): void {
+  const missingDerived = syncTargets.filter(target => {
+    if (target.label === 'original') return false;
+    const variants = getNormalizationVariants(target.remotePath);
+    return !variants.some(variant => remoteFiles.has(variant));
+  });
+
+  if (missingDerived.length === 0) {
+    return;
+  }
+
+  const missingList = missingDerived
+    .map(target => `- ${target.remotePath} (${target.label})`)
+    .join('\n');
+  console.warn(
+    `Derived assets missing on remote (${missingDerived.length}). Falling back to originals where needed:\n${missingList}`,
+  );
 }
 
 function removeRemotePathIfExists(rcloneBinary: string, remotePath: string) {
@@ -584,6 +686,7 @@ async function main() {
     const rcloneBinary = await ensureRcloneBinary();
     const remoteFiles = await listRemoteFiles(rcloneBinary);
     await uploadMissingRemoteAssets(rcloneBinary, remoteFiles);
+    warnMissingDerivedAssets(remoteFiles);
 
     if (shouldUseRemote) {
       await downloadAssets(rcloneBinary);

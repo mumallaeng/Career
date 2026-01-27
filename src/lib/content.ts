@@ -1,7 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import { FrontMatter, Content } from '@/types/content';
-import { onedriveAssetMap, getOneDriveAssetByFilename, getOneDriveAssetsByActId } from '@/data/onedrive-assets';
+import {
+  onedriveAssetMap,
+  getOneDriveAssetByFilename,
+  getOneDriveAssetsByActId,
+  getOneDriveAssetUrl,
+} from '@/data/onedrive-assets';
 
 interface ThumbnailData {
   url: string;
@@ -74,7 +79,7 @@ function resolveOneDriveThumbnail(assetId?: string): ThumbnailData | undefined {
   const asset = onedriveAssetMap[assetId as keyof typeof onedriveAssetMap];
   if (!asset) return undefined;
   return {
-    url: asset.publicPath,
+    url: getOneDriveAssetUrl(asset, 'thumb'),
     hasExplicitDimensions: false,
   };
 }
@@ -93,7 +98,7 @@ function resolveThumbnailFromFrontMatter(frontMatter: FrontMatter): ThumbnailDat
   const assetFromFilename = getOneDriveAssetByFilename(rawThumbnail);
   if (assetFromFilename) {
     return {
-      url: assetFromFilename.publicPath,
+      url: getOneDriveAssetUrl(assetFromFilename, 'thumb'),
       hasExplicitDimensions: false,
     };
   }
@@ -133,7 +138,7 @@ function extractFirstImage(content: string): ThumbnailData | undefined {
     const assets = getOneDriveAssetsByActId(actId);
     if (assets.length > 0) {
       return {
-        url: assets[0].publicPath,
+        url: getOneDriveAssetUrl(assets[0], 'thumb'),
         hasExplicitDimensions: false,
       };
     }
