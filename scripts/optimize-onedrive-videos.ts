@@ -20,7 +20,7 @@ const maxDimension = Number(process.env.DEV_STORAGE_VIDEO_MAX_DIMENSION ?? '1600
 const maxFps = Number(process.env.DEV_STORAGE_VIDEO_MAX_FPS ?? '30');
 const maxOutputMb = Number(process.env.DEV_STORAGE_VIDEO_MAX_MB ?? '10');
 const minCrf = Number(process.env.DEV_STORAGE_VIDEO_MIN_CRF ?? '24');
-const maxCrf = Number(process.env.DEV_STORAGE_VIDEO_MAX_CRF ?? '32');
+const maxCrf = Number(process.env.DEV_STORAGE_VIDEO_MAX_CRF ?? '34');
 const fallbackMaxDimension = Number(process.env.DEV_STORAGE_VIDEO_FALLBACK_MAX_DIMENSION ?? '1280');
 const keepGifMaxMb = Number(process.env.DEV_STORAGE_KEEP_GIF_MAX_MB ?? '2');
 const failOnOversize = process.env.DEV_STORAGE_FAIL_ON_VIDEO_MAX === '1';
