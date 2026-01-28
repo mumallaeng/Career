@@ -23,9 +23,11 @@ const minCrf = Number(process.env.DEV_STORAGE_VIDEO_MIN_CRF ?? '24');
 const maxCrf = Number(process.env.DEV_STORAGE_VIDEO_MAX_CRF ?? '34');
 const fallbackMaxDimension = Number(process.env.DEV_STORAGE_VIDEO_FALLBACK_MAX_DIMENSION ?? '1280');
 const gifMaxFps = Number(process.env.DEV_STORAGE_GIF_MAX_FPS ?? '15');
+const gifMinFps = Number(process.env.DEV_STORAGE_GIF_MIN_FPS ?? '6');
 const gifFallbackMaxDimension = Number(process.env.DEV_STORAGE_GIF_FALLBACK_MAX_DIMENSION ?? '960');
+const gifMinDimension = Number(process.env.DEV_STORAGE_GIF_MIN_DIMENSION ?? '360');
 const gifMaxColors = Number(process.env.DEV_STORAGE_GIF_MAX_COLORS ?? '128');
-const gifMinColors = Number(process.env.DEV_STORAGE_GIF_MIN_COLORS ?? '64');
+const gifMinColors = Number(process.env.DEV_STORAGE_GIF_MIN_COLORS ?? '32');
 const failOnOversize = process.env.DEV_STORAGE_FAIL_ON_VIDEO_MAX === '1';
 const isDryRun = process.env.DRY_RUN === '1' || process.env.DEV_STORAGE_DRY_RUN === '1';
 const onlyExts = parseExtList(process.env.DEV_STORAGE_ONLY_EXTS);
@@ -221,15 +223,34 @@ async function transcodeToWebmAlpha(inputPath: string, outputPath: string): Prom
 }
 
 async function transcodeGifWithSizeTarget(inputPath: string, outputPath: string): Promise<void> {
+  const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(value, max));
+  const clampDim = (value: number) => clamp(value, gifMinDimension, maxDimension);
+  const clampFps = (value: number) => clamp(value, gifMinFps, gifMaxFps);
+  const clampColors = (value: number) => clamp(value, gifMinColors, gifMaxColors);
   const attempts: Array<{ maxDim: number; fps: number; colors: number }> = [
-    { maxDim: maxDimension, fps: gifMaxFps, colors: gifMaxColors },
-    { maxDim: gifFallbackMaxDimension, fps: gifMaxFps, colors: gifMaxColors },
-    { maxDim: gifFallbackMaxDimension, fps: Math.max(10, gifMaxFps - 5), colors: Math.max(gifMinColors, Math.floor(gifMaxColors * 0.75)) },
-    { maxDim: Math.min(gifFallbackMaxDimension, 720), fps: 10, colors: Math.max(64, gifMinColors) },
-    { maxDim: Math.min(gifFallbackMaxDimension, 640), fps: 8, colors: Math.max(48, Math.floor(gifMinColors * 0.75)) },
+    { maxDim: clampDim(maxDimension), fps: clampFps(gifMaxFps), colors: clampColors(gifMaxColors) },
+    { maxDim: clampDim(gifFallbackMaxDimension), fps: clampFps(gifMaxFps), colors: clampColors(gifMaxColors) },
+    {
+      maxDim: clampDim(gifFallbackMaxDimension),
+      fps: clampFps(gifMaxFps - 5),
+      colors: clampColors(Math.floor(gifMaxColors * 0.75)),
+    },
+    { maxDim: clampDim(Math.min(gifFallbackMaxDimension, 720)), fps: clampFps(10), colors: clampColors(64) },
+    { maxDim: clampDim(Math.min(gifFallbackMaxDimension, 640)), fps: clampFps(8), colors: clampColors(48) },
+    { maxDim: clampDim(Math.min(gifFallbackMaxDimension, 560)), fps: clampFps(8), colors: clampColors(40) },
+    { maxDim: clampDim(Math.min(gifFallbackMaxDimension, 480)), fps: clampFps(6), colors: clampColors(32) },
+    { maxDim: clampDim(gifMinDimension), fps: clampFps(gifMinFps), colors: clampColors(gifMinColors) },
   ];
 
-  for (const attempt of attempts) {
+  const seen = new Set<string>();
+  const normalizedAttempts = attempts.filter((attempt) => {
+    const key = `${attempt.maxDim}:${attempt.fps}:${attempt.colors}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+
+  for (const attempt of normalizedAttempts) {
     await mkdir(path.dirname(outputPath), { recursive: true });
     if (!(await shouldRegenerate(inputPath, outputPath))) return;
     const vf = `fps=${attempt.fps},scale='min(${attempt.maxDim},iw)':-2:flags=lanczos,split[s0][s1];[s0]palettegen=stats_mode=diff:max_colors=${attempt.colors}[p];[s1][p]paletteuse=dither=bayer:bayer_scale=4`;
