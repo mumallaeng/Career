@@ -61,7 +61,7 @@ async function collectFiles(root: string, base: string, results: string[] = []):
 }
 
 function buildBlobPath(relativePath: string): string {
-  const normalized = relativePath.split(path.sep).join('/');
+  const normalized = relativePath.split(path.sep).join('/').normalize('NFC');
   return `${blobPrefix}/${normalized}`;
 }
 
