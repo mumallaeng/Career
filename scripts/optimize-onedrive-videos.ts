@@ -24,6 +24,8 @@ const maxCrf = Number(process.env.DEV_STORAGE_VIDEO_MAX_CRF ?? '34');
 const fallbackMaxDimension = Number(process.env.DEV_STORAGE_VIDEO_FALLBACK_MAX_DIMENSION ?? '1280');
 const gifMaxFps = Number(process.env.DEV_STORAGE_GIF_MAX_FPS ?? '15');
 const gifFallbackMaxDimension = Number(process.env.DEV_STORAGE_GIF_FALLBACK_MAX_DIMENSION ?? '960');
+const gifMaxColors = Number(process.env.DEV_STORAGE_GIF_MAX_COLORS ?? '128');
+const gifMinColors = Number(process.env.DEV_STORAGE_GIF_MIN_COLORS ?? '64');
 const failOnOversize = process.env.DEV_STORAGE_FAIL_ON_VIDEO_MAX === '1';
 const isDryRun = process.env.DRY_RUN === '1' || process.env.DEV_STORAGE_DRY_RUN === '1';
 const onlyExts = parseExtList(process.env.DEV_STORAGE_ONLY_EXTS);
@@ -219,16 +221,18 @@ async function transcodeToWebmAlpha(inputPath: string, outputPath: string): Prom
 }
 
 async function transcodeGifWithSizeTarget(inputPath: string, outputPath: string): Promise<void> {
-  const attempts: Array<{ maxDim: number; fps: number }> = [
-    { maxDim: maxDimension, fps: gifMaxFps },
-    { maxDim: gifFallbackMaxDimension, fps: gifMaxFps },
-    { maxDim: gifFallbackMaxDimension, fps: Math.max(8, gifMaxFps - 5) },
+  const attempts: Array<{ maxDim: number; fps: number; colors: number }> = [
+    { maxDim: maxDimension, fps: gifMaxFps, colors: gifMaxColors },
+    { maxDim: gifFallbackMaxDimension, fps: gifMaxFps, colors: gifMaxColors },
+    { maxDim: gifFallbackMaxDimension, fps: Math.max(10, gifMaxFps - 5), colors: Math.max(gifMinColors, Math.floor(gifMaxColors * 0.75)) },
+    { maxDim: Math.min(gifFallbackMaxDimension, 720), fps: 10, colors: Math.max(64, gifMinColors) },
+    { maxDim: Math.min(gifFallbackMaxDimension, 640), fps: 8, colors: Math.max(48, Math.floor(gifMinColors * 0.75)) },
   ];
 
   for (const attempt of attempts) {
     await mkdir(path.dirname(outputPath), { recursive: true });
     if (!(await shouldRegenerate(inputPath, outputPath))) return;
-    const vf = `fps=${attempt.fps},scale='min(${attempt.maxDim},iw)':-2:flags=lanczos,split[s0][s1];[s0]palettegen=stats_mode=diff:max_colors=128[p];[s1][p]paletteuse=dither=bayer:bayer_scale=4`;
+    const vf = `fps=${attempt.fps},scale='min(${attempt.maxDim},iw)':-2:flags=lanczos,split[s0][s1];[s0]palettegen=stats_mode=diff:max_colors=${attempt.colors}[p];[s1][p]paletteuse=dither=bayer:bayer_scale=4`;
     runCommand('ffmpeg', [
       '-y',
       '-nostdin',
