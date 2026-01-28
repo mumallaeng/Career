@@ -83,6 +83,7 @@ npm run upload:dev-storage
    - `ONEDRIVE_DEV_STORAGE_OUTPUT_ROOT`: 이전 호환용 (동일 역할).
    - `NEXT_PUBLIC_DEV_STORAGE_BASE_URL`: Blob base URL 설정 시 OneDrive 동기화가 자동으로 비활성화됩니다.
    - `SKIP_ONEDRIVE_SYNC=1`: OneDrive 동기화를 강제로 비활성화합니다.
+   - `ENABLE_ONEDRIVE_NFC=1`: OneDrive 원본 파일명을 NFC로 정규화합니다(기본 비활성).
    - `SKIP_ONEDRIVE_DOWNLOAD=1`: 원격 복사를 강제로 건너뜁니다(로컬 루트가 있을 때 테스트 용도).
    - `SKIP_ONEDRIVE_UPLOAD=1`: 파생본 업로드를 건너뜁니다.
    - `ONEDRIVE_REMOTE_BASE`: rclone remote prefix(기본 `oow214-onedrive:`).
