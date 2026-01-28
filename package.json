@@ -11,7 +11,7 @@
     "start": "next start",
     "lint": "eslint",
     "sync:onedrive": "tsx scripts/sync-onedrive.ts",
-    "derive:onedrive": "tsx scripts/build-onedrive-derivatives.ts",
+    "derive:onedrive": "tsx scripts/build-onedrive-derivatives.ts && npm run optimize:videos",
     "upload:dev-storage": "tsx scripts/upload-dev-storage-to-blob.ts",
     "optimize:videos": "tsx scripts/optimize-onedrive-videos.ts"
   },

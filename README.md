@@ -93,6 +93,7 @@ npm run optimize:videos
   - `DEV_STORAGE_KEEP_GIF_MAX_MB` (기본 2)
   - `DEV_STORAGE_KEEP_GIF_FILENAMES` (콤마 구분)
   - `DEV_STORAGE_ALPHA_WEBM_FILENAMES` (콤마 구분)
+  - `DRY_RUN=1` 또는 `DEV_STORAGE_DRY_RUN=1` (명령 출력만, 실제 변환/업로드 없음)
   - `DEV_STORAGE_FAIL_ON_VIDEO_MAX=1` (상한 초과 시 실패)
   - `SKIP_ONEDRIVE_UPLOAD=1` (업로드 스킵)
 

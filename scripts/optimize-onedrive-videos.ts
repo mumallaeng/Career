@@ -21,6 +21,7 @@ const maxFps = Number(process.env.DEV_STORAGE_VIDEO_MAX_FPS ?? '30');
 const maxOutputMb = Number(process.env.DEV_STORAGE_VIDEO_MAX_MB ?? '10');
 const keepGifMaxMb = Number(process.env.DEV_STORAGE_KEEP_GIF_MAX_MB ?? '2');
 const failOnOversize = process.env.DEV_STORAGE_FAIL_ON_VIDEO_MAX === '1';
+const isDryRun = process.env.DRY_RUN === '1' || process.env.DEV_STORAGE_DRY_RUN === '1';
 
 const keepGifSet = splitEnvList(process.env.DEV_STORAGE_KEEP_GIF_FILENAMES);
 const alphaWebmSet = splitEnvList(process.env.DEV_STORAGE_ALPHA_WEBM_FILENAMES);
@@ -87,6 +88,10 @@ async function resolveLocalSource(remotePath: string): Promise<string> {
 }
 
 function runCommand(command: string, args: string[]) {
+  if (isDryRun) {
+    console.info(`[dry-run] ${command} ${args.join(' ')}`);
+    return;
+  }
   const result = spawnSync(command, args, { stdio: 'inherit' });
   if (result.status !== 0) {
     throw new Error(`Command failed: ${command} ${args.join(' ')}`);
@@ -122,6 +127,10 @@ async function checkSizeLimit(outputPath: string): Promise<void> {
 async function copyOriginal(inputPath: string, outputPath: string): Promise<void> {
   await mkdir(path.dirname(outputPath), { recursive: true });
   if (!(await shouldRegenerate(inputPath, outputPath))) return;
+  if (isDryRun) {
+    console.info(`[dry-run] copy ${path.basename(inputPath)} -> ${outputPath}`);
+    return;
+  }
   await copyFile(inputPath, outputPath);
   await checkSizeLimit(outputPath);
 }
@@ -208,19 +217,36 @@ async function buildTargets(): Promise<Array<{ inputPath: string; outputPath: st
   return targets;
 }
 
-async function optimizeVideos(targets: Array<{ inputPath: string; outputPath: string }>): Promise<void> {
+async function optimizeVideos(targets: Array<{ inputPath: string; outputPath: string }>): Promise<{
+  processed: number;
+  skipped: number;
+  byType: Record<string, number>;
+}> {
+  let processed = 0;
+  let skipped = 0;
+  const byType: Record<string, number> = {};
   for (const target of targets) {
+    const shouldProcess = await shouldRegenerate(target.inputPath, target.outputPath);
+    if (!shouldProcess) {
+      skipped += 1;
+      continue;
+    }
     const ext = getExtension(target.outputPath);
+    byType[ext] = (byType[ext] ?? 0) + 1;
     if (ext === '.gif') {
       await copyOriginal(target.inputPath, target.outputPath);
+      processed += 1;
       continue;
     }
     if (ext === '.webm') {
       await transcodeToWebmAlpha(target.inputPath, target.outputPath);
+      processed += 1;
       continue;
     }
     await transcodeToMp4(target.inputPath, target.outputPath);
+    processed += 1;
   }
+  return { processed, skipped, byType };
 }
 
 async function uploadVideos(targets: Array<{ outputPath: string; remotePath: string }>): Promise<void> {
@@ -231,7 +257,7 @@ async function uploadVideos(targets: Array<{ outputPath: string; remotePath: str
 
   for (const target of targets) {
     const remoteSpec = `${remoteBase}${target.remotePath}`;
-    console.info(`Uploading ${path.basename(target.outputPath)} -> ${remoteSpec}`);
+    console.info(`${isDryRun ? '[dry-run] ' : ''}Uploading ${path.basename(target.outputPath)} -> ${remoteSpec}`);
     runCommand('rclone', ['copyto', target.outputPath, remoteSpec]);
   }
 }
@@ -248,8 +274,13 @@ async function main() {
   }
 
   const targets = await buildTargets();
-  await optimizeVideos(targets);
+  const summary = await optimizeVideos(targets);
   await uploadVideos(targets);
+  const total = targets.length;
+  console.info(
+    `Done. total=${total} processed=${summary.processed} skipped=${summary.skipped} ` +
+    `types=${Object.entries(summary.byType).map(([ext, count]) => `${ext}:${count}`).join(', ') || 'none'}`
+  );
 }
 
 void main().catch((error) => {
