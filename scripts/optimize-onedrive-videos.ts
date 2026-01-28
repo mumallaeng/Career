@@ -104,6 +104,9 @@ function runCommand(command: string, args: string[]) {
 async function shouldRegenerate(inputPath: string, outputPath: string): Promise<boolean> {
   if (!(await pathExists(outputPath))) return true;
   const [inputStat, outputStat] = await Promise.all([stat(inputPath), stat(outputPath)]);
+  if (!isDryRun && outputStat.size > maxOutputMb * 1024 * 1024) {
+    return true;
+  }
   return inputStat.mtimeMs > outputStat.mtimeMs;
 }
 
