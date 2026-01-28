@@ -101,11 +101,36 @@ function runCommand(command: string, args: string[]) {
   }
 }
 
+function hasAudioStream(targetPath: string): boolean {
+  const result = spawnSync('ffprobe', [
+    '-v',
+    'error',
+    '-select_streams',
+    'a',
+    '-show_entries',
+    'stream=codec_type',
+    '-of',
+    'csv=p=0',
+    targetPath,
+  ], { encoding: 'utf8' });
+  if (result.status !== 0) {
+    return false;
+  }
+  return result.stdout.trim().length > 0;
+}
+
 async function shouldRegenerate(inputPath: string, outputPath: string): Promise<boolean> {
   if (!(await pathExists(outputPath))) return true;
   const [inputStat, outputStat] = await Promise.all([stat(inputPath), stat(outputPath)]);
   if (!isDryRun && outputStat.size > maxOutputMb * 1024 * 1024) {
     return true;
+  }
+  if (!isDryRun) {
+    const inputHasAudio = hasAudioStream(inputPath);
+    const outputHasAudio = hasAudioStream(outputPath);
+    if (inputHasAudio && !outputHasAudio) {
+      return true;
+    }
   }
   return inputStat.mtimeMs > outputStat.mtimeMs;
 }
