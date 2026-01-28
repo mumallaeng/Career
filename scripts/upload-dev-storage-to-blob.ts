@@ -12,6 +12,11 @@ const outputRoot = process.env.DEV_STORAGE_OUTPUT_ROOT
 
 const blobPrefix = 'dev-storage';
 const dryRun = process.argv.includes('--dry-run');
+const concurrencyArg = process.argv.find(arg => arg.startsWith('--concurrency='));
+const concurrency = Math.max(
+  1,
+  Number(concurrencyArg?.split('=')[1] ?? process.env.BLOB_UPLOAD_CONCURRENCY ?? 4),
+);
 
 async function collectFiles(root: string, base: string, results: string[] = []): Promise<string[]> {
   const entries = await readdir(root, { withFileTypes: true });
@@ -56,9 +61,18 @@ async function main(): Promise<void> {
   }
 
   console.info(`Uploading ${files.length} files from ${outputRoot} to Vercel Blob...`);
-  for (const relativePath of files) {
-    await uploadFile(relativePath);
-  }
+  console.info(`Concurrency: ${concurrency}`);
+
+  let index = 0;
+  const workers = Array.from({ length: concurrency }, async () => {
+    while (index < files.length) {
+      const current = files[index];
+      index += 1;
+      await uploadFile(current);
+    }
+  });
+
+  await Promise.all(workers);
 }
 
 void main().catch(error => {
