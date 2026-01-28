@@ -21,6 +21,9 @@
 export ONEDRIVE_LOCAL_ROOT="/Users/yonmilk/Library/CloudStorage/OneDrive-Personal"
 npm run derive:onedrive
 
+# 1.5) GIF/MP4 최적화 후 dev-storage 업로드 (선택)
+npm run optimize:videos
+
 # 2) 로컬 dev-storage 산출물을 Vercel Blob에 업로드
 npm run upload:dev-storage
 ```
@@ -33,8 +36,65 @@ npm run upload:dev-storage
 - **리스트/카드/미리보기**에만 썸네일을 사용합니다.
 - **상세 페이지**는 기본 `dev-storage` 이미지만 사용합니다.
 
-### GIF/MP4 최적화 정책 (TODO)
-- 별도 정책 수립 후 반영 예정 (Hobby 1GB 제한 고려).
+### GIF/MP4 최적화 정책
+아래는 dev-storage 생성 단계에서 사용하는 실행 예시입니다. 기준은 **Hobby 1GB** 한도를 고려해
+개별 자산을 10MB 내외로 유지하는 것을 목표로 합니다.
+
+**GIF -> MP4 (기본 권장)**
+```bash
+ffmpeg -i input.gif \
+  -vf "scale='min(1600,iw)':-2,fps=30" \
+  -movflags +faststart -pix_fmt yuv420p \
+  -an -crf 24 -preset medium \
+  output.mp4
+```
+
+**GIF -> WebM (투명 배경 필요 시)**
+```bash
+ffmpeg -i input.gif \
+  -vf "scale='min(1600,iw)':-2,fps=30,format=yuva420p" \
+  -c:v libvpx-vp9 -crf 33 -b:v 0 \
+  -an \
+  output.webm
+```
+
+**MP4 재인코딩 (해상도/프레임/용량 상한 적용)**
+```bash
+ffmpeg -i input.mp4 \
+  -vf "scale='min(1600,iw)':-2,fps=30" \
+  -movflags +faststart -pix_fmt yuv420p \
+  -an -crf 24 -preset medium \
+  output.mp4
+```
+
+**썸네일 추출 (필요 항목만, 480px)**
+```bash
+ffmpeg -i input.mp4 \
+  -vf "scale=480:-2" -frames:v 1 \
+  output.jpg
+```
+
+**용량 상한 점검 (예: 10MB)**
+```bash
+stat -f%z output.mp4
+```
+
+**자동화 스크립트**
+```bash
+npm run optimize:videos
+```
+- 대상: `src/data/onedrive-assets.ts`에 등록된 `.gif`, `.mp4`, `.webm`
+- 기본 출력: `.dev-storage-media/{filename}`
+- 업로드: `Photos/dev-storage/{filename}`
+- 환경 변수:
+  - `DEV_STORAGE_VIDEO_MAX_DIMENSION` (기본 1600)
+  - `DEV_STORAGE_VIDEO_MAX_FPS` (기본 30)
+  - `DEV_STORAGE_VIDEO_MAX_MB` (기본 10)
+  - `DEV_STORAGE_KEEP_GIF_MAX_MB` (기본 2)
+  - `DEV_STORAGE_KEEP_GIF_FILENAMES` (콤마 구분)
+  - `DEV_STORAGE_ALPHA_WEBM_FILENAMES` (콤마 구분)
+  - `DEV_STORAGE_FAIL_ON_VIDEO_MAX=1` (상한 초과 시 실패)
+  - `SKIP_ONEDRIVE_UPLOAD=1` (업로드 스킵)
 
 ---
 

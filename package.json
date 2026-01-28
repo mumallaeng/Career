@@ -12,7 +12,8 @@
     "lint": "eslint",
     "sync:onedrive": "tsx scripts/sync-onedrive.ts",
     "derive:onedrive": "tsx scripts/build-onedrive-derivatives.ts",
-    "upload:dev-storage": "tsx scripts/upload-dev-storage-to-blob.ts"
+    "upload:dev-storage": "tsx scripts/upload-dev-storage-to-blob.ts",
+    "optimize:videos": "tsx scripts/optimize-onedrive-videos.ts"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
