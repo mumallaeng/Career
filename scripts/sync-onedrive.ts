@@ -38,6 +38,8 @@ const remoteBase = normalizeRemoteBase(process.env.ONEDRIVE_REMOTE_BASE ?? defau
 const localRoot = process.env.ONEDRIVE_LOCAL_ROOT;
 const legacyLocalDir = process.env.ONEDRIVE_LOCAL_SOURCE;
 const shouldDownload = process.env.SKIP_ONEDRIVE_DOWNLOAD === '1' ? false : true;
+const shouldSkipSync =
+  process.env.SKIP_ONEDRIVE_SYNC === '1' || Boolean(process.env.NEXT_PUBLIC_DEV_STORAGE_BASE_URL);
 const rcloneCacheDir = path.join(projectRoot, '.rclone-bin');
 const rcloneConfigDir = path.join(projectRoot, '.rclone-config');
 
@@ -673,6 +675,10 @@ function removeRemotePathIfExists(rcloneBinary: string, remotePath: string) {
 
 async function main() {
   try {
+    if (shouldSkipSync) {
+      console.info('Skipping OneDrive sync (SKIP_ONEDRIVE_SYNC=1 or NEXT_PUBLIC_DEV_STORAGE_BASE_URL is set).');
+      return;
+    }
     await ensureNfcLocalAssets();
     const usingLocalRoot = await ensureLocalRootSymlinks();
     const usingLegacySource = !usingLocalRoot && (await ensureLegacySymlink());

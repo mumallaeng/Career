@@ -11,7 +11,8 @@
     "start": "next start",
     "lint": "eslint",
     "sync:onedrive": "tsx scripts/sync-onedrive.ts",
-    "derive:onedrive": "tsx scripts/build-onedrive-derivatives.ts"
+    "derive:onedrive": "tsx scripts/build-onedrive-derivatives.ts",
+    "upload:dev-storage": "tsx scripts/upload-dev-storage-to-blob.ts"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -34,6 +35,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vercel/blob": "^1.1.1",
     "eslint": "^9",
     "eslint-config-next": "^15.5.7",
     "tsx": "^4.19.2",

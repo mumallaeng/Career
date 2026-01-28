@@ -21,9 +21,11 @@ type ResizeTarget = {
 };
 
 const projectRoot = process.cwd();
-const devStorageOutputRoot = process.env.ONEDRIVE_DEV_STORAGE_OUTPUT_ROOT
-  ? path.resolve(process.env.ONEDRIVE_DEV_STORAGE_OUTPUT_ROOT)
-  : path.join(projectRoot, '.dev-storage-media');
+const devStorageOutputRoot = process.env.DEV_STORAGE_OUTPUT_ROOT
+  ? path.resolve(process.env.DEV_STORAGE_OUTPUT_ROOT)
+  : process.env.ONEDRIVE_DEV_STORAGE_OUTPUT_ROOT
+    ? path.resolve(process.env.ONEDRIVE_DEV_STORAGE_OUTPUT_ROOT)
+    : path.join(projectRoot, '.dev-storage-media');
 
 const localRoot = process.env.ONEDRIVE_LOCAL_ROOT;
 const defaultRemoteBase = 'oow214-onedrive:';

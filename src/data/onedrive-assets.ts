@@ -2,6 +2,14 @@ const remoteBasePath = 'Photos/Highlight/';
 const publicBasePath = '/import-data/highlight/';
 const devStorageRemoteBasePath = 'Photos/dev-storage/';
 const devStoragePublicBasePath = '/import-data/dev-storage/';
+const devStorageBlobPrefix = 'dev-storage';
+const devStorageBaseUrl = (process.env.NEXT_PUBLIC_DEV_STORAGE_BASE_URL ?? '').replace(/\/$/, '');
+
+function joinUrl(base: string, pathname: string): string {
+  const normalizedBase = base.replace(/\/$/, '');
+  const normalizedPath = pathname.replace(/^\//, '');
+  return `${normalizedBase}/${normalizedPath}`;
+}
 
 type OneDriveAssetBlueprint = {
   /**
@@ -3514,8 +3522,16 @@ export function getOneDriveAssetUrl(
   asset: OneDriveAssetDefinition,
   size: 'thumb' | 'default' | 'original' = 'default',
 ): string {
-  if (size === 'thumb') return asset.publicPathThumb;
+  if (size === 'thumb') {
+    if (devStorageBaseUrl && asset.isResizableImage) {
+      return joinUrl(devStorageBaseUrl, `${devStorageBlobPrefix}/thumb/${asset.filename}`);
+    }
+    return asset.publicPathThumb;
+  }
   if (size === 'original') return asset.publicPathOriginal;
+  if (devStorageBaseUrl && asset.isResizableImage) {
+    return joinUrl(devStorageBaseUrl, `${devStorageBlobPrefix}/${asset.filename}`);
+  }
   return asset.publicPath;
 }
 

@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 
 import { ImgTag } from '@/components/MDXRenderer';
-import { onedriveAssets, getOneDriveAssetsByActId } from '@/data/onedrive-assets';
+import { getOneDriveAssetUrl, getOneDriveAssetsByActId, onedriveAssets } from '@/data/onedrive-assets';
 
 function normalizeQuery(query: string | undefined): string | undefined {
   return query?.trim().toLowerCase();
@@ -65,8 +65,8 @@ export default function DriveAssetGrid({ actId, name, className, start, end, lay
   return (
     <div className={className ?? 'image-grid image-grid--uniform'} style={containerStyle}>
       {assets.map(asset => (
-        <div key={asset.publicPath}>
-          <ImgTag src={asset.publicPath} alt={asset.name || asset.filename} />
+        <div key={asset.filename}>
+          <ImgTag src={getOneDriveAssetUrl(asset, 'default')} alt={asset.name || asset.filename} />
         </div>
       ))}
     </div>
