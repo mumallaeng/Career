@@ -63,7 +63,7 @@ ffmpeg -i input.gif \
 ffmpeg -i input.mp4 \
   -vf "scale='min(1600,iw)':-2,fps=30" \
   -movflags +faststart -pix_fmt yuv420p \
-  -an -crf 24 -preset medium \
+  -c:a aac -b:a 128k -crf 24 -preset medium \
   output.mp4
 ```
 

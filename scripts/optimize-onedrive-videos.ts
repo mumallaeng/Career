@@ -162,11 +162,14 @@ async function transcodeToMp4(inputPath: string, outputPath: string, options: { 
     '+faststart',
     '-pix_fmt',
     'yuv420p',
-    '-an',
     '-crf',
     `${options.crf}`,
     '-preset',
     'medium',
+    '-c:a',
+    'aac',
+    '-b:a',
+    '128k',
     outputPath,
   ]);
 }
@@ -187,7 +190,10 @@ async function transcodeToWebmAlpha(inputPath: string, outputPath: string): Prom
     '33',
     '-b:v',
     '0',
-    '-an',
+    '-c:a',
+    'libopus',
+    '-b:a',
+    '96k',
     outputPath,
   ]);
   await checkSizeLimit(outputPath);
