@@ -88,8 +88,11 @@ npm run optimize:videos
 - 업로드: `Photos/dev-storage/{filename}`
 - 환경 변수:
   - `DEV_STORAGE_VIDEO_MAX_DIMENSION` (기본 1600)
+  - `DEV_STORAGE_VIDEO_FALLBACK_MAX_DIMENSION` (기본 1280, 상한 초과 시 추가 다운스케일)
   - `DEV_STORAGE_VIDEO_MAX_FPS` (기본 30)
   - `DEV_STORAGE_VIDEO_MAX_MB` (기본 10)
+  - `DEV_STORAGE_VIDEO_MIN_CRF` (기본 24)
+  - `DEV_STORAGE_VIDEO_MAX_CRF` (기본 32)
   - `DEV_STORAGE_KEEP_GIF_MAX_MB` (기본 2)
   - `DEV_STORAGE_KEEP_GIF_FILENAMES` (콤마 구분)
   - `DEV_STORAGE_ALPHA_WEBM_FILENAMES` (콤마 구분)

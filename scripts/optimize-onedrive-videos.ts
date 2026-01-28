@@ -19,6 +19,9 @@ const shouldUpload = process.env.SKIP_ONEDRIVE_UPLOAD === '1' ? false : true;
 const maxDimension = Number(process.env.DEV_STORAGE_VIDEO_MAX_DIMENSION ?? '1600');
 const maxFps = Number(process.env.DEV_STORAGE_VIDEO_MAX_FPS ?? '30');
 const maxOutputMb = Number(process.env.DEV_STORAGE_VIDEO_MAX_MB ?? '10');
+const minCrf = Number(process.env.DEV_STORAGE_VIDEO_MIN_CRF ?? '24');
+const maxCrf = Number(process.env.DEV_STORAGE_VIDEO_MAX_CRF ?? '32');
+const fallbackMaxDimension = Number(process.env.DEV_STORAGE_VIDEO_FALLBACK_MAX_DIMENSION ?? '1280');
 const keepGifMaxMb = Number(process.env.DEV_STORAGE_KEEP_GIF_MAX_MB ?? '2');
 const failOnOversize = process.env.DEV_STORAGE_FAIL_ON_VIDEO_MAX === '1';
 const isDryRun = process.env.DRY_RUN === '1' || process.env.DEV_STORAGE_DRY_RUN === '1';
@@ -125,6 +128,12 @@ async function checkSizeLimit(outputPath: string): Promise<void> {
   console.warn(`Warning: ${message}`);
 }
 
+async function isWithinSizeLimit(outputPath: string): Promise<boolean> {
+  if (isDryRun) return true;
+  const { size } = await stat(outputPath);
+  return size <= maxOutputMb * 1024 * 1024;
+}
+
 async function copyOriginal(inputPath: string, outputPath: string): Promise<void> {
   await mkdir(path.dirname(outputPath), { recursive: true });
   if (!(await shouldRegenerate(inputPath, outputPath))) return;
@@ -136,7 +145,7 @@ async function copyOriginal(inputPath: string, outputPath: string): Promise<void
   await checkSizeLimit(outputPath);
 }
 
-async function transcodeToMp4(inputPath: string, outputPath: string): Promise<void> {
+async function transcodeToMp4(inputPath: string, outputPath: string, options: { maxDim: number; crf: number }): Promise<void> {
   await mkdir(path.dirname(outputPath), { recursive: true });
   if (!(await shouldRegenerate(inputPath, outputPath))) return;
   runCommand('ffmpeg', [
@@ -145,19 +154,18 @@ async function transcodeToMp4(inputPath: string, outputPath: string): Promise<vo
     '-i',
     inputPath,
     '-vf',
-    `scale='min(${maxDimension},iw)':-2,fps=${maxFps}`,
+    `scale='min(${options.maxDim},iw)':-2,fps=${maxFps}`,
     '-movflags',
     '+faststart',
     '-pix_fmt',
     'yuv420p',
     '-an',
     '-crf',
-    '24',
+    `${options.crf}`,
     '-preset',
     'medium',
     outputPath,
   ]);
-  await checkSizeLimit(outputPath);
 }
 
 async function transcodeToWebmAlpha(inputPath: string, outputPath: string): Promise<void> {
@@ -179,6 +187,33 @@ async function transcodeToWebmAlpha(inputPath: string, outputPath: string): Prom
     '-an',
     outputPath,
   ]);
+  await checkSizeLimit(outputPath);
+}
+
+async function transcodeMp4WithSizeTarget(inputPath: string, outputPath: string): Promise<void> {
+  const crfSteps: number[] = [];
+  for (let crf = minCrf; crf <= maxCrf; crf += 2) {
+    crfSteps.push(crf);
+  }
+
+  for (const crf of crfSteps) {
+    await transcodeToMp4(inputPath, outputPath, { maxDim: maxDimension, crf });
+    if (await isWithinSizeLimit(outputPath)) {
+      return;
+    }
+    console.warn(`Retrying with higher CRF (crf=${crf + 2}) for ${path.basename(outputPath)}`);
+  }
+
+  if (fallbackMaxDimension < maxDimension) {
+    for (const crf of crfSteps) {
+      await transcodeToMp4(inputPath, outputPath, { maxDim: fallbackMaxDimension, crf });
+      if (await isWithinSizeLimit(outputPath)) {
+        console.warn(`Downscaled to ${fallbackMaxDimension}px to fit size for ${path.basename(outputPath)}`);
+        return;
+      }
+    }
+  }
+
   await checkSizeLimit(outputPath);
 }
 
@@ -244,7 +279,7 @@ async function optimizeVideos(targets: Array<{ inputPath: string; outputPath: st
       processed += 1;
       continue;
     }
-    await transcodeToMp4(target.inputPath, target.outputPath);
+    await transcodeMp4WithSizeTarget(target.inputPath, target.outputPath);
     processed += 1;
   }
   return { processed, skipped, byType };
