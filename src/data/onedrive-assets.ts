@@ -5,10 +5,18 @@ const devStoragePublicBasePath = '/import-data/dev-storage/';
 const devStorageBlobPrefix = 'dev-storage';
 const devStorageBaseUrl = (process.env.NEXT_PUBLIC_DEV_STORAGE_BASE_URL ?? '').replace(/\/$/, '');
 
+function encodePath(pathname: string): string {
+  return pathname
+    .replace(/^\//, '')
+    .split('/')
+    .map(segment => encodeURIComponent(segment))
+    .join('/');
+}
+
 function joinUrl(base: string, pathname: string): string {
   const normalizedBase = base.replace(/\/$/, '');
-  const normalizedPath = pathname.replace(/^\//, '');
-  return `${normalizedBase}/${normalizedPath}`;
+  const encodedPath = encodePath(pathname);
+  return `${normalizedBase}/${encodedPath}`;
 }
 
 type OneDriveAssetBlueprint = {
