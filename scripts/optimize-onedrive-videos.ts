@@ -26,11 +26,23 @@ const gifMaxFps = Number(process.env.DEV_STORAGE_GIF_MAX_FPS ?? '15');
 const gifFallbackMaxDimension = Number(process.env.DEV_STORAGE_GIF_FALLBACK_MAX_DIMENSION ?? '960');
 const failOnOversize = process.env.DEV_STORAGE_FAIL_ON_VIDEO_MAX === '1';
 const isDryRun = process.env.DRY_RUN === '1' || process.env.DEV_STORAGE_DRY_RUN === '1';
+const onlyExts = parseExtList(process.env.DEV_STORAGE_ONLY_EXTS);
 
 const devStorageRemoteBasePath = 'Photos/dev-storage/';
 
 function normalizeRemoteBase(value: string): string {
   return value.endsWith(':') ? value : `${value}:`;
+}
+
+function parseExtList(value?: string): Set<string> {
+  if (!value) return new Set();
+  return new Set(
+    value
+      .split(',')
+      .map(item => item.trim().toLowerCase())
+      .filter(Boolean)
+      .map(item => (item.startsWith('.') ? item : `.${item}`))
+  );
 }
 
 function commandExists(command: string): boolean {
@@ -274,6 +286,9 @@ async function buildTargets(): Promise<Array<{ inputPath: string; outputPath: st
   for (const asset of videoAssets) {
     const inputPath = await resolveLocalSource(asset.remotePathOriginal);
     const ext = getExtension(asset.filename);
+    if (onlyExts.size > 0 && !onlyExts.has(ext)) {
+      continue;
+    }
     let targetExt = ext;
     if (ext === '.gif') {
       targetExt = '.gif';

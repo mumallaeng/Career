@@ -85,6 +85,7 @@ npm run optimize:videos
   - `DEV_STORAGE_VIDEO_MAX_CRF` (기본 34)
   - `DEV_STORAGE_GIF_MAX_FPS` (기본 15)
   - `DEV_STORAGE_GIF_FALLBACK_MAX_DIMENSION` (기본 960)
+  - `DEV_STORAGE_ONLY_EXTS` (예: `gif`, `mp4` - 해당 확장자만 처리)
   - `DRY_RUN=1` 또는 `DEV_STORAGE_DRY_RUN=1` (명령 출력만, 실제 변환/업로드 없음)
   - `DEV_STORAGE_FAIL_ON_VIDEO_MAX=1` (상한 초과 시 실패)
   - `SKIP_ONEDRIVE_UPLOAD=1` (업로드 스킵)
