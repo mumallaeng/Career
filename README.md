@@ -40,22 +40,12 @@ npm run upload:dev-storage
 아래는 dev-storage 생성 단계에서 사용하는 실행 예시입니다. 기준은 **Hobby 1GB** 한도를 고려해
 개별 자산을 10MB 내외로 유지하는 것을 목표로 합니다.
 
-**GIF -> MP4 (기본 권장)**
+**GIF 리사이즈 (GIF 유지, 용량 절감용)**
 ```bash
 ffmpeg -i input.gif \
-  -vf "scale='min(1600,iw)':-2,fps=30" \
-  -movflags +faststart -pix_fmt yuv420p \
-  -an -crf 24 -preset medium \
-  output.mp4
-```
-
-**GIF -> WebM (투명 배경 필요 시)**
-```bash
-ffmpeg -i input.gif \
-  -vf "scale='min(1600,iw)':-2,fps=30,format=yuva420p" \
-  -c:v libvpx-vp9 -crf 33 -b:v 0 \
-  -an \
-  output.webm
+  -vf "fps=15,scale='min(1600,iw)':-2:flags=lanczos,split[s0][s1];[s0]palettegen=stats_mode=diff:max_colors=128[p];[s1][p]paletteuse=dither=bayer:bayer_scale=4" \
+  -gifflags -offsetting \
+  output.gif
 ```
 
 **MP4 재인코딩 (해상도/프레임/용량 상한 적용)**
@@ -93,9 +83,8 @@ npm run optimize:videos
   - `DEV_STORAGE_VIDEO_MAX_MB` (기본 10)
   - `DEV_STORAGE_VIDEO_MIN_CRF` (기본 24)
   - `DEV_STORAGE_VIDEO_MAX_CRF` (기본 34)
-  - `DEV_STORAGE_KEEP_GIF_MAX_MB` (기본 2)
-  - `DEV_STORAGE_KEEP_GIF_FILENAMES` (콤마 구분)
-  - `DEV_STORAGE_ALPHA_WEBM_FILENAMES` (콤마 구분)
+  - `DEV_STORAGE_GIF_MAX_FPS` (기본 15)
+  - `DEV_STORAGE_GIF_FALLBACK_MAX_DIMENSION` (기본 960)
   - `DRY_RUN=1` 또는 `DEV_STORAGE_DRY_RUN=1` (명령 출력만, 실제 변환/업로드 없음)
   - `DEV_STORAGE_FAIL_ON_VIDEO_MAX=1` (상한 초과 시 실패)
   - `SKIP_ONEDRIVE_UPLOAD=1` (업로드 스킵)

@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { access, constants as fsConstants, mkdir, stat, copyFile } from 'node:fs/promises';
+import { access, constants as fsConstants, mkdir, stat } from 'node:fs/promises';
 
 import { onedriveAssets } from '../src/data/onedrive-assets';
 
@@ -22,22 +22,15 @@ const maxOutputMb = Number(process.env.DEV_STORAGE_VIDEO_MAX_MB ?? '10');
 const minCrf = Number(process.env.DEV_STORAGE_VIDEO_MIN_CRF ?? '24');
 const maxCrf = Number(process.env.DEV_STORAGE_VIDEO_MAX_CRF ?? '34');
 const fallbackMaxDimension = Number(process.env.DEV_STORAGE_VIDEO_FALLBACK_MAX_DIMENSION ?? '1280');
-const keepGifMaxMb = Number(process.env.DEV_STORAGE_KEEP_GIF_MAX_MB ?? '2');
+const gifMaxFps = Number(process.env.DEV_STORAGE_GIF_MAX_FPS ?? '15');
+const gifFallbackMaxDimension = Number(process.env.DEV_STORAGE_GIF_FALLBACK_MAX_DIMENSION ?? '960');
 const failOnOversize = process.env.DEV_STORAGE_FAIL_ON_VIDEO_MAX === '1';
 const isDryRun = process.env.DRY_RUN === '1' || process.env.DEV_STORAGE_DRY_RUN === '1';
-
-const keepGifSet = splitEnvList(process.env.DEV_STORAGE_KEEP_GIF_FILENAMES);
-const alphaWebmSet = splitEnvList(process.env.DEV_STORAGE_ALPHA_WEBM_FILENAMES);
 
 const devStorageRemoteBasePath = 'Photos/dev-storage/';
 
 function normalizeRemoteBase(value: string): string {
   return value.endsWith(':') ? value : `${value}:`;
-}
-
-function splitEnvList(value?: string): Set<string> {
-  if (!value) return new Set();
-  return new Set(value.split(',').map(item => item.trim()).filter(Boolean));
 }
 
 function commandExists(command: string): boolean {
@@ -162,17 +155,6 @@ async function isWithinSizeLimit(outputPath: string): Promise<boolean> {
   return size <= maxOutputMb * 1024 * 1024;
 }
 
-async function copyOriginal(inputPath: string, outputPath: string): Promise<void> {
-  await mkdir(path.dirname(outputPath), { recursive: true });
-  if (!(await shouldRegenerate(inputPath, outputPath))) return;
-  if (isDryRun) {
-    console.info(`[dry-run] copy ${path.basename(inputPath)} -> ${outputPath}`);
-    return;
-  }
-  await copyFile(inputPath, outputPath);
-  await checkSizeLimit(outputPath);
-}
-
 async function transcodeToMp4(inputPath: string, outputPath: string, options: { maxDim: number; crf: number }): Promise<void> {
   await mkdir(path.dirname(outputPath), { recursive: true });
   if (!(await shouldRegenerate(inputPath, outputPath))) return;
@@ -224,6 +206,37 @@ async function transcodeToWebmAlpha(inputPath: string, outputPath: string): Prom
   await checkSizeLimit(outputPath);
 }
 
+async function transcodeGifWithSizeTarget(inputPath: string, outputPath: string): Promise<void> {
+  const attempts: Array<{ maxDim: number; fps: number }> = [
+    { maxDim: maxDimension, fps: gifMaxFps },
+    { maxDim: gifFallbackMaxDimension, fps: gifMaxFps },
+    { maxDim: gifFallbackMaxDimension, fps: Math.max(8, gifMaxFps - 5) },
+  ];
+
+  for (const attempt of attempts) {
+    await mkdir(path.dirname(outputPath), { recursive: true });
+    if (!(await shouldRegenerate(inputPath, outputPath))) return;
+    const vf = `fps=${attempt.fps},scale='min(${attempt.maxDim},iw)':-2:flags=lanczos,split[s0][s1];[s0]palettegen=stats_mode=diff:max_colors=128[p];[s1][p]paletteuse=dither=bayer:bayer_scale=4`;
+    runCommand('ffmpeg', [
+      '-y',
+      '-nostdin',
+      '-i',
+      inputPath,
+      '-vf',
+      vf,
+      '-gifflags',
+      '-offsetting',
+      outputPath,
+    ]);
+    if (await isWithinSizeLimit(outputPath)) {
+      return;
+    }
+    console.warn(`Retrying GIF resize (maxDim=${attempt.maxDim}, fps=${attempt.fps}) for ${path.basename(outputPath)}`);
+  }
+
+  await checkSizeLimit(outputPath);
+}
+
 async function transcodeMp4WithSizeTarget(inputPath: string, outputPath: string): Promise<void> {
   const crfSteps: number[] = [];
   for (let crf = minCrf; crf <= maxCrf; crf += 2) {
@@ -261,20 +274,9 @@ async function buildTargets(): Promise<Array<{ inputPath: string; outputPath: st
   for (const asset of videoAssets) {
     const inputPath = await resolveLocalSource(asset.remotePathOriginal);
     const ext = getExtension(asset.filename);
-    const inputStat = await stat(inputPath);
-    const shouldKeepGif = ext === '.gif'
-      && (keepGifSet.has(asset.filename) || inputStat.size <= keepGifMaxMb * 1024 * 1024);
-    const shouldWebmAlpha = ext === '.gif' && alphaWebmSet.has(asset.filename);
-
     let targetExt = ext;
     if (ext === '.gif') {
-      if (shouldKeepGif) {
-        targetExt = '.gif';
-      } else if (shouldWebmAlpha) {
-        targetExt = '.webm';
-      } else {
-        targetExt = '.mp4';
-      }
+      targetExt = '.gif';
     }
 
     const outputFilename = buildOutputFilename(asset.filename, targetExt);
@@ -304,7 +306,7 @@ async function optimizeVideos(targets: Array<{ inputPath: string; outputPath: st
     const ext = getExtension(target.outputPath);
     byType[ext] = (byType[ext] ?? 0) + 1;
     if (ext === '.gif') {
-      await copyOriginal(target.inputPath, target.outputPath);
+      await transcodeGifWithSizeTarget(target.inputPath, target.outputPath);
       processed += 1;
       continue;
     }
