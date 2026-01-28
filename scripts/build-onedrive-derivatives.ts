@@ -33,6 +33,10 @@ const remoteBase = normalizeRemoteBase(process.env.ONEDRIVE_REMOTE_BASE ?? defau
 const shouldUpload = process.env.SKIP_ONEDRIVE_UPLOAD === '1' ? false : true;
 const rcloneConfigDir = path.join(projectRoot, '.rclone-config');
 const thumbAssets = buildThumbAssetSet(projectRoot);
+const rcloneChunkSize = process.env.RCLONE_ONEDRIVE_CHUNK_SIZE;
+const rcloneTransfers = process.env.RCLONE_TRANSFERS;
+const rcloneCheckers = process.env.RCLONE_CHECKERS;
+const rcloneExtraArgs = process.env.RCLONE_EXTRA_ARGS?.split(' ').filter(Boolean) ?? [];
 
 function normalizeRemoteBase(value: string): string {
   return value.endsWith(':') ? value : `${value}:`;
@@ -125,7 +129,13 @@ async function buildTargets(): Promise<ResizeTarget[]> {
   const targets: ResizeTarget[] = [];
   for (const asset of onedriveAssets) {
     if (!asset.isResizableImage) continue;
-    const inputPath = await resolveLocalSource(asset.remotePathOriginal);
+    let inputPath: string;
+    try {
+      inputPath = await resolveLocalSource(asset.remotePathOriginal);
+    } catch (error) {
+      console.warn(`Skipping missing local source: ${asset.remotePathOriginal} (${(error as Error).message})`);
+      continue;
+    }
     for (const { label, maxSize } of sizes) {
       if (label === 'thumb' && !thumbAssets.has(asset.filename)) {
         continue;
@@ -160,7 +170,20 @@ async function uploadDevStorage(targets: ResizeTarget[]): Promise<void> {
   for (const target of targets) {
     const remoteSpec = `${remoteBase}${target.remotePath}`;
     console.info(`Uploading ${path.basename(target.outputPath)} -> ${remoteSpec}`);
-    runCommand('rclone', ['copyto', target.outputPath, remoteSpec]);
+    const args = ['copyto', target.outputPath, remoteSpec];
+    if (rcloneChunkSize) {
+      args.push('--onedrive-chunk-size', rcloneChunkSize);
+    }
+    if (rcloneTransfers) {
+      args.push('--transfers', rcloneTransfers);
+    }
+    if (rcloneCheckers) {
+      args.push('--checkers', rcloneCheckers);
+    }
+    if (rcloneExtraArgs.length > 0) {
+      args.push(...rcloneExtraArgs);
+    }
+    runCommand('rclone', args);
   }
 }
 
