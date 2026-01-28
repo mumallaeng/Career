@@ -16,6 +16,7 @@ import {
 } from 'node:fs/promises';
 
 import { onedriveAssets, type OneDriveAssetDefinition } from '../src/data/onedrive-assets';
+import { buildThumbAssetSet } from './onedrive-thumb-targets';
 
 type NormalizedAsset = OneDriveAssetDefinition & {
   remotePath: string;
@@ -27,7 +28,7 @@ type SyncTarget = {
   remotePath: string;
   publicPath: string;
   fallbackRemotePath?: string;
-  label: 'large' | 'thumb' | 'original';
+  label: 'default' | 'thumb' | 'original';
 };
 
 const projectRoot = process.cwd();
@@ -50,24 +51,29 @@ const assets: NormalizedAsset[] = onedriveAssets.map(asset => ({
   publicPathThumb: ensureLeadingSlash(asset.publicPathThumb),
 }));
 
+const thumbAssets = buildThumbAssetSet(projectRoot);
+
 const syncTargets: SyncTarget[] = assets.flatMap(asset => {
   if (asset.isResizableImage) {
-    return [
+    const targets: SyncTarget[] = [
       {
         asset,
         remotePath: asset.remotePath,
         publicPath: asset.publicPath,
         fallbackRemotePath: asset.remotePathOriginal,
-        label: 'large',
+        label: 'default',
       },
-      {
+    ];
+    if (thumbAssets.has(asset.filename)) {
+      targets.push({
         asset,
         remotePath: asset.remotePathThumb,
         publicPath: asset.publicPathThumb,
         fallbackRemotePath: asset.remotePathOriginal,
         label: 'thumb',
-      },
-    ];
+      });
+    }
+    return targets;
   }
   return [
     {

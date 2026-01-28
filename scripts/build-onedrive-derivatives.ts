@@ -3,10 +3,11 @@ import { spawnSync } from 'node:child_process';
 import { access, constants as fsConstants, mkdir, stat, writeFile } from 'node:fs/promises';
 
 import { onedriveAssets } from '../src/data/onedrive-assets';
+import { buildThumbAssetSet } from './onedrive-thumb-targets';
 
 const sizes = [
   { label: 'thumb', maxSize: 480 },
-  { label: 'large', maxSize: 1600 },
+  { label: 'default', maxSize: 1600 },
 ] as const;
 
 type SizeLabel = (typeof sizes)[number]['label'];
@@ -29,6 +30,7 @@ const defaultRemoteBase = 'oow214-onedrive:';
 const remoteBase = normalizeRemoteBase(process.env.ONEDRIVE_REMOTE_BASE ?? defaultRemoteBase);
 const shouldUpload = process.env.SKIP_ONEDRIVE_UPLOAD === '1' ? false : true;
 const rcloneConfigDir = path.join(projectRoot, '.rclone-config');
+const thumbAssets = buildThumbAssetSet(projectRoot);
 
 function normalizeRemoteBase(value: string): string {
   return value.endsWith(':') ? value : `${value}:`;
@@ -123,7 +125,12 @@ async function buildTargets(): Promise<ResizeTarget[]> {
     if (!asset.isResizableImage) continue;
     const inputPath = await resolveLocalSource(asset.remotePathOriginal);
     for (const { label, maxSize } of sizes) {
-      const outputPath = path.join(devStorageOutputRoot, label, asset.filename);
+      if (label === 'thumb' && !thumbAssets.has(asset.filename)) {
+        continue;
+      }
+      const outputPath = label === 'thumb'
+        ? path.join(devStorageOutputRoot, 'thumb', asset.filename)
+        : path.join(devStorageOutputRoot, asset.filename);
       const remotePath = label === 'thumb' ? asset.remotePathThumb : asset.remotePath;
       targets.push({ label, maxSize, inputPath, outputPath, remotePath });
     }

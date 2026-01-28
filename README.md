@@ -14,14 +14,15 @@
    - `public/import-data/*`는 `.gitignore`로 제외되어 저장소에는 사진이 남지 않고, 빌드 아티팩트에만 포함됩니다.
 
 3. **리사이즈 파생본 생성 (권장)**  
-   - 원본 대신 리사이즈된 이미지(thumb 480px, large 1600px)를 OneDrive에 업로드합니다.
+   - 원본 대신 리사이즈된 이미지(default 1600px)를 OneDrive에 업로드합니다.
+   - 썸네일이 필요한 항목만 `dev-storage/thumb`에 480px 버전을 생성합니다.
    - 빌드 시에는 dev-storage 이미지를 우선 내려받고, 없으면 원본으로 폴백합니다.
    ```bash
    export ONEDRIVE_LOCAL_ROOT="/Users/yonmilk/Library/CloudStorage/OneDrive-Personal"
    npm run derive:onedrive
    ```
-   - OneDrive 경로: `Photos/dev-storage/{thumb|large}/...`
-   - 퍼블릭 경로: `/import-data/dev-storage/{thumb|large}/...`
+   - OneDrive 경로: `Photos/dev-storage/{filename}` 및 `Photos/dev-storage/thumb/{filename}`
+   - 퍼블릭 경로: `/import-data/dev-storage/{filename}` 및 `/import-data/dev-storage/thumb/{filename}`
 
 4. **로컬 개발 (복사 없이 사용)**  
    - OneDrive 클라이언트가 `/Users/<you>/Library/CloudStorage/OneDrive-Personal`에 모든 파일을 동기화한다고 가정합니다.

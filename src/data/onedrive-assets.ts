@@ -74,12 +74,18 @@ function isResizableImageFilename(filename: string): boolean {
   return /\.(jpe?g|png|webp)$/i.test(filename);
 }
 
-function buildDevStorageRemotePath(size: 'thumb' | 'large', filename: string): string {
-  return `${devStorageRemoteBasePath}${size}/${filename}`;
+function buildDevStorageRemotePath(size: 'thumb' | 'default', filename: string): string {
+  if (size === 'thumb') {
+    return `${devStorageRemoteBasePath}thumb/${filename}`;
+  }
+  return `${devStorageRemoteBasePath}${filename}`;
 }
 
-function buildDevStoragePublicPath(size: 'thumb' | 'large', filename: string): string {
-  return `${devStoragePublicBasePath}${size}/${filename}`;
+function buildDevStoragePublicPath(size: 'thumb' | 'default', filename: string): string {
+  if (size === 'thumb') {
+    return `${devStoragePublicBasePath}thumb/${filename}`;
+  }
+  return `${devStoragePublicBasePath}${filename}`;
 }
 
 const onedriveAssetBlueprints = [
@@ -3465,15 +3471,15 @@ const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinit
   const publicPathOriginal = `${publicBasePath}${asset.filename}`;
   const isResizableImage = isResizableImageFilename(asset.filename);
 
-  const remotePathLarge = isResizableImage ? buildDevStorageRemotePath('large', asset.filename) : remotePathOriginal;
-  const publicPathLarge = isResizableImage ? buildDevStoragePublicPath('large', asset.filename) : publicPathOriginal;
+  const remotePathDefault = isResizableImage ? buildDevStorageRemotePath('default', asset.filename) : remotePathOriginal;
+  const publicPathDefault = isResizableImage ? buildDevStoragePublicPath('default', asset.filename) : publicPathOriginal;
   const remotePathThumb = isResizableImage ? buildDevStorageRemotePath('thumb', asset.filename) : remotePathOriginal;
   const publicPathThumb = isResizableImage ? buildDevStoragePublicPath('thumb', asset.filename) : publicPathOriginal;
 
   return {
     ...asset,
-    remotePath: remotePathLarge,
-    publicPath: publicPathLarge,
+    remotePath: remotePathDefault,
+    publicPath: publicPathDefault,
     remotePathOriginal,
     publicPathOriginal,
     remotePathThumb,
@@ -3506,7 +3512,7 @@ export function getOneDriveAssetByFilename(filename: string): OneDriveAssetDefin
 
 export function getOneDriveAssetUrl(
   asset: OneDriveAssetDefinition,
-  size: 'thumb' | 'large' | 'original' = 'large',
+  size: 'thumb' | 'default' | 'original' = 'default',
 ): string {
   if (size === 'thumb') return asset.publicPathThumb;
   if (size === 'original') return asset.publicPathOriginal;
