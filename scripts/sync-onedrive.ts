@@ -367,7 +367,7 @@ function copyRemoteAssetWithVariants(
     if (!isDirectoryNotFoundError(error)) {
       throw error;
     }
-    console.warn(`Missing derived asset ${remotePath}, falling back to ${fallbackRemotePath}`);
+    console.warn(`Missing dev-storage asset ${remotePath}, falling back to ${fallbackRemotePath}`);
     attemptCopy(fallbackRemotePath);
   }
 }
@@ -628,22 +628,22 @@ async function uploadMissingRemoteAssets(
   }
 }
 
-function warnMissingDerivedAssets(remoteFiles: Set<string>): void {
-  const missingDerived = syncTargets.filter(target => {
+function warnMissingDevStorageAssets(remoteFiles: Set<string>): void {
+  const missingDevStorage = syncTargets.filter(target => {
     if (target.label === 'original') return false;
     const variants = getNormalizationVariants(target.remotePath);
     return !variants.some(variant => remoteFiles.has(variant));
   });
 
-  if (missingDerived.length === 0) {
+  if (missingDevStorage.length === 0) {
     return;
   }
 
-  const missingList = missingDerived
+  const missingList = missingDevStorage
     .map(target => `- ${target.remotePath} (${target.label})`)
     .join('\n');
   console.warn(
-    `Derived assets missing on remote (${missingDerived.length}). Falling back to originals where needed:\n${missingList}`,
+    `Dev-storage assets missing on remote (${missingDevStorage.length}). Falling back to originals where needed:\n${missingList}`,
   );
 }
 
@@ -686,7 +686,7 @@ async function main() {
     const rcloneBinary = await ensureRcloneBinary();
     const remoteFiles = await listRemoteFiles(rcloneBinary);
     await uploadMissingRemoteAssets(rcloneBinary, remoteFiles);
-    warnMissingDerivedAssets(remoteFiles);
+    warnMissingDevStorageAssets(remoteFiles);
 
     if (shouldUseRemote) {
       await downloadAssets(rcloneBinary);

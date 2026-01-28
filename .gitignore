@@ -34,7 +34,7 @@ public/import-data/*
 # rclone runtime artifacts
 .rclone-bin/
 .rclone-config/
-.derived-media/
+.dev-storage-media/
 
 # debug
 npm-debug.log*

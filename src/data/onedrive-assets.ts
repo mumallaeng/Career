@@ -1,7 +1,7 @@
 const remoteBasePath = 'Photos/Highlight/';
 const publicBasePath = '/import-data/highlight/';
-const derivedRemoteBasePath = 'Photos/Derived/';
-const derivedPublicBasePath = '/import-data/derived/';
+const devStorageRemoteBasePath = 'Photos/dev-storage/';
+const devStoragePublicBasePath = '/import-data/dev-storage/';
 
 type OneDriveAssetBlueprint = {
   /**
@@ -43,13 +43,13 @@ export type OneDriveAssetDefinition = OneDriveAssetBlueprint & {
   publicPathOriginal: string;
 
   /**
-   * Derived asset paths for resized images.
+   * Dev-storage asset paths for resized images.
    */
   remotePathThumb: string;
   publicPathThumb: string;
 
   /**
-   * Whether this asset should be resized into derived variants.
+   * Whether this asset should be resized into dev-storage variants.
    */
   isResizableImage: boolean;
 };
@@ -74,12 +74,12 @@ function isResizableImageFilename(filename: string): boolean {
   return /\.(jpe?g|png|webp)$/i.test(filename);
 }
 
-function buildDerivedRemotePath(size: 'thumb' | 'large', filename: string): string {
-  return `${derivedRemoteBasePath}${size}/${filename}`;
+function buildDevStorageRemotePath(size: 'thumb' | 'large', filename: string): string {
+  return `${devStorageRemoteBasePath}${size}/${filename}`;
 }
 
-function buildDerivedPublicPath(size: 'thumb' | 'large', filename: string): string {
-  return `${derivedPublicBasePath}${size}/${filename}`;
+function buildDevStoragePublicPath(size: 'thumb' | 'large', filename: string): string {
+  return `${devStoragePublicBasePath}${size}/${filename}`;
 }
 
 const onedriveAssetBlueprints = [
@@ -3465,10 +3465,10 @@ const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinit
   const publicPathOriginal = `${publicBasePath}${asset.filename}`;
   const isResizableImage = isResizableImageFilename(asset.filename);
 
-  const remotePathLarge = isResizableImage ? buildDerivedRemotePath('large', asset.filename) : remotePathOriginal;
-  const publicPathLarge = isResizableImage ? buildDerivedPublicPath('large', asset.filename) : publicPathOriginal;
-  const remotePathThumb = isResizableImage ? buildDerivedRemotePath('thumb', asset.filename) : remotePathOriginal;
-  const publicPathThumb = isResizableImage ? buildDerivedPublicPath('thumb', asset.filename) : publicPathOriginal;
+  const remotePathLarge = isResizableImage ? buildDevStorageRemotePath('large', asset.filename) : remotePathOriginal;
+  const publicPathLarge = isResizableImage ? buildDevStoragePublicPath('large', asset.filename) : publicPathOriginal;
+  const remotePathThumb = isResizableImage ? buildDevStorageRemotePath('thumb', asset.filename) : remotePathOriginal;
+  const publicPathThumb = isResizableImage ? buildDevStoragePublicPath('thumb', asset.filename) : publicPathOriginal;
 
   return {
     ...asset,

@@ -15,13 +15,13 @@
 
 3. **리사이즈 파생본 생성 (권장)**  
    - 원본 대신 리사이즈된 이미지(thumb 480px, large 1600px)를 OneDrive에 업로드합니다.
-   - 빌드 시에는 파생본을 우선 내려받고, 없으면 원본으로 폴백합니다.
+   - 빌드 시에는 dev-storage 이미지를 우선 내려받고, 없으면 원본으로 폴백합니다.
    ```bash
    export ONEDRIVE_LOCAL_ROOT="/Users/yonmilk/Library/CloudStorage/OneDrive-Personal"
    npm run derive:onedrive
    ```
-   - OneDrive 경로: `Photos/Derived/{thumb|large}/...`
-   - 퍼블릭 경로: `/import-data/derived/{thumb|large}/...`
+   - OneDrive 경로: `Photos/dev-storage/{thumb|large}/...`
+   - 퍼블릭 경로: `/import-data/dev-storage/{thumb|large}/...`
 
 4. **로컬 개발 (복사 없이 사용)**  
    - OneDrive 클라이언트가 `/Users/<you>/Library/CloudStorage/OneDrive-Personal`에 모든 파일을 동기화한다고 가정합니다.
@@ -38,7 +38,7 @@
 
 6. **유틸 환경 변수**  
    - `ONEDRIVE_LOCAL_ROOT`: 로컬 OneDrive 루트. 지정 시 rclone 복사 대신 심볼릭 링크를 생성합니다.
-   - `ONEDRIVE_DERIVED_OUTPUT_ROOT`: 파생본 로컬 출력 경로(기본 `.derived-media`).
+   - `ONEDRIVE_DEV_STORAGE_OUTPUT_ROOT`: dev-storage 로컬 출력 경로(기본 `.dev-storage-media`).
    - `SKIP_ONEDRIVE_DOWNLOAD=1`: 원격 복사를 강제로 건너뜁니다(로컬 루트가 있을 때 테스트 용도).
    - `SKIP_ONEDRIVE_UPLOAD=1`: 파생본 업로드를 건너뜁니다.
    - `ONEDRIVE_REMOTE_BASE`: rclone remote prefix(기본 `oow214-onedrive:`).

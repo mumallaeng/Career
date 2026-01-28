@@ -20,9 +20,9 @@ type ResizeTarget = {
 };
 
 const projectRoot = process.cwd();
-const derivedOutputRoot = process.env.ONEDRIVE_DERIVED_OUTPUT_ROOT
-  ? path.resolve(process.env.ONEDRIVE_DERIVED_OUTPUT_ROOT)
-  : path.join(projectRoot, '.derived-media');
+const devStorageOutputRoot = process.env.ONEDRIVE_DEV_STORAGE_OUTPUT_ROOT
+  ? path.resolve(process.env.ONEDRIVE_DEV_STORAGE_OUTPUT_ROOT)
+  : path.join(projectRoot, '.dev-storage-media');
 
 const localRoot = process.env.ONEDRIVE_LOCAL_ROOT;
 const defaultRemoteBase = 'oow214-onedrive:';
@@ -123,7 +123,7 @@ async function buildTargets(): Promise<ResizeTarget[]> {
     if (!asset.isResizableImage) continue;
     const inputPath = await resolveLocalSource(asset.remotePathOriginal);
     for (const { label, maxSize } of sizes) {
-      const outputPath = path.join(derivedOutputRoot, label, asset.filename);
+      const outputPath = path.join(devStorageOutputRoot, label, asset.filename);
       const remotePath = label === 'thumb' ? asset.remotePathThumb : asset.remotePath;
       targets.push({ label, maxSize, inputPath, outputPath, remotePath });
     }
@@ -142,7 +142,7 @@ async function resizeImages(targets: ResizeTarget[]): Promise<void> {
   }
 }
 
-async function uploadDerived(targets: ResizeTarget[]): Promise<void> {
+async function uploadDevStorage(targets: ResizeTarget[]): Promise<void> {
   if (!shouldUpload) {
     console.info('SKIP_ONEDRIVE_UPLOAD=1 set; skipping upload.');
     return;
@@ -157,19 +157,19 @@ async function uploadDerived(targets: ResizeTarget[]): Promise<void> {
 
 async function main() {
   if (!localRoot) {
-    throw new Error('ONEDRIVE_LOCAL_ROOT is required to build derived assets.');
+    throw new Error('ONEDRIVE_LOCAL_ROOT is required to build dev-storage assets.');
   }
   if (!commandExists('sips')) {
     throw new Error('sips is required (macOS). Install ImageMagick or use a Mac environment.');
   }
   if (!commandExists('rclone')) {
-    throw new Error('rclone is required in PATH to upload derived assets.');
+    throw new Error('rclone is required in PATH to upload dev-storage assets.');
   }
 
   await ensureRcloneConfig();
   const targets = await buildTargets();
   await resizeImages(targets);
-  await uploadDerived(targets);
+  await uploadDevStorage(targets);
 }
 
 void main().catch((error) => {
