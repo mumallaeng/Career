@@ -114,6 +114,7 @@ function buildOutputFilename(filename: string, targetExt: string): string {
 }
 
 async function checkSizeLimit(outputPath: string): Promise<void> {
+  if (isDryRun) return;
   const { size } = await stat(outputPath);
   const maxBytes = maxOutputMb * 1024 * 1024;
   if (size <= maxBytes) return;
