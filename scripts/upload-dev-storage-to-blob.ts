@@ -86,6 +86,9 @@ async function uploadFile(relativePath: string): Promise<void> {
 }
 
 async function main(): Promise<void> {
+  console.info('Blob uploads are disabled for now. Skipping.');
+  return;
+
   const files = await collectFiles(outputRoot, outputRoot);
   if (files.length === 0) {
     console.info(`No files found under ${outputRoot}`);

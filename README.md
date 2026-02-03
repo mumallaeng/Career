@@ -49,7 +49,7 @@ npm run upload:dev-storage
    npm run sync:onedrive   # 수동 실행 (dev 서버 실행 전 등)
    ```
    - `package.json`의 `prebuild`가 `npm run build` 전에 자동으로 실행됩니다.
-   - `NEXT_PUBLIC_DEV_STORAGE_BASE_URL`가 설정되어 있으면 동기화를 건너뜁니다.
+   - `NEXT_PUBLIC_DEV_STORAGE_BASE_URL` 설정 여부와 관계없이 동기화가 실행됩니다.
    - `public/import-data/*`는 `.gitignore`로 제외되어 저장소에는 사진이 남지 않고, 빌드 아티팩트에만 포함됩니다.
 
 3. **리사이즈 파생본 생성 (권장)**  
@@ -81,7 +81,7 @@ npm run upload:dev-storage
    - `ONEDRIVE_LOCAL_ROOT`: 로컬 OneDrive 루트. 지정 시 rclone 복사 대신 심볼릭 링크를 생성합니다.
    - `DEV_STORAGE_OUTPUT_ROOT`: dev-storage 로컬 출력 경로(기본 `.dev-storage-media`).
    - `ONEDRIVE_DEV_STORAGE_OUTPUT_ROOT`: 이전 호환용 (동일 역할).
-   - `NEXT_PUBLIC_DEV_STORAGE_BASE_URL`: Blob base URL 설정 시 OneDrive 동기화가 자동으로 비활성화됩니다.
+   - `NEXT_PUBLIC_DEV_STORAGE_BASE_URL`: (현재 미사용) Blob base URL 관련 설정.
    - `SKIP_ONEDRIVE_SYNC=1`: OneDrive 동기화를 강제로 비활성화합니다.
    - `ENABLE_ONEDRIVE_NFC=1`: OneDrive 원본 파일명을 NFC로 정규화합니다(기본 비활성).
    - `SKIP_ONEDRIVE_DOWNLOAD=1`: 원격 복사를 강제로 건너뜁니다(로컬 루트가 있을 때 테스트 용도).
