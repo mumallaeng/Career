@@ -2,13 +2,19 @@ const remoteBasePath = 'Photos/Highlight/';
 const publicBasePath = '/import-data/highlight/';
 const devStorageRemoteBasePath = 'Photos/dev-storage/';
 const devStoragePublicBasePath = '/import-data/dev-storage/';
-const devStorageBlobPrefix = 'dev-storage';
-const devStorageBaseUrl = (process.env.NEXT_PUBLIC_DEV_STORAGE_BASE_URL ?? '').replace(/\/$/, '');
+
+function encodePath(pathname: string): string {
+  return pathname
+    .replace(/^\//, '')
+    .split('/')
+    .map(segment => encodeURIComponent(segment))
+    .join('/');
+}
 
 function joinUrl(base: string, pathname: string): string {
   const normalizedBase = base.replace(/\/$/, '');
-  const normalizedPath = pathname.replace(/^\//, '');
-  return `${normalizedBase}/${normalizedPath}`;
+  const encodedPath = encodePath(pathname);
+  return `${normalizedBase}/${encodedPath}`;
 }
 
 type OneDriveAssetBlueprint = {
@@ -2951,6 +2957,15 @@ const onedriveAssetBlueprints = [
   },
 
 // /// 여기가 메인 두 개
+  {
+    act_id: ['addinedu', 'Shoepernoma'],
+    filename: '개발과정-주행시행착오-모음.mp4',
+    name: '구현',
+    type: 'None',
+    startDate: '2025-04-09',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/개발과정-주행시행착오-모음.mp4',
+  },
+
 //   {
 //     act_id: ['addinedu', 'Shoepernoma'],
 //     filename: '개발과정-주행시행착오-모음(2배속).gif',
@@ -3523,15 +3538,9 @@ export function getOneDriveAssetUrl(
   size: 'thumb' | 'default' | 'original' = 'default',
 ): string {
   if (size === 'thumb') {
-    if (devStorageBaseUrl && asset.isResizableImage) {
-      return joinUrl(devStorageBaseUrl, `${devStorageBlobPrefix}/thumb/${asset.filename}`);
-    }
     return asset.publicPathThumb;
   }
   if (size === 'original') return asset.publicPathOriginal;
-  if (devStorageBaseUrl && asset.isResizableImage) {
-    return joinUrl(devStorageBaseUrl, `${devStorageBlobPrefix}/${asset.filename}`);
-  }
   return asset.publicPath;
 }
 

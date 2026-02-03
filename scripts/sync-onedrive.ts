@@ -39,7 +39,8 @@ const localRoot = process.env.ONEDRIVE_LOCAL_ROOT;
 const legacyLocalDir = process.env.ONEDRIVE_LOCAL_SOURCE;
 const shouldDownload = process.env.SKIP_ONEDRIVE_DOWNLOAD === '1' ? false : true;
 const shouldSkipSync =
-  process.env.SKIP_ONEDRIVE_SYNC === '1' || Boolean(process.env.NEXT_PUBLIC_DEV_STORAGE_BASE_URL);
+  process.env.SKIP_ONEDRIVE_SYNC === '1';
+const shouldNormalizeNfc = process.env.ENABLE_ONEDRIVE_NFC === '1';
 const rcloneCacheDir = path.join(projectRoot, '.rclone-bin');
 const rcloneConfigDir = path.join(projectRoot, '.rclone-config');
 
@@ -258,6 +259,9 @@ async function removeBrokenSymlinks(rootDir: string): Promise<void> {
 }
 
 async function ensureNfcLocalAssets(): Promise<void> {
+  if (!shouldNormalizeNfc) {
+    return;
+  }
   if (!localRoot) {
     return;
   }
@@ -676,7 +680,7 @@ function removeRemotePathIfExists(rcloneBinary: string, remotePath: string) {
 async function main() {
   try {
     if (shouldSkipSync) {
-      console.info('Skipping OneDrive sync (SKIP_ONEDRIVE_SYNC=1 or NEXT_PUBLIC_DEV_STORAGE_BASE_URL is set).');
+      console.info('Skipping OneDrive sync (SKIP_ONEDRIVE_SYNC=1).');
       return;
     }
     await ensureNfcLocalAssets();
