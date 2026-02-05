@@ -132,7 +132,9 @@ YOLOv8n 모델로 신발 상자 객체 인식을 수행하고, Python 기반 GUI
 
 **주행 시행착오(발전 과정)**
 
-<VideoTag filename="개발과정-주행시행착오-모음.mp4" />
+<div style={{ maxWidth: 380, margin: '0 auto' }}>
+  <VideoTag filename="개발과정-주행시행착오-모음.mp4" />
+</div>
 
 <DriveAssetGrid actId="Shoepernoma" start={5} end={11} />
 
@@ -140,7 +142,9 @@ YOLOv8n 모델로 신발 상자 객체 인식을 수행하고, Python 기반 GUI
 
 ### 1. 센서 입력 수집
 
+<div style={{ maxWidth: 350, margin: '0 auto' }}>
 <DriveAssetGrid actId="Shoepernoma" start={12} end={13} layout={[100]} />
+</div>
 
 - GUI에 사용되는 센서 및 상태 퍼블리셔는 C++로 구현하여 지연·부하를 줄이고 안정적인 타이밍을 확보하도록 함
   {/* - 주행쪽에서도 C++로 구현한 데이터를 사용하고싶었으나, `pinky_bringup`에서 Cartographer와 Nav2 등과 같이 주행 부분에 연결된 데이터가 너무 많아 그대로 사용할 수밖에 없었음 (시간문제) */}
@@ -228,7 +232,9 @@ Nav2는 이 costmap을 사용하여 경로 계획과 장애물 회피를 수행�
 
 ### 4. [FollowWaypoints] 웨이포인트 주행
 
-<DriveAssetGrid actId="Shoepernoma" start={16} end={17} layout={[100]} />
+<div style={{ maxWidth: 380, margin: '0 auto' }}>
+  <DriveAssetGrid actId="Shoepernoma" start={16} end={17} layout={[100]} />
+</div>
 
 - 개발용으로 갈림길의 좌표 6개를 웨이포인트로 사전에 정의하여 주행 테스트
   - 좌표는 RViz에서 `2D Nav Goal`로 위치를 지정한 후에 `Publish Point`로 좌표 기록
@@ -251,7 +257,9 @@ Nav2는 이 costmap을 사용하여 경로 계획과 장애물 회피를 수행�
 
 ### 5. [ArUco `/initialpose`] 초기 위치 보정
 
-<DriveAssetGrid actId="Shoepernoma" start={17} end={19} layout={[33, 66]} />
+<div style={{ maxWidth: 380, margin: '0 auto' }}>
+  <DriveAssetGrid actId="Shoepernoma" start={17} end={18} layout={[100]} />
+</div>
 
 - ArUco 마커 ID를 map 좌표에 매핑해 사용 {/* `roscars/aruco_mapper/aruco_marker_positions.json` */}
 - 좌표 산정 흐름:
@@ -287,14 +295,8 @@ Nav2는 이 costmap을 사용하여 경로 계획과 장애물 회피를 수행�
 	- Cartographer는 보통 로컬 trajectory로 단기 추정을 만들고, 백엔드 최적화로 전역 trajectory를 보정하면서 지도를 갱신함 
 */}
 
-<br/>
-<br/>
-<br/>
-
 
 ### 6. [ArUco PID] 근접 정렬·도킹
-
-<DriveAssetGrid actId="Shoepernoma" start={19} end={20} layout={[100]} />
 
 - 정밀 정차·도킹을 위해 ArUco 마커 오차를 PID 제어로 보정
 - 카메라 프레임에서 ArUco 마커를 검출해 좌우·거리 오차를 계산
@@ -309,7 +311,7 @@ Nav2는 이 costmap을 사용하여 경로 계획과 장애물 회피를 수행�
 
 ### 7. [Kalman Filter] IMU 노이즈 보정
 
-<DriveAssetGrid actId="Shoepernoma" start={20} end={21} layout={[100]} />
+<DriveAssetGrid actId="Shoepernoma" start={19} end={20} layout={[100]} />
 
 - IMU 노이즈 보정을 위한 칼만 필터 데이터는 수집 완료
 - 적용 목적은 IMU 흔들림 기반 충돌 로그 기록이었으나 시간 문제로 필터링 파이프라인 및 기능은 적용하지 못함
@@ -363,9 +365,11 @@ PlatformIO 타깃 보드: `esp32dev`(cart), `esp32-s3-devkitc-1`(rack)
 
 ## GUI
 
-<DriveAssetGrid actId="Shoepernoma" start={21} end={22} layout={[100]} />
-<DriveAssetGrid actId="Shoepernoma" start={22} end={25}/>
-<DriveAssetGrid actId="Shoepernoma" start={26} end={27} layout={[100]} />
+<div style={{ maxWidth: 400, margin: '0 auto' }}>
+  <DriveAssetGrid actId="Shoepernoma" start={20} end={21} layout={[100]} />
+</div>
+<DriveAssetGrid actId="Shoepernoma" start={21} end={24}/>
+<DriveAssetGrid actId="Shoepernoma" start={24} end={25} layout={[100]} />
 
 
 ## 설계
@@ -378,31 +382,32 @@ PlatformIO 타깃 보드: `esp32dev`(cart), `esp32-s3-devkitc-1`(rack)
 
 ## 시스템 구조
 
-<DriveAssetGrid actId="Shoepernoma" start={27} end={29} layout={[33, 66]}/>
+<DriveAssetGrid actId="Shoepernoma" start={25} end={27} layout={[33, 66]}/>
 
 
 ## 지도
 
-<DriveAssetGrid actId="Shoepernoma" start={29} end={31} layout={[33, 66]}/>
-
-## 시퀀스 다이어그램
-
-<DriveAssetGrid actId="Shoepernoma" start={31} end={-7} />
-
+<DriveAssetGrid actId="Shoepernoma" start={27} end={29} layout={[66, 33]}/>
 
 ## 주요 ROS 통신 인터페이스
 
-<DriveAssetGrid actId="Shoepernoma" start={-7} end={-6} layout={[100]}/>
+<DriveAssetGrid actId="Shoepernoma" start={29} end={30} layout={[100]}/>
+
+## 시퀀스 다이어그램
+
+<DriveAssetGrid actId="Shoepernoma" start={30} end={41} />
 
 ## 전체 주행 상태
 
-<DriveAssetGrid actId="Shoepernoma" start={-6} end={-5} layout={[100]}/>
+<div style={{ maxWidth: 400, margin: '0 auto' }}>
+  <DriveAssetGrid actId="Shoepernoma" start={41} end={42} layout={[100]}/>
+</div>
 
 ## 데이터 구조
 
-<DriveAssetGrid actId="Shoepernoma" start={-5} end={-3} layout={[100]}/>
+<DriveAssetGrid actId="Shoepernoma" start={42} end={44} layout={[100]}/>
 
 ## Hardware 구성
 
-<DriveAssetGrid actId="Shoepernoma" start={-1} layout={[100]}/>
+<DriveAssetGrid actId="Shoepernoma" start={44} end={45} layout={[100]}/>
 

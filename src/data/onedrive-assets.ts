@@ -3110,91 +3110,14 @@ const onedriveAssetBlueprints = [
     startDate: '2025-04-09',
     remotePathOverride: 'Photos/Projects/Shoepernoma/구현설명1-초기위치보정.png',
   },
+
   {
     act_id: ['addinedu', 'Shoepernoma'],
-    filename: '(판넬)ARUCO마커초기포즈보정.png',
+    filename: 'Overview of pose estimation using multiple ArUco markers(applsci-14-10225-g001).png',
     name: '설명 참고 사진',
     type: 'None',
     startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/(판넬)ARUCO마커초기포즈보정.png',
-  },
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '(판넬)deeplearning-1.png',
-    name: '설명 참고 사진',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/(판넬)deeplearning-1.png',
-  },
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '(판넬)deeplearning-2.png',
-    name: '설명 참고 사진',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/(판넬)deeplearning-2.png',
-  },
-
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '(판넬)CartographerSLAM.png',
-    name: '설명 참고 사진',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/(판넬)CartographerSLAM.png',
-  },
-
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '(판넬)PID직진피드백.png',
-    name: '설명 참고 사진',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/(판넬)PID직진피드백.png',
-  },
-
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '(판넬)ROS2NAV2.png',
-    name: '설명 참고 사진',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/(판넬)ROS2NAV2.png',
-  },
-
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '(판넬)다중로봇관리.png',
-    name: '설명 참고 사진',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/(판넬)다중로봇관리.png',
-  },
-
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '(판넬)Thumbnail.png',
-    name: '설명 참고 사진',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/(판넬)Thumbnail.png',
-  },
-
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: '구현설명(이거뭐지).png',
-    name: '구현',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/구현설명(이거뭐지).png',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/Overview of pose estimation using multiple ArUco markers(applsci-14-10225-g001).png',
   },
 
   {
@@ -3242,16 +3165,6 @@ const onedriveAssetBlueprints = [
     type: 'None',
     startDate: '2025-04-09',
     remotePathOverride: 'Photos/Projects/Shoepernoma/G3.배송요청.png',
-  },
-
-
-  {
-    act_id: ['addinedu', 'Shoepernoma'],
-    filename: 'G4.요청취소.png',
-    name: '구현',
-    type: 'None',
-    startDate: '2025-04-09',
-    remotePathOverride: 'Photos/Projects/Shoepernoma/G4.요청취소.png',
   },
 
   {
@@ -3426,7 +3339,6 @@ const onedriveAssetBlueprints = [
     remotePathOverride: 'Photos/Projects/Shoepernoma/roscars_erd.png',
   },
 
-
   {
     act_id: ['addinedu', 'Shoepernoma'],
     filename: 'roscars_log_erd.png',
@@ -3435,8 +3347,17 @@ const onedriveAssetBlueprints = [
     startDate: '2025-04-09',
     remotePathOverride: 'Photos/Projects/Shoepernoma/roscars_log_erd.png',
   },
-
+  
   {
+    act_id: ['addinedu', 'Shoepernoma'],
+    filename: 'pinky-spec-3.png',
+    name: 'pinky spec 3',
+    type: 'None',
+    startDate: '2025-04-09',
+    remotePathOverride: 'Photos/Projects/Shoepernoma/pinky-spec-3.png',
+  },
+
+{
     act_id: 'kdt-addinedu',
     filename: '250527-애드인에듀-최우수상_copy.jpg',
     name: '최우수상',
