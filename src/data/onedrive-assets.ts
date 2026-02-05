@@ -11,12 +11,6 @@ function encodePath(pathname: string): string {
     .join('/');
 }
 
-function joinUrl(base: string, pathname: string): string {
-  const normalizedBase = base.replace(/\/$/, '');
-  const encodedPath = encodePath(pathname);
-  return `${normalizedBase}/${encodedPath}`;
-}
-
 type OneDriveAssetBlueprint = {
   /**
    * Unique identifier used by MDX/TS files to look up metadata.
