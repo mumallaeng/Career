@@ -141,26 +141,55 @@ interface VideoTagProps {
   poster?: string;
 }
 
-const resolveVideoSource = (filename?: string, src?: string): string | null => {
+const resolveAssetByFilename = (value: string) => {
+  const direct = getOneDriveAssetByFilename(value);
+  if (direct) return direct;
+  try {
+    const nfc = value.normalize('NFC');
+    const resolvedNfc = getOneDriveAssetByFilename(nfc);
+    if (resolvedNfc) return resolvedNfc;
+  } catch {
+    // ignore
+  }
+  try {
+    const nfd = value.normalize('NFD');
+    return getOneDriveAssetByFilename(nfd);
+  } catch {
+    return undefined;
+  }
+};
+
+const isVideoExtension = (value: string) => /\.(mp4|webm|gif)$/i.test(value);
+
+const resolveVideoSources = (filename?: string, src?: string): string[] => {
   const rawValue = (filename ?? src ?? '').trim();
   if (!rawValue) {
-    return null;
+    return [];
   }
 
-  const asset = getOneDriveAssetByFilename(rawValue);
+  const asset = resolveAssetByFilename(rawValue);
   if (asset) {
-    return asset.publicPath;
+    if (isVideoExtension(asset.filename)) {
+      return [
+        `/import-data/dev-storage/${asset.filename}`,
+        asset.publicPath,
+      ];
+    }
+    return [asset.publicPath];
   }
 
-  if (/\.mp4$/i.test(rawValue)) {
-    return `/import-data/highlight/${rawValue}`;
+  if (isVideoExtension(rawValue)) {
+    return [
+      `/import-data/dev-storage/${rawValue}`,
+      `/import-data/highlight/${rawValue}`,
+    ];
   }
 
   if (rawValue.startsWith('/') || /^[a-z][a-z0-9+.-]*:/i.test(rawValue)) {
-    return rawValue;
+    return [rawValue];
   }
 
-  return null;
+  return [];
 };
 
 const VideoTag = ({
@@ -175,13 +204,13 @@ const VideoTag = ({
   playsInline = true,
   poster,
 }: VideoTagProps) => {
-  const resolvedSrc = resolveVideoSource(filename, src);
-  if (!resolvedSrc) {
+  const resolvedSources = resolveVideoSources(filename, src);
+  if (resolvedSources.length === 0) {
     console.error('VideoTag: missing or invalid source', { filename, src });
     return null;
   }
 
-  const resolvedPoster = resolveVideoSource(poster);
+  const resolvedPoster = resolveVideoSources(poster)[0];
   const titleText = title.trim();
 
   return (
@@ -197,7 +226,9 @@ const VideoTag = ({
       poster={resolvedPoster ?? undefined}
       onContextMenu={(event) => event.preventDefault()}
     >
-      <source src={resolvedSrc} type="video/mp4" />
+      {resolvedSources.map(source => (
+        <source key={source} src={source} type="video/mp4" />
+      ))}
       {titleText ? `${titleText} 영상` : '동영상을 재생할 수 없습니다.'}
     </video>
   );
