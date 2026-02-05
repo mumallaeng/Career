@@ -70,6 +70,8 @@ const safeChildren = (children: ReactNode): ReactNode => {
   return children;
 };
 
+const isDocExtension = (value: string): boolean => /\.(mdx?|puml)$/i.test(value);
+
 const resolveActivityLink = (href: string): { href: string; isInternal: boolean } => {
   const trimmedHref = href.trim();
 
@@ -102,6 +104,31 @@ const resolveActivityLink = (href: string): { href: string; isInternal: boolean 
   }
 
   let normalizedPath = pathPart.replace(/^\.\//, '');
+
+  if (isDocExtension(normalizedPath)) {
+    const cleanPath = normalizedPath.replace(/^\/+/, '');
+    if (cleanPath.startsWith('activities/')) {
+      const rest = cleanPath.slice('activities/'.length);
+      const [slug, ...segments] = rest.split('/');
+      if (!slug || segments.length === 0) {
+        return { href: `/${cleanPath}${query}${hash}`, isInternal: true };
+      }
+      return {
+        href: `/activities/${slug}/docs/${segments.join('/')}${query}${hash}`,
+        isInternal: true,
+      };
+    }
+
+    const [slug, ...segments] = cleanPath.split('/');
+    if (!slug || segments.length === 0) {
+      return { href: `/activities/${cleanPath}${query}${hash}`, isInternal: true };
+    }
+    return {
+      href: `/activities/${slug}/docs/${segments.join('/')}${query}${hash}`,
+      isInternal: true,
+    };
+  }
+
   normalizedPath = normalizedPath.replace(/\.(mdx|md)$/i, '');
 
   return {
