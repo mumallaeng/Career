@@ -34,6 +34,10 @@ const remoteBase = normalizeRemoteBase(process.env.ONEDRIVE_REMOTE_BASE ?? defau
 const shouldUpload = process.env.SKIP_ONEDRIVE_UPLOAD === '1' ? false : true;
 const rcloneConfigDir = path.join(projectRoot, '.rclone-config');
 const thumbAssets = buildThumbAssetSet(projectRoot);
+const onlyAssetQuery = process.env.ONEDRIVE_ONLY_ASSETS;
+const onlyAssetKeys = onlyAssetQuery
+  ? onlyAssetQuery.split(',').map(value => value.trim()).filter(Boolean)
+  : [];
 const rcloneChunkSize = process.env.RCLONE_ONEDRIVE_CHUNK_SIZE;
 const rcloneTransfers = process.env.RCLONE_TRANSFERS;
 const rcloneCheckers = process.env.RCLONE_CHECKERS;
@@ -190,9 +194,20 @@ function getRemoteSha1(remoteSpec: string): { hash?: string; size?: number } | n
   }
 }
 
+function matchesOnlyAssets(asset: typeof onedriveAssets[number], keys: string[]): boolean {
+  if (keys.length === 0) return true;
+  const ids = Array.isArray(asset.act_id) ? asset.act_id : [asset.act_id];
+  return keys.some(key => {
+    const normalizedKey = key.toLowerCase();
+    if (asset.filename.toLowerCase() === normalizedKey) return true;
+    return ids.some(id => id.toLowerCase() === normalizedKey);
+  });
+}
+
 async function buildTargets(): Promise<ResizeTarget[]> {
   const targets: ResizeTarget[] = [];
   for (const asset of onedriveAssets) {
+    if (!matchesOnlyAssets(asset, onlyAssetKeys)) continue;
     if (!asset.isResizableImage) continue;
     let inputPath: string;
     try {

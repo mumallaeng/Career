@@ -44,7 +44,24 @@ const shouldNormalizeNfc = process.env.ENABLE_ONEDRIVE_NFC === '1';
 const rcloneCacheDir = path.join(projectRoot, '.rclone-bin');
 const rcloneConfigDir = path.join(projectRoot, '.rclone-config');
 
-const assets: NormalizedAsset[] = onedriveAssets.map(asset => ({
+const onlyAssetQuery = process.env.ONEDRIVE_ONLY_ASSETS;
+const onlyAssetKeys = onlyAssetQuery
+  ? onlyAssetQuery.split(',').map(value => value.trim()).filter(Boolean)
+  : [];
+
+function matchesOnlyAssets(asset: OneDriveAssetDefinition, keys: string[]): boolean {
+  if (keys.length === 0) return true;
+  const ids = Array.isArray(asset.act_id) ? asset.act_id : [asset.act_id];
+  return keys.some(key => {
+    const normalizedKey = key.toLowerCase();
+    if (asset.filename.toLowerCase() === normalizedKey) return true;
+    return ids.some(id => id.toLowerCase() === normalizedKey);
+  });
+}
+
+const assets: NormalizedAsset[] = onedriveAssets
+  .filter(asset => matchesOnlyAssets(asset, onlyAssetKeys))
+  .map(asset => ({
   ...(asset as OneDriveAssetDefinition),
   remotePath: trimSlashes(asset.remotePath),
   publicPath: ensureLeadingSlash(asset.publicPath),

@@ -18,6 +18,10 @@ const remoteBase = normalizeRemoteBase(process.env.ONEDRIVE_REMOTE_BASE ?? defau
 const shouldUpload = process.env.SKIP_ONEDRIVE_UPLOAD === '1' ? false : true;
 const compareRemote = process.env.ONEDRIVE_COMPARE_REMOTE === '1';
 const compareRemoteOnFirstRun = true;
+const onlyAssetQuery = process.env.ONEDRIVE_ONLY_ASSETS;
+const onlyAssetKeys = onlyAssetQuery
+  ? onlyAssetQuery.split(',').map(value => value.trim()).filter(Boolean)
+  : [];
 
 const maxDimension = Number(process.env.DEV_STORAGE_VIDEO_MAX_DIMENSION ?? '1600');
 const maxFps = Number(process.env.DEV_STORAGE_VIDEO_MAX_FPS ?? '30');
@@ -365,9 +369,20 @@ async function transcodeMp4WithSizeTarget(inputPath: string, outputPath: string)
   await checkSizeLimit(outputPath);
 }
 
+function matchesOnlyAssets(asset: typeof onedriveAssets[number], keys: string[]): boolean {
+  if (keys.length === 0) return true;
+  const ids = Array.isArray(asset.act_id) ? asset.act_id : [asset.act_id];
+  return keys.some(key => {
+    const normalizedKey = key.toLowerCase();
+    if (asset.filename.toLowerCase() === normalizedKey) return true;
+    return ids.some(id => id.toLowerCase() === normalizedKey);
+  });
+}
+
 async function buildTargets(): Promise<Array<{ inputPath: string; outputPath: string; remotePath: string }>> {
   const targets: Array<{ inputPath: string; outputPath: string; remotePath: string }> = [];
   const videoAssets = onedriveAssets.filter(asset => {
+    if (!matchesOnlyAssets(asset, onlyAssetKeys)) return false;
     const ext = getExtension(asset.filename);
     return ext === '.gif' || ext === '.mp4' || ext === '.webm';
   });
