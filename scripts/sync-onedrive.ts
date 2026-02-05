@@ -91,8 +91,11 @@ const syncTargets: SyncTarget[] = assets.flatMap(asset => {
 const publicDirectories = Array.from(new Set(syncTargets.map(target => getPublicDirectory(target.publicPath))));
 const remoteDirectories = Array.from(
   new Set(
-    syncTargets.map(target => {
-      const parts = target.remotePath.split('/');
+    [
+      ...syncTargets.map(target => target.remotePath),
+      ...assets.map(asset => asset.remotePathOriginal),
+    ].map(remotePath => {
+      const parts = remotePath.split('/');
       parts.pop();
       return parts.join('/');
     }),
