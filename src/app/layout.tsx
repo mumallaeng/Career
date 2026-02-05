@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navigation from "../components/Navigation";
+import ThemeRuntime from "../components/ThemeRuntime";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,11 +24,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const defaultTheme = process.env.NEXT_PUBLIC_THEME ?? "hero-grid";
+
   return (
-    <html lang="ko">
+    <html lang="ko" data-theme={defaultTheme}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ThemeRuntime defaultTheme={defaultTheme} />
         <Navigation />
         {children}
       </body>

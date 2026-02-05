@@ -8,16 +8,16 @@
 .activity-card {
     position: relative;
     overflow: hidden;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     padding: 0;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .activity-card.featured {
     grid-column: 1 / -1;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    background: var(--color-surface);
+    border: 1px solid var(--color-surface-border);
+    box-shadow: var(--shadow-featured);
     height: 450px;
 }
 
@@ -28,20 +28,20 @@
     left: 0;
     right: 0;
     height: 200px;
-    background: linear-gradient(to top, rgba(128, 128, 128, 0.8), rgba(128, 128, 128, 0));
+    background: var(--color-card-overlay);
     pointer-events: none;
     z-index: 1;
 }
 
 .activity-card.featured:hover {
     transform: translateY(-4px);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-featured-hover);
 }
 
 .activity-card.third {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    background: var(--color-surface);
+    border: 1px solid var(--color-surface-border-soft);
+    box-shadow: var(--shadow-card);
     height: 300px;
 }
 
@@ -52,14 +52,14 @@
     left: 0;
     right: 0;
     height: 130px;
-    background: linear-gradient(to top, rgba(128, 128, 128, 0.8), rgba(128, 128, 128, 0));
+    background: var(--color-card-overlay);
     pointer-events: none;
     z-index: 1;
 }
 
 .activity-card.third:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-card-hover);
 }
 
 .activity-card-thumbnail {
@@ -68,7 +68,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #ffffff;
+    background: var(--color-bg);
     z-index: 0;
 }
 
@@ -99,11 +99,11 @@
 }
 
 .activity-title-container.has-thumbnail {
-    background: linear-gradient(to bottom, rgb(255, 255, 255), rgba(255, 255, 255, 0));
+    background: linear-gradient(to bottom, var(--color-bg), rgba(255, 255, 255, 0));
 }
 
 .activity-title-container.no-thumbnail {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--color-surface-strong);
 }
 
 .activity-card.third .activity-title-container {

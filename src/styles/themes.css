@@ -1,0 +1,33 @@
+/* Theme tokens */
+:root,
+[data-theme="hero-grid"] {
+    --font-sans: var(--font-geist-sans), "Geist", "Helvetica Neue", Arial, sans-serif;
+    --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+    --color-bg: #ffffff;
+    --color-text: #1d1d1f;
+    --color-muted: #6e6e73;
+    --color-accent: #007aff;
+    --color-accent-strong: #0a84ff;
+    --color-accent-contrast: #ffffff;
+    --color-border: #d2d2d7;
+
+    --color-surface: rgba(255, 255, 255, 0.1);
+    --color-surface-strong: rgba(255, 255, 255, 0.95);
+    --color-surface-border: rgba(255, 255, 255, 0.3);
+    --color-surface-border-soft: rgba(255, 255, 255, 0.25);
+    --color-surface-shadow: rgba(0, 0, 0, 0.1);
+    --color-surface-shadow-soft: rgba(0, 0, 0, 0.08);
+
+    --color-tooltip-bg: rgba(0, 0, 0, 0.8);
+    --color-tooltip-text: #ffffff;
+
+    --color-card-overlay: linear-gradient(to top, rgba(128, 128, 128, 0.8), rgba(128, 128, 128, 0));
+
+    --radius-md: 12px;
+    --radius-pill: 20px;
+    --shadow-featured: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-featured-hover: 0 0 30px rgba(0, 0, 0, 0.15);
+    --shadow-card: 0 6px 24px rgba(0, 0, 0, 0.08);
+    --shadow-card-hover: 0 8px 25px rgba(0, 0, 0, 0.1);
+}

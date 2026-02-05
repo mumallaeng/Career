@@ -1,7 +1,7 @@
 /* Header */
 .header {
     position: static;
-    background-color: #ffffff;
+    background-color: var(--color-bg);
     border-bottom: none;
     padding: 40px 0 20px;
 }
@@ -31,7 +31,7 @@
 }
 
 .nav-item {
-    color: #000000;
+    color: var(--color-text);
     text-decoration: none;
     font-size: 14px;
     font-weight: 700;
@@ -45,7 +45,7 @@
 }
 
 .github-link {
-    color: #000000;
+    color: var(--color-text);
     transition: opacity 0.3s ease;
     width: 20px;
     height: 20px;
@@ -68,8 +68,8 @@
     bottom: -28px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #ffffff;
+    background-color: var(--color-tooltip-bg);
+    color: var(--color-tooltip-text);
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 11px;
@@ -90,7 +90,7 @@
     border: none;
     padding: 0;
     cursor: pointer;
-    color: #000000;
+    color: var(--color-text);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -108,8 +108,8 @@
     bottom: -28px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #ffffff;
+    background-color: var(--color-tooltip-bg);
+    color: var(--color-tooltip-text);
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 11px;
@@ -135,7 +135,7 @@
     border: none;
     padding: 0;
     cursor: pointer;
-    color: #000000;
+    color: var(--color-text);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -153,8 +153,8 @@
     bottom: -28px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #ffffff;
+    background-color: var(--color-tooltip-bg);
+    color: var(--color-tooltip-text);
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 11px;
