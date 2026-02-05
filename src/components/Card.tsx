@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Content } from '@/types/content';
 import { formatActivityDate } from '@/lib/utils/date';
+import { getOneDriveAssetByFilename, getOneDriveAssetUrl, onedriveAssetMap } from '@/data/onedrive-assets';
 
 interface CardProps {
   item: Content;
@@ -17,7 +18,16 @@ export default function Card({ item, index }: CardProps) {
     return 'activity-card third';
   };
 
-  const hasThumbnail = Boolean(item.thumbnailUrl);
+  const isFeatured = index === 0;
+  const featuredAsset = isFeatured
+    ? (item.frontMatter.thumbnail_asset_id
+        ? onedriveAssetMap[item.frontMatter.thumbnail_asset_id as keyof typeof onedriveAssetMap]
+        : (item.frontMatter.thumbnail ? getOneDriveAssetByFilename(item.frontMatter.thumbnail) : undefined))
+    : undefined;
+  const thumbnailUrl = featuredAsset
+    ? getOneDriveAssetUrl(featuredAsset, 'default')
+    : item.thumbnailUrl;
+  const hasThumbnail = Boolean(thumbnailUrl);
   const hasExplicitThumbnailSize = Boolean(item.thumbnailHasExplicitSize);
   const { startDate, endDate, date } = item.frontMatter;
   const activityDate = (startDate || endDate)
@@ -36,7 +46,7 @@ export default function Card({ item, index }: CardProps) {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={item.thumbnailUrl}
+              src={thumbnailUrl}
               alt=""
               loading="lazy"
               className="activity-card-thumbnail-image"
