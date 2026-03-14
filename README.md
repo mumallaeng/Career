@@ -1,6 +1,6 @@
 # Career
 
-Public career publication repository for Kim Yeonwoo.
+Public career publication repository for Gim Yeonwoo.
 
 ## Information Architecture
 
@@ -31,6 +31,9 @@ Registry files:
 
 - `manifests/publication-manifest.csv`
 - `../Vault/manifests/vault-career-linkage-manifest.csv`
+
+Local development with a sibling `../Vault` performs full source existence and hash checks.
+CI-only builds such as Vercel fall back to manifest consistency checks when `../Vault` is unavailable.
 
 ## Useful Commands
 

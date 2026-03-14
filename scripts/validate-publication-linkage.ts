@@ -6,6 +6,7 @@ import {
   loadCareerPublicationContents,
   loadManifestRows,
   resolveVaultPath,
+  vaultRoot,
 } from './lib/publication';
 
 function fail(errors: string[]): never {
@@ -43,6 +44,17 @@ function main() {
   const contents = loadCareerPublicationContents();
   const manifestRows = loadManifestRows();
   const manifestByPublicationId = buildRowByPublicationId(manifestRows);
+  const vaultRootExplicit = Boolean(process.env.VAULT_ROOT);
+  const vaultLinkageManifestPath = resolveVaultPath('manifests/vault-career-linkage-manifest.csv');
+  const vaultAvailable = existsSync(vaultRoot) && existsSync(vaultLinkageManifestPath);
+
+  if (vaultRootExplicit && !vaultAvailable) {
+    errors.push(`VAULT_ROOT is unavailable or missing linkage manifest: ${vaultRoot}`);
+  }
+
+  if (!vaultAvailable && !vaultRootExplicit) {
+    console.info(`Vault root not found at ${vaultRoot}; skipping source existence/hash checks.`);
+  }
 
   const publicationIds = contents.map(item => String(item.frontMatter.publication_id ?? ''));
   const publicPaths = contents.map(item => item.publicPath);
@@ -85,17 +97,8 @@ function main() {
       continue;
     }
 
-    const resolvedVaultPath = resolveVaultPath(vaultPath);
-    if (!existsSync(resolvedVaultPath)) {
-      errors.push(`${item.contentPath}: Vault source does not exist: ${vaultPath}`);
-      continue;
-    }
-
-    const actualHash = hashTarget(resolvedVaultPath);
     if (!frontmatterHash) {
       errors.push(`${item.contentPath}: missing source_hash`);
-    } else if (frontmatterHash !== actualHash) {
-      errors.push(`${item.contentPath}: source_hash drift detected for ${vaultPath}`);
     }
 
     const manifestRow = manifestByPublicationId.get(publicationId);
@@ -116,8 +119,8 @@ function main() {
       errors.push(`${item.contentPath}: manifest vault_path mismatch (${manifestRow.vault_path})`);
     }
 
-    if (manifestRow.source_hash !== actualHash) {
-      errors.push(`${item.contentPath}: manifest source_hash drift detected`);
+    if (frontmatterHash && manifestRow.source_hash !== frontmatterHash) {
+      errors.push(`${item.contentPath}: manifest source_hash mismatch (${manifestRow.source_hash})`);
     }
 
     if (manifestRow.content_kind !== contentKind) {
@@ -126,6 +129,25 @@ function main() {
 
     if ((manifestRow.work_type || '') !== workType) {
       errors.push(`${item.contentPath}: manifest work_type mismatch (${manifestRow.work_type})`);
+    }
+
+    if (!vaultAvailable) {
+      continue;
+    }
+
+    const resolvedVaultPath = resolveVaultPath(vaultPath);
+    if (!existsSync(resolvedVaultPath)) {
+      errors.push(`${item.contentPath}: Vault source does not exist: ${vaultPath}`);
+      continue;
+    }
+
+    const actualHash = hashTarget(resolvedVaultPath);
+    if (frontmatterHash && frontmatterHash !== actualHash) {
+      errors.push(`${item.contentPath}: source_hash drift detected for ${vaultPath}`);
+    }
+
+    if (manifestRow.source_hash !== actualHash) {
+      errors.push(`${item.contentPath}: manifest source_hash drift detected`);
     }
   }
 

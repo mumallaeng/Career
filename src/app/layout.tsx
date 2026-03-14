@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kim Yeonwoo | Career",
-  description: "Public career profile, resume, work, and writing for Kim Yeonwoo.",
+  title: "Gim Yeonwoo | Career",
+  description: "Public career profile, resume, work, and writing for Gim Yeonwoo.",
 };
 
 export default function RootLayout({
