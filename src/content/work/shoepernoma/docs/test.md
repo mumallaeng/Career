@@ -14,8 +14,6 @@ title: testing
 * **Confluence Header 사용 시**
 
   * Header 단위로 URL이 생성되므로 **같은 페이지 내에서는 항목별로 셀을 분리하여 관리**
-* 엑셀 링크
-  [https://redacted.invalid/sharepoint-link-removed) your OneDrive account
 
 ---
 

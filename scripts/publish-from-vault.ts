@@ -7,6 +7,7 @@ import {
   publicPathToContentPath,
   resolveVaultPath,
   upsertManifestRow,
+  upsertVaultLinkageRow,
 } from './lib/publication';
 
 function usage(): never {
@@ -16,6 +17,10 @@ function usage(): never {
 
 function quote(value: string): string {
   return JSON.stringify(value);
+}
+
+function inferLinkageType(kind: string): string {
+  return kind === 'resume' ? 'draft-source' : 'provenance-anchor';
 }
 
 function main() {
@@ -48,8 +53,6 @@ function main() {
     'updatedAt: "2026-03-14"',
     `content_kind: ${quote(kind)}`,
     kind === 'work' ? `work_type: ${quote(workType)}` : null,
-    `source_vault_path: ${quote(vaultPath)}`,
-    `source_hash: ${quote(sourceHash)}`,
     `publication_id: ${quote(publicationId)}`,
   ].filter(Boolean);
 
@@ -69,11 +72,21 @@ function main() {
     site: 'career',
     public_path: normalizedPublicPath,
     career_content_path: contentPath,
-    vault_path: vaultPath,
-    source_hash: sourceHash,
     status: 'active',
     content_kind: kind,
     work_type: workType,
+    notes: 'managed-by-publish-from-vault',
+  });
+
+  upsertVaultLinkageRow({
+    publication_id: publicationId,
+    site: 'career',
+    public_path: normalizedPublicPath,
+    career_content_path: contentPath,
+    vault_path: vaultPath,
+    source_hash: sourceHash,
+    linkage_type: inferLinkageType(kind),
+    status: 'linked',
     notes: 'managed-by-publish-from-vault',
   });
 

@@ -21,10 +21,11 @@ export interface FrontMatter {
   thumbnail_asset_id?: string;
   content_kind: ContentKind;
   work_type?: WorkType;
-  source_vault_path: string;
-  source_hash?: string;
-  publication_id: string;
   summary?: string;
+}
+
+export interface ParsedFrontMatter extends FrontMatter {
+  publication_id?: string;
 }
 
 export interface Content {
@@ -36,17 +37,23 @@ export interface Content {
   thumbnailUrl?: string;
   thumbnailHasExplicitSize?: boolean;
   fileExtension: 'md' | 'mdx';
-  sourceFilePath: string;
   contentPath: string;
   publicPath: string;
-  docRootPath?: string;
+}
+
+export interface ContentCardData {
+  slug: string;
+  collection: ContentKind;
+  frontMatter: FrontMatter;
+  thumbnailUrl?: string;
+  thumbnailHasExplicitSize?: boolean;
+  publicPath: string;
 }
 
 export interface ContentDocument {
   content: Content;
   title: string;
   body: string;
-  filePath: string;
   fileExtension: string;
   contentPath: string;
   frontMatter: Record<string, string>;

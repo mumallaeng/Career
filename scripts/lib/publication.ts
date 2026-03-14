@@ -9,8 +9,6 @@ export type PublicationFrontMatter = {
   description?: string;
   content_kind?: PublicationKind;
   work_type?: string;
-  source_vault_path?: string;
-  source_hash?: string;
   publication_id?: string;
   [key: string]: string | string[] | boolean | number | undefined;
 };
@@ -27,11 +25,21 @@ export type PublicationManifestRow = {
   site: string;
   public_path: string;
   career_content_path: string;
-  vault_path: string;
-  source_hash: string;
   status: string;
   content_kind: string;
   work_type: string;
+  notes: string;
+};
+
+export type VaultLinkageRow = {
+  publication_id: string;
+  site: string;
+  public_path: string;
+  career_content_path: string;
+  vault_path: string;
+  source_hash: string;
+  linkage_type: string;
+  status: string;
   notes: string;
 };
 
@@ -41,6 +49,7 @@ export const careerManifestPath = path.join(careerRoot, 'manifests/publication-m
 export const vaultRoot = process.env.VAULT_ROOT
   ? path.resolve(process.env.VAULT_ROOT)
   : path.resolve(careerRoot, '..', 'Vault');
+export const vaultLinkageManifestPath = path.join(vaultRoot, 'manifests', 'vault-career-linkage-manifest.csv');
 export const digitalGardenManifestPath = path.resolve(careerRoot, '..', 'DigitalGarden', 'manifests/publication-manifest.csv');
 
 const contentExtensions = ['.mdx', '.md'];
@@ -284,7 +293,7 @@ function escapeCsvValue(value: string): string {
   return value;
 }
 
-export function loadManifestRows(manifestPath = careerManifestPath): PublicationManifestRow[] {
+function loadCsvRows<T extends Record<string, string>>(manifestPath: string): T[] {
   if (!existsSync(manifestPath)) {
     return [];
   }
@@ -305,31 +314,61 @@ export function loadManifestRows(manifestPath = careerManifestPath): Publication
       headers.forEach((header, index) => {
         row[header] = values[index] ?? '';
       });
-      return row as PublicationManifestRow;
+      return row as T;
     });
 }
 
-export function writeManifestRows(rows: PublicationManifestRow[], manifestPath = careerManifestPath) {
-  const header = [
-    'publication_id',
-    'site',
-    'public_path',
-    'career_content_path',
-    'vault_path',
-    'source_hash',
-    'status',
-    'content_kind',
-    'work_type',
-    'notes',
-  ];
-
+function writeCsvRows<T extends Record<string, string>>(rows: T[], header: string[], manifestPath: string) {
   const lines = [
     header.join(','),
-    ...rows.map(row => header.map(column => escapeCsvValue(row[column as keyof PublicationManifestRow] ?? '')).join(',')),
+    ...rows.map(row => header.map(column => escapeCsvValue(row[column] ?? '')).join(',')),
   ];
 
   mkdirSync(path.dirname(manifestPath), { recursive: true });
   writeFileSync(manifestPath, `${lines.join('\n')}\n`);
+}
+
+export function loadManifestRows(manifestPath = careerManifestPath): PublicationManifestRow[] {
+  return loadCsvRows<PublicationManifestRow>(manifestPath);
+}
+
+export function loadVaultLinkageRows(manifestPath = vaultLinkageManifestPath): VaultLinkageRow[] {
+  return loadCsvRows<VaultLinkageRow>(manifestPath);
+}
+
+export function writeManifestRows(rows: PublicationManifestRow[], manifestPath = careerManifestPath) {
+  writeCsvRows(
+    rows,
+    [
+      'publication_id',
+      'site',
+      'public_path',
+      'career_content_path',
+      'status',
+      'content_kind',
+      'work_type',
+      'notes',
+    ],
+    manifestPath
+  );
+}
+
+export function writeVaultLinkageRows(rows: VaultLinkageRow[], manifestPath = vaultLinkageManifestPath) {
+  writeCsvRows(
+    rows,
+    [
+      'publication_id',
+      'site',
+      'public_path',
+      'career_content_path',
+      'vault_path',
+      'source_hash',
+      'linkage_type',
+      'status',
+      'notes',
+    ],
+    manifestPath
+  );
 }
 
 export function upsertManifestRow(row: PublicationManifestRow, manifestPath = careerManifestPath) {
@@ -338,6 +377,14 @@ export function upsertManifestRow(row: PublicationManifestRow, manifestPath = ca
   nextRows.push(row);
   nextRows.sort((left, right) => left.public_path.localeCompare(right.public_path));
   writeManifestRows(nextRows, manifestPath);
+}
+
+export function upsertVaultLinkageRow(row: VaultLinkageRow, manifestPath = vaultLinkageManifestPath) {
+  const rows = loadVaultLinkageRows(manifestPath);
+  const nextRows = rows.filter(existing => existing.publication_id !== row.publication_id);
+  nextRows.push(row);
+  nextRows.sort((left, right) => left.public_path.localeCompare(right.public_path));
+  writeVaultLinkageRows(nextRows, manifestPath);
 }
 
 export function publicPathToContentPath(publicPath: string): { contentPath: string; kind: PublicationKind; workType?: string } {

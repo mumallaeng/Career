@@ -33,6 +33,7 @@
     }
     
     .activity-card.featured,
+    .activity-card.featured-grid,
     .activity-card.third {
         grid-column: 1;
         padding: 16px;
@@ -44,5 +45,9 @@
     
     .activity-card.featured .activity-title {
         font-size: 20px;
+    }
+
+    .activity-card.featured-grid .activity-title {
+        font-size: 18px;
     }
 }

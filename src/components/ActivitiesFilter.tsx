@@ -2,10 +2,21 @@
 
 import { useState, useMemo } from 'react';
 import Card from '@/components/Card';
-import { Content } from '@/types/content';
+import { Content, ContentCardData } from '@/types/content';
 
 interface ActivitiesFilterProps {
   activities: Content[];
+}
+
+function toCardData(activity: Content): ContentCardData {
+  return {
+    slug: activity.slug,
+    collection: activity.collection,
+    frontMatter: activity.frontMatter,
+    thumbnailUrl: activity.thumbnailUrl,
+    thumbnailHasExplicitSize: activity.thumbnailHasExplicitSize,
+    publicPath: activity.publicPath,
+  };
 }
 
 export default function ActivitiesFilter({ activities }: ActivitiesFilterProps) {
@@ -129,7 +140,7 @@ export default function ActivitiesFilter({ activities }: ActivitiesFilterProps) 
         {sortedActivities.map((activity, index) => (
           <Card
             key={activity.slug}
-            item={activity}
+            item={toCardData(activity)}
             index={index}
           />
         ))}

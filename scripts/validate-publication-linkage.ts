@@ -5,8 +5,10 @@ import {
   hashTarget,
   loadCareerPublicationContents,
   loadManifestRows,
+  loadVaultLinkageRows,
   resolveVaultPath,
   vaultRoot,
+  vaultLinkageManifestPath,
 } from './lib/publication';
 
 function fail(errors: string[]): never {
@@ -45,8 +47,10 @@ function main() {
   const manifestRows = loadManifestRows();
   const manifestByPublicationId = buildRowByPublicationId(manifestRows);
   const vaultRootExplicit = Boolean(process.env.VAULT_ROOT);
-  const vaultLinkageManifestPath = resolveVaultPath('manifests/vault-career-linkage-manifest.csv');
   const vaultAvailable = existsSync(vaultRoot) && existsSync(vaultLinkageManifestPath);
+  const vaultLinkageByPublicationId = vaultAvailable
+    ? new Map(loadVaultLinkageRows().map(row => [row.publication_id, row]))
+    : new Map();
 
   if (vaultRootExplicit && !vaultAvailable) {
     errors.push(`VAULT_ROOT is unavailable or missing linkage manifest: ${vaultRoot}`);
@@ -58,7 +62,6 @@ function main() {
 
   const publicationIds = contents.map(item => String(item.frontMatter.publication_id ?? ''));
   const publicPaths = contents.map(item => item.publicPath);
-  const vaultPaths = contents.map(item => String(item.frontMatter.source_vault_path ?? ''));
 
   collectDuplicateValues(publicationIds.filter(Boolean)).forEach(value => {
     errors.push(`Duplicate publication_id in content files: ${value}`);
@@ -68,16 +71,10 @@ function main() {
     errors.push(`Duplicate public path in content files: ${value}`);
   });
 
-  collectDuplicateValues(vaultPaths.filter(Boolean)).forEach(value => {
-    errors.push(`Duplicate source_vault_path in content files: ${value}`);
-  });
-
   for (const item of contents) {
     const publicationId = String(item.frontMatter.publication_id ?? '');
     const contentKind = String(item.frontMatter.content_kind ?? '');
     const workType = String(item.frontMatter.work_type ?? '');
-    const vaultPath = String(item.frontMatter.source_vault_path ?? '');
-    const frontmatterHash = String(item.frontMatter.source_hash ?? '');
 
     if (!publicationId) {
       errors.push(`${item.contentPath}: missing publication_id`);
@@ -90,15 +87,6 @@ function main() {
 
     if (contentKind === 'work' && !workType) {
       errors.push(`${item.contentPath}: missing work_type`);
-    }
-
-    if (!vaultPath) {
-      errors.push(`${item.contentPath}: missing source_vault_path`);
-      continue;
-    }
-
-    if (!frontmatterHash) {
-      errors.push(`${item.contentPath}: missing source_hash`);
     }
 
     const manifestRow = manifestByPublicationId.get(publicationId);
@@ -115,14 +103,6 @@ function main() {
       errors.push(`${item.contentPath}: manifest career_content_path mismatch (${manifestRow.career_content_path})`);
     }
 
-    if (manifestRow.vault_path !== vaultPath) {
-      errors.push(`${item.contentPath}: manifest vault_path mismatch (${manifestRow.vault_path})`);
-    }
-
-    if (frontmatterHash && manifestRow.source_hash !== frontmatterHash) {
-      errors.push(`${item.contentPath}: manifest source_hash mismatch (${manifestRow.source_hash})`);
-    }
-
     if (manifestRow.content_kind !== contentKind) {
       errors.push(`${item.contentPath}: manifest content_kind mismatch (${manifestRow.content_kind})`);
     }
@@ -135,19 +115,29 @@ function main() {
       continue;
     }
 
-    const resolvedVaultPath = resolveVaultPath(vaultPath);
+    const vaultLinkageRow = vaultLinkageByPublicationId.get(publicationId);
+    if (!vaultLinkageRow) {
+      errors.push(`${item.contentPath}: missing Vault linkage row for ${publicationId}`);
+      continue;
+    }
+
+    if (vaultLinkageRow.public_path !== item.publicPath) {
+      errors.push(`${item.contentPath}: Vault linkage public_path mismatch (${vaultLinkageRow.public_path})`);
+    }
+
+    if (vaultLinkageRow.career_content_path !== item.contentPath) {
+      errors.push(`${item.contentPath}: Vault linkage career_content_path mismatch (${vaultLinkageRow.career_content_path})`);
+    }
+
+    const resolvedVaultPath = resolveVaultPath(vaultLinkageRow.vault_path);
     if (!existsSync(resolvedVaultPath)) {
-      errors.push(`${item.contentPath}: Vault source does not exist: ${vaultPath}`);
+      errors.push(`${item.contentPath}: Vault source does not exist: ${vaultLinkageRow.vault_path}`);
       continue;
     }
 
     const actualHash = hashTarget(resolvedVaultPath);
-    if (frontmatterHash && frontmatterHash !== actualHash) {
-      errors.push(`${item.contentPath}: source_hash drift detected for ${vaultPath}`);
-    }
-
-    if (manifestRow.source_hash !== actualHash) {
-      errors.push(`${item.contentPath}: manifest source_hash drift detected`);
+    if (vaultLinkageRow.source_hash !== actualHash) {
+      errors.push(`${item.contentPath}: Vault linkage source_hash drift detected`);
     }
   }
 
@@ -167,13 +157,6 @@ function main() {
       errors.push(`publication_id collides with DigitalGarden manifest: ${value}`);
     });
 
-    const conflictingVaultPaths = collectDuplicateValues([
-      ...manifestRows.filter(row => row.status === 'active').map(row => row.vault_path),
-      ...activeGardenRows.map(row => row.vault_path),
-    ]);
-    conflictingVaultPaths.forEach(value => {
-      errors.push(`vault_path collides with DigitalGarden manifest: ${value}`);
-    });
   }
 
   if (errors.length > 0) {

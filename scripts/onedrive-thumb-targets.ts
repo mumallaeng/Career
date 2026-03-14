@@ -33,6 +33,33 @@ function addThumbnailFromActId(actId: string, target: Set<string>) {
   }
 }
 
+function walkContentFiles(rootDir: string): string[] {
+  if (!fs.existsSync(rootDir)) {
+    return [];
+  }
+
+  const output: string[] = [];
+
+  for (const entry of fs.readdirSync(rootDir, { withFileTypes: true })) {
+    if (entry.name.startsWith('_')) {
+      continue;
+    }
+
+    const entryPath = path.join(rootDir, entry.name);
+
+    if (entry.isDirectory()) {
+      output.push(...walkContentFiles(entryPath));
+      continue;
+    }
+
+    if (entry.isFile() && (entry.name.endsWith('.md') || entry.name.endsWith('.mdx'))) {
+      output.push(entryPath);
+    }
+  }
+
+  return output;
+}
+
 export function buildThumbAssetSet(projectRoot: string = process.cwd()): Set<string> {
   const thumbAssets = new Set<string>();
 
@@ -41,18 +68,14 @@ export function buildThumbAssetSet(projectRoot: string = process.cwd()): Set<str
     .filter(asset => asset.type === 'certificate')
     .forEach(asset => thumbAssets.add(asset.filename));
 
-  const contentDir = path.join(projectRoot, 'src/content/activities');
+  const contentDir = path.join(projectRoot, 'src/content');
   if (!fs.existsSync(contentDir)) {
     return thumbAssets;
   }
 
-  const files = fs.readdirSync(contentDir)
-    .filter(file => (file.endsWith('.md') || file.endsWith('.mdx')) && !file.startsWith('_'));
-
   const actIdRegex = /actId\s*=\s*(?:\{)?["']([^"']+)["'](?:\})?/g;
 
-  for (const file of files) {
-    const filePath = path.join(contentDir, file);
+  for (const filePath of walkContentFiles(contentDir)) {
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const frontMatter = parseFrontMatter(fileContent);
 

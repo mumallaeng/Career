@@ -3,8 +3,26 @@ import { Analytics } from '@vercel/analytics/next';
 import ContentGrid from '@/components/ContentGrid';
 import { getHomeData } from '@/lib/content';
 
+function stripInlineMarkdown(value: string): string {
+  return value
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[`*_>#]/g, '')
+    .trim();
+}
+
+function extractLeadParagraphs(content: string, count = 2): string[] {
+  return content
+    .split(/\n\s*\n/)
+    .map(paragraph => paragraph.trim())
+    .filter(paragraph => paragraph && !/^(#{1,6}\s|[-*]\s|```|\|)/.test(paragraph))
+    .map(stripInlineMarkdown)
+    .filter(Boolean)
+    .slice(0, count);
+}
+
 export default function HomePage() {
-  const { profile, resume, featuredWork, recentWriting } = getHomeData();
+  const { profile, featuredWork, recentWriting } = getHomeData();
+  const profileParagraphs = profile ? extractLeadParagraphs(profile.content, 3) : [];
 
   return (
     <div className="activities-container">
@@ -29,6 +47,27 @@ export default function HomePage() {
       <section className="career-section">
         <div className="career-section-header">
           <div>
+            <p className="career-section-label">Career</p>
+            <h2 className="career-section-title">어떤 방식으로 일하는지</h2>
+          </div>
+        </div>
+
+        {profile && (
+          <div className="career-inline-panel">
+            <div className="career-inline-copy">
+              {profileParagraphs.map(paragraph => (
+                <p key={paragraph} className="career-inline-paragraph">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
+
+      <section className="career-section">
+        <div className="career-section-header">
+          <div>
             <p className="career-section-label">Featured work</p>
             <h2 className="career-section-title">대표 작업과 사례</h2>
           </div>
@@ -36,55 +75,38 @@ export default function HomePage() {
             전체 Work →
           </Link>
         </div>
-        <ContentGrid items={featuredWork} />
+        <ContentGrid items={featuredWork} variant="featured-grid" />
       </section>
 
       <section className="career-section">
         <div className="career-section-header">
           <div>
-            <p className="career-section-label">Writing</p>
+            <p className="career-section-label">Career note</p>
             <h2 className="career-section-title">공개 가능한 커리어 서술</h2>
           </div>
-          <Link href="/writing" className="career-section-link">
-            전체 Writing →
-          </Link>
         </div>
 
-        <div className="writing-list">
+        <div className="writing-list inline-notes">
           {recentWriting.map(item => (
             <article key={item.slug} className="writing-list-item">
               <p className="writing-list-date">
                 {item.frontMatter.updatedAt ?? item.frontMatter.publicationDate ?? item.frontMatter.date}
               </p>
-              <h3 className="writing-list-title">
-                <Link href={item.publicPath}>
-                  {item.frontMatter.title}
-                </Link>
-              </h3>
+              <h3 className="writing-list-title">{item.frontMatter.title}</h3>
               <p className="writing-list-description">
                 {item.frontMatter.description}
               </p>
+              <div className="career-inline-copy compact">
+                {extractLeadParagraphs(item.content, 3).map(paragraph => (
+                  <p key={`${item.slug}-${paragraph}`} className="career-inline-paragraph compact">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
             </article>
           ))}
         </div>
       </section>
-
-      {resume && (
-        <section className="career-section">
-          <div className="career-callout">
-            <div>
-              <p className="career-section-label">Resume</p>
-              <h2 className="career-section-title">요약 이력은 별도 페이지로 유지합니다.</h2>
-              <p className="career-summary compact">
-                {resume.frontMatter.description}
-              </p>
-            </div>
-            <Link href="/resume" className="career-primary-link">
-              Resume 열기
-            </Link>
-          </div>
-        </section>
-      )}
 
       <Analytics />
     </div>

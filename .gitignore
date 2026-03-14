@@ -26,6 +26,7 @@
 
 # media files (uploaded to drive separately)
 src/content/media/
+/review/
 
 # drive1 sync output (keep placeholder only)
 public/import-data/*

@@ -2030,35 +2030,11 @@ const onedriveAssetBlueprints = [
   },
 
   {
-    act_id: ['아르바이트', '뉴스킨'],
-    filename: '200805-아르바이트-뉴스킨-교육훈련서약서_copy.jpg',
-    name: '아르바이트 뉴스킨 교육훈련서약서',
-    type: 'None',
-    startDate: '2020-08-05',
-  },
-
-  {
-    act_id: ['아르바이트', '뉴스킨', '근로계약서'],
-    filename: '200806-아르바이트-뉴스킨-근로계약서_copy.jpg',
-    name: '아르바이트 뉴스킨 근로계약서',
-    type: 'None',
-    startDate: '2020-08-06',
-  },
-
-  {
     act_id: ['개인', '자격증'],
     filename: '201113-컴활1급_copy.jpg',
     name: '컴활1급',
     type: '자격증',
     startDate: '2020-11-13',
-  },
-
-  {
-    act_id: ['아르바이트', '배스킨라빈스야탑홈플러스점', '근로계약서'],
-    filename: '210317-배스킨라빈스야탑홈플러스점-근로계약서_copy.jpg',
-    name: '배스킨라빈스야탑홈플러스점 근로계약서',
-    type: 'None',
-    startDate: '2021-03-17',
   },
 
   {
@@ -2089,14 +2065,6 @@ const onedriveAssetBlueprints = [
     act_id: ['아르바이트', '배스킨라빈스야탑홈플러스점'],
     filename: '210323-배스킨라빈스야탑홈플러스점-3_copy.jpg',
     name: '배스킨라빈스야탑홈플러스점 3',
-    type: 'None',
-    startDate: '2021-03-23',
-  },
-
-  {
-    act_id: ['아르바이트', '배스킨라빈스야탑홈플러스점', '근로계약서'],
-    filename: '210323-배스킨라빈스야탑홈플러스점-근로계약서_copy.jpg',
-    name: '배스킨라빈스야탑홈플러스점 근로계약서',
     type: 'None',
     startDate: '2021-03-23',
   },
@@ -2699,38 +2667,6 @@ const onedriveAssetBlueprints = [
     name: '운전면허증 1종보통',
     type: '자격증',
     startDate: '2022-02-15',
-  },
-
-  {
-    act_id: '인하공업전문대학',
-    filename: '220216-휴학원서_copy.jpg',
-    name: '휴학원서',
-    type: 'None',
-    startDate: '2022-02-16',
-  },
-
-  {
-    act_id: ['아르바이트', '긱스타PC방', '근로계약서'],
-    filename: '220627-긱스타PC방-근로계약서-0_copy.jpg',
-    name: '긱스타PC방 근로계약서 0',
-    type: 'None',
-    startDate: '2022-06-27',
-  },
-
-  {
-    act_id: ['아르바이트', '긱스타PC방', '근로계약서'],
-    filename: '220627-긱스타PC방-근로계약서-1_copy.jpg',
-    name: '긱스타PC방 근로계약서 1',
-    type: 'None',
-    startDate: '2022-06-27',
-  },
-
-  {
-    act_id: ['아르바이트', '긱스타PC방', '근로계약서'],
-    filename: '220627-긱스타PC방-근로계약서-2_copy.jpg',
-    name: '긱스타PC방 근로계약서 2',
-    type: 'None',
-    startDate: '2022-06-27',
   },
 
   {

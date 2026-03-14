@@ -2,16 +2,16 @@
 
 import { useMemo, useState } from 'react';
 import Card from '@/components/Card';
-import { Content } from '@/types/content';
+import { ContentCardData } from '@/types/content';
 
 interface WorkFilterProps {
-  items: Content[];
+  items: ContentCardData[];
 }
 
 type SortOrder = 'recommended' | 'newest' | 'oldest' | 'name';
 type WorkFilterValue = 'all' | 'project' | 'case-study';
 
-function getDateValue(item: Content) {
+function getDateValue(item: ContentCardData) {
   const rawValue =
     item.frontMatter.updatedAt ||
     item.frontMatter.publicationDate ||
@@ -23,7 +23,7 @@ function getDateValue(item: Content) {
   return new Date(rawValue).getTime();
 }
 
-function getRecommendationPriority(item: Content) {
+function getRecommendationPriority(item: ContentCardData) {
   const priority = item.frontMatter.recommendation_priority;
   if (typeof priority === 'number' && Number.isFinite(priority)) {
     return priority;

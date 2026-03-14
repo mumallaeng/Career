@@ -259,6 +259,45 @@
     flex-wrap: wrap;
 }
 
+.career-inline-panel {
+    padding: 28px;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-surface-border-soft);
+    box-shadow: var(--shadow-card);
+}
+
+.career-inline-body {
+    max-width: none;
+    margin-top: 0;
+}
+
+.career-inline-body.compact {
+    margin-top: 20px;
+    font-size: 17px;
+}
+
+.career-inline-copy {
+    display: grid;
+    gap: 16px;
+}
+
+.career-inline-copy.compact {
+    margin-top: 20px;
+}
+
+.career-inline-paragraph {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.career-inline-paragraph.compact {
+    font-size: 16px;
+    color: var(--color-muted);
+}
+
 .writing-list {
     display: grid;
     gap: 16px;

@@ -1,15 +1,21 @@
 import Link from 'next/link';
-import { Content } from '@/types/content';
+import type { ContentGridVariant } from '@/components/ContentGrid';
+import { ContentCardData } from '@/types/content';
 import { formatActivityDate } from '@/lib/utils/date';
 import { getOneDriveAssetByFilename, getOneDriveAssetUrl, onedriveAssetMap } from '@/data/onedrive-assets';
 
 interface CardProps {
-  item: Content;
+  item: ContentCardData;
   index: number;
+  variant?: ContentGridVariant;
 }
 
-export default function Card({ item, index }: CardProps) {
+export default function Card({ item, index, variant = 'work' }: CardProps) {
   const getCardClass = () => {
+    if (variant === 'featured-grid') {
+      return 'activity-card featured-grid';
+    }
+
     if (index === 0) {
       return 'activity-card featured';
     }
@@ -17,8 +23,8 @@ export default function Card({ item, index }: CardProps) {
     return 'activity-card third';
   };
 
-  const isFeatured = index === 0;
-  const featuredAsset = isFeatured
+  const prefersDefaultAsset = variant === 'featured-grid' || index === 0;
+  const featuredAsset = prefersDefaultAsset
     ? (item.frontMatter.thumbnail_asset_id
         ? onedriveAssetMap[item.frontMatter.thumbnail_asset_id as keyof typeof onedriveAssetMap]
         : (item.frontMatter.thumbnail ? getOneDriveAssetByFilename(item.frontMatter.thumbnail) : undefined))

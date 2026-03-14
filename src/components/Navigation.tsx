@@ -8,10 +8,8 @@ const phoneNumber = '010-4557-0214';
 export default function Navigation() {
   const navItems = [
     { href: '/', label: 'Career' },
-    { href: '/profile', label: 'Profile' },
     { href: '/resume', label: 'Resume' },
     { href: '/work', label: 'Work' },
-    { href: '/writing', label: 'Writing' },
   ];
 
   const copyToClipboard = async (value: string) => {

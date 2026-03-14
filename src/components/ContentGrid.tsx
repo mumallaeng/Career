@@ -1,15 +1,18 @@
 import Card from '@/components/Card';
-import { Content } from '@/types/content';
+import { ContentCardData } from '@/types/content';
+
+export type ContentGridVariant = 'work' | 'featured-grid';
 
 interface ContentGridProps {
-  items: Content[];
+  items: ContentCardData[];
+  variant?: ContentGridVariant;
 }
 
-export default function ContentGrid({ items }: ContentGridProps) {
+export default function ContentGrid({ items, variant = 'work' }: ContentGridProps) {
   return (
-    <div className="activities-grid">
+    <div className={`activities-grid ${variant === 'featured-grid' ? 'featured-grid' : ''}`.trim()}>
       {items.map((item, index) => (
-        <Card key={item.slug} item={item} index={index} />
+        <Card key={item.slug} item={item} index={index} variant={variant} />
       ))}
     </div>
   );

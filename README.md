@@ -4,12 +4,11 @@ Public career publication repository for Gim Yeonwoo.
 
 ## Information Architecture
 
-- `/profile`
+- `/`
 - `/resume`
 - `/work`
-- `/writing`
 
-`/activities*` remains only as a compatibility redirect to `/work*`.
+`/profile`, `/writing*`, and `/activities*` remain only as compatibility redirects into the current public surface.
 
 ## Canonical Roles
 
@@ -19,21 +18,22 @@ Public career publication repository for Gim Yeonwoo.
 
 ## Publication Linkage
 
-Every public content file carries:
+Public content files carry:
 
 - `content_kind`
 - `work_type` for work entries
-- `source_vault_path`
-- `source_hash`
 - `publication_id`
 
-Registry files:
+Public registry:
 
 - `manifests/publication-manifest.csv`
+
+Private Vault linkage:
+
 - `../Vault/manifests/vault-career-linkage-manifest.csv`
 
-Local development with a sibling `../Vault` performs full source existence and hash checks.
-CI-only builds such as Vercel fall back to manifest consistency checks when `../Vault` is unavailable.
+Local development with a sibling `../Vault` performs source existence and hash checks through the private Vault linkage manifest.
+CI-only builds such as Vercel fall back to public manifest consistency checks when `../Vault` is unavailable.
 
 ## Useful Commands
 

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Content, ContentDocument, ContentKind, FrontMatter } from '@/types/content';
+import { Content, ContentCardData, ContentDocument, ContentKind, FrontMatter, ParsedFrontMatter } from '@/types/content';
 import {
   getOneDriveAssetByFilename,
   getOneDriveAssetUrl,
@@ -52,7 +52,7 @@ function parseScalarValue(rawValue: string): string | string[] | boolean | numbe
   return value;
 }
 
-function parseFrontMatter(fileContent: string): { frontMatter: FrontMatter; content: string } {
+function parseFrontMatter(fileContent: string): { frontMatter: ParsedFrontMatter; content: string } {
   const frontMatterRegex = /^---\n([\s\S]*?)\n---\n?([\s\S]*)$/;
   const match = fileContent.match(frontMatterRegex);
 
@@ -84,9 +84,24 @@ function parseFrontMatter(fileContent: string): { frontMatter: FrontMatter; cont
       tags: [],
       categories: [],
       ...frontMatter,
-    } as unknown as FrontMatter,
+    } as unknown as ParsedFrontMatter,
     content,
   };
+}
+
+function sanitizeFrontMatter(frontMatter: ParsedFrontMatter): FrontMatter {
+  const publicFrontMatter = {
+    ...(frontMatter as ParsedFrontMatter & {
+      source_vault_path?: string;
+      source_hash?: string;
+    }),
+  };
+
+  delete publicFrontMatter.publication_id;
+  delete publicFrontMatter.source_vault_path;
+  delete publicFrontMatter.source_hash;
+
+  return publicFrontMatter;
 }
 
 function parseDocumentFrontMatter(fileContent: string): {
@@ -290,9 +305,10 @@ function buildPublicPath(collection: ContentKind, slug: string): string {
   }
 }
 
-function createContentItem(collection: ContentKind, slug: string, filePath: string, docRootPath?: string): Content {
+function createContentItem(collection: ContentKind, slug: string, filePath: string): Content {
   const fileContent = fs.readFileSync(filePath, 'utf8');
-  const { frontMatter, content } = parseFrontMatter(fileContent);
+  const { frontMatter: parsedFrontMatter, content } = parseFrontMatter(fileContent);
+  const frontMatter = sanitizeFrontMatter(parsedFrontMatter);
   const extractedThumbnail = resolveThumbnailFromFrontMatter(frontMatter) ?? extractFirstImage(content);
 
   return {
@@ -304,10 +320,8 @@ function createContentItem(collection: ContentKind, slug: string, filePath: stri
     thumbnailUrl: extractedThumbnail?.url,
     thumbnailHasExplicitSize: extractedThumbnail?.hasExplicitDimensions ?? false,
     fileExtension: getFileExtension(filePath),
-    sourceFilePath: filePath,
     contentPath: getRelativeContentPath(filePath),
     publicPath: buildPublicPath(collection, slug),
-    docRootPath,
   };
 }
 
@@ -440,7 +454,7 @@ export function getWorkData(): Content[] {
       continue;
     }
 
-    items.push(createContentItem('work', slug, filePath, inferWorkDocRootPath(slug)));
+    items.push(createContentItem('work', slug, filePath));
   }
 
   return sortByPrimaryDateDescending(items.filter(isPublicContent));
@@ -556,11 +570,12 @@ export function generateWorkDocParams() {
 
 export function getWorkDocument(slug: string, docPath: string[]): ContentDocument | null {
   const work = getWorkBySlug(slug);
-  if (!work?.docRootPath) {
+  const docRootPath = inferWorkDocRootPath(slug);
+  if (!work || !docRootPath) {
     return null;
   }
 
-  const filePath = resolveSafePath(work.docRootPath, docPath);
+  const filePath = resolveSafePath(docRootPath, docPath);
   if (!filePath || !fs.statSync(filePath).isFile() || !isSupportedDoc(filePath)) {
     return null;
   }
@@ -586,7 +601,6 @@ export function getWorkDocument(slug: string, docPath: string[]): ContentDocumen
     content: work,
     title,
     body,
-    filePath,
     fileExtension,
     contentPath,
     frontMatter,
@@ -613,4 +627,15 @@ export function getDisplayHeading(content: Content): string {
 
 export function getContentRelativePath(content: Content): string {
   return stripIndexSuffix(content.contentPath);
+}
+
+export function toContentCardData(content: Content): ContentCardData {
+  return {
+    slug: content.slug,
+    collection: content.collection,
+    frontMatter: content.frontMatter,
+    thumbnailUrl: content.thumbnailUrl,
+    thumbnailHasExplicitSize: content.thumbnailHasExplicitSize,
+    publicPath: content.publicPath,
+  };
 }
