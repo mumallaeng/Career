@@ -1,0 +1,69 @@
+---
+title: "PDF to Question Bank"
+description: "PDF 문서를 문제 단위 이미지로 자동 분리해 문제 은행을 만드는 CLI 도구"
+startDate: 2024-10-26T00:00:00+09:00
+endDate: 2024-10-26T00:00:00+09:00
+tags: ["python", "pdf", "image-processing", "automation"]
+type: "개인 프로젝트"
+content_type: "project"
+content_kind: "work"
+work_type: "project"
+publicationDate: "2026-03-14"
+updatedAt: "2026-03-14"
+publication_id: "career/work/pdf-to-question-bank"
+draft: false
+---
+
+import { ImgTag } from '@/components/MDXRenderer';
+
+[mumallaeng/pdf_to_question_bank](https://github.com/mumallaeng/pdf_to_question_bank)
+
+
+PDF 형태로 제공되는 문제집을 Anki 등의 플래시 카드에서 사용하기 편하도록 미리 이미지를 분리하고자 개발한 CLI 도구입니다. <br/>
+PDF 페이지를 열(Column) 별로 분리하고, 공백을 경계로 문제 이미지를 추출해 개별 파일로 저장합니다. <br/>
+
+**개발 기간**: 
+- **2024·10·26** ipynb에서만 사용
+- **2025·11·04** CLI 도구로 패키징
+
+
+### 깨달은 점
+
+- 초반에 머신러닝이나 딥러닝으로 문제 영역을 검출하는 방안을 고려했으나, 단순 이미지 처리 기법으로도 충분히 문제를 분리할 수 있음을 깨달음
+- 규칙이 명확한 경우에는 인공지능이 아닌 기본 알고리즘으로도 더 정확하게 문제 해결이 가능한데, 상황에 맞는 적절한 도구 선택의 중요성을 배움
+
+## 미리보기 및 사용 예시
+
+
+<div className="image-grid image-grid--uniform">
+  <div>
+ 지정한 경로에 pdf 파일을 넣고 스크립트 실행
+    <ImgTag src="https://github.com/user-attachments/assets/ba8eb71b-9554-48fa-a9b4-dc8d7d52c6e1" alt="preview_1" />
+  </div>  
+
+  <div>
+  결과물: 개별 문제 이미지가 추출되어 저장됨
+    <ImgTag src="https://github.com/user-attachments/assets/19c08be1-8ddb-4a3b-850e-a96e1e53f999" alt="preview_2" />
+  </div>
+</div>
+
+<div className="image-grid image-grid--uniform">
+  <div>
+  사용예시: <br/>
+      <ImgTag src="https://github.com/user-attachments/assets/8728a109-4f00-4aac-9211-61db7b857355" alt="preview_3" />
+  </div>
+      <ImgTag src="https://github.com/user-attachments/assets/20ba421c-0acb-4447-9c4c-6d309d960348" alt="preview_4" />
+</div>
+
+
+<br/><br/><br/>
+
+
+# 개선 필요 기능
+
+- [ ] 문제나 답안이 아닌 제목이나 페이지 번호 등의 불필요한 이미지도 함께 추출되는 문제
+- [ ] 흰색 배경이 아닌 문제 이미지도 처리 가능하도록 개선 필요
+- [ ] 문제.pdf와 답안.pdf를 기반으로 문제 번호별로 매칭된 CSV(`번호,문제경로,답안경로`) 파일을 출력하는 기능 추가
+- [ ] anki 덱 파일(.apkg)로 바로 변환하는 기능 추가
+
+<br/><br/><br/>

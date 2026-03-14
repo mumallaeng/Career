@@ -1,13 +1,13 @@
-import { getProfileData } from '@/lib/content';
+import { getResumeData } from '@/lib/content';
 import MDXRenderer from '@/components/MDXRenderer';
 
-export default function ProfilePage() {
-  const profile = getProfileData();
+export default function ResumePage() {
+  const resume = getResumeData();
 
-  if (!profile) {
+  if (!resume) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <h1 className="text-2xl">Profile not found</h1>
+        <h1 className="text-2xl">Resume not found</h1>
       </div>
     );
   }
@@ -18,15 +18,15 @@ export default function ProfilePage() {
         <article>
           <header className="post-header">
             <h1 className="post-title">
-              {profile.frontMatter.title}
+              {resume.frontMatter.title}
             </h1>
             <p className="post-excerpt">
-              {profile.frontMatter.description}
+              {resume.frontMatter.description}
             </p>
           </header>
 
           <div className="post-body">
-            <MDXRenderer content={profile.content} contentPath={profile.contentPath} />
+            <MDXRenderer content={resume.content} contentPath={resume.contentPath} />
           </div>
         </article>
       </div>

@@ -9,7 +9,6 @@ interface CardProps {
 }
 
 export default function Card({ item, index }: CardProps) {
-  // Activity layout: first featured, then groups of two
   const getCardClass = () => {
     if (index === 0) {
       return 'activity-card featured';
@@ -29,13 +28,13 @@ export default function Card({ item, index }: CardProps) {
     : item.thumbnailUrl;
   const hasThumbnail = Boolean(thumbnailUrl);
   const hasExplicitThumbnailSize = Boolean(item.thumbnailHasExplicitSize);
-  const { startDate, endDate, date } = item.frontMatter;
+  const { startDate, endDate, publicationDate, updatedAt, date } = item.frontMatter;
   const activityDate = (startDate || endDate)
     ? formatActivityDate(startDate, endDate)
-    : formatActivityDate(date);
+    : formatActivityDate(updatedAt || publicationDate || date);
 
   return (
-    <Link href={`/activities/${item.slug}`} className="activity-link">
+    <Link href={item.publicPath} className="activity-link">
       <article
         className={getCardClass()}
       >

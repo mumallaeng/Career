@@ -57,6 +57,7 @@ const handleLegacyImages = (
 
 interface MDXRendererProps {
   content: string;
+  contentPath?: string;
 }
 
 // Helper function to safely render children
@@ -70,17 +71,144 @@ const safeChildren = (children: ReactNode): ReactNode => {
   return children;
 };
 
-const isDocExtension = (value: string): boolean => /\.(mdx?|puml)$/i.test(value);
+const isDocExtension = (value: string): boolean => /\.(mdx?|puml|plantuml|dbml)$/i.test(value);
 
-const resolveActivityLink = (href: string): { href: string; isInternal: boolean } => {
+function splitPath(value: string): string[] {
+  return value.split('/').filter(Boolean);
+}
+
+function normalizePath(value: string): string {
+  const output: string[] = [];
+  for (const segment of splitPath(value)) {
+    if (segment === '.') {
+      continue;
+    }
+    if (segment === '..') {
+      output.pop();
+      continue;
+    }
+    output.push(segment);
+  }
+  return output.join('/');
+}
+
+function dirnamePath(value: string): string {
+  const segments = splitPath(value);
+  segments.pop();
+  return segments.join('/');
+}
+
+function joinPath(base: string, relative: string): string {
+  return normalizePath([base, relative].filter(Boolean).join('/'));
+}
+
+function stripKnownContentPrefix(value: string): string {
+  return value.replace(/^src\/content\//, '').replace(/^\.?\//, '');
+}
+
+function stripFileExtension(value: string): string {
+  return value.replace(/\.(md|mdx)$/i, '');
+}
+
+function buildWorkRoute(slug: string, restSegments: string[] = []): string {
+  if (restSegments.length === 0) {
+    return `/work/${slug}`;
+  }
+  return `/work/${slug}/docs/${restSegments.join('/')}`;
+}
+
+function mapAbsoluteCareerRoute(href: string): { href: string; isInternal: boolean } {
+  if (href.startsWith('/activities/')) {
+    const rest = href.slice('/activities/'.length);
+    const [pathPart] = rest.split(/(?=[?#])/);
+    const suffixValue = rest.slice(pathPart.length);
+    const normalized = stripKnownContentPrefix(pathPart);
+    const segments = splitPath(normalized);
+
+    if (segments.length === 0) {
+      return { href: '/work', isInternal: true };
+    }
+
+    if (segments.length === 1) {
+      return { href: `/work/${stripFileExtension(segments[0])}${suffixValue}`, isInternal: true };
+    }
+
+    return {
+      href: buildWorkRoute(segments[0], segments.slice(1)) + suffixValue,
+      isInternal: true,
+    };
+  }
+
+  return { href, isInternal: href.startsWith('/') };
+}
+
+function mapContentPathToRoute(contentPath: string): string {
+  const normalized = stripKnownContentPrefix(contentPath);
+  const segments = splitPath(normalized);
+
+  if (segments[0] === 'profile') {
+    return '/profile';
+  }
+
+  if (segments[0] === 'resume') {
+    return '/resume';
+  }
+
+  if (segments[0] === 'writing') {
+    const slug = stripFileExtension(segments[1] ?? '');
+    return slug ? `/writing/${slug}` : '/writing';
+  }
+
+  if (segments[0] === 'work') {
+    const slug = segments[1];
+    if (!slug) {
+      return '/work';
+    }
+
+    if (segments.length === 2) {
+      return `/work/${slug}`;
+    }
+
+    if (segments[2] === 'index' || /^index\.(md|mdx)$/i.test(segments[2] ?? '')) {
+      return `/work/${slug}`;
+    }
+
+    if (segments[2] === 'docs') {
+      return buildWorkRoute(slug, segments.slice(3));
+    }
+
+    return buildWorkRoute(slug, segments.slice(2));
+  }
+
+  if (segments[0] === 'activities') {
+    const slug = stripFileExtension(segments[1] ?? '');
+    if (!slug) {
+      return '/work';
+    }
+
+    if (segments.length <= 2) {
+      return `/work/${slug}`;
+    }
+
+    return buildWorkRoute(slug, segments.slice(2));
+  }
+
+  return `/${normalized}`;
+}
+
+const resolveContentLink = (href: string, currentContentPath?: string): { href: string; isInternal: boolean } => {
   const trimmedHref = href.trim();
 
   if (!trimmedHref) {
     return { href: trimmedHref, isInternal: false };
   }
 
-  if (trimmedHref.startsWith('/') || trimmedHref.startsWith('#')) {
-    return { href: trimmedHref, isInternal: trimmedHref.startsWith('/') };
+  if (trimmedHref.startsWith('#')) {
+    return { href: trimmedHref, isInternal: false };
+  }
+
+  if (trimmedHref.startsWith('/')) {
+    return mapAbsoluteCareerRoute(trimmedHref);
   }
 
   if (/^[a-z][a-z0-9+.-]*:/i.test(trimmedHref)) {
@@ -103,56 +231,67 @@ const resolveActivityLink = (href: string): { href: string; isInternal: boolean 
     pathPart = pathPart.slice(0, queryIndex);
   }
 
-  let normalizedPath = pathPart.replace(/^\.\//, '');
+  const cleanPath = pathPart.replace(/^\.\//, '');
 
-  if (isDocExtension(normalizedPath)) {
-    const cleanPath = normalizedPath.replace(/^\/+/, '');
-    if (cleanPath.startsWith('activities/')) {
-      const rest = cleanPath.slice('activities/'.length);
-      const [slug, ...segments] = rest.split('/');
-      if (!slug || segments.length === 0) {
-        return { href: `/${cleanPath}${query}${hash}`, isInternal: true };
-      }
-      return {
-        href: `/activities/${slug}/docs/${segments.join('/')}${query}${hash}`,
-        isInternal: true,
-      };
-    }
-
-    const [slug, ...segments] = cleanPath.split('/');
-    if (!slug || segments.length === 0) {
-      return { href: `/activities/${cleanPath}${query}${hash}`, isInternal: true };
-    }
+  if (
+    currentContentPath &&
+    /^work\/[^/]+\/index\.(md|mdx)$/i.test(currentContentPath) &&
+    !cleanPath.includes('/') &&
+    /\.(md|mdx)$/i.test(cleanPath)
+  ) {
     return {
-      href: `/activities/${slug}/docs/${segments.join('/')}${query}${hash}`,
+      href: `/work/${stripFileExtension(cleanPath)}${query}${hash}`,
       isInternal: true,
     };
   }
 
-  normalizedPath = normalizedPath.replace(/\.(mdx|md)$/i, '');
+  const baseDir = currentContentPath ? dirnamePath(currentContentPath) : '';
+  let normalizedPath = normalizePath(joinPath(baseDir, cleanPath));
+  normalizedPath = stripKnownContentPrefix(normalizedPath);
+
+  const normalizedSegments = splitPath(normalizedPath);
+  if (
+    (normalizedSegments[0] === 'work' || normalizedSegments[0] === 'activities') &&
+    normalizedSegments.length >= 3 &&
+    normalizedSegments[1] === normalizedSegments[2]
+  ) {
+    normalizedPath = [normalizedSegments[0], normalizedSegments[1], ...normalizedSegments.slice(3)].join('/');
+  }
+
+  if (isDocExtension(cleanPath) || normalizedPath.startsWith('work/') || normalizedPath.startsWith('activities/')) {
+    return {
+      href: `${mapContentPathToRoute(normalizedPath)}${query}${hash}`,
+      isInternal: true,
+    };
+  }
 
   return {
-    href: `/activities/${normalizedPath}${query}${hash}`,
+    href: `${mapContentPathToRoute(normalizedPath)}${query}${hash}`,
     isInternal: true,
   };
 };
 
-const MdxLink = ({ href = '', children, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
-  const resolved = resolveActivityLink(href);
+const createMdxLink = (contentPath?: string) => {
+  function MdxLink({ href = '', children, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+    const resolved = resolveContentLink(href, contentPath);
 
-  if (resolved.isInternal) {
+    if (resolved.isInternal) {
+      return (
+        <Link href={resolved.href} {...props}>
+          {safeChildren(children)}
+        </Link>
+      );
+    }
+
     return (
-      <Link href={resolved.href} {...props}>
+      <a href={resolved.href} {...props}>
         {safeChildren(children)}
-      </Link>
+      </a>
     );
   }
 
-  return (
-    <a href={resolved.href} {...props}>
-      {safeChildren(children)}
-    </a>
-  );
+  MdxLink.displayName = 'MdxLink';
+  return MdxLink;
 };
 
 interface VideoTagProps {
@@ -307,7 +446,7 @@ const RotatedImage = ({ src, alt, style, className = '', ...props }: { src?: str
   );
 };
 
-const components = {
+const createComponents = (contentPath?: string) => ({
   h1: ({ children }: { children?: ReactNode }) => <h1 className="text-4xl font-bold mb-8 mt-16 text-gray-900 dark:text-gray-100 leading-tight">{safeChildren(children)}</h1>,
   h2: ({ children }: { children?: ReactNode }) => <h2 className="text-2xl font-semibold mb-5 mt-10 text-gray-900 dark:text-gray-100 leading-tight">{safeChildren(children)}</h2>,
   h3: ({ children }: { children?: ReactNode }) => <h3 className="text-xl font-semibold mb-3 mt-6 text-gray-900 dark:text-gray-100">{safeChildren(children)}</h3>,
@@ -335,7 +474,7 @@ const components = {
       {safeChildren(children)}
     </td>
   ),
-  a: MdxLink,
+  a: createMdxLink(contentPath),
   VideoTag,
   img: RotatedImage,
   ImgTag,
@@ -377,12 +516,13 @@ const components = {
   DriveAssetGrid,
   GradeGrid,
   Table: MdxTable,
-};
+});
 
-export default function MDXRenderer({ content }: MDXRendererProps) {
+export default function MDXRenderer({ content, contentPath }: MDXRendererProps) {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
   const [fallbackLightboxImage, setFallbackLightboxImage] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const components = createComponents(contentPath);
 
   useEffect(() => {
     async function compileMDX() {

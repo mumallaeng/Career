@@ -1,15 +1,15 @@
-const remoteBasePath = 'Photos/Highlight/';
-const publicBasePath = '/import-data/highlight/';
-const devStorageRemoteBasePath = 'Photos/dev-storage/';
-const devStoragePublicBasePath = '/import-data/dev-storage/';
+import {
+  authoritativeDevStorageRemoteBasePath,
+  authoritativeHighlightRemoteBasePath,
+  publicDevStorageBasePath,
+  publicHighlightBasePath,
+  remapLegacyRemotePath,
+} from './onedrive-paths';
 
-function encodePath(pathname: string): string {
-  return pathname
-    .replace(/^\//, '')
-    .split('/')
-    .map(segment => encodeURIComponent(segment))
-    .join('/');
-}
+const remoteBasePath = authoritativeHighlightRemoteBasePath;
+const publicBasePath = publicHighlightBasePath;
+const devStorageRemoteBasePath = authoritativeDevStorageRemoteBasePath;
+const devStoragePublicBasePath = publicDevStorageBasePath;
 
 type OneDriveAssetBlueprint = {
   /**
@@ -35,7 +35,7 @@ type OneDriveAssetBlueprint = {
 export type OneDriveAssetDefinition = OneDriveAssetBlueprint & {
   /**
    * Path inside OneDrive (relative to the drive root), e.g.
-   * "Photos/Highlight/_copy/foo.jpg".
+   * "media/photos/misc/Highlight/_copy/foo.jpg".
    */
   remotePath: string;
 
@@ -3405,7 +3405,7 @@ const onedriveAssetBlueprints = [
 ] as const satisfies readonly OneDriveAssetBlueprint[];
 
 const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinition => {
-  const remotePathOriginal = asset.remotePathOverride ?? `${remoteBasePath}${asset.filename}`;
+  const remotePathOriginal = remapLegacyRemotePath(asset.remotePathOverride ?? `${remoteBasePath}${asset.filename}`);
   const publicPathOriginal = `${publicBasePath}${asset.filename}`;
   const isResizableImage = isResizableImageFilename(asset.filename);
 
