@@ -1,9 +1,20 @@
 /* Header */
 .header {
-    position: static;
-    background-color: var(--color-bg);
-    border-bottom: none;
-    padding: 40px 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: color-mix(in srgb, var(--color-bg) 88%, transparent);
+    backdrop-filter: blur(18px);
+    padding: 18px 0 14px;
+    transition: transform 0.28s ease, opacity 0.28s ease, background-color 0.2s ease;
+}
+
+.header.is-hidden {
+    transform: translateY(calc(-100% - 12px));
+    opacity: 0;
+    pointer-events: none;
 }
 
 .nav-container {
@@ -13,21 +24,105 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 24px;
+}
+
+.nav-left,
+.nav-menu,
+.nav-controls {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.nav-left {
+    gap: 16px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.nav-contact-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-contact-link:hover {
+    color: var(--color-accent);
+    opacity: 0.9;
+}
+
+.nav-icon {
+    width: 15px;
+    height: 15px;
+    flex: 0 0 auto;
+}
+
+.phone-icon {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 auto;
+}
+
+.mail-icon {
+    width: 28px;
+    height: 22px;
+    flex: 0 0 auto;
+}
+
+.github-icon {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+}
+
+.nav-phone-link {
+    width: 22px;
+    height: 22px;
+}
+
+.nav-mail-link {
+    width: 28px;
+    height: 22px;
+}
+
+.nav-github-link {
+    width: 20px;
+    height: 20px;
+}
+
+.nav-contact-tooltip {
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-tooltip-bg);
+    color: var(--color-tooltip-text);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.nav-contact-link:hover .nav-contact-tooltip,
+.nav-contact-link:focus .nav-contact-tooltip {
+    opacity: 1;
 }
 
 .nav-menu {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    flex: 1;
-}
-
-.nav-social {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 16px;
-    flex: 1;
+    gap: 22px;
+    justify-content: center;
 }
 
 .nav-item {
@@ -35,141 +130,54 @@
     text-decoration: none;
     font-size: 14px;
     font-weight: 700;
-    text-transform: none;
     letter-spacing: -0.02em;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease, color 0.2s ease;
 }
 
 .nav-item:hover {
     opacity: 0.6;
 }
 
-.github-link {
-    color: var(--color-text);
-    transition: opacity 0.3s ease;
-    width: 20px;
-    height: 20px;
+.nav-item.active {
+    color: var(--color-accent);
+}
+
+.nav-controls {
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.nav-control-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-}
-
-.github-link:hover {
-    opacity: 0.6;
-}
-
-.github-icon {
-    width: 20px;
-    height: 20px;
-}
-
-.github-tooltip {
-    position: absolute;
-    bottom: -28px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--color-tooltip-bg);
-    color: var(--color-tooltip-text);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-}
-
-.github-link:hover .github-tooltip,
-.github-link:focus .github-tooltip {
-    opacity: 1;
-}
-
-.mail-link {
-    position: relative;
-    background: none;
+    gap: 8px;
+    min-height: 32px;
+    padding: 0 10px;
     border: none;
-    padding: 0;
-    cursor: pointer;
+    border-radius: var(--radius-pill);
+    background: transparent;
     color: var(--color-text);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 22px;
-}
-
-.mail-icon {
-    width: 28px;
-    height: 22px;
-}
-
-.mail-tooltip {
-    position: absolute;
-    bottom: -28px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--color-tooltip-bg);
-    color: var(--color-tooltip-text);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-}
-
-.mail-link:hover .mail-tooltip,
-.mail-link:focus .mail-tooltip {
-    opacity: 1;
-}
-
-.mail-link:hover .mail-icon,
-.mail-link:focus .mail-icon {
-    opacity: 0.6;
-}
-
-.phone-link {
-    position: relative;
-    background: none;
-    border: none;
-    padding: 0;
     cursor: pointer;
-    color: var(--color-text);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 22px;
-    height: 22px;
+    transition: color 0.2s ease, opacity 0.2s ease;
 }
 
-.phone-icon {
-    width: 22px;
-    height: 22px;
+.nav-control-button:hover {
+    color: var(--color-accent);
+    opacity: 0.9;
 }
 
-.phone-tooltip {
-    position: absolute;
-    bottom: -28px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--color-tooltip-bg);
-    color: var(--color-tooltip-text);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
+.nav-control-value {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
 }
 
-.phone-link:hover .phone-tooltip,
-.phone-link:focus .phone-tooltip {
-    opacity: 1;
+.nav-language-button {
+    min-width: 40px;
 }
 
-.phone-link:hover .phone-icon,
-.phone-link:focus .phone-icon {
-    opacity: 0.6;
+.nav-theme-button {
+    min-width: 32px;
+    padding: 0 8px;
 }

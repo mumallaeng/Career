@@ -1,5 +1,1 @@
-import { redirect } from 'next/navigation';
-
-export default function ActivitiesPage() {
-  redirect('/work');
-}
+export { default } from '@/app/detail/page';

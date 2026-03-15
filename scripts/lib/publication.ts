@@ -123,13 +123,13 @@ function buildPublicPathFromContentPath(contentPath: string): string {
   const segments = normalized.split('/').filter(Boolean);
 
   if (segments[0] === 'profile') return '/profile';
-  if (segments[0] === 'resume') return '/resume';
+  if (segments[0] === 'resume') return '/cv';
   if (segments[0] === 'writing') {
     const slug = (segments[1] ?? '').replace(/\.(md|mdx)$/i, '');
     return `/writing/${slug}`;
   }
   if (segments[0] === 'work') {
-    return `/work/${segments[1] ?? ''}`;
+    return `/detail/${segments[1] ?? ''}`;
   }
 
   throw new Error(`Unsupported content path: ${contentPath}`);
@@ -392,12 +392,12 @@ export function publicPathToContentPath(publicPath: string): { contentPath: stri
     return { contentPath: 'profile/index.mdx', kind: 'profile' };
   }
 
-  if (publicPath === '/resume') {
+  if (publicPath === '/cv') {
     return { contentPath: 'resume/index.mdx', kind: 'resume' };
   }
 
-  if (publicPath.startsWith('/work/')) {
-    const slug = publicPath.slice('/work/'.length).replace(/^\/+|\/+$/g, '');
+  if (publicPath.startsWith('/detail/')) {
+    const slug = publicPath.slice('/detail/'.length).replace(/^\/+|\/+$/g, '');
     return { contentPath: `work/${slug}/index.mdx`, kind: 'work' };
   }
 

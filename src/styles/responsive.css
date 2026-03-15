@@ -1,26 +1,42 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .header {
-        padding: 30px 0 15px;
+        padding: 16px 0 12px;
     }
     
     .nav-container {
         padding: 0 16px;
         flex-direction: column;
-        gap: 16px;
+        gap: 14px;
         text-align: center;
     }
-    
+
+    .nav-left,
+    .nav-menu,
+    .nav-controls {
+        flex: none;
+        width: 100%;
+    }
+
+    .nav-left,
     .nav-menu {
         gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
     }
     
-    .nav-social {
+    .nav-controls {
         gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .nav-contact-link {
+        width: auto;
     }
     
     .activities-container {
-        padding: 20px 16px;
+        padding: 24px 16px 48px;
     }
     
     .section-title {
@@ -49,5 +65,43 @@
 
     .activity-card.featured-grid .activity-title {
         font-size: 18px;
+    }
+
+    .career-hero {
+        padding: 28px 22px;
+    }
+
+    .career-title,
+    .career-section-title {
+        font-size: 34px;
+    }
+
+    .career-overview-grid,
+    .career-perspective-panel,
+    .resume-summary-grid,
+    .resume-strength-grid,
+    .resume-snapshot-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .career-section-header {
+        align-items: flex-start;
+    }
+
+    .career-note-card,
+    .career-perspective-panel,
+    .resume-panel,
+    .career-inline-panel,
+    .resume-summary-panel,
+    .resume-side-panel,
+    .resume-strength-card,
+    .resume-list-card,
+    .certificate-section {
+        padding: 22px;
+    }
+
+    .certificate-section-head,
+    .resume-list-header {
+        align-items: flex-start;
     }
 }

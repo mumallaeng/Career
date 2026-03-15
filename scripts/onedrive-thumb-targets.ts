@@ -62,10 +62,11 @@ function walkContentFiles(rootDir: string): string[] {
 
 export function buildThumbAssetSet(projectRoot: string = process.cwd()): Set<string> {
   const thumbAssets = new Set<string>();
+  const certificateTypes = new Set(['자격증', '수료증', 'award']);
 
-  // Certificates are always shown as thumbnails in the grid.
+  // Certificate page assets are always shown in thumbnail grids.
   onedriveAssets
-    .filter(asset => asset.type === 'certificate')
+    .filter(asset => certificateTypes.has((asset.type ?? '').trim()))
     .forEach(asset => thumbAssets.add(asset.filename));
 
   const contentDir = path.join(projectRoot, 'src/content');

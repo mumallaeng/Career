@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import Card from '@/components/Card';
 import { Content, ContentCardData } from '@/types/content';
+import { getPrimaryDateValue } from '@/lib/utils/date';
 
 interface ActivitiesFilterProps {
   activities: Content[];
@@ -47,11 +48,7 @@ export default function ActivitiesFilter({ activities }: ActivitiesFilterProps) 
   }, [activities, selectedType]);
 
   const getDateValue = (activity: Content) => {
-    const raw =
-      activity.frontMatter.startDate ||
-      activity.frontMatter.endDate ||
-      activity.frontMatter.date ||
-      '1970-01-01';
+    const raw = getPrimaryDateValue(activity.frontMatter.startDate, activity.frontMatter.endDate);
     return new Date(raw).getTime();
   };
 

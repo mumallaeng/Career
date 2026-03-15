@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import Card from '@/components/Card';
 import { ContentCardData } from '@/types/content';
+import { getPrimaryDateValue } from '@/lib/utils/date';
 
 interface WorkFilterProps {
   items: ContentCardData[];
@@ -12,14 +13,7 @@ type SortOrder = 'recommended' | 'newest' | 'oldest' | 'name';
 type WorkFilterValue = 'all' | 'project' | 'case-study';
 
 function getDateValue(item: ContentCardData) {
-  const rawValue =
-    item.frontMatter.updatedAt ||
-    item.frontMatter.publicationDate ||
-    item.frontMatter.startDate ||
-    item.frontMatter.endDate ||
-    item.frontMatter.date ||
-    '1970-01-01';
-
+  const rawValue = getPrimaryDateValue(item.frontMatter.startDate, item.frontMatter.endDate);
   return new Date(rawValue).getTime();
 }
 

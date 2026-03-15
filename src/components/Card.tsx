@@ -1,8 +1,11 @@
+'use client';
+
 import Link from 'next/link';
 import type { ContentGridVariant } from '@/components/ContentGrid';
 import { ContentCardData } from '@/types/content';
 import { formatActivityDate } from '@/lib/utils/date';
 import { getOneDriveAssetByFilename, getOneDriveAssetUrl, onedriveAssetMap } from '@/data/onedrive-assets';
+import { useUiPreferences } from '@/hooks/useUiPreferences';
 
 interface CardProps {
   item: ContentCardData;
@@ -11,6 +14,7 @@ interface CardProps {
 }
 
 export default function Card({ item, index, variant = 'work' }: CardProps) {
+  const { language } = useUiPreferences();
   const getCardClass = () => {
     if (variant === 'featured-grid') {
       return 'activity-card featured-grid';
@@ -34,10 +38,9 @@ export default function Card({ item, index, variant = 'work' }: CardProps) {
     : item.thumbnailUrl;
   const hasThumbnail = Boolean(thumbnailUrl);
   const hasExplicitThumbnailSize = Boolean(item.thumbnailHasExplicitSize);
-  const { startDate, endDate, publicationDate, updatedAt, date } = item.frontMatter;
-  const activityDate = (startDate || endDate)
-    ? formatActivityDate(startDate, endDate)
-    : formatActivityDate(updatedAt || publicationDate || date);
+  const { startDate, endDate } = item.frontMatter;
+  const activityDate = formatActivityDate(startDate, endDate, language);
+  const title = language === 'ko' ? item.frontMatter.title : (item.frontMatter.title_en ?? item.frontMatter.title);
 
   return (
     <Link href={item.publicPath} className="activity-link">
@@ -64,7 +67,7 @@ export default function Card({ item, index, variant = 'work' }: CardProps) {
         </div>
         <div className="activity-content">
           <h3 className="activity-title">
-            {item.frontMatter.title}
+            {title}
           </h3>
           <div className="activity-meta">
             <time className="activity-date">

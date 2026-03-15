@@ -112,9 +112,9 @@ function stripFileExtension(value: string): string {
 
 function buildWorkRoute(slug: string, restSegments: string[] = []): string {
   if (restSegments.length === 0) {
-    return `/work/${slug}`;
+    return `/detail/${slug}`;
   }
-  return `/work/${slug}/docs/${restSegments.join('/')}`;
+  return `/detail/${slug}/docs/${restSegments.join('/')}`;
 }
 
 function mapAbsoluteCareerRoute(href: string): { href: string; isInternal: boolean } {
@@ -126,17 +126,25 @@ function mapAbsoluteCareerRoute(href: string): { href: string; isInternal: boole
     const segments = splitPath(normalized);
 
     if (segments.length === 0) {
-      return { href: '/work', isInternal: true };
+      return { href: '/detail', isInternal: true };
     }
 
     if (segments.length === 1) {
-      return { href: `/work/${stripFileExtension(segments[0])}${suffixValue}`, isInternal: true };
+      return { href: `/detail/${stripFileExtension(segments[0])}${suffixValue}`, isInternal: true };
     }
 
     return {
       href: buildWorkRoute(segments[0], segments.slice(1)) + suffixValue,
       isInternal: true,
     };
+  }
+
+  if (href === '/work' || href.startsWith('/work/')) {
+    return { href: href.replace(/^\/work/, '/detail'), isInternal: true };
+  }
+
+  if (href === '/resume') {
+    return { href: '/cv', isInternal: true };
   }
 
   return { href, isInternal: href.startsWith('/') };
@@ -151,7 +159,7 @@ function mapContentPathToRoute(contentPath: string): string {
   }
 
   if (segments[0] === 'resume') {
-    return '/resume';
+    return '/cv';
   }
 
   if (segments[0] === 'writing') {
@@ -162,15 +170,15 @@ function mapContentPathToRoute(contentPath: string): string {
   if (segments[0] === 'work') {
     const slug = segments[1];
     if (!slug) {
-      return '/work';
+      return '/detail';
     }
 
     if (segments.length === 2) {
-      return `/work/${slug}`;
+      return `/detail/${slug}`;
     }
 
     if (segments[2] === 'index' || /^index\.(md|mdx)$/i.test(segments[2] ?? '')) {
-      return `/work/${slug}`;
+      return `/detail/${slug}`;
     }
 
     if (segments[2] === 'docs') {
@@ -183,11 +191,11 @@ function mapContentPathToRoute(contentPath: string): string {
   if (segments[0] === 'activities') {
     const slug = stripFileExtension(segments[1] ?? '');
     if (!slug) {
-      return '/work';
+      return '/detail';
     }
 
     if (segments.length <= 2) {
-      return `/work/${slug}`;
+      return `/detail/${slug}`;
     }
 
     return buildWorkRoute(slug, segments.slice(2));
@@ -240,7 +248,7 @@ const resolveContentLink = (href: string, currentContentPath?: string): { href: 
     /\.(md|mdx)$/i.test(cleanPath)
   ) {
     return {
-      href: `/work/${stripFileExtension(cleanPath)}${query}${hash}`,
+      href: `/detail/${stripFileExtension(cleanPath)}${query}${hash}`,
       isInternal: true,
     };
   }

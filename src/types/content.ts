@@ -3,14 +3,13 @@ export type WorkType = 'project' | 'case-study';
 
 export interface FrontMatter {
   title: string;
+  title_en?: string;
   description: string;
+  description_en?: string;
   tags: string[];
   categories: string[];
-  date?: string;
   startDate?: string;
   endDate?: string;
-  publicationDate?: string;
-  updatedAt?: string;
   featured?: boolean;
   draft?: boolean;
   type?: string;
@@ -22,6 +21,7 @@ export interface FrontMatter {
   content_kind: ContentKind;
   work_type?: WorkType;
   summary?: string;
+  summary_en?: string;
 }
 
 export interface ParsedFrontMatter extends FrontMatter {

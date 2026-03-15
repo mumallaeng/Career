@@ -280,14 +280,7 @@ function getRelativeContentPath(filePath: string): string {
 }
 
 function getPrimaryDate(frontMatter: FrontMatter): string {
-  return (
-    frontMatter.updatedAt ||
-    frontMatter.publicationDate ||
-    frontMatter.startDate ||
-    frontMatter.endDate ||
-    frontMatter.date ||
-    '1970-01-01'
-  );
+  return frontMatter.startDate || frontMatter.endDate || '1970-01-01';
 }
 
 function buildPublicPath(collection: ContentKind, slug: string): string {
@@ -295,11 +288,11 @@ function buildPublicPath(collection: ContentKind, slug: string): string {
     case 'profile':
       return '/profile';
     case 'resume':
-      return '/resume';
+      return '/cv';
     case 'writing':
       return `/writing/${slug}`;
     case 'work':
-      return `/work/${slug}`;
+      return `/detail/${slug}`;
     default:
       return '/';
   }
@@ -462,6 +455,21 @@ export function getWorkData(): Content[] {
 
 export function getWorkBySlug(slug: string): Content | null {
   return getWorkData().find(item => item.slug === slug) ?? null;
+}
+
+export type DetailGroup = 'all' | 'work' | 'affiliation';
+
+export function getDetailGroup(item: Content): Exclude<DetailGroup, 'all'> {
+  return item.frontMatter.content_type === 'project' ? 'work' : 'affiliation';
+}
+
+export function getDetailData(group: DetailGroup = 'all'): Content[] {
+  const items = getWorkData();
+  if (group === 'all') {
+    return items;
+  }
+
+  return items.filter(item => getDetailGroup(item) === group);
 }
 
 export function getFeaturedWork(limit = 4): Content[] {
