@@ -105,7 +105,7 @@ const assistantAffiliationEntries = [
 
 type ResumeAffiliationEntry = {
   key: string;
-  href: string;
+  href?: string;
   startDate?: string;
   endDate?: string;
   title: string;
@@ -117,6 +117,87 @@ type ResumeAffiliationEntry = {
   summary?: string;
   summaryKo?: string;
 };
+
+const partTimeAffiliationEntries: ResumeAffiliationEntry[] = [
+  {
+    key: 'part-time-newskin',
+    startDate: '2020-08-05',
+    endDate: '2020-08-06',
+    title: 'Nu Skin Korea',
+    titleKo: '뉴스킨',
+    organization: 'Part-time work',
+    organizationKo: '아르바이트',
+    summary: 'Short-term retail and field support work.',
+    summaryKo: '단기 리테일 및 현장 지원 업무',
+  },
+  {
+    key: 'part-time-baskin-robbins',
+    startDate: '2021-03-17',
+    endDate: '2021-03-23',
+    title: 'Baskin Robbins Yatap Homeplus Branch',
+    titleKo: '배스킨라빈스 야탑홈플러스점',
+    organization: 'Part-time work',
+    organizationKo: '아르바이트',
+    summary: 'Store operation and customer service support.',
+    summaryKo: '매장 운영 및 고객 응대 지원',
+  },
+  {
+    key: 'part-time-geekstar',
+    startDate: '2022-06-27',
+    endDate: '2022-06-27',
+    title: 'Geekstar PC Room',
+    titleKo: '긱스타PC방',
+    organization: 'Part-time work',
+    organizationKo: '아르바이트',
+    summary: 'Store operation and customer support work.',
+    summaryKo: '매장 운영 및 고객 응대 업무',
+  },
+];
+
+function ResumeAffiliationItem({ item }: { item: ResumeAffiliationEntry }) {
+  const content = (
+    <>
+      <LocalizedDate
+        className="resume-link-meta resume-affiliation-date"
+        startDate={item.startDate}
+        endDate={item.endDate}
+      />
+      <div className="resume-link-copy resume-affiliation-copy">
+        {item.organization ? (
+          <span className="resume-affiliation-organization">
+            <LocalizedText en={item.organization} ko={item.organizationKo ?? item.organization} />
+          </span>
+        ) : null}
+        {item.group ? (
+          <span className="resume-affiliation-group">
+            <LocalizedText en={item.group} ko={item.groupKo ?? item.group} />
+          </span>
+        ) : null}
+        <span className="resume-link-title">
+          <LocalizedText en={item.title} ko={item.titleKo} />
+        </span>
+        {item.summary ? (
+          <LocalizedText
+            as="p"
+            className="resume-affiliation-summary"
+            en={item.summary}
+            ko={item.summaryKo ?? item.summary}
+          />
+        ) : null}
+      </div>
+    </>
+  );
+
+  if (!item.href) {
+    return <article className="resume-link-item resume-affiliation-item">{content}</article>;
+  }
+
+  return (
+    <Link href={item.href} className="resume-link-item resume-affiliation-item">
+      {content}
+    </Link>
+  );
+}
 
 function expandAffiliation(item: Content): ResumeAffiliationEntry[] {
   if (item.slug === 'assistant') {
@@ -198,38 +279,19 @@ export default function ResumePage() {
         </div>
         <div className="resume-link-list">
           {affiliations.map(item => (
-            <Link key={item.key} href={item.href} className="resume-link-item resume-affiliation-item">
-              <LocalizedDate
-                className="resume-link-meta resume-affiliation-date"
-                startDate={item.startDate}
-                endDate={item.endDate}
-              />
-              <div className="resume-link-copy resume-affiliation-copy">
-                {item.organization ? (
-                  <span className="resume-affiliation-organization">
-                    <LocalizedText en={item.organization} ko={item.organizationKo ?? item.organization} />
-                  </span>
-                ) : null}
-                {item.group ? (
-                  <span className="resume-affiliation-group">
-                    <LocalizedText en={item.group} ko={item.groupKo ?? item.group} />
-                  </span>
-                ) : null}
-                <span className="resume-link-title">
-                  <LocalizedText en={item.title} ko={item.titleKo} />
-                </span>
-                {item.summary ? (
-                  <LocalizedText
-                    as="p"
-                    className="resume-affiliation-summary"
-                    en={item.summary}
-                    ko={item.summaryKo ?? item.summary}
-                  />
-                ) : null}
-              </div>
-            </Link>
+            <ResumeAffiliationItem key={item.key} item={item} />
           ))}
         </div>
+        <details className="resume-part-time-group">
+          <summary className="resume-part-time-toggle">
+            <LocalizedText en="Part-time employment" ko="아르바이트 근로 이력" />
+          </summary>
+          <div className="resume-link-list resume-part-time-list">
+            {partTimeAffiliationEntries.map(item => (
+              <ResumeAffiliationItem key={item.key} item={item} />
+            ))}
+          </div>
+        </details>
       </section>
 
       <section className="resume-section">

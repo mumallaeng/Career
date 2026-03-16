@@ -663,6 +663,45 @@
     line-height: 1.75;
 }
 
+.resume-part-time-group {
+    margin-top: 20px;
+}
+
+.resume-part-time-toggle {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 0 14px;
+    border-radius: var(--radius-pill);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+}
+
+.resume-part-time-toggle::-webkit-details-marker {
+    display: none;
+}
+
+.resume-part-time-toggle::before {
+    content: '+';
+    margin-right: 8px;
+    color: var(--color-muted);
+    font-size: 16px;
+    line-height: 1;
+}
+
+.resume-part-time-group[open] .resume-part-time-toggle::before {
+    content: '−';
+}
+
+.resume-part-time-list {
+    margin-top: 16px;
+}
+
 .activity-category {
     display: inline-flex;
     align-items: center;
