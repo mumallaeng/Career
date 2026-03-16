@@ -2,6 +2,7 @@ import Link from 'next/link';
 import LocalizedDate from '@/components/LocalizedDate';
 import LocalizedText from '@/components/LocalizedText';
 import { getDetailData, getFeaturedWork } from '@/lib/content';
+import { Content } from '@/types/content';
 
 const coreStrengths = [
   {
@@ -22,9 +23,134 @@ const coreStrengths = [
   },
 ];
 
+const assistantAffiliationEntries = [
+  {
+    key: 'assistant-2022-winter-incheon',
+    startDate: '2022-01-12',
+    endDate: '2022-01-21',
+    organization: 'Incheon Metropolitan Office of Education / Inha Technical College',
+    organizationKo: '인천광역시교육청 / 인하공업전문대학',
+    group: 'AI Big Data Center',
+    groupKo: '인공지능빅데이터센터',
+    summary: 'Produced examples for the 2022 first-half teacher training program and participated as an assistant instructor in the first session.',
+    summaryKo: '인천시 교육청 교사연수 예제 제작과 1차 강의 보조 강사로 참여',
+  },
+  {
+    key: 'assistant-2021-service-school',
+    startDate: '2021-12-20',
+    endDate: '2022-01-11',
+    organization: 'Inha Technical College',
+    organizationKo: '인하공업전문대학',
+    group: 'AI Big Data Center',
+    groupKo: '인공지능빅데이터센터',
+    summary: 'Created data analysis teaching examples for the Service Division curriculum.',
+    summaryKo: '서비스 학부를 위한 데이터 분석 예제 제작',
+  },
+  {
+    key: 'assistant-2021-jeollanamdo',
+    startDate: '2021-11-06',
+    endDate: '2021-11-27',
+    organization: 'Jeollanam-do Office of Education / Inha Technical College',
+    organizationKo: '전라남도교육청 / 인하공업전문대학',
+    group: 'AI Big Data Center',
+    groupKo: '인공지능빅데이터센터',
+    summary: 'Supported the Jeollanam-do teacher training sessions with technical assistance and class operations.',
+    summaryKo: '전라남도 교육청 교사연수 지원 및 운영 보조',
+  },
+  {
+    key: 'assistant-2021-science-festival',
+    startDate: '2021-10-23',
+    endDate: '2021-10-23',
+    organization: 'Incheon Metropolitan Office of Education',
+    organizationKo: '인천광역시교육청',
+    group: '23rd Incheon Science Festival',
+    groupKo: '제23회 인천과학대제전',
+    summary: 'Worked on-site as a metaverse platform manager and support staff for the opening event.',
+    summaryKo: '메타버스 플랫폼 관리자 및 개막식 지원팀으로 참여',
+  },
+  {
+    key: 'assistant-2021-metaverse-lecture',
+    startDate: '2021-09-06',
+    endDate: '2021-09-06',
+    organization: 'Incheon Metropolitan Office of Education / Inha Technical College',
+    organizationKo: '인천광역시교육청 / 인하공업전문대학',
+    group: 'AI Big Data Center',
+    groupKo: '인공지능빅데이터센터',
+    summary: 'Delivered a metaverse lecture for representative elementary science teachers.',
+    summaryKo: '초등 과학 교사 대표 대상 메타버스 강의 진행',
+  },
+  {
+    key: 'assistant-2021-ai-training',
+    startDate: '2021-07-26',
+    endDate: '2021-08-06',
+    organization: 'Incheon Metropolitan Office of Education / Inha Technical College',
+    organizationKo: '인천광역시교육청 / 인하공업전문대학',
+    group: 'AI Big Data Center',
+    groupKo: '인공지능빅데이터센터',
+    summary: 'Produced course materials and assisted the 2021 AI-convergence teacher training program for the basic and advanced tracks.',
+    summaryKo: '2021학년도 AI융합교육 전문교원 역량 강화 직무연수(기본/심화) 콘텐츠 제작 및 조교',
+  },
+  {
+    key: 'assistant-2021-incheon-training',
+    startDate: '2021-07-01',
+    endDate: '2021-07-31',
+    organization: 'Incheon Metropolitan Office of Education / Inha Technical College',
+    organizationKo: '인천광역시교육청 / 인하공업전문대학',
+    group: 'AI Big Data Center',
+    groupKo: '인공지능빅데이터센터',
+    summary: 'Produced learning content and assisted the basic and advanced teacher training sessions hosted with the Incheon Metropolitan Office of Education.',
+    summaryKo: '인천광역시 교육청 직무연수(기초/심화) 콘텐츠 제작 및 조교',
+  },
+];
+
+type ResumeAffiliationEntry = {
+  key: string;
+  href: string;
+  startDate?: string;
+  endDate?: string;
+  title: string;
+  titleKo: string;
+  organization?: string;
+  organizationKo?: string;
+  group?: string;
+  groupKo?: string;
+  summary?: string;
+  summaryKo?: string;
+};
+
+function expandAffiliation(item: Content): ResumeAffiliationEntry[] {
+  if (item.slug === 'assistant') {
+    return assistantAffiliationEntries.map(entry => ({
+      key: entry.key,
+      href: item.publicPath,
+      startDate: entry.startDate,
+      endDate: entry.endDate,
+      title: entry.summary,
+      titleKo: entry.summaryKo,
+      organization: entry.organization,
+      organizationKo: entry.organizationKo,
+      group: entry.group,
+      groupKo: entry.groupKo,
+    }));
+  }
+
+  return [
+    {
+      key: item.slug,
+      href: item.publicPath,
+      startDate: item.frontMatter.startDate,
+      endDate: item.frontMatter.endDate,
+      title: item.frontMatter.title_en ?? item.frontMatter.title,
+      titleKo: item.frontMatter.title,
+      summary: item.frontMatter.description_en ?? item.frontMatter.description,
+      summaryKo: item.frontMatter.description,
+    },
+  ];
+}
+
 export default function ResumePage() {
   const featuredWork = getFeaturedWork(4);
-  const affiliations = getDetailData('affiliation').slice(0, 4);
+  const affiliations = getDetailData('affiliation').flatMap(expandAffiliation);
 
   return (
     <div className="activities-container resume-page">
@@ -72,16 +198,34 @@ export default function ResumePage() {
         </div>
         <div className="resume-link-list">
           {affiliations.map(item => (
-            <Link key={item.slug} href={item.publicPath} className="resume-link-item">
-              <div className="resume-link-copy">
+            <Link key={item.key} href={item.href} className="resume-link-item resume-affiliation-item">
+              <LocalizedDate
+                className="resume-link-meta resume-affiliation-date"
+                startDate={item.startDate}
+                endDate={item.endDate}
+              />
+              <div className="resume-link-copy resume-affiliation-copy">
+                {item.organization ? (
+                  <span className="resume-affiliation-organization">
+                    <LocalizedText en={item.organization} ko={item.organizationKo ?? item.organization} />
+                  </span>
+                ) : null}
+                {item.group ? (
+                  <span className="resume-affiliation-group">
+                    <LocalizedText en={item.group} ko={item.groupKo ?? item.group} />
+                  </span>
+                ) : null}
                 <span className="resume-link-title">
-                  <LocalizedText en={item.frontMatter.title_en ?? item.frontMatter.title} ko={item.frontMatter.title} />
+                  <LocalizedText en={item.title} ko={item.titleKo} />
                 </span>
-                <LocalizedDate
-                  className="resume-link-meta"
-                  startDate={item.frontMatter.startDate}
-                  endDate={item.frontMatter.endDate}
-                />
+                {item.summary ? (
+                  <LocalizedText
+                    as="p"
+                    className="resume-affiliation-summary"
+                    en={item.summary}
+                    ko={item.summaryKo ?? item.summary}
+                  />
+                ) : null}
               </div>
             </Link>
           ))}

@@ -617,6 +617,35 @@
     gap: 6px;
 }
 
+.resume-affiliation-item {
+    display: grid;
+    grid-template-columns: 148px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.resume-affiliation-date {
+    display: block;
+    padding-top: 2px;
+}
+
+.resume-affiliation-copy {
+    gap: 4px;
+}
+
+.resume-affiliation-organization {
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.resume-affiliation-group {
+    color: var(--color-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
 .resume-link-title {
     color: var(--color-text);
     font-weight: 700;
@@ -626,6 +655,12 @@
 .resume-link-meta {
     color: var(--color-muted);
     font-size: 13px;
+}
+
+.resume-affiliation-summary {
+    color: var(--color-muted);
+    font-size: 14px;
+    line-height: 1.75;
 }
 
 .activity-category {

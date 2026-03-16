@@ -93,6 +93,11 @@
         align-items: flex-start;
     }
 
+    .resume-affiliation-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
     .resume-name {
         font-size: 34px;
     }
