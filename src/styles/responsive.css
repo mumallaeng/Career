@@ -80,12 +80,25 @@
     .career-perspective-panel,
     .resume-summary-grid,
     .resume-strength-grid,
-    .resume-snapshot-grid {
+    .resume-snapshot-grid,
+    .resume-meta-list {
         grid-template-columns: 1fr;
     }
 
     .career-section-header {
         align-items: flex-start;
+    }
+
+    .resume-section-heading {
+        align-items: flex-start;
+    }
+
+    .resume-name {
+        font-size: 34px;
+    }
+
+    .resume-lead {
+        font-size: 16px;
     }
 
     .career-note-card,

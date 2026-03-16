@@ -17,7 +17,8 @@ export default function LocalizedText({
   className,
 }: LocalizedTextProps) {
   const { language } = useUiPreferences();
-  const content = language === 'ko' ? (ko ?? en) : en;
+  const rawContent = language === 'ko' ? (ko ?? en) : en;
+  const content = rawContent.replace(/\\n/g, '\n');
 
   return createElement(as, className ? { className } : undefined, content);
 }
