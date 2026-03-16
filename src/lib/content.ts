@@ -460,7 +460,8 @@ export function getWorkBySlug(slug: string): Content | null {
 export type DetailGroup = 'all' | 'work' | 'affiliation';
 
 export function getDetailGroup(item: Content): Exclude<DetailGroup, 'all'> {
-  return item.frontMatter.content_type === 'project' ? 'work' : 'affiliation';
+  const workTypes = new Set(['project', 'competition']);
+  return workTypes.has(item.frontMatter.content_type ?? '') ? 'work' : 'affiliation';
 }
 
 export function getDetailData(group: DetailGroup = 'all'): Content[] {
