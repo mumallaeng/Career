@@ -7,14 +7,6 @@ import {
 const publicBasePath = '/import-data/highlight/';
 const devStoragePublicBasePath = '/import-data/dev-storage/';
 
-function encodePath(pathname: string): string {
-  return pathname
-    .replace(/^\//, '')
-    .split('/')
-    .map(segment => encodeURIComponent(segment))
-    .join('/');
-}
-
 type OneDriveAssetBlueprint = {
   /**
    * Unique identifier used by MDX/TS files to look up metadata.
