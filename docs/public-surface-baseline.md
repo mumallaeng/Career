@@ -38,6 +38,11 @@ It is not a provenance manifest. It is a lightweight publication-facing baseline
 2. `/work`
 3. `/activities`
 
+current interpretation:
+
+- `resume` is now a slightly more guided chronology surface, not only a flat list of entries
+- readers can choose to start from education, support/work, or project/open-source history depending on intent
+
 ### For documentation-first reading
 
 1. `/writing`
