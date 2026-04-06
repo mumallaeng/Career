@@ -8,6 +8,13 @@ categories: ["career"]
 
 이 페이지는 현재 activity archive에서 대표성이 높은 항목만 골라 public-facing summary로 연결한 첫 curated surface입니다. 전체 활동을 나열하기보다, 구현 방향이 비교적 분명한 항목만 먼저 묶었습니다.
 
+## How to use this page
+
+- 로보틱스와 시스템 통합을 먼저 보고 싶다면 `Shoepernoma`
+- 음성/모델 연동이 있는 응용 프로젝트를 먼저 보고 싶다면 `StoneSpring`
+- 자동화 도구와 처리 파이프라인을 보고 싶다면 `PDF to Question Bank`
+- 교육 도구와 웹 기반 실행 환경 쪽을 보고 싶다면 `CodeB`
+
 ## Systems and robotics
 
 ### [Shoepernoma](/activities/shoepernoma)
@@ -19,6 +26,10 @@ categories: ["career"]
 - 로보틱스 시스템 통합
 - 인식 및 제어 파이프라인 구성
 - 문서와 구현을 함께 묶는 프로젝트 운영
+- public reading focus:
+  - robotics
+  - autonomy pipeline
+  - integration-heavy team project
 
 ## Applications and interaction
 
@@ -31,6 +42,10 @@ categories: ["career"]
 - GUI 기반 응용 프로젝트
 - 모델 연동과 실시간 인터랙션
 - 팀 단위 기능 통합
+- public reading focus:
+  - AI-enabled application work
+  - voice/interaction stack
+  - product-style team delivery
 
 ## Tooling and automation
 
@@ -38,9 +53,21 @@ categories: ["career"]
 
 PDF 문제집을 문제 단위 이미지로 분해하는 CLI 자동화 도구입니다. 규칙 기반 이미지 처리로 문제 은행을 생성하는 흐름을 구현했습니다.
 
+이 항목은 다음을 함께 보여줍니다.
+
+- 문서 처리 자동화
+- CLI 중심 개인 도구 구현
+- 작은 범위에서 끝까지 닫는 처리 파이프라인
+
 ### [AI 교육용 Python 블록 프로그래밍 웹 플랫폼](/activities/codeb)
 
 교육용 블록 코딩 플랫폼 유지보수와 기능 개발에 참여한 프로젝트입니다. Pyodide, Blockly, 웹 기반 Python 실행 환경과 교육 현장 적용 경험이 함께 연결됩니다.
+
+이 항목은 다음을 함께 보여줍니다.
+
+- 교육용 웹 도구 개발
+- 브라우저 기반 실행 환경
+- 기능 유지보수와 현장 적용 경험
 
 ## Selection note
 

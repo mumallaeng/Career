@@ -121,6 +121,8 @@ npm run sync:onedrive
   - `src/content/profile.md`
 - `/resume`, `/work`, and `/writing` currently use bounded markdown summaries and can be expanded in later streams
 - `/writing` now links into selected `activities/.../docs/...` entry points rather than remaining only a placeholder summary
+- the current publication-facing route contract is summarized in:
+  - `docs/public-surface-baseline.md`
 
 ## Practical Default
 

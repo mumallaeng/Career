@@ -24,3 +24,4 @@
 See:
 
 - `docs/repo-validation-baseline.md`
+- `docs/public-surface-baseline.md`
