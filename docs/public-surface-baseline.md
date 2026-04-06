@@ -44,6 +44,10 @@ It is not a provenance manifest. It is a lightweight publication-facing baseline
 2. linked `activities/.../docs/...` entry points
 3. `/activities`
 
+current interpretation:
+
+- `writing` is now not only a document hub, but also a light reading guide that tells readers which documentation path to open first by project type
+
 ## Current Curation Limits
 
 - no mass migration from `Vault`
