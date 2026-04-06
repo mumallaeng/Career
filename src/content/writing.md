@@ -24,6 +24,24 @@ categories: ["career"]
 - [PDF to Question Bank](/activities/pdf-to-question-bank)  
   구현 배경과 접근 방식을 간결하게 설명하는 개인 자동화 도구 기록입니다.
 
+## Selected document entry points
+
+### Shoepernoma
+
+- [System Architecture](/activities/shoepernoma/docs/system-architecture.md)
+- [Interface Specification](/activities/shoepernoma/docs/interface-specification.md)
+- [Technical Investigation](/activities/shoepernoma/docs/technical-investigation.md)
+
+### StoneSpring
+
+- [Implementation](/activities/stonespring/docs/implementation.md)
+- [Software Requirements Specification](/activities/stonespring/docs/software-requirements-specification.md)
+- [Login / Signup Interface Specification](/activities/stonespring/docs/interface-specification/01-login-signup.md)
+
+### Other
+
+- [PDF to Question Bank](/activities/pdf-to-question-bank)
+
 ## Note
 
 - writing surface는 현재 deep archive를 대체하지 않습니다.
