@@ -1,22 +1,53 @@
 ---
 title: "Resume"
 date: "2026-04-07"
-description: "Resume baseline page for the first Career realignment stream."
+description: "A bounded chronology derived from the current published activity archive."
 tags: ["resume", "baseline"]
 categories: ["career"]
 ---
 
-이 페이지는 이력서형 정보를 담기 위한 첫 route scaffold입니다.
+이 페이지는 현재 공개된 activity material만 바탕으로 구성한 bounded chronology입니다. 아직 전체 이력을 모두 옮기지는 않았고, 현재 repo 안에서 바로 근거를 확인할 수 있는 항목부터 정리했습니다.
 
-## Current status
+## Education
 
-- route는 이번 stream에서 먼저 생성되었습니다.
-- 세부 이력, 기술 스택, 기간 정리는 이후 stream에서 provenance를 유지하며 채웁니다.
-- 현재 공개 가능한 상세 이력 대신, 프로젝트 기반 활동 기록은 `activities`에 유지됩니다.
+- **성일정보고등학교 디지털정보과**  
+  2017.03 - 2019.02  
+  관련 기록: [성일정보고등학교](/activities/sungil-information-high-school)
 
-## Planned contents
+- **인하공업전문대학 및 학점은행제 컴퓨터공학 과정**  
+  2020.03 - 2025.08  
+  관련 기록: [인하공업전문대학 및 학점은행제](/activities/inha-technical-college-and-academic-creditbank-system)
 
-- 핵심 소개 요약
-- 기간 기반 활동 정리
-- 기술 스택과 역할 요약
-- 외부 제출용 resume 구조로의 확장
+## Work and support
+
+- **인공지능 빅데이터센터 근로장학생**  
+  2021.09 - 2022.01  
+  서버 구축 및 운영 지원, Docker 환경 구성, 문서화와 인수인계  
+  관련 기록: [인공지능 빅데이터센터 근로장학생](/activities/itc-work-scholarship)
+
+- **강의 및 행사 보조**  
+  2021 - 2022  
+  교사연수와 교육 행사에서 실습 지원, 기술 보조, 운영 지원  
+  관련 기록: [강의 및 행사 보조](/activities/assistant)
+
+## Projects and open source
+
+- **2022 오픈소스컨트리뷰션아카데미 / RustPython**
+  2022  
+  오픈소스 프로젝트 기여와 협업 경험, 대상 수상  
+  관련 기록: [2022 오픈소스컨트리뷰션아카데미](/activities/open_source_contribution_academy)
+
+- **StoneSpring**
+  2025.02 - 2025.04  
+  실시간 돌봄 챗봇 시스템 팀 프로젝트, 팀장  
+  관련 기록: [StoneSpring](/activities/stonespring)
+
+- **Shoepernoma**
+  2025.04 - 2025.05  
+  ROS2 기반 신발 피킹 로봇 시스템 팀 프로젝트, 팀장  
+  관련 기록: [Shoepernoma](/activities/shoepernoma)
+
+## Note
+
+- 이 chronology는 첫 realignment 이후의 bounded 공개 요약입니다.
+- 더 상세한 supporting material은 계속 `activities`에 유지합니다.

@@ -1,21 +1,30 @@
 ---
 title: "Writing"
 date: "2026-04-07"
-description: "Writing surface baseline for the first Career realignment stream."
+description: "A conservative writing surface that points to documentation-heavy project records."
 tags: ["writing", "baseline"]
 categories: ["career"]
 ---
 
-이 페이지는 문서화와 글쓰기 산출물을 위한 첫 public route입니다.
+이 페이지는 아직 대규모 문서 migration을 하지 않은 상태에서, 글쓰기와 문서화 성격이 강한 기록을 public surface로 연결하기 위한 보수적인 기준선입니다.
 
-## Current status
+## Current direction
 
-- 문서형 자료는 아직 활동별 상세 문서에 더 많이 묶여 있습니다.
-- 이번 stream에서는 `/writing` route만 먼저 안정적으로 추가합니다.
-- 이후 stream에서 설계 문서, 조사 메모, 정리 글을 출처 보존 규칙에 맞춰 선별 연결할 수 있습니다.
+- 현재 문서형 기록은 대부분 프로젝트별 상세 문서로 남아 있습니다.
+- 따라서 이 페이지는 별도 writing corpus를 대량으로 가져오기보다, 문서화가 특히 중요한 프로젝트를 연결하는 역할에 집중합니다.
 
-## Planned contents
+## Documentation-heavy references
 
-- 기술 문서 요약
-- 설계/조사형 writing 모음
-- publication-ready writing curation
+- [Shoepernoma](/activities/shoepernoma)  
+  시스템 구조, 인터페이스, sequence diagram, descriptive research 등 supporting docs가 풍부한 프로젝트입니다.
+
+- [StoneSpring](/activities/stonespring)  
+  interface specification, sequence diagram, system requirements 등 정리된 문서 흐름을 포함합니다.
+
+- [PDF to Question Bank](/activities/pdf-to-question-bank)  
+  구현 배경과 접근 방식을 간결하게 설명하는 개인 자동화 도구 기록입니다.
+
+## Note
+
+- writing surface는 현재 deep archive를 대체하지 않습니다.
+- 향후 stream에서 provenance를 유지하며 더 선별된 문서를 연결할 수 있습니다.
