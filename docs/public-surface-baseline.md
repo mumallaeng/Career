@@ -32,6 +32,11 @@ It is not a provenance manifest. It is a lightweight publication-facing baseline
 2. `/profile`
 3. `/work`
 
+current interpretation:
+
+- `profile` is now a slightly more guided orientation surface, not only a short statement page
+- readers can move from interest areas to representative anchors before entering chronology or deep archive pages
+
 ### For chronology-first reading
 
 1. `/resume`
