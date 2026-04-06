@@ -63,6 +63,25 @@ SKIP_ONEDRIVE_SYNC=1 npm run build
   - `sync:onedrive` enters and exits via the skip flag
   - no live OneDrive download is required for this validation mode
 
+### Bounded Local-Root Sync Probe
+
+```bash
+ONEDRIVE_LOCAL_ROOT=/Users/mumallaeng/Library/CloudStorage/OneDrive-Personal \
+ONEDRIVE_ONLY_ASSETS='020309-네임컴작명연구소-0_copy.jpg' \
+SKIP_ONEDRIVE_DOWNLOAD=1 \
+npm run sync:onedrive
+```
+
+- result on `2026-04-07`:
+  - the target asset was linked successfully into:
+    - `public/import-data/dev-storage/020309-네임컴작명연구소-0_copy.jpg`
+  - the symlink resolved to:
+    - `/Users/mumallaeng/Library/CloudStorage/OneDrive-Personal/media/photos/misc/dev-storage/020309-네임컴작명연구소-0_copy.jpg`
+- interpretation:
+  - the repo can resolve canonical local OneDrive media paths through `ONEDRIVE_LOCAL_ROOT`
+  - bounded local-root probing no longer depends on the legacy `Photos/...` tree shape
+  - because `public/import-data/*` is git-ignored, this validation does not dirty the repo
+
 ## Current Caveat
 
 - `src/content/profile.md` is still absent
@@ -75,4 +94,4 @@ For routine repo validation that is not specifically about media sync:
 1. run `npm run lint`
 2. run `SKIP_ONEDRIVE_SYNC=1 npm run build`
 
-Use the live OneDrive root and remote only when the task is explicitly about sync, derivative generation, or upload behavior.
+Use the live OneDrive root and remote only when the task is explicitly about sync, derivative generation, or upload behavior. For a minimal path-resolution probe, prefer the bounded single-asset command above.
