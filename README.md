@@ -2,11 +2,17 @@
 
 ## Current Public Route Baseline
 
+- `/`
 - `/profile`
 - `/resume`
 - `/work`
 - `/writing`
 - `/activities`
+
+## Current IA Note
+
+- `/` is the bounded landing surface for the current public route set
+- `/activities` remains the canonical deep archive for detailed project records and supporting documents
 
 ## Local Validation
 

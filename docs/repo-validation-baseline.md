@@ -97,13 +97,17 @@ npm run sync:onedrive
 ## Current Route Baseline
 
 - realigned public content routes now present:
+  - `/`
   - `/profile`
   - `/resume`
   - `/work`
   - `/writing`
+- `/` now acts as the bounded landing surface for the current IA
+- `/activities` remains the canonical deep archive
 - `/profile` now has a real markdown backing file:
   - `src/content/profile.md`
-- `/resume`, `/work`, and `/writing` currently use bounded baseline markdown content and can be expanded in later streams
+- `/resume`, `/work`, and `/writing` currently use bounded markdown summaries and can be expanded in later streams
+- `/writing` now links into selected `activities/.../docs/...` entry points rather than remaining only a placeholder summary
 
 ## Practical Default
 
