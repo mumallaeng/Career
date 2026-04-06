@@ -94,6 +94,19 @@ npm run sync:onedrive
   - bounded local-root probing no longer depends on the legacy `Photos/...` tree shape
   - because `public/import-data/*` is git-ignored, this validation does not dirty the repo
 
+### Multi-Asset Path Probe
+
+- reference:
+  - `docs/onedrive-multi-asset-probe-baseline.md`
+- result on `2026-04-07`:
+  - bounded checks now exist for three distinct path classes:
+    - `Highlight`
+    - `dev-storage`
+    - `projects` origin with `dev-storage` derivative
+- interpretation:
+  - path remap is now supported by representative evidence across more than one asset class
+  - the current branch can rely on the authoritative `media/photos/...` tree without reopening legacy `Photos/...` assumptions
+
 ## Current Route Baseline
 
 - realigned public content routes now present:
