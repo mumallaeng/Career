@@ -32,15 +32,21 @@ categories: ["career"]
 - [Interface Specification](/activities/shoepernoma/docs/interface-specification.md)
 - [Technical Investigation](/activities/shoepernoma/docs/technical-investigation.md)
 
+이 묶음은 시스템 구조 설명과 인터페이스 문서가 중심인 기술 문서형 entry입니다.
+
 ### StoneSpring
 
 - [Implementation](/activities/stonespring/docs/implementation.md)
 - [Software Requirements Specification](/activities/stonespring/docs/software-requirements-specification.md)
 - [Login / Signup Interface Specification](/activities/stonespring/docs/interface-specification/01-login-signup.md)
 
+이 묶음은 요구사항, 인터페이스, 구현 흐름을 잇는 프로젝트 문서형 entry입니다.
+
 ### Other
 
 - [PDF to Question Bank](/activities/pdf-to-question-bank)
+
+이 항목은 규모는 작지만, 구현 배경과 접근 방식을 빠르게 읽기 좋은 개인 도구 기록입니다.
 
 ## Note
 

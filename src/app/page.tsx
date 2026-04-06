@@ -54,9 +54,9 @@ export default function HomePage() {
         <p className="home-kicker">Career</p>
         <h1 className="home-title">김연우 | Gim Yeonwoo</h1>
         <p className="home-description">
-          소프트웨어 구현, 로보틱스 자동화, AI 응용, 그리고 문서화 중심의 작업을 진행합니다.
-          현재 사이트는 `profile / resume / work / writing` surface를 기준으로 정리 중이며,
-          상세한 supporting record는 계속 `activities`에 유지합니다.
+          소프트웨어 구현, 로보틱스 자동화, AI 응용, 운영 지원, 그리고 문서화 중심의 작업을 진행합니다.
+          현재 사이트는 `profile / resume / work / writing` surface로 public summary를 정리하고,
+          상세한 supporting record는 계속 `activities`에 유지하는 구조로 정리 중입니다.
         </p>
       </section>
 
