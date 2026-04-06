@@ -2,10 +2,10 @@
 
 ## Local Validation
 
-- lint:
-  - `npm run lint`
+- default local validation:
+  - `npm run validate:local`
 - build without live OneDrive sync:
-  - `SKIP_ONEDRIVE_SYNC=1 npm run build`
+  - `npm run build:local`
 
 See:
 

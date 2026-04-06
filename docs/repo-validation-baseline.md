@@ -54,7 +54,7 @@ npm run lint
 ### Build Without Live Sync
 
 ```bash
-SKIP_ONEDRIVE_SYNC=1 npm run build
+npm run build:local
 ```
 
 - result on `2026-04-07`: passes
@@ -62,6 +62,18 @@ SKIP_ONEDRIVE_SYNC=1 npm run build
   - `prebuild` still runs
   - `sync:onedrive` enters and exits via the skip flag
   - no live OneDrive download is required for this validation mode
+
+### Combined Local Validation
+
+```bash
+npm run validate:local
+```
+
+- current contract:
+  - runs `npm run lint`
+  - then runs `npm run build:local`
+- purpose:
+  - gives future sessions one bounded command for repo-local validation without live OneDrive sync
 
 ### Bounded Local-Root Sync Probe
 
@@ -91,7 +103,6 @@ npm run sync:onedrive
 
 For routine repo validation that is not specifically about media sync:
 
-1. run `npm run lint`
-2. run `SKIP_ONEDRIVE_SYNC=1 npm run build`
+1. run `npm run validate:local`
 
 Use the live OneDrive root and remote only when the task is explicitly about sync, derivative generation, or upload behavior. For a minimal path-resolution probe, prefer the bounded single-asset command above.
