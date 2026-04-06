@@ -94,10 +94,16 @@ npm run sync:onedrive
   - bounded local-root probing no longer depends on the legacy `Photos/...` tree shape
   - because `public/import-data/*` is git-ignored, this validation does not dirty the repo
 
-## Current Caveat
+## Current Route Baseline
 
-- `src/content/profile.md` is still absent
-- `/profile` builds because the page renders a fallback message when profile content is missing
+- realigned public content routes now present:
+  - `/profile`
+  - `/resume`
+  - `/work`
+  - `/writing`
+- `/profile` now has a real markdown backing file:
+  - `src/content/profile.md`
+- `/resume`, `/work`, and `/writing` currently use bounded baseline markdown content and can be expanded in later streams
 
 ## Practical Default
 

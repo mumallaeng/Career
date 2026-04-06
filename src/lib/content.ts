@@ -227,35 +227,36 @@ export function getActivityBySlug(slug: string): Content | null {
 }
 
 export function getProfileData(): Content | null {
-  const profilePath = path.join(process.cwd(), 'src/content/profile.md');
+  return getStaticPageData('profile');
+}
 
-  if (!fs.existsSync(profilePath)) {
+// Flow 2: Realigned public surfaces load bounded markdown baselines from src/content.
+export function getStaticPageData(slug: string): Content | null {
+  const pagePath = path.join(process.cwd(), `src/content/${slug}.md`);
+
+  if (!fs.existsSync(pagePath)) {
     return null;
   }
 
-  const fileContent = fs.readFileSync(profilePath, 'utf8');
+  const fileContent = fs.readFileSync(pagePath, 'utf8');
   const { frontMatter, content } = parseFrontMatter(fileContent);
 
-  // Create preview from content (first paragraph or first 150 characters)
   const preview = content
-    .replace(/^#.*$/gm, '') // Remove headers
-    .replace(/\n+/g, ' ') // Replace newlines with spaces
+    .replace(/^#.*$/gm, '')
+    .replace(/\n+/g, ' ')
     .trim()
     .substring(0, 150) + '...';
 
   const extractedThumbnail = resolveThumbnailFromFrontMatter(frontMatter)
     ?? extractFirstImage(content);
 
-  const thumbnailUrl = extractedThumbnail?.url;
-  const thumbnailHasExplicitSize = extractedThumbnail?.hasExplicitDimensions ?? false;
-
   return {
-    slug: 'profile',
+    slug,
     frontMatter,
     content,
     preview,
-    thumbnailUrl,
-    thumbnailHasExplicitSize,
+    thumbnailUrl: extractedThumbnail?.url,
+    thumbnailHasExplicitSize: extractedThumbnail?.hasExplicitDimensions ?? false,
     fileExtension: 'md',
   };
 }

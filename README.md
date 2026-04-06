@@ -1,5 +1,13 @@
 # yeonwoofolio
 
+## Current Public Route Baseline
+
+- `/profile`
+- `/resume`
+- `/work`
+- `/writing`
+- `/activities`
+
 ## Local Validation
 
 - default local validation:
