@@ -30,6 +30,13 @@ The remap logic lives in:
 - `src/data/onedrive-paths.ts`
 - `src/data/onedrive-assets.ts`
 
+Operationally important branch note:
+
+- `main` does not contain the remap landing commit `8114bac`
+- therefore any deploy/build log that still lists legacy remote paths like `Photos/Highlight/...` or `Photos/Projects/...`
+  should be treated as a stale-branch signal, not as evidence that the current `work/career-realignment-baseline`
+  worktree is still generating legacy paths
+
 ## Verified Environment Controls
 
 The current repo scripts support these controls:
@@ -75,6 +82,21 @@ npm run validate:local
 - purpose:
   - gives future sessions one bounded command for repo-local validation without live OneDrive sync
 
+### Full Remote-Only Build
+
+```bash
+env -u ONEDRIVE_LOCAL_ROOT npm run build
+```
+
+- result on `2026-04-07`: passes
+- observed behavior:
+  - `sync:onedrive` confirms all expected assets exist on `oow214-onedrive`
+  - download now runs as bounded directory batches instead of spawning `rclone copyto` once per asset
+  - the representative `2026-04-07` timed rerun completed in about `110s`
+- interpretation:
+  - the current bounded branch no longer depends on `ONEDRIVE_LOCAL_ROOT` for a successful production build
+  - the practical problem behind the old failing Vercel logs was stale branch state plus per-file remote copy overhead, not the `ONEDRIVE_REMOTE_BASE` value itself
+
 ### Bounded Local-Root Sync Probe
 
 ```bash
@@ -106,6 +128,10 @@ npm run sync:onedrive
 - interpretation:
   - path remap is now supported by representative evidence across more than one asset class
   - the current branch can rely on the authoritative `media/photos/...` tree without reopening legacy `Photos/...` assumptions
+  - `sync:onedrive` now bounds remote inspection to the expected basenames under canonical directories instead of
+    recursively listing whole remote trees
+  - remote download is also now grouped into a small number of directory batches instead of hundreds of per-file `copyto`
+    invocations
 
 ## Current Route Baseline
 

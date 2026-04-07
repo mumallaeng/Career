@@ -31,6 +31,12 @@ type SyncTarget = {
   label: 'default' | 'thumb' | 'original';
 };
 
+type DownloadBatch = {
+  remoteDirectory: string;
+  destinationDirectory: string;
+  filenames: Set<string>;
+};
+
 const projectRoot = process.cwd();
 const publicRoot = path.join(projectRoot, 'public');
 const defaultRemoteBase = 'oow214-onedrive:';
@@ -106,18 +112,10 @@ const syncTargets: SyncTarget[] = assets.flatMap(asset => {
 });
 
 const publicDirectories = Array.from(new Set(syncTargets.map(target => getPublicDirectory(target.publicPath))));
-const remoteDirectories = Array.from(
-  new Set(
-    [
-      ...syncTargets.map(target => target.remotePath),
-      ...assets.map(asset => asset.remotePathOriginal),
-    ].map(remotePath => {
-      const parts = remotePath.split('/');
-      parts.pop();
-      return parts.join('/');
-    }),
-  ),
-);
+const remoteDirectoryExpectedFilenames = buildRemoteDirectoryExpectedFilenames([
+  ...syncTargets.map(target => target.remotePath),
+  ...assets.map(asset => asset.remotePathOriginal),
+]);
 
 function getPublicDirectory(publicPath: string): string {
   const relative = publicPath.replace(/^\//, '');
@@ -139,6 +137,31 @@ function trimSlashes(value: string): string {
 
 function normalizeRemoteBase(value: string): string {
   return value.endsWith(':') ? value : `${value}:`;
+}
+
+function buildRemoteDirectoryExpectedFilenames(remotePaths: string[]): Map<string, Set<string>> {
+  const grouped = new Map<string, Set<string>>();
+
+  for (const remotePath of remotePaths) {
+    const parts = remotePath.split('/');
+    const filename = parts.pop();
+    const directory = parts.join('/');
+
+    if (!filename || !directory) {
+      continue;
+    }
+
+    if (!grouped.has(directory)) {
+      grouped.set(directory, new Set<string>());
+    }
+
+    const expectedNames = grouped.get(directory)!;
+    getNormalizationVariants(filename).forEach(variant => {
+      expectedNames.add(variant);
+    });
+  }
+
+  return grouped;
 }
 
 function runCommand(
@@ -350,82 +373,6 @@ function normalizeToNfc(value: string): string {
   }
 }
 
-function isDirectoryNotFoundError(error: unknown): boolean {
-  if (!(error instanceof Error)) {
-    return false;
-  }
-  return (
-    /directory not found/i.test(error.message) ||
-    /found file when looking for folder/i.test(error.message) ||
-    /file not found/i.test(error.message) ||
-    /object not found/i.test(error.message)
-  );
-}
-
-function copyRemoteAssetWithVariants(
-  rcloneBinary: string,
-  remotePath: string,
-  destination: string,
-  fallbackRemotePath?: string,
-) {
-  const attemptCopy = (pathToCopy: string): void => {
-    const variants = getNormalizationVariants(pathToCopy);
-    let lastError: Error | null = null;
-    for (const variant of variants) {
-      try {
-        runCommand(rcloneBinary, ['copyto', buildRemoteSpec(variant), destination]);
-        return;
-      } catch (error) {
-        if (isDirectoryNotFoundError(error)) {
-          lastError = error as Error;
-          continue;
-        }
-        throw error;
-      }
-    }
-    if (lastError) {
-      throw lastError;
-    }
-    throw new Error(`Failed to copy remote asset ${pathToCopy}`);
-  };
-
-  try {
-    attemptCopy(remotePath);
-    return;
-  } catch (error) {
-    if (!fallbackRemotePath || fallbackRemotePath === remotePath) {
-      throw error;
-    }
-    if (!isDirectoryNotFoundError(error)) {
-      throw error;
-    }
-    console.warn(`Missing dev-storage asset ${remotePath}, falling back to ${fallbackRemotePath}`);
-    attemptCopy(fallbackRemotePath);
-  }
-}
-
-async function downloadAssets(rcloneBinary: string) {
-  const downloadTargets = syncTargets.map(target => ({
-    ...target,
-    destination: path.join(publicRoot, target.publicPath.replace(/^\//, '')),
-    remote: buildRemoteSpec(target.remotePath),
-  }));
-
-  for (const { asset, destination, remote, remotePath, fallbackRemotePath, label } of downloadTargets) {
-    if (!shouldDownload) {
-      console.info(`Skipping download for ${asset.filename} (SKIP_ONEDRIVE_DOWNLOAD=1).`);
-      continue;
-    }
-
-    await mkdir(path.dirname(destination), { recursive: true });
-    console.info(`Copying ${remote} -> ${destination}`);
-    copyRemoteAssetWithVariants(rcloneBinary, remotePath, destination, fallbackRemotePath);
-    if (label !== 'original' && remotePath === fallbackRemotePath) {
-      console.info(`Downloaded fallback asset for ${asset.filename} (${label}).`);
-    }
-  }
-}
-
 type PlatformDescriptor = {
   archiveOS: string;
   archiveArch: string;
@@ -605,9 +552,17 @@ async function resolveLocalAssetPath(
 async function listRemoteFiles(rcloneBinary: string): Promise<Set<string>> {
   const remoteFiles = new Set<string>();
 
-  for (const directory of remoteDirectories) {
+  for (const [directory, filenames] of remoteDirectoryExpectedFilenames.entries()) {
     const remoteSpec = buildRemoteSpec(directory);
-    const args = ['lsf', remoteSpec, '--files-only', '--format=p', '--recursive'];
+    const args = ['lsf', remoteSpec, '--files-only', '--format=p', '--max-depth', '1'];
+
+    // Probe only the basenames the repo actually expects instead of recursively listing
+    // whole remote directories. This keeps Vercel prebuild bounded.
+    Array.from(filenames)
+      .sort()
+      .forEach(filename => {
+        args.push('--include', filename);
+      });
 
     try {
       const { stdout } = runCommand(rcloneBinary, args);
@@ -697,6 +652,83 @@ function removeRemotePathIfExists(rcloneBinary: string, remotePath: string) {
   }
 }
 
+function hasRemotePath(remoteFiles: Set<string>, remotePath: string): boolean {
+  return getNormalizationVariants(remotePath).some(variant => remoteFiles.has(variant));
+}
+
+function chooseDownloadRemotePath(target: SyncTarget, remoteFiles: Set<string>): string {
+  if (hasRemotePath(remoteFiles, target.remotePath)) {
+    return target.remotePath;
+  }
+
+  if (target.fallbackRemotePath && hasRemotePath(remoteFiles, target.fallbackRemotePath)) {
+    if (target.label !== 'original' && target.remotePath !== target.fallbackRemotePath) {
+      console.warn(`Missing ${target.remotePath}; falling back to ${target.fallbackRemotePath}`);
+    }
+    return target.fallbackRemotePath;
+  }
+
+  return target.remotePath;
+}
+
+function buildDownloadBatches(remoteFiles: Set<string>): DownloadBatch[] {
+  const grouped = new Map<string, DownloadBatch>();
+
+  for (const target of syncTargets) {
+    const chosenRemotePath = chooseDownloadRemotePath(target, remoteFiles);
+    const remoteParts = chosenRemotePath.split('/');
+    const filename = remoteParts.pop();
+    const remoteDirectory = remoteParts.join('/');
+    const destinationDirectory = path.join(publicRoot, path.dirname(target.publicPath.replace(/^\//, '')));
+
+    if (!filename || !remoteDirectory) {
+      continue;
+    }
+
+    const key = `${remoteDirectory} -> ${destinationDirectory}`;
+    if (!grouped.has(key)) {
+      grouped.set(key, {
+        remoteDirectory,
+        destinationDirectory,
+        filenames: new Set<string>(),
+      });
+    }
+
+    const batch = grouped.get(key)!;
+    getNormalizationVariants(filename).forEach(variant => {
+      batch.filenames.add(variant);
+    });
+  }
+
+  return Array.from(grouped.values());
+}
+
+async function downloadAssets(rcloneBinary: string, remoteFiles: Set<string>) {
+  if (!shouldDownload) {
+    console.info('Skipping download stage (SKIP_ONEDRIVE_DOWNLOAD=1).');
+    return;
+  }
+
+  const batches = buildDownloadBatches(remoteFiles);
+
+  for (const batch of batches) {
+    await mkdir(batch.destinationDirectory, { recursive: true });
+    const remoteSpec = buildRemoteSpec(batch.remoteDirectory);
+    const args = ['copy', remoteSpec, batch.destinationDirectory, '--max-depth', '1'];
+
+    // Download only the basenames the repo expects and do it per directory batch
+    // so Vercel does not pay process-spawn cost for every single asset.
+    Array.from(batch.filenames)
+      .sort()
+      .forEach(filename => {
+        args.push('--include', filename);
+      });
+
+    console.info(`Copying ${remoteSpec} -> ${batch.destinationDirectory} (${batch.filenames.size} candidates)`);
+    runCommand(rcloneBinary, args);
+  }
+}
+
 async function main() {
   try {
     if (shouldSkipSync) {
@@ -725,7 +757,7 @@ async function main() {
     warnMissingDevStorageAssets(remoteFiles);
 
     if (shouldUseRemote) {
-      await downloadAssets(rcloneBinary);
+      await downloadAssets(rcloneBinary, remoteFiles);
     } else if (usingLocalRoot || usingLegacySource) {
       console.info('Local asset symlinks configured; skipping download stage.');
     } else {
