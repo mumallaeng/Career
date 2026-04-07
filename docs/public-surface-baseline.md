@@ -36,6 +36,7 @@ current interpretation:
 
 - `profile` is now a slightly more guided orientation surface, not only a short statement page
 - readers can move from interest areas to representative anchors before entering chronology or deep archive pages
+- `work` is now also shaped to help readers choose between system-heavy, application-style, and smaller tool-oriented examples
 
 ### For chronology-first reading
 
