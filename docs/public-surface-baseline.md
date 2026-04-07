@@ -48,6 +48,7 @@ current interpretation:
 
 - `resume` is now a slightly more guided chronology surface, not only a flat list of entries
 - readers can choose to start from education, support/work, or project/open-source history depending on intent
+- `resume` is now also shaped to help readers choose between background summary, support/operations experience, and collaboration-heavy project history
 
 ### For documentation-first reading
 

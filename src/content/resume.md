@@ -14,6 +14,26 @@ categories: ["career"]
 - 지원·운영 역할을 먼저 보고 싶다면 `Work and support`를 먼저 보면 됩니다.
 - 프로젝트와 대외 활동 중심 흐름을 먼저 보고 싶다면 `Projects and open source`부터 읽으면 됩니다.
 
+## Quick chooser
+
+### If you want the shortest background summary first
+
+- start with `Education`
+- then move to `Projects and open source`
+- use `Work` if you want the implementation-heavy examples next
+
+### If you want operational/support experience first
+
+- start with `Work and support`
+- then move to `Projects and open source`
+- use `Activities` if you want the supporting records and context
+
+### If you want collaboration and project leadership first
+
+- start with `Projects and open source`
+- then move to `Education`
+- use `Work` if you want the more implementation-oriented reading path afterward
+
 ## Education
 
 - **성일정보고등학교 디지털정보과**  
@@ -26,7 +46,7 @@ categories: ["career"]
   전공 학습, 프로젝트, 오픈소스, 동아리 활동이 이어진 중심 시기입니다.  
   관련 기록: [인하공업전문대학 및 학점은행제](/activities/inha-technical-college-and-academic-creditbank-system)
 
-이 구간은 전공 학습과 프로젝트 경험이 본격적으로 연결되기 시작한 배경으로 읽는 것이 좋습니다.
+이 구간은 전공 학습과 프로젝트 경험이 본격적으로 연결되기 시작한 배경으로 읽는 것이 좋습니다. 처음 보는 사람에게는 가장 짧은 background summary 역할을 합니다.
 
 ## Work and support
 
@@ -40,7 +60,7 @@ categories: ["career"]
   교사연수와 교육 행사에서 실습 지원, 기술 보조, 운영 지원  
   관련 기록: [강의 및 행사 보조](/activities/assistant)
 
-이 구간은 구현만이 아니라 운영 지원, 교육 지원, 현장 대응을 함께 해온 흐름으로 읽을 수 있습니다.
+이 구간은 구현만이 아니라 운영 지원, 교육 지원, 현장 대응을 함께 해온 흐름으로 읽을 수 있습니다. 구현 중심 프로젝트와는 다른 종류의 책임을 빠르게 파악할 때 먼저 보기 좋습니다.
 
 ## Projects and open source
 
@@ -59,10 +79,11 @@ categories: ["career"]
   ROS2 기반 신발 피킹 로봇 시스템 팀 프로젝트, 팀장  
   관련 기록: [Shoepernoma](/activities/shoepernoma)
 
-이 구간은 공개 활동 중에서도 협업, 구현, 리딩 경험이 비교적 선명한 항목만 남긴 첫 public chronology pass입니다.
+이 구간은 공개 활동 중에서도 협업, 구현, 리딩 경험이 비교적 선명한 항목만 남긴 첫 public chronology pass입니다. reader가 "대표 프로젝트부터 보고 싶다"는 경우 가장 먼저 들어가기 좋은 구간입니다.
 
 ## Reading note
 
 - 이 chronology는 공개 가능한 범위의 first public pass입니다.
 - 세부 산출물, supporting document, 맥락 설명은 계속 `activities`가 canonical archive 역할을 합니다.
 - 더 자세한 프로젝트 문맥이 필요하면 `Work`와 `Activities`를 함께 보는 것이 가장 자연스럽습니다.
+- 빠른 읽기가 목적이라면 먼저 이 페이지에서 한 구간을 고르고, 필요한 경우에만 `Work`나 `Activities`로 내려가는 흐름을 권장합니다.
