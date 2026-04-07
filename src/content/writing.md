@@ -14,6 +14,26 @@ categories: ["career"]
 - 요구사항과 인터페이스 흐름을 먼저 보고 싶다면 `StoneSpring`
 - 짧은 개인 도구 설명을 먼저 보고 싶다면 `PDF to Question Bank`
 
+## Quick chooser
+
+### If you want architecture and system documents first
+
+- start with `Shoepernoma`
+- then move to the selected document entry points below
+- use `Activities` if you need the full supporting trail
+
+### If you want product/specification documents first
+
+- start with `StoneSpring`
+- then move to the interface and requirements documents below
+- use `Activities` if you want the broader project context
+
+### If you want the shortest write-up first
+
+- start with `PDF to Question Bank`
+- then return to `Shoepernoma` or `StoneSpring`
+- use `Work` if you want the implementation-first reading path instead
+
 ## Current direction
 
 - 현재 문서형 기록은 대부분 프로젝트별 상세 문서로 남아 있습니다.
@@ -73,3 +93,4 @@ categories: ["career"]
 
 - writing surface는 현재 deep archive를 대체하지 않습니다.
 - 향후 stream에서 provenance를 유지하며 더 선별된 문서를 연결할 수 있습니다.
+- 빠르게 읽고 싶다면 이 페이지에서 entry point 하나를 고른 뒤, 필요한 경우에만 `Activities`로 내려가는 흐름을 권장합니다.
