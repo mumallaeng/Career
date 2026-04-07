@@ -34,6 +34,8 @@ Current interpretation:
   - use for a short repository entry point and the current public reading order
 - `docs/public-surface-baseline.md`
   - use for the public route contract and reader-oriented navigation guidance
+- `docs/publication-provenance-baseline.md`
+  - use for the bounded provenance/source contract of the current summary surfaces
 - `docs/repo-validation-baseline.md`
   - use for validation commands, OneDrive path assumptions, and build/sync
     behavior
@@ -44,6 +46,7 @@ The repository is currently publication-ready in the following bounded sense:
 
 - the public route contract is landed
 - the current summary surfaces are readable together as a coherent entry path
+- the current summary surfaces now have a bounded provenance contract
 - the current validation contract is repeatable in a dedicated worktree
 - remote-only OneDrive build validation now passes against the canonical
   `media/photos/...` tree
@@ -51,7 +54,7 @@ The repository is currently publication-ready in the following bounded sense:
 The repository is not yet publication-ready in the following stronger sense:
 
 - no provenance-complete publication schema exists yet
-- no publication manifest has been introduced
+- only a bounded first-pass publication manifest exists for the current summary surfaces
 - no mass migration from `Vault` has been attempted
 - `activities` has not been reduced or replaced as the deep archive
 
@@ -60,9 +63,10 @@ The repository is not yet publication-ready in the following stronger sense:
 For bounded publication work, the default safe sequence is:
 
 1. refine only the current summary surfaces or their framing notes
-2. avoid route churn or broad archive migration
-3. run `npm run validate:local`
-4. update the matching control-plane note in `prompt/projects/Career/`
+2. keep the bounded provenance contract coherent
+3. avoid route churn or broad archive migration
+4. run `npm run validate:local`
+5. update the matching control-plane note in `prompt/projects/Career/`
 
 ## Current Risk Interpretation
 

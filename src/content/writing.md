@@ -4,6 +4,11 @@ date: "2026-04-07"
 description: "A conservative writing surface that points to documentation-heavy project records."
 tags: ["writing", "baseline"]
 categories: ["career"]
+publication_id: "career/writing"
+source_vault_path: "career-drafts/resume/master-positioning.md"
+source_hash: "f7faf831732aa6e15d0d98421f300b9f160c74cfcadfd7b7f36a3cc9e426c9d0"
+content_kind: "summary-surface"
+work_type: "writing-summary"
 ---
 
 이 페이지는 아직 대규모 문서 migration을 하지 않은 상태에서, 글쓰기와 문서화 성격이 강한 기록을 public surface로 연결하기 위한 보수적인 기준선입니다.

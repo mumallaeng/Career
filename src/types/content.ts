@@ -18,6 +18,10 @@ export interface FrontMatter {
   content_type?: string;
   recommendation_priority?: number;
   thumbnail_asset_id?: string;
+  publication_id?: string;
+  source_vault_path?: string;
+  source_hash?: string;
+  work_type?: string;
 }
 
 export interface Content {

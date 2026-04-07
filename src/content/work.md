@@ -4,6 +4,11 @@ date: "2026-04-07"
 description: "A small curated set of representative projects and implementation-oriented work."
 tags: ["work", "baseline"]
 categories: ["career"]
+publication_id: "career/work"
+source_vault_path: "career-drafts/portfolio/portfolio-source.md"
+source_hash: "f0ee48c8040e9e92aee644ed876b88004965ae860d06cc1e9df116694bacdeeb"
+content_kind: "summary-surface"
+work_type: "portfolio-summary"
 ---
 
 이 페이지는 현재 activity archive에서 대표성이 높은 항목만 골라 public-facing summary로 연결한 curated work surface입니다. 전체 활동을 나열하기보다, 구현 방향과 읽는 목적이 비교적 분명한 항목만 먼저 묶었습니다.

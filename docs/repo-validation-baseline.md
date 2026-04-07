@@ -50,6 +50,25 @@ The current repo scripts support these controls:
 
 ## Verified Commands
 
+### Publication Provenance Validation
+
+```bash
+npm run validate:publication
+```
+
+- result on `2026-04-07`: passes
+- current contract:
+  - validates `publication-manifest.csv`
+  - checks manifest/front-matter agreement for:
+    - `profile`
+    - `resume`
+    - `work`
+    - `writing`
+  - verifies Vault-side source hashes when the current environment can resolve
+    the `Vault` root
+- reference:
+  - `docs/publication-provenance-baseline.md`
+
 ### Lint
 
 ```bash
@@ -77,10 +96,11 @@ npm run validate:local
 ```
 
 - current contract:
+  - runs `npm run validate:publication`
   - runs `npm run lint`
   - then runs `npm run build:local`
 - purpose:
-  - gives future sessions one bounded command for repo-local validation without live OneDrive sync
+  - gives future sessions one bounded command for publication metadata, lint, and repo-local validation without live OneDrive sync
 
 ### Full Remote-Only Build
 
@@ -142,6 +162,8 @@ Use these notes instead:
 
 - `docs/public-surface-baseline.md`
   - for the current route contract and reading order
+- `docs/publication-provenance-baseline.md`
+  - for the bounded source/provenance contract of the current summary surfaces
 - `docs/publication-readiness-baseline.md`
   - for the current bounded publication-safe boundary
 

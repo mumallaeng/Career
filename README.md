@@ -51,5 +51,7 @@ See:
   - route contract and suggested reading paths
 - `docs/publication-readiness-baseline.md`
   - bounded publication-safe boundary
+- `docs/publication-provenance-baseline.md`
+  - bounded source/provenance contract for the current summary surfaces
 - `docs/repo-validation-baseline.md`
   - validation commands, OneDrive assumptions, and build/sync behavior

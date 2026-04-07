@@ -4,6 +4,11 @@ date: "2026-04-07"
 description: "Software, robotics, and documentation-oriented work built from the current public activity archive."
 tags: ["profile", "baseline"]
 categories: ["career"]
+publication_id: "career/profile"
+source_vault_path: "career-drafts/career-description/source.md"
+source_hash: "b98c3cee54dbf2ec896d0a32060191b57058ced998a9804ce277b72c7ee96a46"
+content_kind: "summary-surface"
+work_type: "profile-summary"
 ---
 
 소프트웨어 구현, 로보틱스 자동화, AI 응용, 그리고 문서화 중심의 작업을 진행합니다. 현재 public material의 상세 기록은 계속 `activities`에 남아 있고, 이 페이지는 그 기록을 바탕으로 현재 공개 surface에서 먼저 보면 좋은 축만 짧게 정리한 요약 entry입니다.

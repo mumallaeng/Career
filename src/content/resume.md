@@ -4,6 +4,11 @@ date: "2026-04-07"
 description: "A bounded chronology derived from the current published activity archive."
 tags: ["resume", "baseline"]
 categories: ["career"]
+publication_id: "career/resume"
+source_vault_path: "career-drafts/resume/cv-source.md"
+source_hash: "d1703460644124050d2bd576fdbbd3221e6dfea0175a05d98a9d00ccf6684d89"
+content_kind: "summary-surface"
+work_type: "resume-summary"
 ---
 
 이 페이지는 현재 공개된 activity material만 바탕으로 구성한 bounded chronology입니다. 아직 전체 이력을 모두 옮기지는 않았고, 현재 repo 안에서 바로 근거를 확인할 수 있는 항목부터 먼저 정리했습니다.
