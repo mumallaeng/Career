@@ -13,6 +13,8 @@
 
 - `/` is the bounded landing surface for the current public route set
 - `/activities` remains the canonical deep archive for detailed project records and supporting documents
+- the current public route contract is summarized in `docs/public-surface-baseline.md`
+- the current publication-readiness boundary is summarized in `docs/publication-readiness-baseline.md`
 
 ## Suggested Reading Starts
 
@@ -40,3 +42,4 @@ See:
 
 - `docs/repo-validation-baseline.md`
 - `docs/public-surface-baseline.md`
+- `docs/publication-readiness-baseline.md`

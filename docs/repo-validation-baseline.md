@@ -149,6 +149,8 @@ npm run sync:onedrive
 - `/writing` now links into selected `activities/.../docs/...` entry points rather than remaining only a placeholder summary
 - the current publication-facing route contract is summarized in:
   - `docs/public-surface-baseline.md`
+- the current publication-readiness boundary is summarized in:
+  - `docs/publication-readiness-baseline.md`
 
 ## Practical Default
 
@@ -157,3 +159,9 @@ For routine repo validation that is not specifically about media sync:
 1. run `npm run validate:local`
 
 Use the live OneDrive root and remote only when the task is explicitly about sync, derivative generation, or upload behavior. For a minimal path-resolution probe, prefer the bounded single-asset command above.
+
+For publication-facing route intent and current readiness limits, read this note
+together with:
+
+- `docs/public-surface-baseline.md`
+- `docs/publication-readiness-baseline.md`

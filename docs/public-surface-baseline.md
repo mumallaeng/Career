@@ -75,5 +75,6 @@ npm run validate:local
 
 For route and publication-context assumptions, read this note together with:
 
+- `docs/publication-readiness-baseline.md`
 - `docs/repo-validation-baseline.md`
 - `README.md`
