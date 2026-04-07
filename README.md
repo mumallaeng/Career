@@ -28,8 +28,15 @@
   - `/activities`
 - for documentation-first reading:
   - `/writing`
-  - linked `activities/.../docs/...` entries
+  - selected `activities/.../docs/...` entry points
   - `/activities`
+
+Current interpretation:
+
+- `profile` is the shortest orientation surface
+- `work` is the implementation-first reading surface
+- `resume` is the chronology-first reading surface
+- `writing` is the document-entry reading surface
 
 ## Local Validation
 
