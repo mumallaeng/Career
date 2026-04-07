@@ -133,24 +133,21 @@ npm run sync:onedrive
   - remote download is also now grouped into a small number of directory batches instead of hundreds of per-file `copyto`
     invocations
 
-## Current Route Baseline
+## Current Public-Surface Link
 
-- realigned public content routes now present:
-  - `/`
-  - `/profile`
-  - `/resume`
-  - `/work`
-  - `/writing`
-- `/` now acts as the bounded landing surface for the current IA
-- `/activities` remains the canonical deep archive
-- `/profile` now has a real markdown backing file:
-  - `src/content/profile.md`
-- `/resume`, `/work`, and `/writing` currently use bounded markdown summaries and can be expanded in later streams
-- `/writing` now links into selected `activities/.../docs/...` entry points rather than remaining only a placeholder summary
-- the current publication-facing route contract is summarized in:
-  - `docs/public-surface-baseline.md`
-- the current publication-readiness boundary is summarized in:
-  - `docs/publication-readiness-baseline.md`
+This note is not the primary source of truth for route-by-route public reading
+guidance.
+
+Use these notes instead:
+
+- `docs/public-surface-baseline.md`
+  - for the current route contract and reading order
+- `docs/publication-readiness-baseline.md`
+  - for the current bounded publication-safe boundary
+
+This validation note only records that those publication surfaces are already
+landed in the bounded worktree and can be checked with the validation commands
+below.
 
 ## Practical Default
 

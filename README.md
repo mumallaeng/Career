@@ -40,6 +40,9 @@
 
 See:
 
-- `docs/repo-validation-baseline.md`
 - `docs/public-surface-baseline.md`
+  - route contract and suggested reading paths
 - `docs/publication-readiness-baseline.md`
+  - bounded publication-safe boundary
+- `docs/repo-validation-baseline.md`
+  - validation commands, OneDrive assumptions, and build/sync behavior
