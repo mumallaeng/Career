@@ -14,12 +14,40 @@ categories: ["career"]
 - 대표 작업 기준으로 읽고 싶다면 `Selected anchors`
 - 더 구체적인 경로를 찾고 싶다면 마지막의 `How to read this site`
 
+## Quick chooser
+
+### If you want robotics and integration first
+
+- start with `Shoepernoma`
+- then move to `Work`
+- use `Activities` if you want the deeper supporting trail
+
+### If you want AI application work first
+
+- start with `StoneSpring`
+- then move to `Work`
+- use `Writing` if you want the stronger document-entry path
+
+### If you want open source or learning-through-contribution first
+
+- start with `2022 오픈소스컨트리뷰션아카데미`
+- then move to `Resume`
+- use `Activities` for the detailed record
+
+### If you want support and operations context first
+
+- start with `인공지능 빅데이터센터 근로장학생`
+- then move to `Resume`
+- use `Activities` if you want the surrounding support history
+
 ## Public summary
 
 - ROS2 기반 로보틱스와 자동화 시스템
 - 음성, 인터랙션, 모델 연동이 포함된 AI 응용 프로젝트
 - 문서화와 인수인계가 중요한 구현형 작업
 - 교육, 오픈소스, 운영 지원을 포함한 개발 경험
+
+이 요약은 현재 public surface에서 먼저 어떤 축을 따라 읽을지 고르는 출발점으로 보는 것이 가장 자연스럽습니다.
 
 ## Selected anchors
 
@@ -65,3 +93,5 @@ RustPython 중심의 오픈소스 기여와 협업 경험을 정리한 기록입
 - [Work](/work): 대표 프로젝트와 구현 중심 작업의 첫 curated surface
 - [Writing](/writing): 문서화가 강한 프로젝트와 문서 entry point
 - [Activities](/activities): supporting document와 상세 기록이 남아 있는 canonical archive
+
+짧게 읽고 싶다면 `Profile -> Work` 또는 `Profile -> Resume` 흐름을 먼저 추천합니다.
