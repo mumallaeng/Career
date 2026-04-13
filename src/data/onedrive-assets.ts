@@ -1,15 +1,11 @@
-const remoteBasePath = 'Photos/Highlight/';
-const publicBasePath = '/import-data/highlight/';
-const devStorageRemoteBasePath = 'Photos/dev-storage/';
-const devStoragePublicBasePath = '/import-data/dev-storage/';
+import {
+  buildDevStorageRemotePath,
+  buildHighlightRemotePath,
+  remapLegacyOneDriveRemotePath,
+} from './onedrive-paths';
 
-function encodePath(pathname: string): string {
-  return pathname
-    .replace(/^\//, '')
-    .split('/')
-    .map(segment => encodeURIComponent(segment))
-    .join('/');
-}
+const publicBasePath = '/import-data/highlight/';
+const devStoragePublicBasePath = '/import-data/dev-storage/';
 
 type OneDriveAssetBlueprint = {
   /**
@@ -80,13 +76,6 @@ function getNormalizationVariants(value: string): string[] {
 
 function isResizableImageFilename(filename: string): boolean {
   return /\.(jpe?g|png|webp)$/i.test(filename);
-}
-
-function buildDevStorageRemotePath(size: 'thumb' | 'default', filename: string): string {
-  if (size === 'thumb') {
-    return `${devStorageRemoteBasePath}thumb/${filename}`;
-  }
-  return `${devStorageRemoteBasePath}${filename}`;
 }
 
 function buildDevStoragePublicPath(size: 'thumb' | 'default', filename: string): string {
@@ -3405,7 +3394,9 @@ const onedriveAssetBlueprints = [
 ] as const satisfies readonly OneDriveAssetBlueprint[];
 
 const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinition => {
-  const remotePathOriginal = asset.remotePathOverride ?? `${remoteBasePath}${asset.filename}`;
+  const remotePathOriginal = remapLegacyOneDriveRemotePath(
+    asset.remotePathOverride ?? buildHighlightRemotePath(asset.filename),
+  );
   const publicPathOriginal = `${publicBasePath}${asset.filename}`;
   const isResizableImage = isResizableImageFilename(asset.filename);
 

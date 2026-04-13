@@ -22,7 +22,23 @@
     .activities-container {
         padding: 20px 16px;
     }
-    
+
+    .home-landing {
+        padding: 20px 16px 56px;
+    }
+
+    .home-title {
+        font-size: 38px;
+    }
+
+    .home-description {
+        font-size: 17px;
+    }
+
+    .home-surface-grid {
+        grid-template-columns: 1fr;
+    }
+
     .section-title {
         font-size: 28px;
     }

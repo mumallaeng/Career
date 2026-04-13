@@ -6,10 +6,12 @@ const emailAddress = 'mumallaeng@icloud.com';
 const phoneNumber = '010-4557-0214';
 
 export default function Navigation() {
-  const showNavTabs = false;
   const navItems = [
-    { href: '/profile', label: '포트폴리오' },
-    { href: '/activities', label: '상세' },
+    { href: '/profile', label: 'Profile' },
+    { href: '/resume', label: 'Resume' },
+    { href: '/work', label: 'Work' },
+    { href: '/writing', label: 'Writing' },
+    { href: '/activities', label: 'Activities' },
   ];
 
   const copyToClipboard = async (value: string) => {
@@ -36,19 +38,17 @@ export default function Navigation() {
     <header className="header">
       <nav className="nav-container">
         {/* Navigation Menu */}
-        {showNavTabs && (
-          <div className="nav-menu">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="nav-item"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        )}
+        <div className="nav-menu">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="nav-item"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
 
         {/* Right side - Social Icons */}
         <div className="nav-social">

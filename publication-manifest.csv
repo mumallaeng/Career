@@ -1,0 +1,5 @@
+publication_id,public_path,content_path,source_vault_path,source_hash,content_kind,work_type,status,notes
+career/profile,/profile,src/content/profile.md,career-drafts/career-description/source.md,b98c3cee54dbf2ec896d0a32060191b57058ced998a9804ce277b72c7ee96a46,summary-surface,profile-summary,linked,Bounded public summary surface derived from current private career description draft.
+career/resume,/resume,src/content/resume.md,career-drafts/resume/cv-source.md,d1703460644124050d2bd576fdbbd3221e6dfea0175a05d98a9d00ccf6684d89,summary-surface,resume-summary,linked,Bounded public chronology surface derived from the current resume draft.
+career/work,/work,src/content/work.md,career-drafts/portfolio/portfolio-source.md,f0ee48c8040e9e92aee644ed876b88004965ae860d06cc1e9df116694bacdeeb,summary-surface,portfolio-summary,linked,Bounded public work surface derived from the current portfolio draft.
+career/writing,/writing,src/content/writing.md,career-drafts/resume/master-positioning.md,f7faf831732aa6e15d0d98421f300b9f160c74cfcadfd7b7f36a3cc9e426c9d0,summary-surface,writing-summary,linked,Bounded public writing surface derived from the current positioning draft.

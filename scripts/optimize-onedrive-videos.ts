@@ -4,6 +4,7 @@ import { spawnSync } from 'node:child_process';
 import { access, constants as fsConstants, mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 
 import { onedriveAssets } from '../src/data/onedrive-assets';
+import { buildDevStorageRemotePath } from '../src/data/onedrive-paths';
 
 const projectRoot = process.cwd();
 const devStorageOutputRoot = process.env.DEV_STORAGE_OUTPUT_ROOT
@@ -39,7 +40,6 @@ const failOnOversize = process.env.DEV_STORAGE_FAIL_ON_VIDEO_MAX === '1';
 const isDryRun = process.env.DRY_RUN === '1' || process.env.DEV_STORAGE_DRY_RUN === '1';
 const onlyExts = parseExtList(process.env.DEV_STORAGE_ONLY_EXTS);
 
-const devStorageRemoteBasePath = 'Photos/dev-storage/';
 const uploadManifestPath = path.join(devStorageOutputRoot, '.upload-manifest-videos.json');
 type UploadManifestEntry = { hash: string; size: number; mtimeMs: number };
 type UploadManifest = Record<string, UploadManifestEntry>;
@@ -400,7 +400,7 @@ async function buildTargets(): Promise<Array<{ inputPath: string; outputPath: st
 
     const outputFilename = buildOutputFilename(asset.filename, targetExt);
     const outputPath = path.join(devStorageOutputRoot, outputFilename);
-    const remotePath = `${devStorageRemoteBasePath}${outputFilename}`;
+    const remotePath = buildDevStorageRemotePath('default', outputFilename);
 
     targets.push({ inputPath, outputPath, remotePath });
   }

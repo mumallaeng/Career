@@ -5,6 +5,113 @@
     padding: 40px 20px;
 }
 
+.home-landing {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+}
+
+.home-hero {
+    padding: 24px 0 48px;
+}
+
+.home-kicker {
+    margin: 0 0 12px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+}
+
+.home-title {
+    margin: 0;
+    font-size: 52px;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: var(--color-text);
+    word-break: keep-all;
+}
+
+.home-description {
+    max-width: 760px;
+    margin: 24px 0 0;
+    font-size: 19px;
+    line-height: 1.7;
+    color: var(--color-muted);
+    white-space: pre-line;
+}
+
+.home-section {
+    margin-top: 48px;
+}
+
+.home-section-header {
+    margin-bottom: 20px;
+}
+
+.home-section-title {
+    margin: 0;
+    font-size: 26px;
+    line-height: 1.2;
+    color: var(--color-text);
+}
+
+.home-section-description {
+    margin: 10px 0 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-muted);
+}
+
+.home-surface-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.home-surface-card,
+.home-highlight-item {
+    display: block;
+    padding: 24px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-surface-border-soft);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-card);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.home-surface-card:hover,
+.home-highlight-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--color-surface-border);
+}
+
+.home-surface-title,
+.home-highlight-title {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.3;
+    color: var(--color-text);
+}
+
+.home-surface-description,
+.home-highlight-description {
+    margin: 12px 0 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--color-muted);
+}
+
+.home-highlight-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
 .activities-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
