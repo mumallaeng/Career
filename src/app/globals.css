@@ -7,3 +7,8 @@
 @import '../styles/pages.css';
 @import '../styles/markdown.css';
 @import '../styles/responsive.css';
+@import '../styles/portfolio.css';
+
+html {
+    scroll-behavior: smooth;
+}

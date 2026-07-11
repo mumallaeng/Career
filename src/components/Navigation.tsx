@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { contactEmail, contactPhone, contactGithubUrl } from '@/data/contact';
 
-const emailAddress = 'mumallaeng@icloud.com';
-const phoneNumber = '010-4557-0214';
+const emailAddress = contactEmail;
+const phoneNumber = contactPhone;
 
 export default function Navigation() {
   const navItems = [
@@ -94,7 +95,7 @@ export default function Navigation() {
 
           {/* GitHub Icon */}
           <Link
-            href="https://github.com/mumallaeng"
+            href={contactGithubUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="github-link"

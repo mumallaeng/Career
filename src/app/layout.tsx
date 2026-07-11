@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Navigation from "../components/Navigation";
+import SiteHeader from "../components/SiteHeader";
 import ThemeRuntime from "../components/ThemeRuntime";
 import { Suspense } from "react";
 import "./globals.css";
@@ -35,7 +35,7 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <ThemeRuntime defaultTheme={defaultTheme} />
         </Suspense>
-        <Navigation />
+        <SiteHeader />
         {children}
       </body>
     </html>
