@@ -6,7 +6,7 @@ tags: ["resume", "baseline"]
 categories: ["career"]
 publication_id: "career/resume"
 source_vault_path: "career-drafts/resume/cv-source.md"
-source_hash: "d1703460644124050d2bd576fdbbd3221e6dfea0175a05d98a9d00ccf6684d89"
+source_hash: "4876a4d83bf04ab7b0b9a58f666f9d2638b2adb105dd637ce0beec8979249e40"
 content_kind: "summary-surface"
 work_type: "resume-summary"
 ---

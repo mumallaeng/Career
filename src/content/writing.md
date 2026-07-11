@@ -6,7 +6,7 @@ tags: ["writing", "baseline"]
 categories: ["career"]
 publication_id: "career/writing"
 source_vault_path: "career-drafts/resume/master-positioning.md"
-source_hash: "f7faf831732aa6e15d0d98421f300b9f160c74cfcadfd7b7f36a3cc9e426c9d0"
+source_hash: "ba3af6e35d4edfc8eb2328b34e6ce00f19d87c3bcf2578d9e625d93930e6b5dc"
 content_kind: "summary-surface"
 work_type: "writing-summary"
 ---
