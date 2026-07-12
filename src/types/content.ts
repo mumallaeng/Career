@@ -9,6 +9,9 @@ export interface FrontMatter {
   endDate?: string;
   description: string;
   tags: string[];
+  tech_stack?: string[];
+  skill_tags?: string[];
+  domain_tags?: string[];
   categories: string[];
   featured?: boolean;
   draft?: boolean;
@@ -22,6 +25,8 @@ export interface FrontMatter {
   source_vault_path?: string;
   source_hash?: string;
   work_type?: string;
+  project_kind?: string;
+  activity_kind?: string;
 }
 
 export interface Content {

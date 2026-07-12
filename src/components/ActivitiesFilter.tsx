@@ -9,13 +9,13 @@ interface ActivitiesFilterProps {
 }
 
 export default function ActivitiesFilter({ activities }: ActivitiesFilterProps) {
-  const showContentTypeFilter = false;
+  const showContentTypeFilter = true;
   const [selectedType, setSelectedType] = useState<string>('all');
   const [sortOrder, setSortOrder] = useState<'recommended' | 'newest' | 'oldest' | 'name'>('recommended');
 
   // Get unique content types
   const contentTypes = useMemo(() => {
-    const precedence = ['project', 'competition'];
+    const precedence = ['project', 'social_activity', 'work_support', 'education', 'award_competition'];
     const rest = new Set<string>();
     activities.forEach(activity => {
       const contentType = activity.frontMatter.content_type || 'activity';
@@ -77,11 +77,13 @@ export default function ActivitiesFilter({ activities }: ActivitiesFilterProps) 
   const getTypeDisplayName = (type: string) => {
     const typeNames: Record<string, string> = {
       all: '전체',
-      project: '작업/프로젝트',
-      competition: '활동',
-      server: '서버',
+      project: '프로젝트',
+      social_activity: '사회활동',
+      work_support: '업무지원',
       education: '교육',
-      etc: '그외',
+      award_competition: '수상/대회',
+      competition: '수상/대회',
+      etc: '기타',
     };
     return typeNames[type] || type;
   };

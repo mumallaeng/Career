@@ -5,10 +5,14 @@ endDate: 2025-02-27T00:00:00+09:00
 draft: false
 description: "IoT 스마트 농업 자동화 시스템"
 tags: ["iot", "raspberry-pi", "arduino", "smart-farming"]
+tech_stack: ["Python", "C++", "Raspberry Pi", "Arduino", "ESP32", "PyQt5", "MySQL", "OpenCV"]
+skill_tags: ["hardware-control", "sensor-integration", "gui-integration", "serial-communication"]
+domain_tags: ["iot", "smart-farming", "embedded"]
 categories: ["프로젝트"]
 type: "팀 프로젝트"
 role: "팀원"
 content_type: "project"
+project_kind: "team"
 ---
 
 import { ImgTag } from '@/components/MDXRenderer';
@@ -23,6 +27,12 @@ import { ImgTag } from '@/components/MDXRenderer';
 IoT 센서와 자동화 시스템을 활용한 스마트 농업 자동화 시스템 개발 프로젝트입니다.
 하드웨어 컨트롤러 개발과 백엔드 시스템 구축을 주로 담당하였습니다.
 
+## 내가 한 작업
+
+- Arduino와 Raspberry Pi 쪽 센서·액추에이터 제어 흐름을 맡아 토양 수분 기반 워터 펌프, RFID 출입 제어, 카메라 각도 제어를 구현했습니다.
+- PyQt5 GUI와 하드웨어 제어 코드가 데이터를 주고받을 수 있도록 시리얼 통신과 시스템 컨트롤러 구조를 연결했습니다.
+- MySQL 연동과 백엔드 구조를 맞춰 센서값, 출입 이벤트, 장치 상태를 관리할 수 있게 정리했습니다.
+- 실제 Raspberry Pi 환경에서 카메라 스트리밍, 모터 제어, 포트 설정 문제를 반복 테스트하며 수정했습니다.
 
 ## 프로젝트 개요
 - **기간**: 2025.02.05 ~ 2025.02.27 (4주)

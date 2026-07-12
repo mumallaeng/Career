@@ -187,7 +187,7 @@ export function getFeaturedProjects(): ProjectSummary[] {
       role: frontMatter.role,
       type: frontMatter.type,
       description: frontMatter.description,
-      tags: frontMatter.tags ?? [],
+      tags: frontMatter.tech_stack ?? frontMatter.tags ?? [],
       thumbnailUrl,
       thumbnailHasExplicitSize: thumbnailHasExplicitSize ?? false,
       highlights: PROJECT_HIGHLIGHTS[slug],

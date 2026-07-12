@@ -22,6 +22,14 @@ export default async function ActivityDetailPage({
     notFound();
   }
 
+  const tagSections = [
+    { label: '사용 기술', tags: activity.frontMatter.tech_stack },
+    { label: '스킬', tags: activity.frontMatter.skill_tags },
+    { label: '분야', tags: activity.frontMatter.domain_tags },
+  ].filter((section): section is { label: string; tags: string[] } =>
+    Array.isArray(section.tags) && section.tags.length > 0
+  );
+
   return (
     <div className="min-h-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -61,12 +69,19 @@ export default async function ActivityDetailPage({
               {activity.frontMatter.description}
             </p>
 
-            {activity.frontMatter.tags && (
-              <div className="tag-container">
-                {activity.frontMatter.tags.map((tag) => (
-                  <span key={tag} className="tag-item">
-                    {tag}
-                  </span>
+            {tagSections.length > 0 && (
+              <div className="tag-section-list">
+                {tagSections.map((section) => (
+                  <div key={section.label} className="tag-section">
+                    <span className="tag-section-label">{section.label}</span>
+                    <div className="tag-container">
+                      {section.tags.map((tag) => (
+                        <span key={tag} className="tag-item">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             )}

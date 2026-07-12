@@ -6,10 +6,14 @@ draft: false
 description: "매장 연동형 신발 피킹 로봇 시스템"
 thumbnail: "Shoepernoma_판넬(가로).jpg"
 tags: ["ros2", "robotics", "automation", "picking-system", "database", "tcp-udp"]
+tech_stack: ["ROS2", "Nav2", "Cartographer", "ArUco", "YOLOv8n", "Python", "C++", "PyQt6", "MySQL", "TCP/UDP"]
+skill_tags: ["system-integration", "robot-control", "team-leading", "documentation", "refactoring"]
+domain_tags: ["robotics", "autonomous-navigation", "warehouse-automation"]
 categories: ["프로젝트"]
 type: "팀 프로젝트"
 role: "팀장"
 content_type: "project"
+project_kind: "team"
 ---
 
 import { ImgTag } from '@/components/MDXRenderer';
@@ -24,6 +28,14 @@ import DriveAssetGrid from '@/components/DriveAssetGrid';
 > *(KDT) ROS2와 인공지능을 활용한 자율주행 로봇 개발자 양성과정 8기* 교육과정 내에서 진행된 파이널 과제입니다. 3팀 **Secondary Wave**는 본 프로젝트로 최종 발표회에서 최우수상(1위)을 수상하였습니다.
 
 <DriveAssetGrid actId="Shoepernoma" layout={[33, 66]} end={2} />
+
+## 내가 한 작업
+
+- 팀장으로 MainService 구조를 잡고 ROS2 Action·Topic·Service 기반 작업 처리 흐름을 정리했습니다.
+- 피킹 요청을 로봇 작업으로 변환하는 Task 처리 로직과 rack·cart controller, 로봇 암 제어 흐름을 구현했습니다.
+- Manager GUI와 Main Server 사이의 통신 구조를 정리하고, 로봇 상태·작업 상태·재고 상태가 함께 보이도록 연결했습니다.
+- AI 모듈과 DB 연동 결과를 시스템 흐름에 붙이고, 디렉토리·네이밍·문서 구조를 정리하며 리팩토링했습니다.
+- 주행·인식·GUI를 모두 직접 구현했다는 의미가 아니라, 각 모듈이 하나의 시연 흐름으로 이어지도록 통합하는 쪽을 맡았습니다.
 
 매장 연동형 자율주행 로봇을 활용해 신발 상자를 자동으로 피킹(Picking)하고 전달하는 스마트 물류 솔루션입니다.
 - 오프라인 매장 내 물류 처리 자동화 및 효율화
@@ -410,4 +422,3 @@ PlatformIO 타깃 보드: `esp32dev`(cart), `esp32-s3-devkitc-1`(rack)
 ## Hardware 구성
 
 <DriveAssetGrid actId="Shoepernoma" start={44} end={45} layout={[100]}/>
-
