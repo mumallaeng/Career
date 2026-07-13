@@ -47,7 +47,7 @@ export type OneDriveAssetDefinition = OneDriveAssetBlueprint & {
   publicPathOriginal: string;
 
   /**
-   * Dev-storage asset paths for resized images.
+   * Dev-storage thumbnail paths for resized images.
    */
   remotePathThumb: string;
   publicPathThumb: string;
@@ -56,6 +56,16 @@ export type OneDriveAssetDefinition = OneDriveAssetBlueprint & {
    * Whether this asset should be resized into dev-storage variants.
    */
   isResizableImage: boolean;
+
+  /**
+   * Whether this asset is a motion format with an optimized dev-storage copy.
+   */
+  isOptimizedMotion: boolean;
+
+  /**
+   * Whether the default public asset is served from dev-storage.
+   */
+  hasOptimizedDefault: boolean;
 };
 
 function getNormalizationVariants(value: string): string[] {
@@ -76,6 +86,18 @@ function getNormalizationVariants(value: string): string[] {
 
 function isResizableImageFilename(filename: string): boolean {
   return /\.(jpe?g|png|webp)$/i.test(filename);
+}
+
+function isOptimizedMotionFilename(filename: string): boolean {
+  return /\.(mp4|webm|gif)$/i.test(filename);
+}
+
+function normalizePublicFilename(filename: string): string {
+  try {
+    return filename.normalize('NFC');
+  } catch {
+    return filename;
+  }
 }
 
 function buildDevStoragePublicPath(size: 'thumb' | 'default', filename: string): string {
@@ -3397,13 +3419,16 @@ const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinit
   const remotePathOriginal = remapLegacyOneDriveRemotePath(
     asset.remotePathOverride ?? buildHighlightRemotePath(asset.filename),
   );
-  const publicPathOriginal = `${publicBasePath}${asset.filename}`;
+  const publicFilename = normalizePublicFilename(asset.filename);
+  const publicPathOriginal = `${publicBasePath}${publicFilename}`;
   const isResizableImage = isResizableImageFilename(asset.filename);
+  const isOptimizedMotion = isOptimizedMotionFilename(asset.filename);
+  const hasOptimizedDefault = isResizableImage || isOptimizedMotion;
 
-  const remotePathDefault = isResizableImage ? buildDevStorageRemotePath('default', asset.filename) : remotePathOriginal;
-  const publicPathDefault = isResizableImage ? buildDevStoragePublicPath('default', asset.filename) : publicPathOriginal;
+  const remotePathDefault = hasOptimizedDefault ? buildDevStorageRemotePath('default', asset.filename) : remotePathOriginal;
+  const publicPathDefault = hasOptimizedDefault ? buildDevStoragePublicPath('default', publicFilename) : publicPathOriginal;
   const remotePathThumb = isResizableImage ? buildDevStorageRemotePath('thumb', asset.filename) : remotePathOriginal;
-  const publicPathThumb = isResizableImage ? buildDevStoragePublicPath('thumb', asset.filename) : publicPathOriginal;
+  const publicPathThumb = isResizableImage ? buildDevStoragePublicPath('thumb', publicFilename) : publicPathOriginal;
 
   return {
     ...asset,
@@ -3414,6 +3439,8 @@ const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinit
     remotePathThumb,
     publicPathThumb,
     isResizableImage,
+    isOptimizedMotion,
+    hasOptimizedDefault,
   };
 };
 
