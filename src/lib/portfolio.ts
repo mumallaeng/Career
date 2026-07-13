@@ -106,6 +106,13 @@ export function getExperienceEntries(): ExperienceEntry[] {
     },
     {
       group: 'Activities',
+      title: '경기도 팹리스 아카데미 · 온디바이스AI 시스템반도체 설계 2기',
+      dateRange: '2026.03 - 2026.10',
+      description: 'RTL 설계와 검증, RV32I·AXI 기반 SoC, ARM Cortex-M4 디바이스 프로그래밍을 다루는 교육과정을 수강하고 있습니다.',
+      href: '/activities/korcham-ondevice-ai-semiconductor',
+    },
+    {
+      group: 'Activities',
       title: '애드인에듀 IT 아카데미',
       dateRange: '2024.11 - 2025.05',
       description: 'ROS2와 AI를 활용한 자율주행 로봇 개발자 양성과정을 수료하고 최종 프로젝트 최우수상과 공로상을 수상했습니다.',

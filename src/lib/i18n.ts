@@ -140,6 +140,10 @@ const experienceEnglish: Record<string, Pick<ExperienceEntry, 'title' | 'descrip
     title: 'AddinEdu IT Academy',
     description: 'Completed an ROS2 and AI autonomous robot development program, receiving the top final-project award and a contribution award.',
   },
+  '/activities/korcham-ondevice-ai-semiconductor': {
+    title: 'Gyeonggi Fabless Academy · On-Device AI System Semiconductor Design, Cohort 2',
+    description: 'Currently completing a program covering RTL design and verification, RV32I and AXI-based SoC integration, and ARM Cortex-M4 device programming.',
+  },
   '/activities/itc-work-scholarship': {
     title: 'AI & Big Data Center Work-Study Scholarship',
     description: 'Supported server and infrastructure operations, planned and presented a technical seminar, and documented the handoff.',

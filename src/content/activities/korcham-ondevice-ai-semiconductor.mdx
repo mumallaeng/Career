@@ -1,0 +1,61 @@
+---
+title: "경기도 팹리스 아카데미 · 온디바이스AI 시스템반도체 설계 2기"
+startDate: 2026-03-24T00:00:00+09:00
+endDate: 2026-10-23T00:00:00+09:00
+draft: false
+description: "RTL 설계와 검증, RV32I·AXI 기반 SoC, ARM Cortex-M4 디바이스 프로그래밍을 다루는 980시간 교육과정 수강 중"
+tags: ["education", "semiconductor", "fpga", "embedded"]
+tech_stack: ["Verilog", "SystemVerilog", "UVM", "RV32I", "AXI4-Lite", "Vivado", "VCS", "Verdi", "MicroBlaze", "C", "Python", "ARM Cortex-M4", "STM32"]
+skill_tags: ["rtl-design", "verification", "protocol-design", "soc-integration", "embedded-firmware", "technical-documentation"]
+domain_tags: ["semiconductor", "fpga", "embedded-systems", "on-device-ai"]
+categories: ["활동"]
+featured: true
+content_type: "social_activity"
+activity_kind: "training"
+---
+
+{/* more */}
+
+## 과정 정보
+
+- 과정명: [하만(위프로), 에이직랜드 온디바이스AI 시스템반도체 설계 2기](https://gfa.korchamhrd.net/education/professionalSkillEduDetail.do?rootMenuId=5475&menuId=5527&gaebalwon_cd=09000&gwajeong_no=M2026005)
+- 교육 기간: 2026년 3월 24일 ~ 2026년 10월 23일
+- 총 교육 시간: 980시간
+- 훈련 유형: 국가인적자원개발컨소시엄
+- 교육 기관: 대한상공회의소 서울기술교육센터
+- 교육 장소: 경기도 팹리스 아카데미 판교캠퍼스
+- 진행 상태: 수강 중 (2026년 7월 13일 기준)
+
+## 2026년 7월 13일까지의 진행 내용
+
+| 기간 | 학습·실습 범위 | 진행 내용 |
+|:--|:--|:--|
+| 26.03.24 ~ 26.04.03 | 임베디드 C 및 Mini Project | C 기초와 Arduino/Tinkercad 센서·모터 제어를 학습하고, Dual Arduino Uno 기반 주행·표시 시스템을 구현했습니다. |
+| 26.04.06 ~ 26.04.20 | Verilog HDL 디지털 회로 설계 | Vivado 설계 흐름, 조합·순차회로, testbench, FSM, button debounce, stopwatch datapath를 실습하고 설계 결과를 발표했습니다. |
+| 26.04.21 ~ 26.04.30 | UART·FIFO·센서 인터페이스 | UART TX/RX와 loopback, FIFO 제어, SR04·DHT11 센서 FSM을 설계하고 시뮬레이션했습니다. |
+| 26.05.07 ~ 26.05.13 | SystemVerilog 검증 | `class`, `interface`, `mailbox`, `event`, `fork-join`을 사용한 class 기반 testbench와 FIFO scoreboard 구조를 실습했습니다. |
+| 26.05.14 ~ 26.05.29 | CPU·RV32I·APB | Dedicated CPU, RV32I single-cycle·multi-cycle 구조, C code의 machine code 변환, memory map과 APB master/slave 흐름을 정리했습니다. |
+| 26.06.01 ~ 26.06.10 | SystemVerilog OOP·UVM | generator·driver·monitor·scoreboard 구조에서 UVM component, sequence, TLM, `config_db`, functional coverage까지 확장하고 Adder·RAM DUT를 검증했습니다. |
+| 26.06.11 ~ 26.06.18 | SPI·I2C 설계 및 검증 | SPI mode와 CPOL/CPHA, I2C command·open-drain 구조를 RTL과 testbench로 확인하고, Basys3·브레드보드·로직 애널라이저를 이용한 보드 검증 흐름을 실습했습니다. |
+| 26.06.18 ~ 26.06.19 | AXI·AXI4-Lite | AXI channel과 `VALID/READY` handshake를 학습하고 AXI4-Lite master/slave, register bank, testbench 및 Vivado IP packaging 흐름을 실습했습니다. |
+| 26.06.22 ~ 26.06.26 | MicroBlaze SoC와 Custom Peripheral | AXI4-Lite GPIO·Timer·UART IP, MicroBlaze block design, address map, XSA·Vitis firmware, polling·interrupt 연동 구조를 다뤘습니다. |
+| 26.06.30 | AXI Peripheral 발표·SoC 직무 멘토링 | Custom peripheral 계층과 register map을 중심으로 발표 내용을 보완하고, SoC 설계·검증 직무 준비 방향을 점검했습니다. |
+| 26.07.01 ~ 26.07.03 | GNU C 프로그래밍 | GNU C 개발 환경에서 입출력, 함수, 조건·반복문, 배열·구조체, pointer, 진법 변환과 endian을 실습했습니다. |
+| 26.07.06 ~ 26.07.10 | Python 프로그래밍 | 기본 문법과 object binding, container, built-in·사용자 정의 함수, comprehension, 예외 처리, module·package와 class를 실습했습니다. |
+| 26.07.13 | ARM Cortex-M4 디바이스 프로그래밍 | ARM GCC cross compilation, 전자회로·임베디드 시스템 기초, STM32F411xE와 Nucleo-64 memory map, GPIO register 기반 User LED 제어 흐름을 학습했습니다. |
+
+## 주요 실습 및 산출물
+
+- [KorchamLogis](https://github.com/mumallaeng/KorchamLogis): Controller UNO와 Displayer UNO를 분리한 주행·상태 표시 Mini Project
+- Verilog FSM, counter, FND, stopwatch 설계 보고서와 발표 자료
+- UART loopback 및 UART·FIFO·SR04·DHT11 통합 설계
+- SystemVerilog 기반 UART FIFO 검증 환경과 Dedicated CPU·RV32I CPU 설계 자료
+- UVM Adder·RAM 검증 환경과 SPI·I2C controller/target 검증 구조
+- AXI4-Lite master/slave 및 GPIO·Timer·UART Custom IP, MicroBlaze SoC 연동 실습
+- 날짜별 수업 내용을 회로 구조, protocol timing, register map, firmware 계층 중심으로 정리한 기술 문서
+
+## 현재 진행 단계
+
+2026년 7월 13일 기준으로 C와 Python 프로그래밍 단계를 마치고 ARM Cortex-M4 디바이스 프로그래밍을 진행하고 있습니다. ARM 대상 compiler toolchain과 cross compilation 흐름을 확인하고, STM32F411xE MCU와 Nucleo-64 보드의 memory map을 기준으로 GPIO peripheral register를 제어하는 단계까지 학습했습니다.
+
+현재 실습 범위는 `GPIOx_MODER`, `GPIOx_OTYPER`, `GPIOx_ODR` register 설정과 PA5 User LED 제어 흐름입니다.
