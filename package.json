@@ -16,7 +16,6 @@
     "validate:local": "npm run validate:publication && npm run lint && npm run build:local",
     "sync:onedrive": "tsx scripts/sync-onedrive.ts",
     "derive:onedrive": "ONEDRIVE_COMPARE_REMOTE=1 tsx scripts/build-onedrive-derivatives.ts && npm run optimize:videos",
-    "upload:dev-storage": "tsx scripts/upload-dev-storage-to-blob.ts",
     "optimize:videos": "tsx scripts/optimize-onedrive-videos.ts"
   },
   "dependencies": {
@@ -40,7 +39,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@vercel/blob": "^1.1.1",
     "eslint": "^9",
     "eslint-config-next": "^15.5.7",
     "tsx": "^4.19.2",
