@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { access, constants as fsConstants, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { access, constants as fsConstants, mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
 
 import { onedriveAssets } from '../src/data/onedrive-assets';
 import { authoritativeDevStorageRemoteBasePath } from '../src/data/onedrive-paths';
@@ -31,6 +31,9 @@ const devStorageOutputRoot = process.env.DEV_STORAGE_OUTPUT_ROOT
     : path.join(projectRoot, '.dev-storage-media');
 
 const localRoot = process.env.ONEDRIVE_LOCAL_ROOT;
+const sourceCacheRoot = process.env.DEV_STORAGE_SOURCE_CACHE_ROOT
+  ? path.resolve(process.env.DEV_STORAGE_SOURCE_CACHE_ROOT)
+  : path.join(projectRoot, '.dev-storage-source-cache');
 const defaultRemoteBase = 'oow214-onedrive:';
 const remoteBase = normalizeRemoteBase(process.env.ONEDRIVE_REMOTE_BASE ?? defaultRemoteBase);
 const shouldUpload = process.env.SKIP_ONEDRIVE_UPLOAD === '1' ? false : true;
@@ -66,6 +69,17 @@ async function pathExists(target?: string | null): Promise<boolean> {
   try {
     await access(target, fsConstants.F_OK);
     return true;
+  } catch {
+    return false;
+  }
+}
+
+async function isMaterializedFile(target: string): Promise<boolean> {
+  try {
+    const fileStats = await stat(target);
+    if (!fileStats.isFile()) return false;
+    if (process.platform !== 'darwin' || fileStats.size === 0) return true;
+    return typeof fileStats.blocks !== 'number' || fileStats.blocks > 0;
   } catch {
     return false;
   }
@@ -107,23 +121,152 @@ async function ensureRcloneConfig(): Promise<void> {
   console.info(`Wrote RCLONE_CONFIG to ${configPath}`);
 }
 
-async function resolveLocalSource(remotePath: string): Promise<string> {
-  if (!localRoot) {
-    throw new Error('ONEDRIVE_LOCAL_ROOT is not configured.');
-  }
+function buildRemoteLookupKey(value: string): string {
+  return value.normalize('NFC').toLowerCase();
+}
 
+async function resolveSourceUnderRoot(root: string, remotePath: string): Promise<string | null> {
   const directCandidates = new Set<string>();
   getNormalizationVariants(remotePath).forEach(relative => {
-    directCandidates.add(path.join(localRoot, ...relative.split('/')));
+    directCandidates.add(path.join(root, ...relative.split('/')));
   });
 
   for (const candidate of directCandidates) {
-    if (await pathExists(candidate)) {
+    if (await isMaterializedFile(candidate)) {
       return candidate;
     }
   }
 
+  const remoteDirectory = path.posix.dirname(remotePath);
+  const expectedFilename = path.posix.basename(remotePath);
+  const localDirectory = path.join(root, ...remoteDirectory.split('/'));
+  if (await pathExists(localDirectory)) {
+    const matchingEntries = (await readdir(localDirectory)).filter(
+      entry => buildRemoteLookupKey(entry) === buildRemoteLookupKey(expectedFilename),
+    );
+    if (matchingEntries.length > 1) {
+      throw new Error(
+        `Local source normalization collision for ${remotePath}:\n` +
+          matchingEntries.map(entry => `- ${entry}`).join('\n'),
+      );
+    }
+    if (matchingEntries.length === 1) {
+      const candidate = path.join(localDirectory, matchingEntries[0]);
+      if (await isMaterializedFile(candidate)) return candidate;
+    }
+  }
+
+  return null;
+}
+
+async function resolveLocalSource(remotePath: string): Promise<string> {
+  if (localRoot) {
+    const localSource = await resolveSourceUnderRoot(localRoot, remotePath);
+    if (localSource) return localSource;
+  }
+
+  const cachedSource = await resolveSourceUnderRoot(sourceCacheRoot, remotePath);
+  if (cachedSource) return cachedSource;
+
   throw new Error(`Local source not found for ${remotePath}`);
+}
+
+async function prefetchRemoteSources(assets: readonly typeof onedriveAssets[number][]): Promise<void> {
+  const needsRemote: typeof onedriveAssets[number][] = [];
+  for (const asset of assets) {
+    const localSource = localRoot
+      ? await resolveSourceUnderRoot(localRoot, asset.remotePathOriginal)
+      : null;
+    if (!localSource) needsRemote.push(asset);
+  }
+
+  if (needsRemote.length === 0) return;
+  if (!commandExists('rclone')) {
+    throw new Error(`rclone is required to cache ${needsRemote.length} online-only image sources.`);
+  }
+
+  await ensureRcloneConfig();
+  const assetsByDirectory = new Map<string, typeof onedriveAssets[number][]>();
+  for (const asset of needsRemote) {
+    const directory = path.posix.dirname(asset.remotePathOriginal);
+    const directoryAssets = assetsByDirectory.get(directory) ?? [];
+    directoryAssets.push(asset);
+    assetsByDirectory.set(directory, directoryAssets);
+  }
+
+  let batchIndex = 0;
+  for (const [directory, directoryAssets] of assetsByDirectory) {
+    batchIndex += 1;
+    const remoteSpec = `${remoteBase}${directory}`;
+    const listing = runCommandCapture('rclone', [
+      'lsjson',
+      remoteSpec,
+      '--files-only',
+      '--max-depth',
+      '1',
+    ]);
+    const remoteEntries = JSON.parse(listing) as Array<{ Path?: string; Name?: string; IsDir?: boolean }>;
+    const entriesByKey = new Map<string, string[]>();
+    for (const entry of remoteEntries) {
+      if (entry.IsDir) continue;
+      const filename = entry.Path ?? entry.Name;
+      if (!filename) continue;
+      const key = buildRemoteLookupKey(filename);
+      entriesByKey.set(key, [...(entriesByKey.get(key) ?? []), filename]);
+    }
+
+    const actualFilenames = directoryAssets.map(asset => {
+      const expectedFilename = path.posix.basename(asset.remotePathOriginal);
+      const matches = entriesByKey.get(buildRemoteLookupKey(expectedFilename)) ?? [];
+      if (matches.length !== 1) {
+        throw new Error(
+          `Expected one remote source for ${asset.remotePathOriginal}, found ${matches.length}:\n` +
+            matches.map(match => `- ${match}`).join('\n'),
+        );
+      }
+      return matches[0];
+    });
+
+    const destinationDirectory = path.join(sourceCacheRoot, ...directory.split('/'));
+    await mkdir(destinationDirectory, { recursive: true });
+    const filesFromPath = path.join(sourceCacheRoot, `.rclone-source-${process.pid}-${batchIndex}.txt`);
+    await writeFile(filesFromPath, `${actualFilenames.sort().join('\n')}\n`);
+    const args = [
+      'copy',
+      remoteSpec,
+      destinationDirectory,
+      '--files-from-raw',
+      filesFromPath,
+      '--max-depth',
+      '1',
+    ];
+    if (rcloneTransfers) args.push('--transfers', rcloneTransfers);
+    if (rcloneCheckers) args.push('--checkers', rcloneCheckers);
+    if (rcloneExtraArgs.length > 0) args.push(...rcloneExtraArgs);
+    console.info(
+      `Caching ${actualFilenames.length} online-only image sources from ${remoteSpec}`,
+    );
+    try {
+      runCommand('rclone', args);
+    } finally {
+      await rm(filesFromPath, { force: true });
+    }
+  }
+
+  const unresolved: string[] = [];
+  for (const asset of needsRemote) {
+    try {
+      await resolveLocalSource(asset.remotePathOriginal);
+    } catch {
+      unresolved.push(asset.remotePathOriginal);
+    }
+  }
+  if (unresolved.length > 0) {
+    throw new Error(
+      `Unable to materialize ${unresolved.length} image sources:\n` +
+        unresolved.map(source => `- ${source}`).join('\n'),
+    );
+  }
 }
 
 function runCommand(command: string, args: string[]) {
@@ -211,9 +354,12 @@ function matchesOnlyAssets(asset: typeof onedriveAssets[number], keys: string[])
 
 async function buildTargets(): Promise<ResizeTarget[]> {
   const targets: ResizeTarget[] = [];
-  for (const asset of onedriveAssets) {
-    if (!matchesOnlyAssets(asset, onlyAssetKeys)) continue;
-    if (!asset.isResizableImage) continue;
+  const imageAssets = onedriveAssets.filter(
+    asset => matchesOnlyAssets(asset, onlyAssetKeys) && asset.isResizableImage,
+  );
+  await prefetchRemoteSources(imageAssets);
+
+  for (const asset of imageAssets) {
     let inputPath: string;
     try {
       inputPath = await resolveLocalSource(asset.remotePathOriginal);

@@ -35,6 +35,7 @@ public/import-data/*
 .rclone-bin/
 .rclone-config/
 .dev-storage-media/
+.dev-storage-source-cache/
 
 # debug
 npm-debug.log*
