@@ -29,6 +29,12 @@ const requireStaging = process.env.MEDIA_AUDIT_REQUIRE_STAGING === '1';
 const maxImageBytes = Number(process.env.ONEDRIVE_MAX_IMAGE_ASSET_MB ?? '25') * 1024 * 1024;
 const maxMp4Bytes = Number(process.env.ONEDRIVE_MAX_OPTIMIZED_MOTION_MB ?? '94') * 1024 * 1024;
 const maxGifBytes = Number(process.env.DEV_STORAGE_GIF_MAX_MB ?? '10') * 1024 * 1024;
+const cachedRcloneBinary = path.join(
+  projectRoot,
+  '.rclone-bin',
+  process.platform === 'win32' ? 'rclone.exe' : 'rclone',
+);
+const cachedRcloneConfig = path.join(projectRoot, '.rclone-config', 'rclone.conf');
 
 function normalizeRemoteBase(value: string): string {
   return value.endsWith(':') ? value : `${value}:`;
@@ -42,10 +48,11 @@ function ensure(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-function runCapture(command: string, args: string[]): string {
+function runCapture(command: string, args: string[], env: NodeJS.ProcessEnv = process.env): string {
   const result = spawnSync(command, args, {
     encoding: 'utf8',
     maxBuffer: 32 * 1024 * 1024,
+    env,
   });
   if (result.status !== 0) {
     throw new Error(
@@ -53,6 +60,29 @@ function runCapture(command: string, args: string[]): string {
     );
   }
   return result.stdout ?? '';
+}
+
+function commandExists(command: string): boolean {
+  const result = spawnSync(command, ['version'], { stdio: 'ignore' });
+  return result.status === 0;
+}
+
+function resolveRcloneBinary(): string {
+  if (process.env.RCLONE_BINARY && commandExists(process.env.RCLONE_BINARY)) {
+    return process.env.RCLONE_BINARY;
+  }
+  if (commandExists('rclone')) {
+    return 'rclone';
+  }
+  ensure(fs.existsSync(cachedRcloneBinary), `rclone is unavailable: ${cachedRcloneBinary}`);
+  return cachedRcloneBinary;
+}
+
+function resolveRcloneEnvironment(): NodeJS.ProcessEnv {
+  if (process.env.RCLONE_CONFIG || !fs.existsSync(cachedRcloneConfig)) {
+    return process.env;
+  }
+  return { ...process.env, RCLONE_CONFIG: cachedRcloneConfig };
 }
 
 function getDeliveryLimit(asset: OneDriveAssetDefinition): number {
@@ -114,13 +144,13 @@ function auditActiveVideoTags(): number {
 
 function auditRemote(): { bytes: number; counts: Record<string, number> } {
   const remoteRoot = authoritativeDevStorageRemoteBasePath.replace(/\/$/, '');
-  const output = runCapture('rclone', [
+  const output = runCapture(resolveRcloneBinary(), [
     'lsjson',
     `${remoteBase}${remoteRoot}`,
     '--files-only',
     '--max-depth',
     '1',
-  ]);
+  ], resolveRcloneEnvironment());
   const entries = JSON.parse(output) as RemoteEntry[];
   const entriesByKey = new Map<string, RemoteEntry[]>();
 
