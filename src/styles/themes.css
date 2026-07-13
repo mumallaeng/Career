@@ -1,7 +1,7 @@
 /* Theme tokens */
 :root,
 [data-theme="hero-grid"] {
-    --font-sans: var(--font-geist-sans), "Geist", "Helvetica Neue", Arial, sans-serif;
+    --font-sans: var(--font-gothic-sans), "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", Arial, sans-serif;
     --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 
     --color-bg: #ffffff;
