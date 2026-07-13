@@ -1,5 +1,6 @@
 'use client';
 
+import { useLayoutEffect, useRef } from 'react';
 import MDXRenderer from '@/components/MDXRenderer';
 
 export interface PortfolioDetail {
@@ -29,6 +30,16 @@ export default function PortfolioDetailOverlay({
   closeLabel,
   onClose,
 }: PortfolioDetailOverlayProps) {
+  const bodyRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (!detail?.href || !bodyRef.current) {
+      return;
+    }
+    bodyRef.current.scrollTop = 0;
+    bodyRef.current.scrollLeft = 0;
+  }, [detail?.href]);
+
   if (!detail) {
     return null;
   }
@@ -60,7 +71,7 @@ export default function PortfolioDetailOverlay({
           </button>
         </div>
 
-        <div className="portfolio-detail-body">
+        <div ref={bodyRef} className="portfolio-detail-body">
           {detail.thumbnailUrl && (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={detail.thumbnailUrl} alt="" className="portfolio-detail-thumbnail" />
