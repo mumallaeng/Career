@@ -253,6 +253,7 @@ const VideoTag = ({
       controlsList="nodownload"
       disablePictureInPicture
       autoPlay={autoPlay}
+      preload={autoPlay ? 'auto' : 'none'}
       loop={loop}
       muted={muted}
       playsInline={playsInline}

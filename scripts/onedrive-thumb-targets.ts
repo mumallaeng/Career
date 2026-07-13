@@ -28,8 +28,9 @@ function parseFrontMatter(fileContent: string): FrontMatter {
 
 function addThumbnailFromActId(actId: string, target: Set<string>) {
   const assets = getOneDriveAssetsByActId(actId);
-  if (assets.length > 0) {
-    target.add(assets[0].filename);
+  const firstImage = assets.find(asset => asset.isResizableImage);
+  if (firstImage) {
+    target.add(firstImage.filename);
   }
 }
 
