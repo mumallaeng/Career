@@ -16,7 +16,6 @@ import {
 } from 'node:fs/promises';
 
 import { onedriveAssets, type OneDriveAssetDefinition } from '../src/data/onedrive-assets';
-import { buildThumbAssetSet } from './onedrive-thumb-targets';
 
 type NormalizedAsset = OneDriveAssetDefinition & {
   remotePath: string;
@@ -93,8 +92,6 @@ const assets: NormalizedAsset[] = onedriveAssets
   publicPathThumb: ensureLeadingSlash(asset.publicPathThumb),
 }));
 
-const thumbAssets = buildThumbAssetSet(projectRoot);
-
 const syncTargets: SyncTarget[] = assets.flatMap(asset => {
   if (asset.hasOptimizedDefault) {
     const targets: SyncTarget[] = [
@@ -106,14 +103,6 @@ const syncTargets: SyncTarget[] = assets.flatMap(asset => {
         label: 'default',
       },
     ];
-    if (asset.isResizableImage && thumbAssets.has(asset.filename)) {
-      targets.push({
-        asset,
-        remotePath: asset.remotePathThumb,
-        publicPath: asset.publicPathThumb,
-        label: 'thumb',
-      });
-    }
     return targets;
   }
   return [

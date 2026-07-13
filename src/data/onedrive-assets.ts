@@ -3436,10 +3436,8 @@ const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinit
   const publicPathDefault = hasOptimizedDefault
     ? buildDevStoragePublicPath('default', normalizePublicFilename(optimizedFilename))
     : publicPathOriginal;
-  const remotePathThumb = isResizableImage ? buildDevStorageRemotePath('thumb', optimizedFilename) : remotePathOriginal;
-  const publicPathThumb = isResizableImage
-    ? buildDevStoragePublicPath('thumb', normalizePublicFilename(optimizedFilename))
-    : publicPathOriginal;
+  const remotePathThumb = isResizableImage ? remotePathDefault : remotePathOriginal;
+  const publicPathThumb = isResizableImage ? publicPathDefault : publicPathOriginal;
 
   return {
     ...asset,

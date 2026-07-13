@@ -5,10 +5,8 @@ import { access, constants as fsConstants, mkdir, readFile, readdir, rm, stat, w
 
 import { onedriveAssets } from '../src/data/onedrive-assets';
 import { authoritativeDevStorageRemoteBasePath } from '../src/data/onedrive-paths';
-import { buildThumbAssetSet } from './onedrive-thumb-targets';
 
 const sizes = [
-  { label: 'thumb', maxSize: 640, quality: 88 },
   { label: 'default', maxSize: 1920, quality: 92 },
 ] as const;
 
@@ -38,7 +36,6 @@ const defaultRemoteBase = 'oow214-onedrive:';
 const remoteBase = normalizeRemoteBase(process.env.ONEDRIVE_REMOTE_BASE ?? defaultRemoteBase);
 const shouldUpload = process.env.SKIP_ONEDRIVE_UPLOAD === '1' ? false : true;
 const rcloneConfigDir = path.join(projectRoot, '.rclone-config');
-const thumbAssets = buildThumbAssetSet(projectRoot);
 const onlyAssetQuery = process.env.ONEDRIVE_ONLY_ASSETS;
 const onlyAssetKeys = onlyAssetQuery
   ? onlyAssetQuery.split(',').map(value => value.trim()).filter(Boolean)
@@ -368,16 +365,9 @@ async function buildTargets(): Promise<ResizeTarget[]> {
       continue;
     }
     for (const { label, maxSize, quality } of sizes) {
-      if (label === 'thumb' && !thumbAssets.has(asset.filename)) {
-        continue;
-      }
-      const outputFilename = path.posix.basename(
-        label === 'thumb' ? asset.remotePathThumb : asset.remotePath,
-      );
-      const outputPath = label === 'thumb'
-        ? path.join(devStorageOutputRoot, 'thumb', outputFilename)
-        : path.join(devStorageOutputRoot, outputFilename);
-      const remotePath = label === 'thumb' ? asset.remotePathThumb : asset.remotePath;
+      const outputFilename = path.posix.basename(asset.remotePath);
+      const outputPath = path.join(devStorageOutputRoot, outputFilename);
+      const remotePath = asset.remotePath;
       targets.push({ label, maxSize, quality, inputPath, outputPath, remotePath });
     }
   }
@@ -600,7 +590,7 @@ async function main() {
     await ensureRcloneConfig();
   }
   const targets = await buildTargets();
-  console.info('Image quality settings: default=1920px WebP q=92, thumb=640px WebP q=88');
+  console.info('Image quality settings: preview/default=1920px WebP q=92 (shared file)');
   await resizeImages(targets);
   await uploadDevStorage(targets);
 }
