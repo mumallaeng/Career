@@ -118,8 +118,10 @@ function resolveThumbnailFromFrontMatter(frontMatter: FrontMatter): ThumbnailDat
 }
 
 function extractFirstImage(content: string): ThumbnailData | undefined {
+  const searchableContent = content.replace(/\{\/\*[\s\S]*?\*\/\}/g, '');
+
   // Try to find ImgTag component with driveUrl
-  const customImgMatch = content.match(/(<ImgTag[^>]*driveUrl=["']([^"']+)["'][^>]*\/?>(?:<\/ImgTag>)?)/i);
+  const customImgMatch = searchableContent.match(/(<ImgTag[^>]*driveUrl=["']([^"']+)["'][^>]*\/?>(?:<\/ImgTag>)?)/i);
   if (customImgMatch) {
     const [, fullMatch, driveUrl] = customImgMatch;
     const transformed = transformDriveUrl(driveUrl);
@@ -132,20 +134,21 @@ function extractFirstImage(content: string): ThumbnailData | undefined {
   }
 
   // Try to find DriveAssetGrid usage
-  const gridMatch = content.match(/<DriveAssetGrid[^>]*actId=["']([^"']+)["'][^>]*\/?>/i);
+  const gridMatch = searchableContent.match(/<DriveAssetGrid[^>]*actId=["']([^"']+)["'][^>]*\/?>/i);
   if (gridMatch) {
     const actId = gridMatch[1].trim();
     const assets = getOneDriveAssetsByActId(actId);
-    if (assets.length > 0) {
+    const firstImage = assets.find(asset => asset.isResizableImage);
+    if (firstImage) {
       return {
-        url: getOneDriveAssetUrl(assets[0], 'thumb'),
+        url: getOneDriveAssetUrl(firstImage, 'thumb'),
         hasExplicitDimensions: false,
       };
     }
   }
 
   // Try to find HTML img tag first
-  const htmlImgMatch = content.match(/(<img[^>]+>)/i);
+  const htmlImgMatch = searchableContent.match(/(<img[^>]+>)/i);
   if (htmlImgMatch) {
     const tag = htmlImgMatch[1];
     const srcMatch = tag.match(/src=["']([^"']+)["']/i);
@@ -158,7 +161,7 @@ function extractFirstImage(content: string): ThumbnailData | undefined {
   }
 
   // Try to find Markdown image syntax ![alt](url)
-  const mdImgMatch = content.match(/!\[.*?\]\(([^)]+)\)/);
+  const mdImgMatch = searchableContent.match(/!\[.*?\]\(([^)]+)\)/);
   if (mdImgMatch) {
     return {
       url: mdImgMatch[1],

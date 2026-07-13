@@ -16,7 +16,6 @@ import {
 } from 'node:fs/promises';
 
 import { onedriveAssets, type OneDriveAssetDefinition } from '../src/data/onedrive-assets';
-import { buildThumbAssetSet } from './onedrive-thumb-targets';
 
 type NormalizedAsset = OneDriveAssetDefinition & {
   remotePath: string;
@@ -31,10 +30,23 @@ type SyncTarget = {
   label: 'default' | 'thumb' | 'original';
 };
 
+type RemoteFileEntry = {
+  actualPath: string;
+  size: number;
+};
+
+type RemoteFileIndex = Map<string, RemoteFileEntry[]>;
+
+type DownloadSelection = {
+  target: SyncTarget;
+  remoteFile: RemoteFileEntry;
+};
+
 type DownloadBatch = {
   remoteDirectory: string;
   destinationDirectory: string;
   filenames: Set<string>;
+  selections: DownloadSelection[];
 };
 
 const projectRoot = process.cwd();
@@ -49,6 +61,9 @@ const shouldSkipSync =
 const shouldNormalizeNfc = process.env.ENABLE_ONEDRIVE_NFC === '1';
 const rcloneCacheDir = path.join(projectRoot, '.rclone-bin');
 const rcloneConfigDir = path.join(projectRoot, '.rclone-config');
+const maxOptimizedMotionMb = Number(process.env.ONEDRIVE_MAX_OPTIMIZED_MOTION_MB ?? '94');
+const maxOriginalMotionFallbackMb = Number(process.env.ONEDRIVE_MAX_ORIGINAL_MOTION_FALLBACK_MB ?? '25');
+const maxImageAssetMb = Number(process.env.ONEDRIVE_MAX_IMAGE_ASSET_MB ?? '25');
 
 const onlyAssetQuery = process.env.ONEDRIVE_ONLY_ASSETS;
 const onlyAssetKeys = onlyAssetQuery
@@ -59,9 +74,9 @@ function matchesOnlyAssets(asset: OneDriveAssetDefinition, keys: string[]): bool
   if (keys.length === 0) return true;
   const ids = Array.isArray(asset.act_id) ? asset.act_id : [asset.act_id];
   return keys.some(key => {
-    const normalizedKey = key.toLowerCase();
-    if (asset.filename.toLowerCase() === normalizedKey) return true;
-    return ids.some(id => id.toLowerCase() === normalizedKey);
+    const normalizedKey = buildRemoteLookupKey(key);
+    if (buildRemoteLookupKey(asset.filename) === normalizedKey) return true;
+    return ids.some(id => buildRemoteLookupKey(id) === normalizedKey);
   });
 }
 
@@ -77,28 +92,17 @@ const assets: NormalizedAsset[] = onedriveAssets
   publicPathThumb: ensureLeadingSlash(asset.publicPathThumb),
 }));
 
-const thumbAssets = buildThumbAssetSet(projectRoot);
-
 const syncTargets: SyncTarget[] = assets.flatMap(asset => {
-  if (asset.isResizableImage) {
+  if (asset.hasOptimizedDefault) {
     const targets: SyncTarget[] = [
       {
         asset,
         remotePath: asset.remotePath,
         publicPath: asset.publicPath,
-        fallbackRemotePath: asset.remotePathOriginal,
+        fallbackRemotePath: asset.isResizableImage ? undefined : asset.remotePathOriginal,
         label: 'default',
       },
     ];
-    if (thumbAssets.has(asset.filename)) {
-      targets.push({
-        asset,
-        remotePath: asset.remotePathThumb,
-        publicPath: asset.publicPathThumb,
-        fallbackRemotePath: asset.remotePathOriginal,
-        label: 'thumb',
-      });
-    }
     return targets;
   }
   return [
@@ -233,6 +237,8 @@ async function ensureLocalRootSymlinks(): Promise<boolean> {
     return false;
   }
 
+  const missingTargets: string[] = [];
+
   for (const target of syncTargets) {
     let sourcePath: string;
     try {
@@ -242,13 +248,13 @@ async function ensureLocalRootSymlinks(): Promise<boolean> {
         target.fallbackRemotePath,
       );
     } catch (error) {
-      console.warn(`Skipping missing local asset: ${target.remotePath} (${(error as Error).message})`);
+      missingTargets.push(`${target.remotePath} (${(error as Error).message})`);
       continue;
     }
     const destinationPath = path.join(publicRoot, target.publicPath.replace(/^\//, ''));
 
     if (!(await fileExists(sourcePath))) {
-      console.warn(`Skipping local asset (source missing): ${sourcePath}`);
+      missingTargets.push(`${target.remotePath} (source missing: ${sourcePath})`);
       continue;
     }
 
@@ -256,6 +262,13 @@ async function ensureLocalRootSymlinks(): Promise<boolean> {
     await rm(destinationPath, { force: true });
     await symlink(sourcePath, destinationPath, 'file');
     console.info(`Linked ${target.asset.filename} -> ${destinationPath}`);
+  }
+
+  if (missingTargets.length > 0) {
+    throw new Error(
+      `Local OneDrive root is missing ${missingTargets.length} required delivery assets:\n` +
+        missingTargets.map(target => `- ${target}`).join('\n'),
+    );
   }
 
   for (const target of syncTargets) {
@@ -484,12 +497,6 @@ async function ensureRcloneConfig(): Promise<void> {
   console.info(`Wrote RCLONE_CONFIG to ${configPath}`);
 }
 
-function addRemotePathToSet(remotePath: string, target: Set<string>) {
-  getNormalizationVariants(remotePath).forEach(variant => {
-    target.add(variant);
-  });
-}
-
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -549,35 +556,71 @@ async function resolveLocalAssetPath(
   throw new Error(`Local OneDrive file not found: ${baseCandidate}`);
 }
 
-async function listRemoteFiles(rcloneBinary: string): Promise<Set<string>> {
-  const remoteFiles = new Set<string>();
+function buildRemoteLookupKey(remotePath: string): string {
+  try {
+    return remotePath.normalize('NFC').toLowerCase();
+  } catch {
+    return remotePath.toLowerCase();
+  }
+}
 
-  for (const [directory, filenames] of remoteDirectoryExpectedFilenames.entries()) {
+function addRemoteFile(remoteFiles: RemoteFileIndex, remoteFile: RemoteFileEntry): void {
+  const key = buildRemoteLookupKey(remoteFile.actualPath);
+  const matches = remoteFiles.get(key) ?? [];
+  if (!matches.some(entry => entry.actualPath === remoteFile.actualPath)) {
+    matches.push(remoteFile);
+  }
+  remoteFiles.set(key, matches);
+}
+
+function findRemoteFile(remoteFiles: RemoteFileIndex, remotePath: string): RemoteFileEntry | undefined {
+  const matches = remoteFiles.get(buildRemoteLookupKey(remotePath)) ?? [];
+  if (matches.length > 1) {
+    throw new Error(
+      `Remote filename normalization collision for ${remotePath}:\n` +
+        matches.map(entry => `- ${entry.actualPath}`).join('\n'),
+    );
+  }
+  return matches[0];
+}
+
+async function listRemoteFiles(rcloneBinary: string): Promise<RemoteFileIndex> {
+  const remoteFiles: RemoteFileIndex = new Map();
+
+  for (const directory of remoteDirectoryExpectedFilenames.keys()) {
     const remoteSpec = buildRemoteSpec(directory);
-    const args = ['lsf', remoteSpec, '--files-only', '--format=p', '--max-depth', '1'];
+    const { stdout } = runCommand(rcloneBinary, [
+      'lsjson',
+      remoteSpec,
+      '--files-only',
+      '--max-depth',
+      '1',
+    ]);
 
-    // Probe only the basenames the repo actually expects instead of recursively listing
-    // whole remote directories. This keeps Vercel prebuild bounded.
-    Array.from(filenames)
-      .sort()
-      .forEach(filename => {
-        args.push('--include', filename);
-      });
-
+    let entries: Array<{ Path?: string; Name?: string; Size?: number; IsDir?: boolean }>;
     try {
-      const { stdout } = runCommand(rcloneBinary, args);
-      stdout
-        .split('\n')
-        .map(entry => entry.trim())
-        .filter(Boolean)
-        .forEach(entry => {
-          const normalizedEntry = entry.replace(/\/$/, '');
-          const remotePath = directory ? `${directory}/${normalizedEntry}` : normalizedEntry;
-          addRemotePathToSet(remotePath, remoteFiles);
-        });
+      entries = JSON.parse(stdout) as typeof entries;
     } catch (error) {
-      console.warn(`Unable to list remote directory ${remoteSpec}: ${(error as Error).message}`);
+      throw new Error(`Unable to parse rclone listing for ${remoteSpec}: ${(error as Error).message}`);
     }
+
+    if (!Array.isArray(entries)) {
+      throw new Error(`Unexpected rclone listing for ${remoteSpec}.`);
+    }
+
+    for (const entry of entries) {
+      if (entry.IsDir) continue;
+      const filename = entry.Path ?? entry.Name;
+      if (!filename || typeof entry.Size !== 'number' || entry.Size < 0) {
+        throw new Error(`Remote file metadata is incomplete in ${remoteSpec}: ${JSON.stringify(entry)}`);
+      }
+      addRemoteFile(remoteFiles, {
+        actualPath: directory ? `${directory}/${filename.replace(/\/$/, '')}` : filename,
+        size: entry.Size,
+      });
+    }
+
+    console.info(`Inspected ${entries.length} files in ${remoteSpec}`);
   }
 
   return remoteFiles;
@@ -585,12 +628,9 @@ async function listRemoteFiles(rcloneBinary: string): Promise<Set<string>> {
 
 async function uploadMissingRemoteAssets(
   rcloneBinary: string,
-  remoteFiles: Set<string>,
+  remoteFiles: RemoteFileIndex,
 ): Promise<void> {
-  const missingAssets = assets.filter(asset => {
-    const variants = getNormalizationVariants(asset.remotePathOriginal);
-    return !variants.some(variant => remoteFiles.has(variant));
-  });
+  const missingAssets = assets.filter(asset => !findRemoteFile(remoteFiles, asset.remotePathOriginal));
 
   if (missingAssets.length === 0) {
     console.info('All OneDrive assets are present on the remote.');
@@ -611,15 +651,15 @@ async function uploadMissingRemoteAssets(
     removeRemotePathIfExists(rcloneBinary, asset.remotePathOriginal);
     console.info(`Uploading missing asset ${asset.remotePathOriginal} from ${localSource}`);
     runCommand(rcloneBinary, ['copyto', localSource, buildRemoteSpec(asset.remotePathOriginal)]);
-    addRemotePathToSet(asset.remotePathOriginal, remoteFiles);
+    const sourceStats = await stat(localSource);
+    addRemoteFile(remoteFiles, { actualPath: asset.remotePathOriginal, size: sourceStats.size });
   }
 }
 
-function warnMissingDevStorageAssets(remoteFiles: Set<string>): void {
+function warnMissingDevStorageAssets(remoteFiles: RemoteFileIndex): void {
   const missingDevStorage = syncTargets.filter(target => {
     if (target.label === 'original') return false;
-    const variants = getNormalizationVariants(target.remotePath);
-    return !variants.some(variant => remoteFiles.has(variant));
+    return !findRemoteFile(remoteFiles, target.remotePath);
   });
 
   if (missingDevStorage.length === 0) {
@@ -652,31 +692,63 @@ function removeRemotePathIfExists(rcloneBinary: string, remotePath: string) {
   }
 }
 
-function hasRemotePath(remoteFiles: Set<string>, remotePath: string): boolean {
-  return getNormalizationVariants(remotePath).some(variant => remoteFiles.has(variant));
+function getMaxDownloadBytes(target: SyncTarget, isFallback: boolean): number {
+  if (target.asset.isOptimizedMotion) {
+    const maxMb = isFallback ? maxOriginalMotionFallbackMb : maxOptimizedMotionMb;
+    return maxMb * 1024 * 1024;
+  }
+  return maxImageAssetMb * 1024 * 1024;
 }
 
-function chooseDownloadRemotePath(target: SyncTarget, remoteFiles: Set<string>): string {
-  if (hasRemotePath(remoteFiles, target.remotePath)) {
-    return target.remotePath;
+function validateRemoteFileSize(
+  target: SyncTarget,
+  remoteFile: RemoteFileEntry,
+  isFallback: boolean,
+): void {
+  const maxBytes = getMaxDownloadBytes(target, isFallback);
+  if (!Number.isFinite(maxBytes) || maxBytes <= 0) {
+    throw new Error(`Invalid media delivery size limit for ${target.remotePath}.`);
+  }
+  if (!Number.isFinite(remoteFile.size) || remoteFile.size < 0) {
+    throw new Error(`Remote file size is unavailable for ${remoteFile.actualPath}.`);
+  }
+  if (remoteFile.size > maxBytes) {
+    const actualMb = (remoteFile.size / 1024 / 1024).toFixed(1);
+    const maxMb = (maxBytes / 1024 / 1024).toFixed(1);
+    const kind = isFallback ? 'original fallback' : 'optimized asset';
+    throw new Error(
+      `${kind} exceeds the delivery limit: ${remoteFile.actualPath} is ${actualMb}MB (max ${maxMb}MB).`,
+    );
+  }
+}
+
+function chooseDownloadRemoteFile(target: SyncTarget, remoteFiles: RemoteFileIndex): RemoteFileEntry {
+  const optimizedFile = findRemoteFile(remoteFiles, target.remotePath);
+  if (optimizedFile) {
+    validateRemoteFileSize(target, optimizedFile, false);
+    return optimizedFile;
   }
 
-  if (target.fallbackRemotePath && hasRemotePath(remoteFiles, target.fallbackRemotePath)) {
-    if (target.label !== 'original' && target.remotePath !== target.fallbackRemotePath) {
-      console.warn(`Missing ${target.remotePath}; falling back to ${target.fallbackRemotePath}`);
+  if (target.fallbackRemotePath) {
+    const fallbackFile = findRemoteFile(remoteFiles, target.fallbackRemotePath);
+    if (fallbackFile) {
+      validateRemoteFileSize(target, fallbackFile, true);
+      if (target.label !== 'original' && target.remotePath !== target.fallbackRemotePath) {
+        console.warn(`Missing ${target.remotePath}; falling back to ${fallbackFile.actualPath}`);
+      }
+      return fallbackFile;
     }
-    return target.fallbackRemotePath;
   }
 
-  return target.remotePath;
+  throw new Error(`No remote delivery source found for ${target.remotePath}.`);
 }
 
-function buildDownloadBatches(remoteFiles: Set<string>): DownloadBatch[] {
+function buildDownloadBatches(remoteFiles: RemoteFileIndex): DownloadBatch[] {
   const grouped = new Map<string, DownloadBatch>();
 
   for (const target of syncTargets) {
-    const chosenRemotePath = chooseDownloadRemotePath(target, remoteFiles);
-    const remoteParts = chosenRemotePath.split('/');
+    const remoteFile = chooseDownloadRemoteFile(target, remoteFiles);
+    const remoteParts = remoteFile.actualPath.split('/');
     const filename = remoteParts.pop();
     const remoteDirectory = remoteParts.join('/');
     const destinationDirectory = path.join(publicRoot, path.dirname(target.publicPath.replace(/^\//, '')));
@@ -691,19 +763,77 @@ function buildDownloadBatches(remoteFiles: Set<string>): DownloadBatch[] {
         remoteDirectory,
         destinationDirectory,
         filenames: new Set<string>(),
+        selections: [],
       });
     }
 
     const batch = grouped.get(key)!;
-    getNormalizationVariants(filename).forEach(variant => {
-      batch.filenames.add(variant);
-    });
+    batch.filenames.add(filename);
+    batch.selections.push({ target, remoteFile });
   }
 
   return Array.from(grouped.values());
 }
 
-async function downloadAssets(rcloneBinary: string, remoteFiles: Set<string>) {
+function normalizeLocalFilename(filename: string): string {
+  try {
+    return filename.normalize('NFC').toLowerCase();
+  } catch {
+    return filename.toLowerCase();
+  }
+}
+
+async function materializeCanonicalTarget(selection: DownloadSelection, destinationDirectory: string): Promise<void> {
+  const expectedFilename = path.basename(selection.target.publicPath);
+  const remoteFilename = path.posix.basename(selection.remoteFile.actualPath);
+  const entries = await readdir(destinationDirectory, { withFileTypes: true });
+  const candidates = entries
+    .filter(entry => !entry.isDirectory())
+    .filter(entry => normalizeLocalFilename(entry.name) === normalizeLocalFilename(remoteFilename));
+
+  if (candidates.length !== 1) {
+    throw new Error(
+      `Expected exactly one downloaded file for ${selection.remoteFile.actualPath}, found ${candidates.length}:\n` +
+        candidates.map(entry => `- ${entry.name}`).join('\n'),
+    );
+  }
+
+  const actualFilename = candidates[0].name;
+  const actualPath = path.join(destinationDirectory, actualFilename);
+  const expectedPath = path.join(destinationDirectory, expectedFilename);
+
+  if (actualFilename !== expectedFilename) {
+    const collisions = entries.filter(
+      entry =>
+        !entry.isDirectory() &&
+        entry.name !== actualFilename &&
+        normalizeLocalFilename(entry.name) === normalizeLocalFilename(expectedFilename),
+    );
+    if (collisions.length > 0) {
+      throw new Error(
+        `Local filename normalization collision for ${expectedPath}:\n` +
+          [actualFilename, ...collisions.map(entry => entry.name)].map(name => `- ${name}`).join('\n'),
+      );
+    }
+    await rename(actualPath, expectedPath);
+  }
+
+  const outputStats = await stat(expectedPath);
+  if (outputStats.size !== selection.remoteFile.size) {
+    throw new Error(
+      `Downloaded size mismatch for ${expectedPath}: expected ${selection.remoteFile.size}, got ${outputStats.size}.`,
+    );
+  }
+
+  if (process.platform !== 'darwin') {
+    const finalEntries = await readdir(destinationDirectory);
+    if (!finalEntries.includes(expectedFilename)) {
+      throw new Error(`Canonical public filename was not materialized: ${expectedPath}`);
+    }
+  }
+}
+
+async function downloadAssets(rcloneBinary: string, remoteFiles: RemoteFileIndex) {
   if (!shouldDownload) {
     console.info('Skipping download stage (SKIP_ONEDRIVE_DOWNLOAD=1).');
     return;
@@ -711,21 +841,34 @@ async function downloadAssets(rcloneBinary: string, remoteFiles: Set<string>) {
 
   const batches = buildDownloadBatches(remoteFiles);
 
+  let batchIndex = 0;
   for (const batch of batches) {
+    batchIndex += 1;
     await mkdir(batch.destinationDirectory, { recursive: true });
+    await mkdir(rcloneConfigDir, { recursive: true });
     const remoteSpec = buildRemoteSpec(batch.remoteDirectory);
-    const args = ['copy', remoteSpec, batch.destinationDirectory, '--max-depth', '1'];
-
-    // Download only the basenames the repo expects and do it per directory batch
-    // so Vercel does not pay process-spawn cost for every single asset.
-    Array.from(batch.filenames)
-      .sort()
-      .forEach(filename => {
-        args.push('--include', filename);
-      });
+    const filesFromPath = path.join(rcloneConfigDir, `sync-batch-${process.pid}-${batchIndex}.txt`);
+    await writeFile(filesFromPath, `${Array.from(batch.filenames).sort().join('\n')}\n`);
+    const args = [
+      'copy',
+      remoteSpec,
+      batch.destinationDirectory,
+      '--max-depth',
+      '1',
+      '--files-from-raw',
+      filesFromPath,
+    ];
 
     console.info(`Copying ${remoteSpec} -> ${batch.destinationDirectory} (${batch.filenames.size} candidates)`);
-    runCommand(rcloneBinary, args);
+    try {
+      runCommand(rcloneBinary, args);
+    } finally {
+      await rm(filesFromPath, { force: true });
+    }
+
+    for (const selection of batch.selections) {
+      await materializeCanonicalTarget(selection, batch.destinationDirectory);
+    }
   }
 }
 

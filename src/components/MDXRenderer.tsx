@@ -186,7 +186,10 @@ const resolveAssetByFilename = (value: string) => {
   }
 };
 
-const isVideoExtension = (value: string) => /\.(mp4|webm|gif)$/i.test(value);
+const isVideoExtension = (value: string) => /\.(mp4|webm)$/i.test(value.split(/[?#]/, 1)[0]);
+
+const getVideoMimeType = (value: string): string =>
+  /\.webm(?:[?#]|$)/i.test(value) ? 'video/webm' : 'video/mp4';
 
 const resolveVideoSources = (filename?: string, src?: string): string[] => {
   const rawValue = (filename ?? src ?? '').trim();
@@ -194,29 +197,32 @@ const resolveVideoSources = (filename?: string, src?: string): string[] => {
     return [];
   }
 
+  if (rawValue.startsWith('/') || /^[a-z][a-z0-9+.-]*:/i.test(rawValue)) {
+    return isVideoExtension(rawValue) ? [rawValue] : [];
+  }
+
   const asset = resolveAssetByFilename(rawValue);
   if (asset) {
     if (isVideoExtension(asset.filename)) {
-      return [
-        `/import-data/dev-storage/${asset.filename}`,
-        asset.publicPath,
-      ];
+      return [asset.publicPath];
     }
-    return [asset.publicPath];
+    return [];
   }
 
   if (isVideoExtension(rawValue)) {
-    return [
-      `/import-data/dev-storage/${rawValue}`,
-      `/import-data/highlight/${rawValue}`,
-    ];
-  }
-
-  if (rawValue.startsWith('/') || /^[a-z][a-z0-9+.-]*:/i.test(rawValue)) {
-    return [rawValue];
+    return [`/import-data/dev-storage/${rawValue.normalize('NFC')}`];
   }
 
   return [];
+};
+
+const resolvePosterSource = (value?: string): string | undefined => {
+  const rawValue = value?.trim();
+  if (!rawValue) return undefined;
+  if (rawValue.startsWith('/') || /^[a-z][a-z0-9+.-]*:/i.test(rawValue)) {
+    return rawValue;
+  }
+  return resolveAssetByFilename(rawValue)?.publicPath;
 };
 
 const VideoTag = ({
@@ -237,7 +243,7 @@ const VideoTag = ({
     return null;
   }
 
-  const resolvedPoster = resolveVideoSources(poster)[0];
+  const resolvedPoster = resolvePosterSource(poster);
   const titleText = title.trim();
 
   return (
@@ -247,6 +253,7 @@ const VideoTag = ({
       controlsList="nodownload"
       disablePictureInPicture
       autoPlay={autoPlay}
+      preload={autoPlay ? 'auto' : 'none'}
       loop={loop}
       muted={muted}
       playsInline={playsInline}
@@ -254,7 +261,7 @@ const VideoTag = ({
       onContextMenu={(event) => event.preventDefault()}
     >
       {resolvedSources.map(source => (
-        <source key={source} src={source} type="video/mp4" />
+        <source key={source} src={source} type={getVideoMimeType(source)} />
       ))}
       {titleText ? `${titleText} 영상` : '동영상을 재생할 수 없습니다.'}
     </video>
