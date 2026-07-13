@@ -36,9 +36,9 @@ export const homeCopy = {
       kicker: '경험',
       title: '경험과 활동',
       groups: {
-        Education: '교육',
-        'Work and support': '근로 및 지원',
-        'Projects and open source': '프로젝트 및 오픈소스',
+        Education: '학력',
+        Activities: '활동',
+        'Work experience': '직무 관련 경험',
       },
     },
     projects: { kicker: '프로젝트', title: '프로젝트' },
@@ -99,8 +99,8 @@ export const homeCopy = {
       title: 'Experience & Activities',
       groups: {
         Education: 'Education',
-        'Work and support': 'Work and support',
-        'Projects and open source': 'Projects and open source',
+        Activities: 'Activities',
+        'Work experience': 'Work Experience',
       },
     },
     projects: { kicker: 'Projects', title: 'Projects' },
@@ -132,31 +132,31 @@ export const homeCopy = {
 const experienceEnglish: Record<string, Pick<ExperienceEntry, 'title' | 'description'>> = {
   '/activities/sungil-information-high-school': {
     title: 'Sungil Information High School, Digital Information',
-    description: 'The educational foundation for my early path into software and information technology.',
+    description: 'Graduated after studying the foundations of programming, networking, and server administration.',
   },
   '/activities/inha-technical-college-and-academic-creditbank-system': {
-    title: 'Inha Technical College and Computer Engineering Studies',
-    description: 'A core period spanning major studies, projects, open source, and student activities.',
+    title: 'Inha Technical College · B.S. in Computer Engineering',
+    description: 'Studied Computer Systems at Inha Technical College, then earned a B.S. in Computer Engineering through the Academic Credit Bank System.',
+  },
+  '/activities/kdt-addinedu': {
+    title: 'AddinEdu IT Academy',
+    description: 'Completed an ROS2 and AI autonomous robot development program, receiving the top final-project award and a contribution award.',
   },
   '/activities/itc-work-scholarship': {
     title: 'AI & Big Data Center Work-Study Scholarship',
-    description: 'Server setup and operations support, Docker environments, documentation, and handoff.',
+    description: 'Supported server and infrastructure operations, planned and presented a technical seminar, and documented the handoff.',
   },
   '/activities/assistant': {
-    title: 'Lecture and Event Support',
-    description: 'Hands-on, technical, and operational support for teacher training and education events.',
+    title: 'Course Content and Event Operations Support',
+    description: 'Created and supported teacher-training and K-Digital course content, then helped operate a metaverse science festival.',
   },
   '/activities/open_source_contribution_academy': {
-    title: '2022 Open Source Contribution Academy / RustPython',
-    description: 'Open-source contribution, collaboration experience, and a grand prize.',
+    title: '2022 Open Source Contribution Academy',
+    description: 'Contributed to RustPython as a lead mentee, learned open-source collaboration, and received the grand prize.',
   },
-  '/activities/stonespring': {
-    title: 'StoneSpring',
-    description: 'Team lead for a real-time care chatbot system project.',
-  },
-  '/activities/shoepernoma': {
-    title: 'Shoepernoma',
-    description: 'Team lead for a ROS2-based autonomous shoe-picking robot system.',
+  '/activities/skills-competition-cyber-security': {
+    title: 'Gyeonggi Skills Competition - Cybersecurity',
+    description: 'Configured Windows and Linux servers and network-security environments, earning a gold medal in cybersecurity.',
   },
 };
 
@@ -178,6 +178,34 @@ const projectEnglish: Record<
     description: 'A real-time care chatbot combining a GUI, AI model integration, and audio interaction.',
     highlights: ['GUI-based application', 'Model integration and real-time interaction', 'Team-level feature integration'],
   },
+  greent: {
+    title: 'GreenT',
+    type: 'Team Project',
+    role: 'System Controller Development',
+    description: 'An IoT smart-farming system connecting sensors, actuators, Raspberry Pi, Arduino, and a Flask backend.',
+    highlights: ['Sensor and actuator control', 'Raspberry Pi and Arduino integration', 'Flask and serial communication'],
+  },
+  healthcasting: {
+    title: 'HealthCasting',
+    type: 'Team Project',
+    role: 'Team Lead / Trend Data',
+    description: 'A health-alert system using search trends, weather data, and exploratory data analysis.',
+    highlights: ['Search-trend data collection', 'External data integration and EDA', 'Time-series correlation analysis'],
+  },
+  pyodide: {
+    title: 'Pyodide',
+    type: 'Open Source',
+    role: 'Contributor',
+    description: 'An open-source contribution improving shortened representations in the WebAssembly-based Python runtime.',
+    highlights: ['WebAssembly-based Python runtime', 'Representation shortening logic', 'Independent open-source contribution'],
+  },
+  rustpython: {
+    title: 'RustPython',
+    type: 'Open Source',
+    role: 'Contributor',
+    description: 'Open-source contributions to Python interpreter internals, standard-library behavior, and object compatibility.',
+    highlights: ['Python interpreter internals', 'Standard-library compatibility', 'Code review and pull-request collaboration'],
+  },
   'pdf-to-question-bank': {
     title: 'PDF to Question Bank',
     type: 'Personal Project',
@@ -186,11 +214,18 @@ const projectEnglish: Record<
     highlights: ['Document-processing automation', 'CLI-centered implementation', 'End-to-end processing pipeline'],
   },
   codeb: {
-    title: 'AI Education Python Block Programming Web Platform',
+    title: 'DIY/CodeB - Python Visual Programming for AI Education',
     type: 'Team Project',
     role: undefined,
     description: 'A browser-based visual Python programming platform designed for AI education.',
     highlights: ['Educational web tooling', 'Browser-based execution environment', 'Maintenance and classroom application'],
+  },
+  'inha-air': {
+    title: 'INHA AIR',
+    type: 'Team Project',
+    role: 'User Flow and GUI Development',
+    description: 'A Java Swing airline-booking application covering account flows, booking inputs, date selection, and validation.',
+    highlights: ['Java Swing GUI', 'Booking input and validation flow', 'Feature integration and bug fixing'],
   },
 };
 
