@@ -225,6 +225,14 @@ const resolvePosterSource = (value?: string): string | undefined => {
   return resolveAssetByFilename(rawValue)?.publicPath;
 };
 
+const resolveDefaultVideoPoster = (filename?: string, src?: string): string | undefined => {
+  const rawValue = (filename ?? src ?? '').trim();
+  if (!rawValue || rawValue.startsWith('/') || /^[a-z][a-z0-9+.-]*:/i.test(rawValue)) {
+    return undefined;
+  }
+  return resolveAssetByFilename(rawValue)?.publicPathPoster;
+};
+
 const VideoTag = ({
   filename,
   src,
@@ -243,7 +251,7 @@ const VideoTag = ({
     return null;
   }
 
-  const resolvedPoster = resolvePosterSource(poster);
+  const resolvedPoster = resolvePosterSource(poster) ?? resolveDefaultVideoPoster(filename, src);
   const titleText = title.trim();
 
   return (

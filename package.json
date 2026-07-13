@@ -16,6 +16,7 @@
     "validate:local": "npm run validate:publication && npm run lint && npm run build:local",
     "sync:onedrive": "tsx scripts/sync-onedrive.ts",
     "derive:onedrive": "ONEDRIVE_COMPARE_REMOTE=1 tsx scripts/build-onedrive-derivatives.ts && npm run optimize:videos",
+    "derive:video-posters": "DEV_STORAGE_POSTERS_ONLY=1 tsx scripts/optimize-onedrive-videos.ts",
     "optimize:videos": "tsx scripts/optimize-onedrive-videos.ts"
   },
   "dependencies": {

@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
-import { access, constants as fsConstants, mkdir, readFile, stat, writeFile } from 'node:fs/promises';
+import { access, constants as fsConstants, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 
 import { onedriveAssets } from '../src/data/onedrive-assets';
 
@@ -42,11 +42,22 @@ const gifMaxOutputMb = Number(process.env.DEV_STORAGE_GIF_MAX_MB ?? '10');
 const allowOversize = process.env.DEV_STORAGE_ALLOW_OVERSIZE === '1';
 const forceRegenerate = process.env.DEV_STORAGE_FORCE === '1';
 const isDryRun = process.env.DRY_RUN === '1' || process.env.DEV_STORAGE_DRY_RUN === '1';
+const postersOnly = process.env.DEV_STORAGE_POSTERS_ONLY === '1';
+const posterQuality = Number(process.env.DEV_STORAGE_POSTER_QUALITY ?? '92');
+const posterFrameWindow = Number(process.env.DEV_STORAGE_POSTER_FRAME_WINDOW ?? '90');
+const posterSeekSeconds = Number(process.env.DEV_STORAGE_POSTER_SEEK_SECONDS ?? '0.5');
+const posterMaxOutputMb = Number(process.env.DEV_STORAGE_POSTER_MAX_MB ?? '4');
 const onlyExts = parseExtList(process.env.DEV_STORAGE_ONLY_EXTS);
 
 const uploadManifestPath = path.join(devStorageOutputRoot, '.upload-manifest-videos.json');
 type UploadManifestEntry = { hash: string; size: number; mtimeMs: number };
 type UploadManifest = Record<string, UploadManifestEntry>;
+type UploadTarget = { outputPath: string; remotePath: string };
+type VideoTarget = UploadTarget & {
+  inputPath: string;
+  posterOutputPath?: string;
+  posterRemotePath?: string;
+};
 const remoteDirectoryListingCache = new Map<string, Map<string, string[]>>();
 
 function normalizeRemoteBase(value: string): string {
@@ -401,6 +412,84 @@ async function transcodeToWebmAlpha(inputPath: string, outputPath: string): Prom
   await checkSizeLimit(outputPath);
 }
 
+async function shouldRegeneratePoster(inputPath: string, outputPath: string): Promise<boolean> {
+  if (forceRegenerate) return true;
+  if (!(await pathExists(outputPath))) return true;
+  const [inputStat, outputStat] = await Promise.all([stat(inputPath), stat(outputPath)]);
+  if (outputStat.size > posterMaxOutputMb * 1024 * 1024) return true;
+  return inputStat.mtimeMs > outputStat.mtimeMs;
+}
+
+async function generateVideoPoster(inputPath: string, outputPath: string): Promise<void> {
+  await mkdir(path.dirname(outputPath), { recursive: true });
+  const sourceFramePath = `${outputPath}.source.png`;
+  try {
+    runCommand('ffmpeg', [
+      '-y',
+      '-hide_banner',
+      '-loglevel',
+      'error',
+      '-nostdin',
+      '-ss',
+      `${posterSeekSeconds}`,
+      '-i',
+      inputPath,
+      '-vf',
+      `thumbnail=${posterFrameWindow},scale='min(${maxDimension},iw)':'min(${maxDimension},ih)':force_original_aspect_ratio=decrease`,
+      '-frames:v',
+      '1',
+      '-an',
+      '-c:v',
+      'png',
+      '-update',
+      '1',
+      sourceFramePath,
+    ]);
+    runCommand('cwebp', [
+      '-quiet',
+      '-q',
+      `${posterQuality}`,
+      '-m',
+      '6',
+      '-sharp_yuv',
+      '-metadata',
+      'icc',
+      sourceFramePath,
+      '-o',
+      outputPath,
+    ]);
+  } finally {
+    if (!isDryRun) {
+      await rm(sourceFramePath, { force: true });
+    }
+  }
+  await checkSizeLimit(outputPath, posterMaxOutputMb);
+}
+
+async function buildVideoPosters(targets: VideoTarget[]): Promise<{
+  targets: UploadTarget[];
+  processed: number;
+  skipped: number;
+}> {
+  const posterTargets: UploadTarget[] = [];
+  let processed = 0;
+  let skipped = 0;
+
+  for (const target of targets) {
+    if (!target.posterOutputPath || !target.posterRemotePath) continue;
+    if (await shouldRegeneratePoster(target.outputPath, target.posterOutputPath)) {
+      console.info(`Generating poster ${path.basename(target.posterOutputPath)}`);
+      await generateVideoPoster(target.outputPath, target.posterOutputPath);
+      processed += 1;
+    } else {
+      skipped += 1;
+    }
+    posterTargets.push({ outputPath: target.posterOutputPath, remotePath: target.posterRemotePath });
+  }
+
+  return { targets: posterTargets, processed, skipped };
+}
+
 async function transcodeGifWithSizeTarget(inputPath: string, outputPath: string): Promise<void> {
   const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(value, max));
   const clampDim = (value: number) => clamp(value, gifMinDimension, maxDimension);
@@ -462,10 +551,11 @@ function matchesOnlyAssets(asset: typeof onedriveAssets[number], keys: string[])
   });
 }
 
-async function buildTargets(): Promise<Array<{ inputPath: string; outputPath: string; remotePath: string }>> {
-  const targets: Array<{ inputPath: string; outputPath: string; remotePath: string }> = [];
+async function buildTargets(): Promise<VideoTarget[]> {
+  const targets: VideoTarget[] = [];
   const videoAssets = onedriveAssets.filter(asset => {
     if (!matchesOnlyAssets(asset, onlyAssetKeys)) return false;
+    if (postersOnly && !asset.hasVideoPoster) return false;
     const ext = getExtension(asset.filename);
     return ext === '.gif' || ext === '.mp4' || ext === '.webm';
   });
@@ -475,23 +565,35 @@ async function buildTargets(): Promise<Array<{ inputPath: string; outputPath: st
     if (onlyExts.size > 0 && !onlyExts.has(ext)) {
       continue;
     }
-    const inputPath = await resolveLocalSource(asset.remotePathOriginal);
     let targetExt = ext;
     if (ext === '.gif') {
       targetExt = '.gif';
     }
 
     const outputFilename = buildOutputFilename(asset.filename, targetExt);
-    const outputPath = path.join(devStorageOutputRoot, outputFilename);
+    const stagedOutputPath = path.join(devStorageOutputRoot, outputFilename);
+    let inputPath: string;
+    if (postersOnly) {
+      inputPath = (await isMaterializedFile(stagedOutputPath))
+        ? stagedOutputPath
+        : await resolveLocalSource(asset.remotePath);
+    } else {
+      inputPath = await resolveLocalSource(asset.remotePathOriginal);
+    }
+    const outputPath = postersOnly ? inputPath : stagedOutputPath;
     const remotePath = asset.remotePath;
+    const posterOutputPath = asset.publicPathPoster
+      ? path.join(devStorageOutputRoot, path.posix.basename(asset.publicPathPoster))
+      : undefined;
+    const posterRemotePath = asset.remotePathPoster;
 
-    targets.push({ inputPath, outputPath, remotePath });
+    targets.push({ inputPath, outputPath, remotePath, posterOutputPath, posterRemotePath });
   }
 
   return targets;
 }
 
-async function optimizeVideos(targets: Array<{ inputPath: string; outputPath: string }>): Promise<{
+async function optimizeVideos(targets: VideoTarget[]): Promise<{
   processed: number;
   skipped: number;
   byType: Record<string, number>;
@@ -524,9 +626,13 @@ async function optimizeVideos(targets: Array<{ inputPath: string; outputPath: st
   return { processed, skipped, byType };
 }
 
-async function uploadVideos(targets: Array<{ outputPath: string; remotePath: string }>): Promise<void> {
+async function uploadVideos(targets: UploadTarget[]): Promise<void> {
   if (!shouldUpload) {
     console.info('SKIP_ONEDRIVE_UPLOAD=1 set; skipping upload.');
+    return;
+  }
+  if (isDryRun) {
+    console.info(`Dry run: skipping ${targets.length} uploads.`);
     return;
   }
 
@@ -635,6 +741,9 @@ async function main() {
   if (!commandExists('ffmpeg')) {
     throw new Error('ffmpeg is required in PATH to optimize video assets.');
   }
+  if (!commandExists('cwebp')) {
+    throw new Error('cwebp is required in PATH to generate video posters.');
+  }
   if (shouldUpload && !commandExists('rclone')) {
     throw new Error('rclone is required in PATH to upload dev-storage videos.');
   }
@@ -644,12 +753,19 @@ async function main() {
     `Video quality settings: max=${maxDimension}px fps<=${maxFps} crf=${videoCrf} ` +
       `preset=${videoPreset} audio=${videoAudioBitrate} limit=${maxOutputMb}MB`,
   );
-  const summary = await optimizeVideos(targets);
-  await uploadVideos(targets);
+  const summary = postersOnly
+    ? { processed: 0, skipped: targets.length, byType: {} }
+    : await optimizeVideos(targets);
+  const posters = await buildVideoPosters(targets);
+  const videoUploads = postersOnly
+    ? []
+    : targets.map(({ outputPath, remotePath }) => ({ outputPath, remotePath }));
+  await uploadVideos([...videoUploads, ...posters.targets]);
   const total = targets.length;
   console.info(
     `Done. total=${total} processed=${summary.processed} skipped=${summary.skipped} ` +
-    `types=${Object.entries(summary.byType).map(([ext, count]) => `${ext}:${count}`).join(', ') || 'none'}`
+      `types=${Object.entries(summary.byType).map(([ext, count]) => `${ext}:${count}`).join(', ') || 'none'} ` +
+      `posters=${posters.processed} generated/${posters.skipped} skipped`
   );
 }
 
