@@ -62,7 +62,7 @@ const shouldSkipSync =
 const shouldNormalizeNfc = process.env.ENABLE_ONEDRIVE_NFC === '1';
 const rcloneCacheDir = path.join(projectRoot, '.rclone-bin');
 const rcloneConfigDir = path.join(projectRoot, '.rclone-config');
-const maxOptimizedMotionMb = Number(process.env.ONEDRIVE_MAX_OPTIMIZED_MOTION_MB ?? '50');
+const maxOptimizedMotionMb = Number(process.env.ONEDRIVE_MAX_OPTIMIZED_MOTION_MB ?? '90');
 const maxOriginalMotionFallbackMb = Number(process.env.ONEDRIVE_MAX_ORIGINAL_MOTION_FALLBACK_MB ?? '25');
 const maxImageAssetMb = Number(process.env.ONEDRIVE_MAX_IMAGE_ASSET_MB ?? '25');
 
