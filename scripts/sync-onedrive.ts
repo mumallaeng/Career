@@ -27,7 +27,7 @@ type SyncTarget = {
   remotePath: string;
   publicPath: string;
   fallbackRemotePath?: string;
-  label: 'default' | 'thumb' | 'original';
+  label: 'default' | 'poster' | 'thumb' | 'original';
 };
 
 type RemoteFileEntry = {
@@ -103,6 +103,14 @@ const syncTargets: SyncTarget[] = assets.flatMap(asset => {
         label: 'default',
       },
     ];
+    if (asset.remotePathPoster && asset.publicPathPoster) {
+      targets.push({
+        asset,
+        remotePath: asset.remotePathPoster,
+        publicPath: asset.publicPathPoster,
+        label: 'poster',
+      });
+    }
     return targets;
   }
   return [
@@ -693,6 +701,9 @@ function removeRemotePathIfExists(rcloneBinary: string, remotePath: string) {
 }
 
 function getMaxDownloadBytes(target: SyncTarget, isFallback: boolean): number {
+  if (/\.(jpe?g|png|webp)$/i.test(target.remotePath)) {
+    return maxImageAssetMb * 1024 * 1024;
+  }
   if (target.asset.isOptimizedMotion) {
     const maxMb = isFallback ? maxOriginalMotionFallbackMb : maxOptimizedMotionMb;
     return maxMb * 1024 * 1024;

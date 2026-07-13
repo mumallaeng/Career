@@ -165,6 +165,9 @@
     display: block;
     width: 100%;
     height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    background: #0f172a;
     border-radius: 12px;
     margin: 2rem 0;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);

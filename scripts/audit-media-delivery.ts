@@ -92,8 +92,9 @@ function getDeliveryLimit(asset: OneDriveAssetDefinition): number {
   return maxImageBytes;
 }
 
-function auditManifest(): number {
+function auditManifest(): { assets: number; posters: number; publicPaths: number } {
   const publicPaths = new Map<string, string>();
+  let posters = 0;
 
   for (const asset of onedriveAssets) {
     ensure(asset.hasOptimizedDefault, `Asset is not routed through dev-storage: ${asset.filename}`);
@@ -115,9 +116,28 @@ function auditManifest(): number {
         `Preview image does not share the full-quality file: ${asset.filename}`,
       );
     }
+
+    if (asset.hasVideoPoster) {
+      ensure(asset.remotePathPoster, `Video poster remote path is missing: ${asset.filename}`);
+      ensure(asset.publicPathPoster, `Video poster public path is missing: ${asset.filename}`);
+      ensure(asset.publicPathPoster.endsWith('-poster.webp'), `Video poster is not WebP: ${asset.publicPathPoster}`);
+      ensure(
+        asset.publicPathPoster.startsWith('/import-data/dev-storage/'),
+        `Video poster is outside dev-storage: ${asset.publicPathPoster}`,
+      );
+      ensure(
+        asset.publicPathPoster === asset.publicPathPoster.normalize('NFC'),
+        `Video poster path is not NFC: ${asset.publicPathPoster}`,
+      );
+      const posterKey = lookupKey(asset.publicPathPoster);
+      const posterCollision = publicPaths.get(posterKey);
+      ensure(!posterCollision, `Public path collision:\n- ${posterCollision}\n- ${asset.publicPathPoster}`);
+      publicPaths.set(posterKey, asset.publicPathPoster);
+      posters += 1;
+    }
   }
 
-  return publicPaths.size;
+  return { assets: onedriveAssets.length, posters, publicPaths: publicPaths.size };
 }
 
 function auditActiveVideoTags(): number {
@@ -136,6 +156,7 @@ function auditActiveVideoTags(): number {
       ensure(asset, `Active VideoTag is not registered (${filename}): ${match[1]}`);
       ensure(/\.(mp4|webm)$/i.test(asset.filename), `VideoTag uses an unsupported format: ${asset.filename}`);
       ensure(asset.publicPath.startsWith('/import-data/dev-storage/'), `VideoTag exposes an original: ${asset.filename}`);
+      ensure(asset.publicPathPoster, `VideoTag has no generated poster: ${asset.filename}`);
     }
   }
 
@@ -164,13 +185,13 @@ function auditRemote(): { bytes: number; counts: Record<string, number> } {
 
   let bytes = 0;
   const counts: Record<string, number> = {};
-  for (const asset of onedriveAssets) {
-    const expectedFilename = path.posix.basename(asset.remotePath);
+  const recordRemoteFile = (remotePath: string, limit: number) => {
+    const expectedFilename = path.posix.basename(remotePath);
     const matches = entriesByKey.get(lookupKey(expectedFilename)) ?? [];
     ensure(matches.length === 1, `Expected one remote delivery file for ${expectedFilename}, found ${matches.length}`);
     const entry = matches[0];
     ensure(typeof entry.Size === 'number' && entry.Size >= 0, `Remote size is unavailable: ${expectedFilename}`);
-    ensure(entry.Size <= getDeliveryLimit(asset), `Remote delivery file exceeds its limit: ${expectedFilename}`);
+    ensure(entry.Size <= limit, `Remote delivery file exceeds its limit: ${expectedFilename}`);
 
     const extension = path.extname(expectedFilename).toLowerCase();
     const expectedMime = extension === '.mp4'
@@ -186,6 +207,13 @@ function auditRemote(): { bytes: number; counts: Record<string, number> } {
 
     bytes += entry.Size;
     counts[extension] = (counts[extension] ?? 0) + 1;
+  };
+
+  for (const asset of onedriveAssets) {
+    recordRemoteFile(asset.remotePath, getDeliveryLimit(asset));
+    if (asset.remotePathPoster) {
+      recordRemoteFile(asset.remotePathPoster, maxImageBytes);
+    }
   }
 
   return { bytes, counts };
@@ -239,6 +267,19 @@ function auditStaging(): { checked: number; bytes: number } {
   let checked = 0;
   let bytes = 0;
   for (const asset of onedriveAssets) {
+    if (asset.publicPathPoster) {
+      const posterFilename = path.posix.basename(asset.publicPathPoster);
+      const posterPath = path.join(stagingRoot, posterFilename);
+      if (!fs.existsSync(posterPath)) {
+        ensure(!requireStaging, `Required staging poster is missing: ${posterPath}`);
+      } else {
+        const posterSize = fs.statSync(posterPath).size;
+        ensure(posterSize <= maxImageBytes, `Staging poster exceeds its limit: ${posterFilename}`);
+        bytes += posterSize;
+        checked += 1;
+      }
+    }
+
     const extension = path.extname(asset.remotePath).toLowerCase();
     if (extension !== '.webp' && extension !== '.mp4') continue;
     const filename = path.posix.basename(asset.publicPath);
@@ -278,7 +319,7 @@ function auditStaging(): { checked: number; bytes: number } {
 }
 
 function main(): void {
-  const manifestCount = auditManifest();
+  const manifest = auditManifest();
   const activeVideoCount = auditActiveVideoTags();
   const staging = auditStaging();
 
@@ -289,7 +330,8 @@ function main(): void {
   }
 
   console.info(
-    `Media delivery audit passed: manifest=${manifestCount} activeVideos=${activeVideoCount} ` +
+    `Media delivery audit passed: assets=${manifest.assets} posters=${manifest.posters} ` +
+      `publicPaths=${manifest.publicPaths} activeVideos=${activeVideoCount} ` +
       `staging=${staging.checked}/${(staging.bytes / 1024 / 1024).toFixed(1)}MiB remote=${remoteSummary}`,
   );
 }
