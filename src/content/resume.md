@@ -1,94 +1,95 @@
 ---
-title: "Resume"
-date: "2026-04-07"
-description: "A bounded chronology derived from the current published activity archive."
-tags: ["resume", "baseline"]
+title: "이력"
+date: "2026-07-13"
+description: "학력, 활동, 직무 관련 경험, 프로젝트, 수상을 정리한 공개 이력입니다."
+tags: ["resume", "career"]
 categories: ["career"]
 publication_id: "career/resume"
-source_vault_path: "career-drafts/resume/cv-source.md"
-source_hash: "4876a4d83bf04ab7b0b9a58f666f9d2638b2adb105dd637ce0beec8979249e40"
+source_vault_path: "career-drafts/resume/resume-ko-2026-02-18-source.md"
+source_hash: "4057fd6cea42bee441deea9fed69a203ae20589b8dd45fde43c80be4bccd20b3"
 content_kind: "summary-surface"
 work_type: "resume-summary"
 ---
 
-이 페이지는 현재 공개된 activity material만 바탕으로 구성한 bounded chronology입니다. 아직 전체 이력을 모두 옮기지는 않았고, 현재 repo 안에서 바로 근거를 확인할 수 있는 항목부터 먼저 정리했습니다.
+ROS2 로봇 시스템, AI 응용, 데이터 분석, 오픈소스 프로젝트를 진행했습니다. 팀 프로젝트에서는 전체 구조를 정리하고 따로 개발된 기능을 하나의 흐름으로 연결하는 역할을 주로 맡았습니다.
 
-## How to read this page
+## 학력
 
-- 학업 기반부터 보고 싶다면 `Education`부터 읽으면 됩니다.
-- 지원·운영 역할을 먼저 보고 싶다면 `Work and support`를 먼저 보면 됩니다.
-- 프로젝트와 대외 활동 중심 흐름을 먼저 보고 싶다면 `Projects and open source`부터 읽으면 됩니다.
+- **학점은행제 컴퓨터공학 학사(학위수여)**<br />
+  2023.01 - 2025.08 · 4.0/4.5
+- **인하공업전문대학 컴퓨터시스템과 전문학사(중퇴)**<br />
+  2020.03 - 2023.01 · 3.87/4.5<br />
+  [인하공업전문대학 및 학점은행제 기록](/activities/inha-technical-college-and-academic-creditbank-system)
+- **성일정보고등학교 디지털정보과(졸업)**<br />
+  2017.03 - 2020.01<br />
+  [성일정보고등학교 기록](/activities/sungil-information-high-school)
 
-## Quick chooser
+## 기술
 
-### If you want the shortest background summary first
+- **언어**: Python, C/C++, Rust, JavaScript
+- **로보틱스**: ROS2(Jazzy)
+- **데이터베이스**: MySQL
+- **개발 환경**: Python venv, Docker, PlatformIO
+- **운영체제**: macOS, Linux(Ubuntu, Raspbian), Windows
+- **협업 도구**: Git(GitHub), Jira, Confluence, Notion
 
-- start with `Education`
-- then move to `Projects and open source`
-- use `Work` if you want the implementation-heavy examples next
+## 활동
 
-### If you want operational/support experience first
+- **애드인에듀 IT 아카데미**<br />
+  2024.11.27 - 2025.05.27<br />
+  ROS2와 AI를 활용한 자율주행 로봇 개발자 양성과정<br />
+  [교육 및 활동 기록](/activities/kdt-addinedu)
+- **2022 오픈소스 컨트리뷰션 아카데미**<br />
+  2022.07.09 - 2022.10.14<br />
+  RustPython 프로젝트 리드멘티<br />
+  [활동 및 수상 기록](/activities/open_source_contribution_academy)
+- **교육 콘텐츠 제작 및 행사 운영 지원**<br />
+  2021.07 - 2022.10<br />
+  미림 미디어 랩 K-디지털 강의 콘텐츠 제작·조교, 교사 직무연수 지원, 인천과학대제전 메타버스 운영<br />
+  [활동 기록](/activities/assistant)
 
-- start with `Work and support`
-- then move to `Projects and open source`
-- use `Activities` if you want the supporting records and context
+## 직무 관련 경험
 
-### If you want collaboration and project leadership first
+- **인하공업전문대학 인공지능빅데이터센터 근로장학생**<br />
+  2021.09 - 2022.01<br />
+  Ubuntu 서버·네트워크·데이터베이스·GPU·Docker 환경 구축과 운영 지원, 백업·복구 체계 정리, 기술 세미나 기획·발표<br />
+  [직무 경험 기록](/activities/itc-work-scholarship)
+- **경기도 기능경기대회 사이버보안**<br />
+  2019.04<br />
+  Windows Server, CentOS, AD·DNS·DHCP·FTP·SSH·Web 서비스, VLAN·NAT·UTM 정책, 계정·접근 보안 설정<br />
+  [직무 경험 및 수상 기록](/activities/skills-competition-cyber-security)
 
-- start with `Projects and open source`
-- then move to `Education`
-- use `Work` if you want the more implementation-oriented reading path afterward
+## 프로젝트
 
-## Education
+- **[Shoepernoma](/activities/shoepernoma)** · 2025.04.09 - 2025.05.27<br />
+  팀장·Main Service 개발 · ROS2 통신, controller, DB/ORM, AI 모듈 연동, 패키지 구조 리팩토링
+- **[StoneSpring](/activities/stonespring)** · 2025.02.27 - 2025.04.07<br />
+  팀장·채팅 시스템 개발 · GPT 스트리밍, TCP/UDP, STT/TTS, 실행 환경 자동화
+- **[GreenT](/activities/greent)** · 2025.02.05 - 2025.02.27<br />
+  시스템 컨트롤러 개발 · Arduino·Raspberry Pi·센서·RFID·Flask·시리얼 통신 연동
+- **[HealthCasting](/activities/healthcasting)** · 2024.12.12 - 2025.01.03<br />
+  팀장·트렌드 데이터 담당 · Google/Naver 검색 트렌드, 기상 데이터, EDA·시계열 분석
+- **[Pyodide](/activities/pyodide)** · 2022.10.12 - 2022.10.22<br />
+  `repr_shorten` 로직 개선과 `shorten()` 요약 함수 구현
+- **[RustPython](/activities/rustpython)** · 2022.07 - 2022.10<br />
+  Python 인터프리터의 타입·표준 라이브러리·객체 호환성 개선
+- **[DIY/CodeB](/activities/codeb)** · 2021.08 - 2022.02<br />
+  Pyodide 기반 Python 비주얼 프로그래밍 플랫폼 유지보수와 교육용 블록 기능 개발
+- **[INHA AIR](/activities/inha-air)** · 2021.05.13 - 2021.07.15<br />
+  Java Swing 기반 계정·예매 입력·달력·검증 UI 구현과 팀 기능 병합
 
-- **성일정보고등학교 디지털정보과**  
-  2017.03 - 2019.02  
-  소프트웨어와 정보 계열 진로의 초기 기반이 된 교육 과정입니다.  
-  관련 기록: [성일정보고등학교](/activities/sungil-information-high-school)
+## 수상
 
-- **인하공업전문대학 및 학점은행제 컴퓨터공학 과정**  
-  2020.03 - 2025.08  
-  전공 학습, 프로젝트, 오픈소스, 동아리 활동이 이어진 중심 시기입니다.  
-  관련 기록: [인하공업전문대학 및 학점은행제](/activities/inha-technical-college-and-academic-creditbank-system)
+- 2025.05.27 · KDT 파이널 프로젝트 발표회 최우수상(1위)
+- 2025.05.27 · KDT 자율주행 로봇 개발자 양성과정 공로상
+- 2022.12.06 · 2022 오픈소스 컨트리뷰션 아카데미 대상(1위)
+- 2021.11.04 · 공학페스티벌 창의적 종합설계 경진대회 IoT 부문 동상
+- 2021.06.04 · 산학협력 공동교육캠프 창업아이디어 경진대회 대상(1위)
+- 2019.04.08 · 경기도 기능경기대회 사이버보안 금메달(1위)
 
-이 구간은 전공 학습과 프로젝트 경험이 본격적으로 연결되기 시작한 배경으로 읽는 것이 좋습니다. 처음 보는 사람에게는 가장 짧은 background summary 역할을 합니다.
+## 자격
 
-## Work and support
-
-- **인공지능 빅데이터센터 근로장학생**  
-  2021.09 - 2022.01  
-  서버 구축 및 운영 지원, Docker 환경 구성, 문서화와 인수인계  
-  관련 기록: [인공지능 빅데이터센터 근로장학생](/activities/itc-work-scholarship)
-
-- **강의 및 행사 보조**  
-  2021 - 2022  
-  교사연수와 교육 행사에서 실습 지원, 기술 보조, 운영 지원  
-  관련 기록: [강의 및 행사 보조](/activities/assistant)
-
-이 구간은 구현만이 아니라 운영 지원, 교육 지원, 현장 대응을 함께 해온 흐름으로 읽을 수 있습니다. 구현 중심 프로젝트와는 다른 종류의 책임을 빠르게 파악할 때 먼저 보기 좋습니다.
-
-## Projects and open source
-
-- **2022 오픈소스컨트리뷰션아카데미 / RustPython**
-  2022  
-  오픈소스 프로젝트 기여와 협업 경험, 대상 수상  
-  관련 기록: [2022 오픈소스컨트리뷰션아카데미](/activities/open_source_contribution_academy)
-
-- **StoneSpring**
-  2025.02 - 2025.04  
-  실시간 돌봄 챗봇 시스템 팀 프로젝트, 팀장  
-  관련 기록: [StoneSpring](/activities/stonespring)
-
-- **Shoepernoma**
-  2025.04 - 2025.05  
-  ROS2 기반 신발 피킹 로봇 시스템 팀 프로젝트, 팀장  
-  관련 기록: [Shoepernoma](/activities/shoepernoma)
-
-이 구간은 공개 활동 중에서도 협업, 구현, 리딩 경험이 비교적 선명한 항목만 남긴 첫 public chronology pass입니다. reader가 "대표 프로젝트부터 보고 싶다"는 경우 가장 먼저 들어가기 좋은 구간입니다.
-
-## Reading note
-
-- 이 chronology는 공개 가능한 범위의 first public pass입니다.
-- 세부 산출물, supporting document, 맥락 설명은 계속 `activities`가 canonical archive 역할을 합니다.
-- 더 자세한 프로젝트 문맥이 필요하면 `Work`와 `Activities`를 함께 보는 것이 가장 자연스럽습니다.
-- 빠른 읽기가 목적이라면 먼저 이 페이지에서 한 구간을 고르고, 필요한 경우에만 `Work`나 `Activities`로 내려가는 흐름을 권장합니다.
+- 2023.06.09 · 정보처리산업기사
+- 2020.11.13 · 컴퓨터활용능력 1급
+- 2019.03.05 · 네트워크관리사 2급
+- 2018.11.13 · PC정비사 2급
