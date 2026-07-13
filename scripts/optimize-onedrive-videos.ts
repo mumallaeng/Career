@@ -13,6 +13,9 @@ const devStorageOutputRoot = process.env.DEV_STORAGE_OUTPUT_ROOT
     : path.join(projectRoot, '.dev-storage-media');
 
 const localRoot = process.env.ONEDRIVE_LOCAL_ROOT;
+const sourceCacheRoot = process.env.DEV_STORAGE_SOURCE_CACHE_ROOT
+  ? path.resolve(process.env.DEV_STORAGE_SOURCE_CACHE_ROOT)
+  : path.join(projectRoot, '.dev-storage-source-cache');
 const defaultRemoteBase = 'oow214-onedrive:';
 const remoteBase = normalizeRemoteBase(process.env.ONEDRIVE_REMOTE_BASE ?? defaultRemoteBase);
 const shouldUpload = process.env.SKIP_ONEDRIVE_UPLOAD === '1' ? false : true;
@@ -44,6 +47,7 @@ const onlyExts = parseExtList(process.env.DEV_STORAGE_ONLY_EXTS);
 const uploadManifestPath = path.join(devStorageOutputRoot, '.upload-manifest-videos.json');
 type UploadManifestEntry = { hash: string; size: number; mtimeMs: number };
 type UploadManifest = Record<string, UploadManifestEntry>;
+const remoteDirectoryListingCache = new Map<string, Map<string, string[]>>();
 
 function normalizeRemoteBase(value: string): string {
   return value.endsWith(':') ? value : `${value}:`;
@@ -75,6 +79,17 @@ async function pathExists(target?: string | null): Promise<boolean> {
   }
 }
 
+async function isMaterializedFile(target: string): Promise<boolean> {
+  try {
+    const fileStats = await stat(target);
+    if (!fileStats.isFile()) return false;
+    if (process.platform !== 'darwin' || fileStats.size === 0) return true;
+    return typeof fileStats.blocks !== 'number' || fileStats.blocks > 0;
+  } catch {
+    return false;
+  }
+}
+
 function getNormalizationVariants(value: string): string[] {
   const variants = new Set<string>();
   variants.add(value);
@@ -91,23 +106,76 @@ function getNormalizationVariants(value: string): string[] {
   return Array.from(variants);
 }
 
+function buildRemoteLookupKey(value: string): string {
+  return value.normalize('NFC').toLowerCase();
+}
+
+function resolveRemoteActualPath(remotePath: string): string {
+  const directory = path.posix.dirname(remotePath);
+  const expectedFilename = path.posix.basename(remotePath);
+  let entriesByKey = remoteDirectoryListingCache.get(directory);
+
+  if (!entriesByKey) {
+    const listing = runCommandCapture('rclone', [
+      'lsjson',
+      `${remoteBase}${directory}`,
+      '--files-only',
+      '--max-depth',
+      '1',
+    ]);
+    const entries = JSON.parse(listing) as Array<{ Path?: string; Name?: string; IsDir?: boolean }>;
+    entriesByKey = new Map<string, string[]>();
+    for (const entry of entries) {
+      if (entry.IsDir) continue;
+      const filename = entry.Path ?? entry.Name;
+      if (!filename) continue;
+      const key = buildRemoteLookupKey(filename);
+      entriesByKey.set(key, [...(entriesByKey.get(key) ?? []), filename]);
+    }
+    remoteDirectoryListingCache.set(directory, entriesByKey);
+  }
+
+  const matches = entriesByKey.get(buildRemoteLookupKey(expectedFilename)) ?? [];
+  if (matches.length !== 1) {
+    throw new Error(
+      `Expected one remote video source for ${remotePath}, found ${matches.length}:\n` +
+        matches.map(match => `- ${match}`).join('\n'),
+    );
+  }
+  return `${directory}/${matches[0]}`;
+}
+
 async function resolveLocalSource(remotePath: string): Promise<string> {
   if (!localRoot) {
     throw new Error('ONEDRIVE_LOCAL_ROOT is not configured.');
   }
 
-  const directCandidates = new Set<string>();
-  getNormalizationVariants(remotePath).forEach(relative => {
-    directCandidates.add(path.join(localRoot, ...relative.split('/')));
-  });
+  const sourceRoots = [localRoot, sourceCacheRoot];
+  for (const sourceRoot of sourceRoots) {
+    const directCandidates = new Set<string>();
+    getNormalizationVariants(remotePath).forEach(relative => {
+      directCandidates.add(path.join(sourceRoot, ...relative.split('/')));
+    });
 
-  for (const candidate of directCandidates) {
-    if (await pathExists(candidate)) {
-      return candidate;
+    for (const candidate of directCandidates) {
+      if (await isMaterializedFile(candidate)) {
+        return candidate;
+      }
     }
   }
 
-  throw new Error(`Local source not found for ${remotePath}`);
+  if (!commandExists('rclone')) {
+    throw new Error(`rclone is required to cache online-only video source: ${remotePath}`);
+  }
+  const cachePath = path.join(sourceCacheRoot, ...remotePath.split('/'));
+  await mkdir(path.dirname(cachePath), { recursive: true });
+  console.info(`Caching online-only video source ${remotePath}`);
+  const actualRemotePath = resolveRemoteActualPath(remotePath);
+  runCommand('rclone', ['copyto', `${remoteBase}${actualRemotePath}`, cachePath]);
+  if (!(await isMaterializedFile(cachePath))) {
+    throw new Error(`Unable to materialize video source: ${remotePath}`);
+  }
+  return cachePath;
 }
 
 function runCommand(command: string, args: string[]) {
@@ -403,11 +471,11 @@ async function buildTargets(): Promise<Array<{ inputPath: string; outputPath: st
   });
 
   for (const asset of videoAssets) {
-    const inputPath = await resolveLocalSource(asset.remotePathOriginal);
     const ext = getExtension(asset.filename);
     if (onlyExts.size > 0 && !onlyExts.has(ext)) {
       continue;
     }
+    const inputPath = await resolveLocalSource(asset.remotePathOriginal);
     let targetExt = ext;
     if (ext === '.gif') {
       targetExt = '.gif';
