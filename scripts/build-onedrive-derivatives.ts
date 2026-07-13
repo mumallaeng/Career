@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { access, constants as fsConstants, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 
 import { onedriveAssets } from '../src/data/onedrive-assets';
+import { authoritativeDevStorageRemoteBasePath } from '../src/data/onedrive-paths';
 import { buildThumbAssetSet } from './onedrive-thumb-targets';
 
 const sizes = [
@@ -47,6 +48,7 @@ const uploadManifestPath = path.join(devStorageOutputRoot, '.upload-manifest.jso
 const compareRemote = process.env.ONEDRIVE_COMPARE_REMOTE === '1';
 const compareRemoteOnFirstRun = true;
 const forceRegenerate = process.env.DEV_STORAGE_IMAGE_FORCE === '1';
+const useBatchUpload = process.env.DEV_STORAGE_BATCH_UPLOAD !== '0';
 type UploadManifestEntry = { hash: string; size: number; mtimeMs: number };
 type UploadManifest = Record<string, UploadManifestEntry>;
 
@@ -284,9 +286,46 @@ async function resizeImages(targets: ResizeTarget[]): Promise<void> {
   await rm(temporaryRoot, { recursive: true, force: true });
 }
 
+async function uploadDevStorageBatch(targets: ResizeTarget[]): Promise<void> {
+  const remoteRootPath = authoritativeDevStorageRemoteBasePath.replace(/\/$/, '');
+  const remoteSpec = `${remoteBase}${remoteRootPath}`;
+  const relativeRemotePaths = targets.map(target => {
+    if (!target.remotePath.startsWith(`${remoteRootPath}/`)) {
+      throw new Error(`Image derivative is outside the dev-storage root: ${target.remotePath}`);
+    }
+    return target.remotePath.slice(remoteRootPath.length + 1);
+  });
+  const filesFromPath = path.join(devStorageOutputRoot, `.rclone-image-upload-${process.pid}.txt`);
+  await writeFile(filesFromPath, `${relativeRemotePaths.sort().join('\n')}\n`);
+
+  const args = [
+    'copy',
+    devStorageOutputRoot,
+    remoteSpec,
+    '--files-from-raw',
+    filesFromPath,
+    '--checksum',
+  ];
+  if (rcloneChunkSize) args.push('--onedrive-chunk-size', rcloneChunkSize);
+  if (rcloneTransfers) args.push('--transfers', rcloneTransfers);
+  if (rcloneCheckers) args.push('--checkers', rcloneCheckers);
+  if (rcloneExtraArgs.length > 0) args.push(...rcloneExtraArgs);
+
+  console.info(`Batch uploading ${targets.length} image derivatives -> ${remoteSpec}`);
+  try {
+    runCommand('rclone', args);
+  } finally {
+    await rm(filesFromPath, { force: true });
+  }
+}
+
 async function uploadDevStorage(targets: ResizeTarget[]): Promise<void> {
   if (!shouldUpload) {
     console.info('SKIP_ONEDRIVE_UPLOAD=1 set; skipping upload.');
+    return;
+  }
+  if (useBatchUpload) {
+    await uploadDevStorageBatch(targets);
     return;
   }
 
