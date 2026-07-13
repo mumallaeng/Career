@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import type {
   KeyboardEvent as ReactKeyboardEvent,
   PointerEvent as ReactPointerEvent,
@@ -79,9 +79,10 @@ export default function PortfolioDetailOverlay({
 }: PortfolioDetailOverlayProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const resizeHandleRef = useRef<HTMLDivElement>(null);
   const preferredWidthRef = useRef<number | null>(null);
   const resizeDragRef = useRef<ResizeDrag | null>(null);
-  const [panelWidthMetrics, setPanelWidthMetrics] = useState<PanelWidthMetrics>({
+  const panelWidthMetricsRef = useRef<PanelWidthMetrics>({
     width: DEFAULT_PANEL_MIN_WIDTH,
     min: MIN_PANEL_WIDTH,
     max: 720,
@@ -92,12 +93,10 @@ export default function PortfolioDetailOverlay({
     const width = Math.round(clamp(requestedWidth, min, max));
 
     document.body.style.setProperty('--portfolio-detail-panel-width', `${width}px`);
-    setPanelWidthMetrics((current) => {
-      if (current.width === width && current.min === min && current.max === max) {
-        return current;
-      }
-      return { width, min, max };
-    });
+    panelWidthMetricsRef.current = { width, min, max };
+    resizeHandleRef.current?.setAttribute('aria-valuemin', String(min));
+    resizeHandleRef.current?.setAttribute('aria-valuemax', String(max));
+    resizeHandleRef.current?.setAttribute('aria-valuenow', String(width));
 
     return width;
   }, []);
@@ -160,7 +159,7 @@ export default function PortfolioDetailOverlay({
 
       event.preventDefault();
       const currentWidth =
-        panelRef.current?.getBoundingClientRect().width ?? panelWidthMetrics.width;
+        panelRef.current?.getBoundingClientRect().width ?? panelWidthMetricsRef.current.width;
       resizeDragRef.current = {
         pointerId: event.pointerId,
         startX: event.clientX,
@@ -170,7 +169,7 @@ export default function PortfolioDetailOverlay({
       event.currentTarget.setPointerCapture(event.pointerId);
       document.body.classList.add('portfolio-split-resizing');
     },
-    [panelWidthMetrics.width]
+    []
   );
 
   const handleResizePointerMove = useCallback(
@@ -217,16 +216,17 @@ export default function PortfolioDetailOverlay({
   const handleResizeKeyDown = useCallback(
     (event: ReactKeyboardEvent<HTMLDivElement>) => {
       const step = event.shiftKey ? KEYBOARD_RESIZE_STEP * 3 : KEYBOARD_RESIZE_STEP;
+      const { width, min, max } = panelWidthMetricsRef.current;
       let nextWidth: number | null = null;
 
       if (event.key === 'ArrowLeft') {
-        nextWidth = panelWidthMetrics.width + step;
+        nextWidth = width + step;
       } else if (event.key === 'ArrowRight') {
-        nextWidth = panelWidthMetrics.width - step;
+        nextWidth = width - step;
       } else if (event.key === 'Home') {
-        nextWidth = panelWidthMetrics.min;
+        nextWidth = min;
       } else if (event.key === 'End') {
-        nextWidth = panelWidthMetrics.max;
+        nextWidth = max;
       }
 
       if (nextWidth === null) {
@@ -236,7 +236,7 @@ export default function PortfolioDetailOverlay({
       event.preventDefault();
       setAndPersistPanelWidth(nextWidth);
     },
-    [panelWidthMetrics, setAndPersistPanelWidth]
+    [setAndPersistPanelWidth]
   );
 
   const resetPanelWidth = useCallback(() => {
@@ -264,14 +264,15 @@ export default function PortfolioDetailOverlay({
       >
         {isWideView && (
           <div
+            ref={resizeHandleRef}
             className="portfolio-detail-resize-handle"
             role="separator"
             aria-label={resizeLabel}
             aria-controls="portfolio-detail-panel"
             aria-orientation="vertical"
-            aria-valuemin={panelWidthMetrics.min}
-            aria-valuemax={panelWidthMetrics.max}
-            aria-valuenow={panelWidthMetrics.width}
+            aria-valuemin={panelWidthMetricsRef.current.min}
+            aria-valuemax={panelWidthMetricsRef.current.max}
+            aria-valuenow={panelWidthMetricsRef.current.width}
             title={resizeLabel}
             tabIndex={0}
             onPointerDown={handleResizePointerDown}
