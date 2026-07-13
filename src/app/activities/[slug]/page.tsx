@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getActivitiesData, getActivityBySlug } from '@/lib/content';
 import MDXRenderer from '@/components/MDXRenderer';
 import CertificateGrid from '@/components/CertificateGrid';
+import { formatActivityDate } from '@/lib/utils/date';
 
 export async function generateStaticParams() {
   const activities = getActivitiesData();
@@ -29,34 +30,36 @@ export default async function ActivityDetailPage({
   ].filter((section): section is { label: string; tags: string[] } =>
     Array.isArray(section.tags) && section.tags.length > 0
   );
+  const { startDate, endDate, date, content_type: contentType } = activity.frontMatter;
+  const activityDate = (startDate || endDate)
+    ? formatActivityDate(startDate, endDate)
+    : formatActivityDate(date);
+  const isProject = contentType === 'project';
+  const collectionHref = isProject ? '/activities/projects' : '/activities/experience';
+  const collectionLabel = isProject ? '프로젝트 목록으로' : '경험과 활동 목록으로';
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <nav className="back-nav">
+    <main className="activity-detail-page">
+      <div className="activity-detail-container">
+        <nav className="activity-detail-back">
           <Link
-            href="/activities"
-            className="back-link"
+            href={collectionHref}
+            className="activity-detail-back-link"
           >
-            ← 활동 목록으로
+            ← {collectionLabel}
           </Link>
         </nav>
 
-        <article>
-          <header className="post-header">
+        <article className="activity-detail-article">
+          <header className="post-header activity-detail-header">
             <div className="post-meta-container">
               <span className="activity-category">
                 {activity.frontMatter.categories?.[0] || '활동'}
               </span>
-              <time className="post-date">
-                {(() => {
-                  const dateValue = activity.frontMatter.endDate || activity.frontMatter.date || activity.frontMatter.startDate;
-                  return dateValue ? new Date(dateValue).getFullYear() : '';
-                })()}
-              </time>
+              <time className="post-date">{activityDate}</time>
               {activity.frontMatter.featured && (
                 <span className="featured-badge">
-                  Featured
+                  대표
                 </span>
               )}
             </div>
@@ -98,6 +101,6 @@ export default async function ActivityDetailPage({
           </div>
         </article>
       </div>
-    </div>
+    </main>
   );
 }

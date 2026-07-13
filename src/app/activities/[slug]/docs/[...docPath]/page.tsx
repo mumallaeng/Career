@@ -217,16 +217,16 @@ export default async function ActivityDocPage({
   const isPlantUml = isPlantUmlDocument(fileExtension, body);
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <nav className="back-nav mb-6">
-          <Link href={`/activities/${slug}`} className="back-link">
-            ← {projectLabel}/
+    <main className="activity-detail-page activity-doc-page">
+      <div className="activity-detail-container">
+        <nav className="activity-detail-back">
+          <Link href={`/activities/${slug}`} className="activity-detail-back-link">
+            ← {projectLabel}
           </Link>
         </nav>
 
-        <article>
-          <header className="post-header">
+        <article className="activity-detail-article">
+          <header className="post-header activity-detail-header">
             <h1 className="post-title">
               {title}
             </h1>
@@ -247,6 +247,6 @@ export default async function ActivityDocPage({
           </div>
         </article>
       </div>
-    </div>
+    </main>
   );
 }

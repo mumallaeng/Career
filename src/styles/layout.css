@@ -1,8 +1,8 @@
 /* Activities Grid Layout */
 .activities-container {
-    max-width: 980px;
+    max-width: 1080px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 64px 24px 96px;
 }
 
 .home-landing {
@@ -116,7 +116,7 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
-    margin-top: 40px;
+    margin-top: 32px;
 }
 
 /* Section Headers */

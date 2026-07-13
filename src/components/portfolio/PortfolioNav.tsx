@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import LanguageToggle from '@/components/LanguageToggle';
 import NavContactActions from '@/components/NavContactActions';
 import { useLanguage } from '@/components/LanguageProvider';
@@ -15,10 +17,16 @@ const SECTIONS = [
 
 export default function PortfolioNav() {
   const [activeId, setActiveId] = useState('about');
+  const pathname = usePathname();
+  const isHome = pathname === '/' || pathname === '';
   const { locale } = useLanguage();
   const copy = homeCopy[locale];
 
   useEffect(() => {
+    if (!isHome) {
+      return;
+    }
+
     const elements = SECTIONS
       .map(({ id }) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
@@ -42,19 +50,19 @@ export default function PortfolioNav() {
 
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [isHome, pathname]);
 
   return (
     <header className="portfolio-nav">
       <div className="portfolio-nav-inner">
-        <a href="#about" className="portfolio-nav-brand">김연우</a>
+        <Link href="/" className="portfolio-nav-brand">김연우</Link>
 
         <nav className="portfolio-nav-links" aria-label={copy.nav.sectionNavigation}>
           {SECTIONS.map(({ id, labelKey }) => (
             <a
               key={id}
-              href={`#${id}`}
-              className={`portfolio-nav-link${activeId === id ? ' active' : ''}`}
+              href={isHome ? `#${id}` : `/#${id}`}
+              className={`portfolio-nav-link${isHome && activeId === id ? ' active' : ''}`}
             >
               {copy.nav[labelKey]}
             </a>

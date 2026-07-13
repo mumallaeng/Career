@@ -9,15 +9,6 @@ interface CardProps {
 }
 
 export default function Card({ item, index }: CardProps) {
-  // Activity layout: first featured, then groups of two
-  const getCardClass = () => {
-    if (index === 0) {
-      return 'activity-card featured';
-    }
-
-    return 'activity-card third';
-  };
-
   const isFeatured = index === 0;
   const featuredAsset = isFeatured
     ? (item.frontMatter.thumbnail_asset_id
@@ -33,12 +24,19 @@ export default function Card({ item, index }: CardProps) {
   const activityDate = (startDate || endDate)
     ? formatActivityDate(startDate, endDate)
     : formatActivityDate(date);
+  const contentTypeNames: Record<string, string> = {
+    project: '프로젝트',
+    education: '학력',
+    social_activity: '교육·대외활동',
+    work_experience: '직무 경험',
+    award_competition: '수상·대회',
+  };
+  const contentType = item.frontMatter.content_type ?? 'activity';
+  const typeLabel = contentTypeNames[contentType] ?? item.frontMatter.categories?.[0] ?? '활동';
 
   return (
     <Link href={`/activities/${item.slug}`} className="activity-link">
-      <article
-        className={getCardClass()}
-      >
+      <article className={`activity-card${hasThumbnail ? '' : ' activity-card--text-only'}`}>
         {hasThumbnail && (
           <div
             className={`activity-card-thumbnail ${hasExplicitThumbnailSize ? 'explicit-size' : 'cover-fit'}`}
@@ -53,20 +51,15 @@ export default function Card({ item, index }: CardProps) {
             />
           </div>
         )}
-        <div
-          className={`activity-title-container ${hasThumbnail ? 'has-thumbnail' : 'no-thumbnail'}`}
-        >
-        </div>
-        <div className="activity-content">
+        <div className="activity-card-body">
+          <div className="activity-card-meta">
+            <span>{typeLabel}</span>
+            <time>{activityDate}</time>
+          </div>
           <h3 className="activity-title">
             {item.frontMatter.title}
           </h3>
-          <div className="activity-meta">
-            <time className="activity-date">
-              {activityDate}
-            </time>
-            {/* <TagList tags={item.frontMatter.tags} className="activity-tags single-line" /> */}
-          </div>
+          <p className="activity-card-description">{item.frontMatter.description}</p>
         </div>
       </article>
     </Link>

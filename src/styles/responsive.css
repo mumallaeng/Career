@@ -1,24 +1,5 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
-    .header {
-        padding: 30px 0 15px;
-    }
-    
-    .nav-container {
-        padding: 0 16px;
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
-    }
-    
-    .nav-menu {
-        gap: 20px;
-    }
-    
-    .nav-social {
-        gap: 12px;
-    }
-    
     .activities-container {
         padding: 20px 16px;
     }
@@ -47,18 +28,53 @@
         grid-template-columns: 1fr;
         gap: 16px;
     }
-    
-    .activity-card.featured,
-    .activity-card.third {
-        grid-column: 1;
-        padding: 16px;
+
+    .activities-filter-bar {
+        align-items: stretch;
+        flex-direction: column;
     }
-    
-    .activity-title {
-        font-size: 16px;
+
+    .content-type-filter {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 4px;
     }
-    
-    .activity-card.featured .activity-title {
-        font-size: 20px;
+
+    .filter-button {
+        flex-shrink: 0;
+    }
+
+    .sort-filter {
+        justify-content: flex-start;
+        margin-left: 0;
+    }
+
+    .activity-detail-page {
+        padding: 40px 0 72px;
+    }
+
+    .activity-detail-container {
+        padding: 0 16px;
+    }
+
+    .activity-detail-back {
+        margin-bottom: 32px;
+    }
+
+    .post-title,
+    .activities-collection-title {
+        font-size: 34px;
+    }
+
+    .post-excerpt {
+        font-size: 17px;
+    }
+
+    .post-header {
+        padding-bottom: 36px;
+    }
+
+    .activity-detail-article .post-body {
+        margin-top: 36px;
     }
 }
