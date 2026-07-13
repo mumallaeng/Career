@@ -1,16 +1,20 @@
 import type { SkillGroup } from '@/lib/portfolio';
+import { homeCopy, type Locale } from '@/lib/i18n';
 
 interface SkillsProps {
   groups: SkillGroup[];
+  locale: Locale;
 }
 
-export default function Skills({ groups }: SkillsProps) {
+export default function Skills({ groups, locale }: SkillsProps) {
+  const copy = homeCopy[locale].skills;
+
   return (
     <section id="skills" className="portfolio-section portfolio-section--secondary">
       <div className="portfolio-container">
         <header className="portfolio-section-header">
-          <p className="portfolio-section-kicker">Skills</p>
-          <h2 className="portfolio-section-title">Skills</h2>
+          <p className="portfolio-section-kicker">{copy.kicker}</p>
+          <h2 className="portfolio-section-title">{copy.title}</h2>
         </header>
         <div className="portfolio-skills-grid">
           {groups.map((group) => (

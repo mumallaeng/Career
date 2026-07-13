@@ -44,132 +44,129 @@
     opacity: 0.6;
 }
 
-.github-link {
-    color: var(--color-text);
-    transition: opacity 0.3s ease;
-    width: 20px;
-    height: 20px;
+.language-toggle {
+    appearance: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-}
-
-.github-link:hover {
-    opacity: 0.6;
-}
-
-.github-icon {
-    width: 20px;
-    height: 20px;
-}
-
-.github-tooltip {
-    position: absolute;
-    bottom: -28px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--color-tooltip-bg);
-    color: var(--color-tooltip-text);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-}
-
-.github-link:hover .github-tooltip,
-.github-link:focus .github-tooltip {
-    opacity: 1;
-}
-
-.mail-link {
-    position: relative;
-    background: none;
-    border: none;
-    padding: 0;
+    gap: 5px;
+    min-width: 64px;
+    height: 32px;
+    margin-left: 4px;
+    padding: 0 10px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
     cursor: pointer;
-    color: var(--color-text);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 22px;
+    flex-shrink: 0;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.mail-icon {
-    width: 28px;
-    height: 22px;
+.language-toggle:hover {
+    border-color: var(--color-text);
+    background: var(--color-bg-secondary);
 }
 
-.mail-tooltip {
-    position: absolute;
-    bottom: -28px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--color-tooltip-bg);
-    color: var(--color-tooltip-text);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
+.language-toggle:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.language-toggle-option {
+    opacity: 0.42;
     transition: opacity 0.2s ease;
 }
 
-.mail-link:hover .mail-tooltip,
-.mail-link:focus .mail-tooltip {
+.language-toggle-option.active {
     opacity: 1;
 }
 
-.mail-link:hover .mail-icon,
-.mail-link:focus .mail-icon {
-    opacity: 0.6;
+.language-toggle-divider {
+    color: var(--color-muted);
+    font-weight: 500;
 }
 
-.phone-link {
+.navbar-contact-action {
     position: relative;
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    color: var(--color-text);
+    appearance: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 22px;
-    height: 22px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--color-muted);
+    text-decoration: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    overflow: visible;
+    transition: color 0.2s ease, background-color 0.2s ease;
 }
 
-.phone-icon {
-    width: 22px;
-    height: 22px;
+.navbar-contact-action:hover,
+.navbar-contact-action:focus-visible {
+    color: var(--color-text);
+    background: var(--color-bg-secondary);
 }
 
-.phone-tooltip {
+.navbar-contact-action:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.navbar-contact-icon {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.navbar-contact-tooltip {
     position: absolute;
-    bottom: -28px;
+    z-index: 100;
+    top: calc(100% + 8px);
     left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--color-tooltip-bg);
+    transform: translate(-50%, -4px);
+    padding: 6px 9px;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 7px;
+    background: var(--color-tooltip-bg);
     color: var(--color-tooltip-text);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 11px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
     white-space: nowrap;
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s ease;
 }
 
-.phone-link:hover .phone-tooltip,
-.phone-link:focus .phone-tooltip {
+.navbar-contact-tooltip::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    width: 8px;
+    height: 8px;
+    background: var(--color-tooltip-bg);
+    border-top: 1px solid var(--color-border-subtle);
+    border-left: 1px solid var(--color-border-subtle);
+    transform: translate(-50%, 4px) rotate(45deg);
+}
+
+.navbar-contact-action:hover .navbar-contact-tooltip,
+.navbar-contact-action:focus-visible .navbar-contact-tooltip,
+.navbar-contact-action.is-copied .navbar-contact-tooltip {
     opacity: 1;
-}
-
-.phone-link:hover .phone-icon,
-.phone-link:focus .phone-icon {
-    opacity: 0.6;
+    visibility: visible;
+    transform: translate(-50%, 0);
 }

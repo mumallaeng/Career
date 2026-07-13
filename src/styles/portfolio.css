@@ -115,27 +115,6 @@
     gap: 12px;
 }
 
-.portfolio-nav-icon-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 999px;
-    color: var(--color-muted);
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.portfolio-nav-icon-link:hover {
-    color: var(--color-text);
-    background: var(--color-bg-secondary);
-}
-
-.portfolio-nav-icon-link svg {
-    width: 17px;
-    height: 17px;
-}
-
 /* --- Hero --- */
 
 .portfolio-hero {
@@ -465,7 +444,7 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
 }
 
 /* ---------------------------------------------------------------------- */
-/* Project detail overlay                                                  */
+/* Portfolio detail overlay                                                */
 /* ---------------------------------------------------------------------- */
 
 .portfolio-detail-backdrop {
@@ -632,6 +611,24 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
 
 /* Wide desktop: Notion-style split view, left page stays interactive. */
 @media (min-width: 1200px) {
+    body {
+        --portfolio-detail-panel-width: max(45vw, 480px);
+    }
+
+    .portfolio-page,
+    .portfolio-nav,
+    .header {
+        width: 100%;
+        min-width: 0;
+        transition: width 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    body.portfolio-split-open .portfolio-page,
+    body.portfolio-split-open .portfolio-nav,
+    body.portfolio-split-open .header {
+        width: calc(100% - var(--portfolio-detail-panel-width));
+    }
+
     .portfolio-detail-backdrop {
         display: none;
     }
@@ -642,8 +639,7 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
         bottom: 0;
         left: auto;
         right: 0;
-        width: 45%;
-        min-width: 480px;
+        width: var(--portfolio-detail-panel-width);
         border-left: 1px solid var(--color-border-subtle);
         border-radius: 0;
     }
