@@ -33,13 +33,14 @@ export const homeCopy = {
     experience: {
       kicker: '경험',
       title: '경험과 활동',
+      more: '경험과 활동 더보기',
       groups: {
         Education: '학력',
         Activities: '활동',
         'Work experience': '직무 관련 경험',
       },
     },
-    projects: { kicker: '프로젝트', title: '프로젝트' },
+    projects: { kicker: '프로젝트', title: '프로젝트', more: '프로젝트 더보기' },
     contact: {
       kicker: '연락처',
       title: '연락하기',
@@ -94,13 +95,14 @@ export const homeCopy = {
     experience: {
       kicker: 'Experience',
       title: 'Experience & Activities',
+      more: 'View all experience & activities',
       groups: {
         Education: 'Education',
         Activities: 'Activities',
         'Work experience': 'Work Experience',
       },
     },
-    projects: { kicker: 'Projects', title: 'Projects' },
+    projects: { kicker: 'Projects', title: 'Projects', more: 'View all projects' },
     contact: {
       kicker: 'Contact',
       title: 'Get in Touch',

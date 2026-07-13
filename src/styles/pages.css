@@ -84,6 +84,41 @@
     opacity: 0.7;
 }
 
+/* Classified activity collections */
+.activities-collection-header {
+    max-width: 720px;
+    padding: 24px 0 32px;
+    border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.activities-collection-back {
+    display: inline-block;
+    margin-bottom: 24px;
+    color: var(--color-muted);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.activities-collection-back:hover {
+    color: var(--color-primary);
+}
+
+.activities-collection-title {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 40px;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+}
+
+.activities-collection-description {
+    margin: 16px 0 0;
+    color: var(--color-muted);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
 /* Content Type Filter */
 .activities-filter-bar {
     display: flex;

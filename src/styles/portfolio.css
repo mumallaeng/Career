@@ -25,6 +25,38 @@
     margin-bottom: 40px;
 }
 
+.portfolio-section-header--with-action {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px 24px;
+    flex-wrap: wrap;
+}
+
+.portfolio-section-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 0;
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.portfolio-section-more span {
+    transition: transform 0.2s ease;
+}
+
+.portfolio-section-more:hover {
+    color: var(--color-primary);
+}
+
+.portfolio-section-more:hover span {
+    transform: translateX(3px);
+}
+
 .portfolio-section-kicker {
     margin: 0 0 8px;
     font-size: 13px;

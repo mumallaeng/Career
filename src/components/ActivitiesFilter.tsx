@@ -6,10 +6,13 @@ import { Content } from '@/types/content';
 
 interface ActivitiesFilterProps {
   activities: Content[];
+  showContentTypeFilter?: boolean;
 }
 
-export default function ActivitiesFilter({ activities }: ActivitiesFilterProps) {
-  const showContentTypeFilter = true;
+export default function ActivitiesFilter({
+  activities,
+  showContentTypeFilter = true,
+}: ActivitiesFilterProps) {
   const [selectedType, setSelectedType] = useState<string>('all');
   const [sortOrder, setSortOrder] = useState<'recommended' | 'newest' | 'oldest' | 'name'>('recommended');
 
