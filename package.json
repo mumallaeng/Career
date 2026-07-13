@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "prebuild": "npm run audit:media && npm run sync:onedrive && du -sh public/import-data",
+    "prebuild": "npm run sync:onedrive && npm run audit:media && du -sh public/import-data",
     "build": "next build",
     "build:local": "SKIP_ONEDRIVE_SYNC=1 npm run build",
     "build:turbo": "next build --turbopack",
