@@ -1,7 +1,52 @@
 'use client';
 
-import { useLayoutEffect, useRef } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import type {
+  KeyboardEvent as ReactKeyboardEvent,
+  PointerEvent as ReactPointerEvent,
+} from 'react';
 import MDXRenderer from '@/components/MDXRenderer';
+
+const PANEL_WIDTH_STORAGE_KEY = 'portfolio-detail-panel-width-v1';
+const MIN_PANEL_WIDTH = 420;
+const MIN_PAGE_WIDTH = 480;
+const MAX_PANEL_RATIO = 0.72;
+const DEFAULT_PANEL_RATIO = 0.45;
+const DEFAULT_PANEL_MIN_WIDTH = 480;
+const KEYBOARD_RESIZE_STEP = 16;
+
+interface PanelWidthMetrics {
+  width: number;
+  min: number;
+  max: number;
+}
+
+interface ResizeDrag {
+  pointerId: number;
+  startX: number;
+  startWidth: number;
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function getPanelWidthLimits(viewportWidth: number) {
+  return {
+    min: MIN_PANEL_WIDTH,
+    max: Math.max(
+      MIN_PANEL_WIDTH,
+      Math.round(Math.min(viewportWidth * MAX_PANEL_RATIO, viewportWidth - MIN_PAGE_WIDTH))
+    ),
+  };
+}
+
+function getDefaultPanelWidth(viewportWidth: number) {
+  const { min, max } = getPanelWidthLimits(viewportWidth);
+  return Math.round(
+    clamp(Math.max(viewportWidth * DEFAULT_PANEL_RATIO, DEFAULT_PANEL_MIN_WIDTH), min, max)
+  );
+}
 
 export interface PortfolioDetail {
   eyebrow: string;
@@ -20,6 +65,7 @@ interface PortfolioDetailOverlayProps {
   isOpen: boolean;
   isWideView: boolean;
   closeLabel: string;
+  resizeLabel: string;
   onClose: () => void;
 }
 
@@ -28,9 +74,75 @@ export default function PortfolioDetailOverlay({
   isOpen,
   isWideView,
   closeLabel,
+  resizeLabel,
   onClose,
 }: PortfolioDetailOverlayProps) {
+  const panelRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const preferredWidthRef = useRef<number | null>(null);
+  const resizeDragRef = useRef<ResizeDrag | null>(null);
+  const [panelWidthMetrics, setPanelWidthMetrics] = useState<PanelWidthMetrics>({
+    width: DEFAULT_PANEL_MIN_WIDTH,
+    min: MIN_PANEL_WIDTH,
+    max: 720,
+  });
+
+  const applyPanelWidth = useCallback((requestedWidth: number) => {
+    const { min, max } = getPanelWidthLimits(window.innerWidth);
+    const width = Math.round(clamp(requestedWidth, min, max));
+
+    document.body.style.setProperty('--portfolio-detail-panel-width', `${width}px`);
+    setPanelWidthMetrics((current) => {
+      if (current.width === width && current.min === min && current.max === max) {
+        return current;
+      }
+      return { width, min, max };
+    });
+
+    return width;
+  }, []);
+
+  const persistPanelWidth = useCallback((width: number) => {
+    try {
+      window.localStorage.setItem(PANEL_WIDTH_STORAGE_KEY, String(Math.round(width)));
+    } catch {
+      // Resizing still works when browser storage is unavailable.
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isWideView) {
+      document.body.classList.remove('portfolio-split-resizing');
+      document.body.style.removeProperty('--portfolio-detail-panel-width');
+      resizeDragRef.current = null;
+      return undefined;
+    }
+
+    let preferredWidth = getDefaultPanelWidth(window.innerWidth);
+    try {
+      const storedWidth = Number(window.localStorage.getItem(PANEL_WIDTH_STORAGE_KEY));
+      if (Number.isFinite(storedWidth) && storedWidth > 0) {
+        preferredWidth = storedWidth;
+      }
+    } catch {
+      // Fall back to the responsive default when browser storage is unavailable.
+    }
+
+    preferredWidthRef.current = preferredWidth;
+    applyPanelWidth(preferredWidth);
+
+    const handleViewportResize = () => {
+      applyPanelWidth(preferredWidthRef.current ?? getDefaultPanelWidth(window.innerWidth));
+    };
+
+    window.addEventListener('resize', handleViewportResize);
+    return () => {
+      window.removeEventListener('resize', handleViewportResize);
+      document.body.classList.remove('portfolio-split-resizing');
+      document.body.style.removeProperty('--portfolio-detail-panel-width');
+      resizeDragRef.current = null;
+    };
+  }, [applyPanelWidth, isWideView]);
 
   useLayoutEffect(() => {
     if (!detail?.href || !bodyRef.current) {
@@ -39,6 +151,97 @@ export default function PortfolioDetailOverlay({
     bodyRef.current.scrollTop = 0;
     bodyRef.current.scrollLeft = 0;
   }, [detail?.href]);
+
+  const handleResizePointerDown = useCallback(
+    (event: ReactPointerEvent<HTMLDivElement>) => {
+      if (event.button !== 0) {
+        return;
+      }
+
+      event.preventDefault();
+      const currentWidth =
+        panelRef.current?.getBoundingClientRect().width ?? panelWidthMetrics.width;
+      resizeDragRef.current = {
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        startWidth: currentWidth,
+      };
+      preferredWidthRef.current = currentWidth;
+      event.currentTarget.setPointerCapture(event.pointerId);
+      document.body.classList.add('portfolio-split-resizing');
+    },
+    [panelWidthMetrics.width]
+  );
+
+  const handleResizePointerMove = useCallback(
+    (event: ReactPointerEvent<HTMLDivElement>) => {
+      const drag = resizeDragRef.current;
+      if (!drag || drag.pointerId !== event.pointerId) {
+        return;
+      }
+
+      const nextWidth = drag.startWidth + (drag.startX - event.clientX);
+      preferredWidthRef.current = applyPanelWidth(nextWidth);
+    },
+    [applyPanelWidth]
+  );
+
+  const finishPointerResize = useCallback(
+    (event: ReactPointerEvent<HTMLDivElement>) => {
+      const drag = resizeDragRef.current;
+      if (!drag || drag.pointerId !== event.pointerId) {
+        return;
+      }
+
+      resizeDragRef.current = null;
+      document.body.classList.remove('portfolio-split-resizing');
+      if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+        event.currentTarget.releasePointerCapture(event.pointerId);
+      }
+      if (preferredWidthRef.current !== null) {
+        persistPanelWidth(preferredWidthRef.current);
+      }
+    },
+    [persistPanelWidth]
+  );
+
+  const setAndPersistPanelWidth = useCallback(
+    (requestedWidth: number) => {
+      const width = applyPanelWidth(requestedWidth);
+      preferredWidthRef.current = width;
+      persistPanelWidth(width);
+    },
+    [applyPanelWidth, persistPanelWidth]
+  );
+
+  const handleResizeKeyDown = useCallback(
+    (event: ReactKeyboardEvent<HTMLDivElement>) => {
+      const step = event.shiftKey ? KEYBOARD_RESIZE_STEP * 3 : KEYBOARD_RESIZE_STEP;
+      let nextWidth: number | null = null;
+
+      if (event.key === 'ArrowLeft') {
+        nextWidth = panelWidthMetrics.width + step;
+      } else if (event.key === 'ArrowRight') {
+        nextWidth = panelWidthMetrics.width - step;
+      } else if (event.key === 'Home') {
+        nextWidth = panelWidthMetrics.min;
+      } else if (event.key === 'End') {
+        nextWidth = panelWidthMetrics.max;
+      }
+
+      if (nextWidth === null) {
+        return;
+      }
+
+      event.preventDefault();
+      setAndPersistPanelWidth(nextWidth);
+    },
+    [panelWidthMetrics, setAndPersistPanelWidth]
+  );
+
+  const resetPanelWidth = useCallback(() => {
+    setAndPersistPanelWidth(getDefaultPanelWidth(window.innerWidth));
+  }, [setAndPersistPanelWidth]);
 
   if (!detail) {
     return null;
@@ -52,11 +255,34 @@ export default function PortfolioDetailOverlay({
         aria-hidden="true"
       />
       <div
+        ref={panelRef}
+        id="portfolio-detail-panel"
         className={`portfolio-detail-panel${isOpen ? ' is-open' : ''}`}
         role="dialog"
         aria-modal={!isWideView}
         aria-label={detail.title}
       >
+        {isWideView && (
+          <div
+            className="portfolio-detail-resize-handle"
+            role="separator"
+            aria-label={resizeLabel}
+            aria-controls="portfolio-detail-panel"
+            aria-orientation="vertical"
+            aria-valuemin={panelWidthMetrics.min}
+            aria-valuemax={panelWidthMetrics.max}
+            aria-valuenow={panelWidthMetrics.width}
+            title={resizeLabel}
+            tabIndex={0}
+            onPointerDown={handleResizePointerDown}
+            onPointerMove={handleResizePointerMove}
+            onPointerUp={finishPointerResize}
+            onPointerCancel={finishPointerResize}
+            onLostPointerCapture={finishPointerResize}
+            onKeyDown={handleResizeKeyDown}
+            onDoubleClick={resetPanelWidth}
+          />
+        )}
         <div className="portfolio-detail-header">
           <span className="portfolio-detail-eyebrow">{detail.eyebrow}</span>
           <button

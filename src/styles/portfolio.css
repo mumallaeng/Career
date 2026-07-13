@@ -541,6 +541,10 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
     transform: translateX(0);
 }
 
+.portfolio-detail-resize-handle {
+    display: none;
+}
+
 .portfolio-detail-header {
     display: flex;
     align-items: center;
@@ -704,6 +708,23 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
         width: calc(100% - var(--portfolio-detail-panel-width));
     }
 
+    body.portfolio-split-resizing {
+        cursor: col-resize;
+        user-select: none;
+    }
+
+    body.portfolio-split-resizing *,
+    body.portfolio-split-resizing *::before,
+    body.portfolio-split-resizing *::after {
+        cursor: col-resize !important;
+    }
+
+    body.portfolio-split-resizing .portfolio-page,
+    body.portfolio-split-resizing .portfolio-nav,
+    body.portfolio-split-resizing .header {
+        transition: none;
+    }
+
     .portfolio-detail-backdrop {
         display: none;
     }
@@ -717,6 +738,60 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
         width: var(--portfolio-detail-panel-width);
         border-left: 1px solid var(--color-border-subtle);
         border-radius: 0;
+    }
+
+    .portfolio-detail-resize-handle {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        bottom: 0;
+        left: -8px;
+        display: block;
+        width: 16px;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        cursor: col-resize;
+        touch-action: none;
+    }
+
+    .portfolio-detail-resize-handle::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 7px;
+        width: 2px;
+        background: var(--color-border-subtle);
+        transition: background-color 0.16s ease, width 0.16s ease;
+    }
+
+    .portfolio-detail-resize-handle::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 6px;
+        width: 4px;
+        height: 44px;
+        border-radius: 999px;
+        background: var(--color-muted);
+        opacity: 0.2;
+        transform: translateY(-50%);
+        transition: background-color 0.16s ease, opacity 0.16s ease;
+    }
+
+    .portfolio-detail-resize-handle:hover::before,
+    .portfolio-detail-resize-handle:focus-visible::before,
+    .portfolio-detail-resize-handle:active::before {
+        background: var(--color-primary);
+    }
+
+    .portfolio-detail-resize-handle:hover::after,
+    .portfolio-detail-resize-handle:focus-visible::after,
+    .portfolio-detail-resize-handle:active::after {
+        background: var(--color-primary);
+        opacity: 0.8;
     }
 }
 
