@@ -28,7 +28,7 @@ const onlyAssetKeys = onlyAssetQuery
 
 const maxDimension = Number(process.env.DEV_STORAGE_VIDEO_MAX_DIMENSION ?? '1920');
 const maxFps = Number(process.env.DEV_STORAGE_VIDEO_MAX_FPS ?? '30');
-const maxOutputMb = Number(process.env.DEV_STORAGE_VIDEO_MAX_MB ?? '90');
+const maxOutputMb = Number(process.env.DEV_STORAGE_VIDEO_MAX_MB ?? '94');
 const videoCrf = Number(process.env.DEV_STORAGE_VIDEO_CRF ?? '20');
 const videoPreset = process.env.DEV_STORAGE_VIDEO_PRESET ?? 'slow';
 const videoAudioBitrate = process.env.DEV_STORAGE_VIDEO_AUDIO_BITRATE ?? '160k';
