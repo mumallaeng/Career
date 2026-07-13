@@ -115,10 +115,14 @@
     gap: 12px;
 }
 
-/* --- Hero --- */
+/* --- Introduction --- */
 
-.portfolio-hero {
-    padding: 140px 0 96px;
+.portfolio-intro {
+    padding: 120px 0 96px;
+}
+
+.portfolio-intro-hero {
+    max-width: 760px;
 }
 
 .portfolio-hero-kicker {
@@ -149,6 +153,7 @@
 
 .portfolio-hero-actions {
     display: flex;
+    flex-wrap: wrap;
     gap: 12px;
     margin-top: 36px;
 }
@@ -184,6 +189,45 @@
 
 .portfolio-button--secondary:hover {
     border-color: var(--color-text);
+}
+
+.portfolio-intro-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.8fr);
+    align-items: start;
+    gap: 48px;
+    margin-top: 72px;
+    padding-top: 48px;
+    border-top: 1px solid var(--color-border-subtle);
+}
+
+.portfolio-intro-about .portfolio-section-header,
+.portfolio-intro-contact .portfolio-section-header {
+    margin-bottom: 24px;
+}
+
+.portfolio-intro-about .portfolio-about-summary,
+.portfolio-intro-about .portfolio-about-list {
+    max-width: none;
+}
+
+.portfolio-intro-contact {
+    padding: 28px;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-secondary);
+    scroll-margin-top: 88px;
+}
+
+.portfolio-intro-contact .portfolio-section-title {
+    font-size: 26px;
+}
+
+.portfolio-contact-description {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--color-muted);
 }
 
 /* --- About --- */
@@ -415,6 +459,21 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
     flex-wrap: wrap;
     gap: 12px;
     margin-top: 28px;
+}
+
+.portfolio-intro-contact .portfolio-contact-links {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.portfolio-intro-contact .portfolio-contact-link {
+    width: 100%;
+    min-width: 0;
+}
+
+.portfolio-intro-contact .portfolio-contact-link span {
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .portfolio-contact-link {
@@ -661,9 +720,16 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
 /* Responsive layout                                                      */
 /* ---------------------------------------------------------------------- */
 
+@media (max-width: 900px) {
+    .portfolio-intro-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
 @media (max-width: 768px) {
-    .portfolio-hero {
-        padding: 112px 0 64px;
+    .portfolio-intro {
+        padding: 96px 0 64px;
     }
 
     .portfolio-hero-name {
@@ -672,6 +738,15 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
 
     .portfolio-hero-tagline {
         font-size: 17px;
+    }
+
+    .portfolio-intro-grid {
+        margin-top: 56px;
+        padding-top: 40px;
+    }
+
+    .portfolio-intro-contact {
+        padding: 24px;
     }
 
     .portfolio-section {
