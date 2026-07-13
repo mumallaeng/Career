@@ -15,6 +15,7 @@ import type {
   AboutContent,
   SkillGroup,
   ExperienceEntry,
+  PortfolioDetailContent,
   ProjectSummary,
 } from '@/lib/portfolio';
 
@@ -24,6 +25,7 @@ interface PortfolioClientProps {
   skills: SkillGroup[];
   experience: ExperienceEntry[];
   projects: ProjectSummary[];
+  detailContent: PortfolioDetailContent;
 }
 
 const MOBILE_QUERY = '(max-width: 768px)';
@@ -40,7 +42,14 @@ function findDetailPath(
   return paths.find((path) => path.replace(/\/$/, '') === normalized) ?? null;
 }
 
-export default function PortfolioClient({ hero, about, skills, experience, projects }: PortfolioClientProps) {
+export default function PortfolioClient({
+  hero,
+  about,
+  skills,
+  experience,
+  projects,
+  detailContent,
+}: PortfolioClientProps) {
   const { locale } = useLanguage();
   const copy = homeCopy[locale];
   const [activePath, setActivePath] = useState<string | null>(null);
@@ -167,7 +176,7 @@ export default function PortfolioClient({ hero, about, skills, experience, proje
         eyebrow: copy.detail.project,
         title: activeProject.title,
         href: activeProject.href,
-        actionLabel: copy.detail.readCaseStudy,
+        content: detailContent[activeProject.href] ?? '',
         description: activeProject.description,
         meta: [activeProject.type, activeProject.role, activeProject.dateRange].filter(
           (item): item is string => Boolean(item)
@@ -181,7 +190,7 @@ export default function PortfolioClient({ hero, about, skills, experience, proje
           eyebrow: copy.experience.groups[activeExperience.group],
           title: activeExperience.title,
           href: activeExperience.href,
-          actionLabel: copy.detail.readActivity,
+          content: detailContent[activeExperience.href] ?? '',
           description: activeExperience.description,
           meta: [activeExperience.dateRange],
         }

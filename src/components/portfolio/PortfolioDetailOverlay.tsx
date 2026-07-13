@@ -1,12 +1,12 @@
 'use client';
 
-import Link from 'next/link';
+import MDXRenderer from '@/components/MDXRenderer';
 
 export interface PortfolioDetail {
   eyebrow: string;
   title: string;
   href: string;
-  actionLabel: string;
+  content: string;
   description: string;
   meta: string[];
   tags?: string[];
@@ -93,9 +93,9 @@ export default function PortfolioDetailOverlay({
             </div>
           )}
 
-          <Link href={detail.href} className="portfolio-button portfolio-button--primary">
-            {detail.actionLabel}
-          </Link>
+          <div className="portfolio-detail-content post-body">
+            <MDXRenderer key={detail.href} content={detail.content} />
+          </div>
         </div>
       </div>
     </>

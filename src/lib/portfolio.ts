@@ -39,6 +39,8 @@ export interface ProjectSummary {
   href: string;
 }
 
+export type PortfolioDetailContent = Record<string, string>;
+
 // Content below is carried over verbatim (or lightly restructured) from the
 // existing curated summary surfaces (profile.md / resume.md / work.md) and
 // activity frontmatter, per the Vault/Career publication boundary: this page
@@ -196,4 +198,22 @@ export function getFeaturedProjects(): ProjectSummary[] {
   }
 
   return projects;
+}
+
+export function getPortfolioDetailContent(
+  experience: ExperienceEntry[],
+  projects: ProjectSummary[]
+): PortfolioDetailContent {
+  const paths = new Set([
+    ...experience.map((entry) => entry.href),
+    ...projects.map((project) => project.href),
+  ]);
+
+  return Object.fromEntries(
+    Array.from(paths, (href) => {
+      const slug = href.split('/').filter(Boolean).at(-1);
+      const activity = slug ? getActivityBySlug(slug) : null;
+      return [href, activity?.content ?? ''];
+    })
+  );
 }

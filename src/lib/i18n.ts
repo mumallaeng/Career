@@ -49,8 +49,6 @@ export const homeCopy = {
     },
     detail: {
       project: '프로젝트',
-      readCaseStudy: '프로젝트 자세히 보기 →',
-      readActivity: '활동 자세히 보기 →',
       close: '닫기',
     },
     legacyNav: {
@@ -113,8 +111,6 @@ export const homeCopy = {
     },
     detail: {
       project: 'Project',
-      readCaseStudy: 'Read full case study →',
-      readActivity: 'Read full activity →',
       close: 'Close',
     },
     legacyNav: {

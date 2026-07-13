@@ -6,6 +6,7 @@ import {
   getSkillGroups,
   getExperienceEntries,
   getFeaturedProjects,
+  getPortfolioDetailContent,
 } from '@/lib/portfolio';
 
 export default function HomePage() {
@@ -14,6 +15,7 @@ export default function HomePage() {
   const skills = getSkillGroups();
   const experience = getExperienceEntries();
   const projects = getFeaturedProjects();
+  const detailContent = getPortfolioDetailContent(experience, projects);
 
   return (
     <>
@@ -23,6 +25,7 @@ export default function HomePage() {
         skills={skills}
         experience={experience}
         projects={projects}
+        detailContent={detailContent}
       />
       <Analytics />
     </>
