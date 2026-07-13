@@ -48,6 +48,7 @@ export const homeCopy = {
     detail: {
       project: '프로젝트',
       close: '닫기',
+      resize: '상세 패널 너비 조절',
     },
     legacyNav: {
       profile: '프로필',
@@ -108,6 +109,7 @@ export const homeCopy = {
     detail: {
       project: 'Project',
       close: 'Close',
+      resize: 'Resize detail panel',
     },
     legacyNav: {
       profile: 'Profile',
