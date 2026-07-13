@@ -15,15 +15,18 @@ export default function ActivitiesFilter({ activities }: ActivitiesFilterProps) 
 
   // Get unique content types
   const contentTypes = useMemo(() => {
-    const precedence = ['project', 'social_activity', 'work_support', 'education', 'award_competition'];
+    const precedence = ['project', 'work_experience', 'social_activity', 'education', 'award_competition'];
+    const present = new Set<string>();
     const rest = new Set<string>();
     activities.forEach(activity => {
       const contentType = activity.frontMatter.content_type || 'activity';
-      if (!precedence.includes(contentType)) {
+      if (precedence.includes(contentType)) {
+        present.add(contentType);
+      } else {
         rest.add(contentType);
       }
     });
-    return ['all', ...precedence, ...Array.from(rest).sort()];
+    return ['all', ...precedence.filter(type => present.has(type)), ...Array.from(rest).sort()];
   }, [activities]);
 
   // Filter activities by content type
@@ -78,9 +81,10 @@ export default function ActivitiesFilter({ activities }: ActivitiesFilterProps) 
     const typeNames: Record<string, string> = {
       all: '전체',
       project: '프로젝트',
-      social_activity: '사회활동',
+      work_experience: '직무 경험',
+      social_activity: '활동',
       work_support: '업무지원',
-      education: '교육',
+      education: '학력',
       award_competition: '수상/대회',
       competition: '수상/대회',
       etc: '기타',
