@@ -5,6 +5,7 @@ description: "Software, robotics, and documentation-oriented work built from the
 tags: ["profile", "baseline"]
 categories: ["career"]
 publication_id: "career/profile"
+publication_status: "retired"
 source_vault_path: "career-drafts/career-description/source.md"
 source_hash: "b98c3cee54dbf2ec896d0a32060191b57058ced998a9804ce277b72c7ee96a46"
 content_kind: "summary-surface"

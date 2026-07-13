@@ -5,6 +5,7 @@ description: "A small curated set of representative projects and implementation-
 tags: ["work", "baseline"]
 categories: ["career"]
 publication_id: "career/work"
+publication_status: "retired"
 source_vault_path: "career-drafts/portfolio/portfolio-source.md"
 source_hash: "f5fb3b31867846687ad25a6d912779cfa1c8359528c3edb3a6e56b8b7c9ec623"
 content_kind: "summary-surface"

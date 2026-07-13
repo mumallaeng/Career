@@ -2,13 +2,9 @@
 
 ## Scope
 
-This note captures the currently verified local validation and OneDrive path assumptions for the bounded `career-realignment-baseline` worktree.
+This note captures the currently verified local validation and OneDrive path assumptions for the Career repository.
 
-## Worktree
-
-- repository: `~/git/Career`
-- branch: `work/career-realignment-baseline`
-- worktree: `~/git/.worktrees/Career/career-realignment-baseline`
+Validation commands are expected to work from the repository root or any clean linked worktree.
 
 ## OneDrive Path Baseline
 
@@ -56,14 +52,15 @@ The current repo scripts support these controls:
 npm run validate:publication
 ```
 
-- result on `2026-04-07`: passes
+- result on `2026-07-13`: passes
 - current contract:
   - validates `publication-manifest.csv`
-  - checks manifest/front-matter agreement for:
+  - checks manifest/front-matter agreement for the retained provenance sources:
     - `profile`
     - `resume`
     - `work`
     - `writing`
+  - confirms those entries are recorded as retired rather than current public pages
   - verifies Vault-side source hashes when the current environment can resolve
     the `Vault` root
 - reference:
@@ -163,13 +160,12 @@ Use these notes instead:
 - `docs/public-surface-baseline.md`
   - for the current route contract and reading order
 - `docs/publication-provenance-baseline.md`
-  - for the bounded source/provenance contract of the current summary surfaces
+  - for the bounded source/provenance contract of the retired summary sources
 - `docs/publication-readiness-baseline.md`
   - for the current bounded publication-safe boundary
 
-This validation note only records that those publication surfaces are already
-landed in the bounded worktree and can be checked with the validation commands
-below.
+This validation note records the commands used to check the current public
+surface and its retained provenance sources.
 
 ## Practical Default
 

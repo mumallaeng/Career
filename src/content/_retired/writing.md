@@ -5,6 +5,7 @@ description: "A conservative writing surface that points to documentation-heavy 
 tags: ["writing", "baseline"]
 categories: ["career"]
 publication_id: "career/writing"
+publication_status: "retired"
 source_vault_path: "career-drafts/resume/master-positioning.md"
 source_hash: "ba3af6e35d4edfc8eb2328b34e6ce00f19d87c3bcf2578d9e625d93930e6b5dc"
 content_kind: "summary-surface"

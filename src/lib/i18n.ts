@@ -48,13 +48,6 @@ export const homeCopy = {
       close: '닫기',
       resize: '상세 패널 너비 조절',
     },
-    legacyNav: {
-      profile: '프로필',
-      resume: '이력',
-      work: '작업',
-      writing: '글',
-      activities: '활동',
-    },
     aria: {
       copyEmail: '이메일 주소 복사',
       copyPhone: '전화번호 복사',
@@ -106,13 +99,6 @@ export const homeCopy = {
       project: 'Project',
       close: 'Close',
       resize: 'Resize detail panel',
-    },
-    legacyNav: {
-      profile: 'Profile',
-      resume: 'Resume',
-      work: 'Work',
-      writing: 'Writing',
-      activities: 'Activities',
     },
     aria: {
       copyEmail: 'Copy email address',

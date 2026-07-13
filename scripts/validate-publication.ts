@@ -200,6 +200,7 @@ function main(): void {
     ensure(frontMatter.source_hash === row.source_hash, `source_hash mismatch for ${row.content_path}`);
     ensure(frontMatter.content_kind === row.content_kind, `content_kind mismatch for ${row.content_path}`);
     ensure(frontMatter.work_type === row.work_type, `work_type mismatch for ${row.content_path}`);
+    ensure(frontMatter.publication_status === row.status, `publication_status mismatch for ${row.content_path}`);
   });
 
   if (vaultRoot) {
@@ -211,10 +212,10 @@ function main(): void {
         `source_hash does not match Vault source for ${row.publication_id}: ${row.source_vault_path}`,
       );
     });
-    console.log(`Publication validation passed for ${dataRows.length} entries with Vault source verification.`);
+    console.log(`Publication validation passed for ${dataRows.length} retained entries with Vault source verification.`);
   } else {
     console.log(
-      `Publication validation passed for ${dataRows.length} entries without Vault verification (VAULT_ROOT not found).`,
+      `Publication validation passed for ${dataRows.length} retained entries without Vault verification (VAULT_ROOT not found).`,
     );
   }
 }

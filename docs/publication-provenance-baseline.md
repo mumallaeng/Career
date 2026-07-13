@@ -2,112 +2,52 @@
 
 ## Scope
 
-This note records the bounded publication provenance contract introduced for the
-already-landed public summary surfaces.
+This note records the provenance contract for four retired summary sources.
+They were previously rendered at standalone public routes and are now retained
+only to preserve their connection to Vault-side drafting sources.
 
-It is intentionally smaller than a full publication schema for the whole
-repository. The goal is to make the current public summary surfaces traceable to
-their Vault-side drafting sources without opening a broad migration stream.
+## Retired Source Coverage
 
-## First-Pass Coverage
+- former `/profile` source: `src/content/_retired/profile.md`
+- former `/resume` source: `src/content/_retired/resume.md`
+- former `/work` source: `src/content/_retired/work.md`
+- former `/writing` source: `src/content/_retired/writing.md`
 
-The current bounded provenance baseline covers these summary surfaces only:
+These paths are not public pages. The current public surface is the integrated
+home and activity archive described in `docs/public-surface-baseline.md`.
 
-- `/profile`
-- `/resume`
-- `/work`
-- `/writing`
+## Contract
 
-It does not yet attempt to cover:
-
-- `/`
-- `/activities`
-- all activity detail pages
-- a full repository-wide publication manifest
-
-## Repo Artifacts
-
-The provenance baseline currently lives in two places:
-
-1. `publication-manifest.csv`
-2. front matter on:
-   - `src/content/profile.md`
-   - `src/content/resume.md`
-   - `src/content/work.md`
-   - `src/content/writing.md`
-
-## Current Contract
-
-Each first-pass public summary surface now carries these fields:
+Each retained source carries:
 
 - `publication_id`
+- `publication_status: retired`
 - `source_vault_path`
 - `source_hash`
 - `content_kind`
 - `work_type`
 
-Current interpretation:
-
-- `publication_id` is the stable public identifier for the current surface
-- `source_vault_path` points to the current Vault-side drafting source used as
-  the bounded provenance anchor
-- `source_hash` is the SHA-256 digest of that Vault-side source file
-- `content_kind` identifies the publication surface class
-- `work_type` identifies the summary-surface role more specifically
-
-## Manifest Role
-
-`publication-manifest.csv` is the repo-side registry for the bounded first pass.
-
-It currently records:
-
-- public route
-- repo content path
-- Vault source path
-- Vault source hash
-- content kind
-- work type
-- current linkage status
-
-The manifest is intentionally small and limited to the already-landed public
-summary surfaces.
+`publication-manifest.csv` keeps the former public path as historical identity,
+points to the `_retired` repo path, and records `status=retired`.
 
 ## Validation
-
-Use:
 
 ```bash
 npm run validate:publication
 ```
 
-The current validator checks:
+The validator checks:
 
-- manifest shape
-- uniqueness of `publication_id`
-- uniqueness of `public_path`
-- existence of the repo content files
-- agreement between manifest values and front matter values
-- Vault source existence and SHA-256 agreement when `Vault` can be resolved
+- manifest shape and identifier uniqueness
+- retained repo-source existence
+- manifest and front-matter agreement, including retired status
+- Vault source existence and SHA-256 agreement when the Vault root is available
 
-## Vault Resolution Rule
-
-The validator resolves the Vault root in this order:
-
-1. `VAULT_ROOT` environment variable
-2. the nearest ancestor sibling directory named `Vault` that contains:
-   - `career-drafts`
-   - `provenance/career`
-
-This keeps the validation portable across the current multi-worktree layout.
+It does not treat a retained historical `public_path` as a currently generated
+route. Generated-route verification belongs to the application build.
 
 ## Boundary
 
-This note does not claim that the repository has a full provenance-complete
-publication model.
-
-It only claims that:
-
-- the current summary surfaces now have a bounded traceable source contract
-- the contract is validated locally
-- the next provenance expansion, if needed, can build on this baseline instead
-  of starting from zero
+This is a narrow historical provenance record, not a complete publication model
+for the home or activity archive. Retained sources must not be imported by page
+components or restored to navigation without an explicit decision.

@@ -228,38 +228,3 @@ export function getActivityBySlug(slug: string): Content | null {
   const activities = getActivitiesData();
   return activities.find(activity => activity.slug === slug) || null;
 }
-
-export function getProfileData(): Content | null {
-  return getStaticPageData('profile');
-}
-
-// Flow 2: Realigned public surfaces load bounded markdown baselines from src/content.
-export function getStaticPageData(slug: string): Content | null {
-  const pagePath = path.join(process.cwd(), `src/content/${slug}.md`);
-
-  if (!fs.existsSync(pagePath)) {
-    return null;
-  }
-
-  const fileContent = fs.readFileSync(pagePath, 'utf8');
-  const { frontMatter, content } = parseFrontMatter(fileContent);
-
-  const preview = content
-    .replace(/^#.*$/gm, '')
-    .replace(/\n+/g, ' ')
-    .trim()
-    .substring(0, 150) + '...';
-
-  const extractedThumbnail = resolveThumbnailFromFrontMatter(frontMatter)
-    ?? extractFirstImage(content);
-
-  return {
-    slug,
-    frontMatter,
-    content,
-    preview,
-    thumbnailUrl: extractedThumbnail?.url,
-    thumbnailHasExplicitSize: extractedThumbnail?.hasExplicitDimensions ?? false,
-    fileExtension: 'md',
-  };
-}

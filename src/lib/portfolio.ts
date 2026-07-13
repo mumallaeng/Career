@@ -42,9 +42,8 @@ export interface ProjectSummary {
 export type PortfolioDetailContent = Record<string, string>;
 
 // Content below is carried over verbatim (or lightly restructured) from the
-// existing curated summary surfaces (profile.md / resume.md / work.md) and
-// activity frontmatter, per the Vault/Career publication boundary: this page
-// re-presents existing curated public content, it does not author new claims.
+// curated career sources and activity frontmatter. This page re-presents
+// existing public content; it does not author new claims.
 
 export function getHeroContent(): HeroContent {
   return {

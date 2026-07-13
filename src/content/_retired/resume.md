@@ -5,6 +5,7 @@ description: "학력, 활동, 직무 관련 경험, 프로젝트, 수상을 정�
 tags: ["resume", "career"]
 categories: ["career"]
 publication_id: "career/resume"
+publication_status: "retired"
 source_vault_path: "career-drafts/resume/resume-ko-2026-02-18-source.md"
 source_hash: "4057fd6cea42bee441deea9fed69a203ae20589b8dd45fde43c80be4bccd20b3"
 content_kind: "summary-surface"
