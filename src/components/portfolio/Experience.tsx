@@ -16,10 +16,7 @@ export default function Experience({ entries, onSelect, locale }: ExperienceProp
     <section id="experience" className="portfolio-section">
       <div className="portfolio-container">
         <header className="portfolio-section-header portfolio-section-header--with-action">
-          <div>
-            <p className="portfolio-section-kicker">{copy.kicker}</p>
-            <h2 className="portfolio-section-title">{copy.title}</h2>
-          </div>
+          <h2 className="portfolio-section-title">{copy.title}</h2>
           <Link href="/activities/experience" className="portfolio-section-more">
             {copy.more}
             <span aria-hidden="true">→</span>

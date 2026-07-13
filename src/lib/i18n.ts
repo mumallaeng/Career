@@ -18,7 +18,6 @@ export const homeCopy = {
       contact: '연락하기',
     },
     about: {
-      kicker: '소개',
       title: '소개',
       summary:
         '서로 떨어진 기능을 하나의 흐름으로 연결하는 일을 좋아하는 개발자 김연우입니다. 로봇이 움직이고 화면이 반응하며 서버에 기록이 남는 데 필요한 부분을 직접 만들고 이어 왔습니다. ROS2 로봇 시스템, AI 챗봇, 문서 처리 도구를 만들었고, 팀 프로젝트에서는 전체 구조와 기능 통합을 주로 맡았습니다. 다른 사람이 작업을 이어받을 수 있도록 코드와 문서를 함께 정리합니다.',
@@ -29,9 +28,8 @@ export const homeCopy = {
         '유지보수와 인수인계를 고려한 작업 과정 문서화',
       ],
     },
-    skills: { kicker: '기술', title: '기술' },
+    skills: { title: '기술' },
     experience: {
-      kicker: '경험',
       title: '경험과 활동',
       more: '경험과 활동 더보기',
       groups: {
@@ -40,9 +38,8 @@ export const homeCopy = {
         'Work experience': '직무 관련 경험',
       },
     },
-    projects: { kicker: '프로젝트', title: '프로젝트', more: '프로젝트 더보기' },
+    projects: { title: '프로젝트', more: '프로젝트 더보기' },
     contact: {
-      kicker: '연락처',
       title: '연락하기',
       description: '새로운 프로젝트나 협업 제안은 아래 채널로 편하게 연락 주세요.',
     },
@@ -80,7 +77,6 @@ export const homeCopy = {
       contact: 'Contact',
     },
     about: {
-      kicker: 'About',
       title: 'About Me',
       summary:
         "I'm Yeonwoo Kim, a developer who likes connecting separate pieces until the whole thing works. I've built ROS2 robot systems, AI chatbots, and document-processing tools, often taking care of the overall structure and integration on team projects. I keep the code and documentation organized so someone else can pick up the work easily.",
@@ -91,9 +87,8 @@ export const homeCopy = {
         'Process documentation for maintenance and handoff',
       ],
     },
-    skills: { kicker: 'Skills', title: 'Skills' },
+    skills: { title: 'Skills' },
     experience: {
-      kicker: 'Experience',
       title: 'Experience & Activities',
       more: 'View all experience & activities',
       groups: {
@@ -102,9 +97,8 @@ export const homeCopy = {
         'Work experience': 'Work Experience',
       },
     },
-    projects: { kicker: 'Projects', title: 'Projects', more: 'View all projects' },
+    projects: { title: 'Projects', more: 'View all projects' },
     contact: {
-      kicker: 'Contact',
       title: 'Get in Touch',
       description: 'Feel free to reach out through the channels below for projects or collaboration opportunities.',
     },

@@ -17,10 +17,7 @@ export default function Projects({ projects, onSelect, locale }: ProjectsProps) 
     <section id="projects" className="portfolio-section">
       <div className="portfolio-container">
         <header className="portfolio-section-header portfolio-section-header--with-action">
-          <div>
-            <p className="portfolio-section-kicker">{copy.kicker}</p>
-            <h2 className="portfolio-section-title">{copy.title}</h2>
-          </div>
+          <h2 className="portfolio-section-title">{copy.title}</h2>
           <Link href="/activities/projects" className="portfolio-section-more">
             {copy.more}
             <span aria-hidden="true">→</span>

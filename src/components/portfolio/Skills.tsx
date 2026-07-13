@@ -13,7 +13,6 @@ export default function Skills({ groups, locale }: SkillsProps) {
     <section id="skills" className="portfolio-section portfolio-section--secondary">
       <div className="portfolio-container">
         <header className="portfolio-section-header">
-          <p className="portfolio-section-kicker">{copy.kicker}</p>
           <h2 className="portfolio-section-title">{copy.title}</h2>
         </header>
         <div className="portfolio-skills-grid">

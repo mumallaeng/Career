@@ -59,7 +59,6 @@ export default function Intro({ hero, about, locale }: IntroProps) {
         <div className="portfolio-intro-grid">
           <div className="portfolio-intro-about">
             <header className="portfolio-section-header">
-              <p className="portfolio-section-kicker">{copy.about.kicker}</p>
               <h2 id="about-title" className="portfolio-section-title">{copy.about.title}</h2>
             </header>
             <p className="portfolio-about-summary">{summary}</p>
@@ -72,7 +71,6 @@ export default function Intro({ hero, about, locale }: IntroProps) {
 
           <aside id="contact" className="portfolio-intro-contact" aria-labelledby="contact-title">
             <header className="portfolio-section-header">
-              <p className="portfolio-section-kicker">{copy.contact.kicker}</p>
               <h2 id="contact-title" className="portfolio-section-title">{copy.contact.title}</h2>
             </header>
             <p className="portfolio-contact-description">{copy.contact.description}</p>
