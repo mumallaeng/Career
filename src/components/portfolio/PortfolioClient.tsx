@@ -1,12 +1,10 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Hero from './Hero';
-import About from './About';
+import Intro from './Intro';
 import Skills from './Skills';
 import Experience from './Experience';
 import Projects from './Projects';
-import Contact from './Contact';
 import PortfolioDetailOverlay, { type PortfolioDetail } from './PortfolioDetailOverlay';
 import { useLanguage } from '@/components/LanguageProvider';
 import { homeCopy, localizeExperience, localizeProject } from '@/lib/i18n';
@@ -198,9 +196,7 @@ export default function PortfolioClient({
 
   return (
     <div className="portfolio-page">
-      <Hero content={hero} locale={locale} />
-      <Contact locale={locale} />
-      <About content={about} locale={locale} />
+      <Intro hero={hero} about={about} locale={locale} />
       <Skills groups={skills} locale={locale} />
       <Experience entries={localizedExperience} onSelect={openDetail} locale={locale} />
       <Projects projects={localizedProjects} onSelect={openProject} locale={locale} />

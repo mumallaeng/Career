@@ -5,12 +5,10 @@ export type Locale = 'ko' | 'en';
 export const homeCopy = {
   ko: {
     nav: {
-      home: '홈',
       about: '소개',
       skills: '기술',
       experience: '경험',
       projects: '프로젝트',
-      contact: '연락처',
       sectionNavigation: '섹션 탐색',
     },
     hero: {
@@ -67,12 +65,10 @@ export const homeCopy = {
   },
   en: {
     nav: {
-      home: 'Home',
       about: 'About',
       skills: 'Skills',
       experience: 'Experience',
       projects: 'Projects',
-      contact: 'Contact',
       sectionNavigation: 'Section navigation',
     },
     hero: {

@@ -7,8 +7,6 @@ import { useLanguage } from '@/components/LanguageProvider';
 import { homeCopy } from '@/lib/i18n';
 
 const SECTIONS = [
-  { id: 'home', labelKey: 'home' },
-  { id: 'contact', labelKey: 'contact' },
   { id: 'about', labelKey: 'about' },
   { id: 'skills', labelKey: 'skills' },
   { id: 'experience', labelKey: 'experience' },
@@ -16,7 +14,7 @@ const SECTIONS = [
 ] as const;
 
 export default function PortfolioNav() {
-  const [activeId, setActiveId] = useState('home');
+  const [activeId, setActiveId] = useState('about');
   const { locale } = useLanguage();
   const copy = homeCopy[locale];
 
@@ -49,7 +47,7 @@ export default function PortfolioNav() {
   return (
     <header className="portfolio-nav">
       <div className="portfolio-nav-inner">
-        <a href="#home" className="portfolio-nav-brand">김연우</a>
+        <a href="#about" className="portfolio-nav-brand">김연우</a>
 
         <nav className="portfolio-nav-links" aria-label={copy.nav.sectionNavigation}>
           {SECTIONS.map(({ id, labelKey }) => (
