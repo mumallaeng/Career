@@ -102,7 +102,7 @@ const syncTargets: SyncTarget[] = assets.flatMap(asset => {
         asset,
         remotePath: asset.remotePath,
         publicPath: asset.publicPath,
-        fallbackRemotePath: asset.remotePathOriginal,
+        fallbackRemotePath: asset.isResizableImage ? undefined : asset.remotePathOriginal,
         label: 'default',
       },
     ];
@@ -111,7 +111,6 @@ const syncTargets: SyncTarget[] = assets.flatMap(asset => {
         asset,
         remotePath: asset.remotePathThumb,
         publicPath: asset.publicPathThumb,
-        fallbackRemotePath: asset.remotePathOriginal,
         label: 'thumb',
       });
     }

@@ -100,6 +100,10 @@ function normalizePublicFilename(filename: string): string {
   }
 }
 
+export function buildOptimizedImageFilename(filename: string): string {
+  return normalizePublicFilename(filename.replace(/\.[^.]+$/, '.webp'));
+}
+
 function buildDevStoragePublicPath(size: 'thumb' | 'default', filename: string): string {
   if (size === 'thumb') {
     return `${devStoragePublicBasePath}thumb/${filename}`;
@@ -3424,11 +3428,18 @@ const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinit
   const isResizableImage = isResizableImageFilename(asset.filename);
   const isOptimizedMotion = isOptimizedMotionFilename(asset.filename);
   const hasOptimizedDefault = isResizableImage || isOptimizedMotion;
+  const optimizedFilename = isResizableImage
+    ? buildOptimizedImageFilename(asset.filename)
+    : asset.filename;
 
-  const remotePathDefault = hasOptimizedDefault ? buildDevStorageRemotePath('default', asset.filename) : remotePathOriginal;
-  const publicPathDefault = hasOptimizedDefault ? buildDevStoragePublicPath('default', publicFilename) : publicPathOriginal;
-  const remotePathThumb = isResizableImage ? buildDevStorageRemotePath('thumb', asset.filename) : remotePathOriginal;
-  const publicPathThumb = isResizableImage ? buildDevStoragePublicPath('thumb', publicFilename) : publicPathOriginal;
+  const remotePathDefault = hasOptimizedDefault ? buildDevStorageRemotePath('default', optimizedFilename) : remotePathOriginal;
+  const publicPathDefault = hasOptimizedDefault
+    ? buildDevStoragePublicPath('default', normalizePublicFilename(optimizedFilename))
+    : publicPathOriginal;
+  const remotePathThumb = isResizableImage ? buildDevStorageRemotePath('thumb', optimizedFilename) : remotePathOriginal;
+  const publicPathThumb = isResizableImage
+    ? buildDevStoragePublicPath('thumb', normalizePublicFilename(optimizedFilename))
+    : publicPathOriginal;
 
   return {
     ...asset,

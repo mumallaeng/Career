@@ -1,14 +1,14 @@
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { access, constants as fsConstants, mkdir, readFile, stat, writeFile } from 'node:fs/promises';
+import { access, constants as fsConstants, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 
 import { onedriveAssets } from '../src/data/onedrive-assets';
 import { buildThumbAssetSet } from './onedrive-thumb-targets';
 
 const sizes = [
-  { label: 'thumb', maxSize: 480 },
-  { label: 'default', maxSize: 1600 },
+  { label: 'thumb', maxSize: 640, quality: 88 },
+  { label: 'default', maxSize: 1920, quality: 92 },
 ] as const;
 
 type SizeLabel = (typeof sizes)[number]['label'];
@@ -16,6 +16,7 @@ type SizeLabel = (typeof sizes)[number]['label'];
 type ResizeTarget = {
   label: SizeLabel;
   maxSize: number;
+  quality: number;
   inputPath: string;
   outputPath: string;
   remotePath: string;
@@ -45,6 +46,7 @@ const rcloneExtraArgs = process.env.RCLONE_EXTRA_ARGS?.split(' ').filter(Boolean
 const uploadManifestPath = path.join(devStorageOutputRoot, '.upload-manifest.json');
 const compareRemote = process.env.ONEDRIVE_COMPARE_REMOTE === '1';
 const compareRemoteOnFirstRun = true;
+const forceRegenerate = process.env.DEV_STORAGE_IMAGE_FORCE === '1';
 type UploadManifestEntry = { hash: string; size: number; mtimeMs: number };
 type UploadManifest = Record<string, UploadManifestEntry>;
 
@@ -138,6 +140,7 @@ function runCommandCapture(command: string, args: string[]): string {
 }
 
 async function shouldRegenerate(inputPath: string, outputPath: string): Promise<boolean> {
+  if (forceRegenerate) return true;
   if (!(await pathExists(outputPath))) return true;
   const [inputStat, outputStat] = await Promise.all([stat(inputPath), stat(outputPath)]);
   return inputStat.mtimeMs > outputStat.mtimeMs;
@@ -198,9 +201,9 @@ function matchesOnlyAssets(asset: typeof onedriveAssets[number], keys: string[])
   if (keys.length === 0) return true;
   const ids = Array.isArray(asset.act_id) ? asset.act_id : [asset.act_id];
   return keys.some(key => {
-    const normalizedKey = key.toLowerCase();
-    if (asset.filename.toLowerCase() === normalizedKey) return true;
-    return ids.some(id => id.toLowerCase() === normalizedKey);
+    const normalizedKey = key.normalize('NFC').toLowerCase();
+    if (asset.filename.normalize('NFC').toLowerCase() === normalizedKey) return true;
+    return ids.some(id => id.normalize('NFC').toLowerCase() === normalizedKey);
   });
 }
 
@@ -216,29 +219,69 @@ async function buildTargets(): Promise<ResizeTarget[]> {
       console.warn(`Skipping missing local source: ${asset.remotePathOriginal} (${(error as Error).message})`);
       continue;
     }
-    for (const { label, maxSize } of sizes) {
+    for (const { label, maxSize, quality } of sizes) {
       if (label === 'thumb' && !thumbAssets.has(asset.filename)) {
         continue;
       }
+      const outputFilename = path.posix.basename(
+        label === 'thumb' ? asset.remotePathThumb : asset.remotePath,
+      );
       const outputPath = label === 'thumb'
-        ? path.join(devStorageOutputRoot, 'thumb', asset.filename)
-        : path.join(devStorageOutputRoot, asset.filename);
+        ? path.join(devStorageOutputRoot, 'thumb', outputFilename)
+        : path.join(devStorageOutputRoot, outputFilename);
       const remotePath = label === 'thumb' ? asset.remotePathThumb : asset.remotePath;
-      targets.push({ label, maxSize, inputPath, outputPath, remotePath });
+      targets.push({ label, maxSize, quality, inputPath, outputPath, remotePath });
     }
   }
   return targets;
 }
 
 async function resizeImages(targets: ResizeTarget[]): Promise<void> {
+  const temporaryRoot = path.join(devStorageOutputRoot, '.image-derivative-tmp');
   for (const target of targets) {
     await mkdir(path.dirname(target.outputPath), { recursive: true });
     if (!(await shouldRegenerate(target.inputPath, target.outputPath))) {
       continue;
     }
-    console.info(`Resizing ${path.basename(target.inputPath)} -> ${target.label} (${target.maxSize}px)`);
-    runCommand('sips', ['-Z', `${target.maxSize}`, target.inputPath, '--out', target.outputPath]);
+    await mkdir(temporaryRoot, { recursive: true });
+    const temporaryPng = path.join(
+      temporaryRoot,
+      `${target.label}-${path.basename(target.outputPath, '.webp')}.png`,
+    );
+    console.info(
+      `Encoding ${path.basename(target.inputPath)} -> ${target.label} ` +
+        `(${target.maxSize}px WebP q=${target.quality})`,
+    );
+    try {
+      runCommand('sips', [
+        '-Z',
+        `${target.maxSize}`,
+        '-s',
+        'format',
+        'png',
+        target.inputPath,
+        '--out',
+        temporaryPng,
+      ]);
+      runCommand('cwebp', [
+        '-quiet',
+        '-q',
+        `${target.quality}`,
+        '-m',
+        '6',
+        '-sharp_yuv',
+        '-mt',
+        '-metadata',
+        'icc',
+        temporaryPng,
+        '-o',
+        target.outputPath,
+      ]);
+    } finally {
+      await rm(temporaryPng, { force: true });
+    }
   }
+  await rm(temporaryRoot, { recursive: true, force: true });
 }
 
 async function uploadDevStorage(targets: ResizeTarget[]): Promise<void> {
@@ -361,12 +404,18 @@ async function main() {
   if (!commandExists('sips')) {
     throw new Error('sips is required (macOS). Install ImageMagick or use a Mac environment.');
   }
-  if (!commandExists('rclone')) {
+  if (!commandExists('cwebp')) {
+    throw new Error('cwebp is required in PATH to build WebP image derivatives.');
+  }
+  if (shouldUpload && !commandExists('rclone')) {
     throw new Error('rclone is required in PATH to upload dev-storage assets.');
   }
 
-  await ensureRcloneConfig();
+  if (shouldUpload) {
+    await ensureRcloneConfig();
+  }
   const targets = await buildTargets();
+  console.info('Image quality settings: default=1920px WebP q=92, thumb=640px WebP q=88');
   await resizeImages(targets);
   await uploadDevStorage(targets);
 }
