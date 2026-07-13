@@ -2,19 +2,23 @@
 
 import Link from 'next/link';
 import type { ProjectSummary } from '@/lib/portfolio';
+import { homeCopy, type Locale } from '@/lib/i18n';
 
 interface ProjectsProps {
   projects: ProjectSummary[];
   onSelect: (slug: string) => boolean;
+  locale: Locale;
 }
 
-export default function Projects({ projects, onSelect }: ProjectsProps) {
+export default function Projects({ projects, onSelect, locale }: ProjectsProps) {
+  const copy = homeCopy[locale].projects;
+
   return (
     <section id="projects" className="portfolio-section">
       <div className="portfolio-container">
         <header className="portfolio-section-header">
-          <p className="portfolio-section-kicker">Projects</p>
-          <h2 className="portfolio-section-title">Projects</h2>
+          <p className="portfolio-section-kicker">{copy.kicker}</p>
+          <h2 className="portfolio-section-title">{copy.title}</h2>
         </header>
 
         <div className="portfolio-projects-grid">
@@ -24,6 +28,16 @@ export default function Projects({ projects, onSelect }: ProjectsProps) {
               href={project.href}
               className="portfolio-project-card"
               onClick={(event) => {
+                if (
+                  event.defaultPrevented ||
+                  event.button !== 0 ||
+                  event.metaKey ||
+                  event.ctrlKey ||
+                  event.shiftKey ||
+                  event.altKey
+                ) {
+                  return;
+                }
                 const handled = onSelect(project.slug);
                 if (handled) {
                   event.preventDefault();

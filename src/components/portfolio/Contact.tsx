@@ -1,27 +1,64 @@
-import { contactEmail, contactPhone, contactGithubUrl } from '@/data/contact';
+'use client';
 
-export default function Contact() {
+import type { MouseEvent } from 'react';
+import { contactEmail, contactPhone, contactGithubUrl } from '@/data/contact';
+import { copyToClipboard } from '@/lib/clipboard';
+import { homeCopy, type Locale } from '@/lib/i18n';
+
+export default function Contact({ locale }: { locale: Locale }) {
+  const copy = homeCopy[locale].contact;
+  const phoneHref = `tel:${contactPhone.replace(/[^0-9+]/g, '')}`;
+
+  const copyAndOpen = async (
+    event: MouseEvent<HTMLAnchorElement>,
+    value: string,
+    href: string
+  ) => {
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    await copyToClipboard(value);
+    window.location.href = href;
+  };
+
   return (
     <section id="contact" className="portfolio-section portfolio-section--secondary">
       <div className="portfolio-container">
         <header className="portfolio-section-header">
-          <p className="portfolio-section-kicker">Contact</p>
-          <h2 className="portfolio-section-title">Get in Touch</h2>
+          <p className="portfolio-section-kicker">{copy.kicker}</p>
+          <h2 className="portfolio-section-title">{copy.title}</h2>
         </header>
 
         <p className="portfolio-about-summary">
-          새로운 프로젝트나 협업 제안은 아래 채널로 편하게 연락 주세요.
+          {copy.description}
         </p>
 
         <div className="portfolio-contact-links">
-          <a href={`mailto:${contactEmail}`} className="portfolio-contact-link">
+          <a
+            href={`mailto:${contactEmail}`}
+            className="portfolio-contact-link"
+            onClick={(event) => void copyAndOpen(event, contactEmail, `mailto:${contactEmail}`)}
+          >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
               <path d="M2.5 6.25A2.75 2.75 0 0 1 5.25 3.5h13.5A2.75 2.75 0 0 1 21.5 6.25v11.5A2.75 2.75 0 0 1 18.75 20.5H5.25A2.75 2.75 0 0 1 2.5 17.75z" />
               <path d="M4 6.5l8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             {contactEmail}
           </a>
-          <a href={`tel:${contactPhone.replace(/[^0-9+]/g, '')}`} className="portfolio-contact-link">
+          <a
+            href={phoneHref}
+            className="portfolio-contact-link"
+            onClick={(event) => void copyAndOpen(event, contactPhone, phoneHref)}
+          >
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z" />
             </svg>
