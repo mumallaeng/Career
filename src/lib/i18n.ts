@@ -13,7 +13,7 @@ export const homeCopy = {
     },
     hero: {
       kicker: '커리어',
-      tagline: '현재 공개 활동 기록을 바탕으로 정리한 소프트웨어, 로보틱스, 문서화 중심의 작업입니다.',
+      tagline: '시스템반도체 설계·검증을 중심으로 소프트웨어와 로보틱스 경험을 연결하는 설계 엔지니어입니다.',
       viewProjects: '프로젝트 보기',
       contact: '연락하기',
     },
@@ -65,7 +65,7 @@ export const homeCopy = {
     },
     hero: {
       kicker: 'Career',
-      tagline: 'Software, robotics, and documentation-oriented work drawn from my current public activity archive.',
+      tagline: 'A design engineer focused on SoC design and verification, building on experience in software and robotics.',
       viewProjects: 'View Projects',
       contact: 'Contact',
     },
@@ -124,7 +124,7 @@ const experienceEnglish: Record<string, Pick<ExperienceEntry, 'title' | 'descrip
   },
   '/activities/korcham-ondevice-ai-semiconductor': {
     title: 'Gyeonggi Fabless Academy · On-Device AI System Semiconductor Design, Cohort 2',
-    description: 'Currently completing a program covering RTL design and verification, RV32I and AXI-based SoC integration, and ARM Cortex-M4 device programming.',
+    description: 'Currently completing a program spanning RTL design and verification, RV32I and AXI-based SoC integration, and ARM Cortex-M4 register-level device programming.',
   },
   '/activities/itc-work-scholarship': {
     title: 'AI & Big Data Center Work-Study Scholarship',

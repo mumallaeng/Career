@@ -49,7 +49,7 @@ export function getHeroContent(): HeroContent {
   return {
     kicker: 'Career',
     name: '김연우 | Gim Yeonwoo',
-    tagline: 'Software, robotics, and documentation-oriented work built from the current public activity archive.',
+    tagline: 'A design engineer focused on SoC design and verification, building on experience in software and robotics.',
   };
 }
 
@@ -107,7 +107,7 @@ export function getExperienceEntries(): ExperienceEntry[] {
       group: 'Activities',
       title: '경기도 팹리스 아카데미 · 온디바이스AI 시스템반도체 설계 2기',
       dateRange: '2026.03 - 2026.10',
-      description: 'RTL 설계와 검증, RV32I·AXI 기반 SoC, ARM Cortex-M4 디바이스 프로그래밍을 다루는 교육과정을 수강하고 있습니다.',
+      description: 'RTL 설계·검증과 RV32I·AXI 기반 SoC를 거쳐, 현재 ARM Cortex-M4의 register 수준 디바이스 제어를 학습하고 있습니다.',
       href: '/activities/korcham-ondevice-ai-semiconductor',
     },
     {

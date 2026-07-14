@@ -24,9 +24,9 @@ activity_kind: "training"
 - 훈련 유형: 국가인적자원개발컨소시엄
 - 교육 기관: 대한상공회의소 서울기술교육센터
 - 교육 장소: 경기도 팹리스 아카데미 판교캠퍼스
-- 진행 상태: 수강 중 (2026년 7월 13일 기준)
+- 진행 상태: 수강 중 (2026년 7월 14일 기준)
 
-## 2026년 7월 13일까지의 진행 내용
+## 2026년 7월 14일까지의 진행 내용
 
 | 기간 | 학습·실습 범위 | 진행 내용 |
 |:--|:--|:--|
@@ -42,7 +42,7 @@ activity_kind: "training"
 | 26.06.30 | AXI Peripheral 발표·SoC 직무 멘토링 | Custom peripheral 계층과 register map을 중심으로 발표 내용을 보완하고, SoC 설계·검증 직무 준비 방향을 점검했습니다. |
 | 26.07.01 ~ 26.07.03 | GNU C 프로그래밍 | GNU C 개발 환경에서 입출력, 함수, 조건·반복문, 배열·구조체, pointer, 진법 변환과 endian을 실습했습니다. |
 | 26.07.06 ~ 26.07.10 | Python 프로그래밍 | 기본 문법과 object binding, container, built-in·사용자 정의 함수, comprehension, 예외 처리, module·package와 class를 실습했습니다. |
-| 26.07.13 | ARM Cortex-M4 디바이스 프로그래밍 | ARM GCC cross compilation, 전자회로·임베디드 시스템 기초, STM32F411xE와 Nucleo-64 memory map, GPIO register 기반 User LED 제어 흐름을 학습했습니다. |
+| 26.07.13 ~ 26.07.14 | ARM Cortex-M4 디바이스 프로그래밍 | ARM GCC cross compilation과 STM32F411xE·Nucleo-64 구조를 확인하고, memory-mapped I/O를 통한 GPIO register 제어, C pointer와 `volatile`, bit mask 기반 bit set·invert·clear를 실습했습니다. |
 
 ## 주요 실습 및 산출물
 
@@ -56,6 +56,6 @@ activity_kind: "training"
 
 ## 현재 진행 단계
 
-2026년 7월 13일 기준으로 C와 Python 프로그래밍 단계를 마치고 ARM Cortex-M4 디바이스 프로그래밍을 진행하고 있습니다. ARM 대상 compiler toolchain과 cross compilation 흐름을 확인하고, STM32F411xE MCU와 Nucleo-64 보드의 memory map을 기준으로 GPIO peripheral register를 제어하는 단계까지 학습했습니다.
+2026년 7월 14일 기준으로 C와 Python 프로그래밍 단계를 마치고 ARM Cortex-M4 디바이스 프로그래밍을 진행하고 있습니다. ARM 대상 compiler toolchain과 cross compilation 흐름을 확인한 뒤, STM32F411xE MCU와 Nucleo-64 보드에서 memory-mapped I/O 방식으로 GPIO peripheral register를 제어하는 단계까지 학습했습니다.
 
-현재 실습 범위는 `GPIOx_MODER`, `GPIOx_OTYPER`, `GPIOx_ODR` register 설정과 PA5 User LED 제어 흐름입니다.
+현재 실습 범위는 `RCC_AHB1ENR`, `GPIOx_MODER`, `GPIOx_OTYPER`, `GPIOx_ODR` register 설정, PA5 User LED와 PA7 외부 LED 제어, `volatile`을 적용한 register 접근, bit mask 기반 bit set·invert·clear입니다.
