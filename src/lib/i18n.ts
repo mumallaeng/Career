@@ -44,7 +44,6 @@ export const homeCopy = {
       description: '새로운 프로젝트나 협업 제안은 아래 채널로 편하게 연락 주세요.',
     },
     detail: {
-      project: '프로젝트',
       close: '닫기',
       resize: '상세 패널 너비 조절',
     },
@@ -96,7 +95,6 @@ export const homeCopy = {
       description: 'Feel free to reach out through the channels below for projects or collaboration opportunities.',
     },
     detail: {
-      project: 'Project',
       close: 'Close',
       resize: 'Resize detail panel',
     },

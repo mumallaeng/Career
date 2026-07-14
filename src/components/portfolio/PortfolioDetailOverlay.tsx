@@ -6,6 +6,7 @@ import type {
   PointerEvent as ReactPointerEvent,
 } from 'react';
 import MDXRenderer from '@/components/MDXRenderer';
+import ContactLinks from './ContactLinks';
 
 const PANEL_WIDTH_STORAGE_KEY = 'portfolio-detail-panel-width-v1';
 const MIN_PANEL_WIDTH = 420;
@@ -49,7 +50,6 @@ function getDefaultPanelWidth(viewportWidth: number) {
 }
 
 export interface PortfolioDetail {
-  eyebrow: string;
   title: string;
   href: string;
   content: string;
@@ -285,7 +285,7 @@ export default function PortfolioDetailOverlay({
           />
         )}
         <div className="portfolio-detail-header">
-          <span className="portfolio-detail-eyebrow">{detail.eyebrow}</span>
+          <ContactLinks compact />
           <button
             type="button"
             className="portfolio-detail-close"

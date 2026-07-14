@@ -171,7 +171,6 @@ export default function PortfolioClient({
   const activeExperience = localizedExperience.find((entry) => entry.href === activePath) ?? null;
   const activeDetail: PortfolioDetail | null = activeProject
     ? {
-        eyebrow: copy.detail.project,
         title: activeProject.title,
         href: activeProject.href,
         content: detailContent[activeProject.href] ?? '',
@@ -185,7 +184,6 @@ export default function PortfolioClient({
       }
     : activeExperience
       ? {
-          eyebrow: copy.experience.groups[activeExperience.group],
           title: activeExperience.title,
           href: activeExperience.href,
           content: detailContent[activeExperience.href] ?? '',

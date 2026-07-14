@@ -521,6 +521,34 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
 .portfolio-contact-link svg {
     width: 18px;
     height: 18px;
+    flex-shrink: 0;
+}
+
+.portfolio-contact-links--compact {
+    flex: 1;
+    align-items: center;
+    gap: 4px 8px;
+    min-width: 0;
+    margin-top: 0;
+}
+
+.portfolio-contact-links--compact .portfolio-contact-link {
+    gap: 5px;
+    max-width: 100%;
+    padding: 5px 6px;
+    border: 0;
+    background: transparent;
+    font-size: 12px;
+}
+
+.portfolio-contact-links--compact .portfolio-contact-link span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.portfolio-contact-links--compact .portfolio-contact-link svg {
+    width: 14px;
+    height: 14px;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -567,8 +595,9 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
 
 .portfolio-detail-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
+    gap: 12px;
     padding: 16px 24px;
     border-bottom: 1px solid var(--color-border-subtle);
     flex-shrink: 0;
@@ -586,16 +615,11 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
     justify-content: center;
     cursor: pointer;
     color: var(--color-text);
+    flex-shrink: 0;
 }
 
 .portfolio-detail-close:hover {
     background: var(--color-border-subtle);
-}
-
-.portfolio-detail-eyebrow {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--color-muted);
 }
 
 .portfolio-detail-body {
