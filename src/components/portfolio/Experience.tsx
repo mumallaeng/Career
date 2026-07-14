@@ -13,15 +13,14 @@ export default function Experience({ entries, onSelect, locale }: ExperienceProp
   const copy = homeCopy[locale].experience;
 
   return (
-    <section id="experience" className="portfolio-section">
+    <section id="experience" className="portfolio-section" aria-label={copy.title}>
       <div className="portfolio-container">
-        <header className="portfolio-section-header portfolio-section-header--with-action">
-          <h2 className="portfolio-section-title">{copy.title}</h2>
+        <div className="portfolio-section-header portfolio-section-header--action-only">
           <Link href="/activities/experience" className="portfolio-section-more">
             {copy.more}
             <span aria-hidden="true">→</span>
           </Link>
-        </header>
+        </div>
 
         {groups.map((group) => (
           <div key={group} className="portfolio-experience-group">

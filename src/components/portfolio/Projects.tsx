@@ -14,15 +14,14 @@ export default function Projects({ projects, onSelect, locale }: ProjectsProps) 
   const copy = homeCopy[locale].projects;
 
   return (
-    <section id="projects" className="portfolio-section">
+    <section id="projects" className="portfolio-section" aria-label={copy.title}>
       <div className="portfolio-container">
-        <header className="portfolio-section-header portfolio-section-header--with-action">
-          <h2 className="portfolio-section-title">{copy.title}</h2>
+        <div className="portfolio-section-header portfolio-section-header--action-only">
           <Link href="/activities/projects" className="portfolio-section-more">
             {copy.more}
             <span aria-hidden="true">→</span>
           </Link>
-        </header>
+        </div>
 
         <div className="portfolio-projects-grid">
           {projects.map((project) => (

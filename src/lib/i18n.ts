@@ -8,7 +8,7 @@ export const homeCopy = {
       about: '소개',
       skills: '기술',
       experience: '경험',
-      projects: '프로젝트',
+      projects: '직무 관련 경험',
       sectionNavigation: '섹션 탐색',
     },
     hero: {
@@ -38,7 +38,7 @@ export const homeCopy = {
         'Work experience': '직무 관련 경험',
       },
     },
-    projects: { title: '프로젝트', more: '프로젝트 더보기' },
+    projects: { title: '직무 관련 경험', more: '직무 관련 경험 더보기' },
     contact: {
       title: '연락하기',
       description: '새로운 프로젝트나 협업 제안은 아래 채널로 편하게 연락 주세요.',
@@ -60,7 +60,7 @@ export const homeCopy = {
       about: 'About',
       skills: 'Skills',
       experience: 'Experience',
-      projects: 'Projects',
+      projects: 'Work Experience',
       sectionNavigation: 'Section navigation',
     },
     hero: {
@@ -90,7 +90,7 @@ export const homeCopy = {
         'Work experience': 'Work Experience',
       },
     },
-    projects: { title: 'Projects', more: 'View all projects' },
+    projects: { title: 'Work Experience', more: 'View all work experience' },
     contact: {
       title: 'Get in Touch',
       description: 'Feel free to reach out through the channels below for projects or collaboration opportunities.',

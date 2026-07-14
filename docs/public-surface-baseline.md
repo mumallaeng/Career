@@ -17,7 +17,7 @@ This note records the intended reader-facing route and navigation contract.
 
 - `/` is the integrated portfolio and primary entry point.
 - `/#about`, `/#skills`, `/#experience`, and `/#projects` are the home section anchors.
-- `/activities/projects` contains all records classified as projects.
+- `/activities/projects` presents all project records under the `직무 관련 경험` label.
 - `/activities/experience` contains education, training and external activities, and work experience.
 - `/activities` remains the complete archive with content-type filtering and sorting.
 - activity detail pages and supporting documents retain the deeper project record.
