@@ -36,7 +36,7 @@ export const homeCopy = {
       groups: {
         Education: '학력',
         Activities: '활동',
-        'Work experience': '이전 실무·대회 경험',
+        'Work experience': '직무 관련 경험',
       },
     },
     projects: { title: '소프트웨어·로보틱스 경험', more: '소프트웨어·로보틱스 경험 더보기' },
@@ -88,7 +88,7 @@ export const homeCopy = {
       groups: {
         Education: 'Education',
         Activities: 'Activities',
-        'Work experience': 'Earlier Work & Competition Experience',
+        'Work experience': 'Work-Related Experience',
       },
     },
     projects: { title: 'Software & Robotics Experience', more: 'View all software & robotics experience' },

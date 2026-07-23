@@ -9,7 +9,8 @@ interface ExperienceProps {
 }
 
 export default function Experience({ entries, onSelect, locale }: ExperienceProps) {
-  const groups = Array.from(new Set(entries.map((entry) => entry.group)));
+  const groupOrder: ExperienceEntry['group'][] = ['Activities', 'Education', 'Work experience'];
+  const groups = groupOrder.filter((group) => entries.some((entry) => entry.group === group));
   const copy = homeCopy[locale].experience;
 
   return (
