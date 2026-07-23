@@ -49,19 +49,20 @@ export function getHeroContent(): HeroContent {
   return {
     kicker: 'Career',
     name: '김연우 | Gim Yeonwoo',
-    tagline: 'A design engineer focused on SoC design and verification, building on experience in software and robotics.',
+    tagline: 'A junior engineer working toward a career in on-device AI semiconductor design and verification.',
   };
 }
 
 export function getAboutContent(): AboutContent {
   return {
     summary:
-      '서로 떨어진 기능을 하나의 흐름으로 연결하는 일을 좋아하는 개발자 김연우입니다. 로봇이 움직이고 화면이 반응하며 서버에 기록이 남는 데 필요한 부분을 직접 만들고 이어 왔습니다. ROS2 로봇 시스템, AI 챗봇, 문서 처리 도구를 만들었고, 팀 프로젝트에서는 전체 구조와 기능 통합을 주로 맡았습니다. 다른 사람이 작업을 이어받을 수 있도록 코드와 문서를 함께 정리합니다.',
+      '온디바이스 AI 시스템반도체 설계·검증을 목표로 RTL부터 SoC와 임베디드 펌웨어까지 학습하고 있는 김연우입니다. Verilog·SystemVerilog로 디지털 회로를 설계하고 UVM으로 검증했으며, RV32I CPU와 AXI4-Lite 기반 SoC, ARM Cortex-M4 주변장치 제어를 실습했습니다. 이전에 쌓은 소프트웨어·로보틱스 경험은 설계 자동화, 보드 제어, 시스템 통합과 기술 문서화에 활용하고 있습니다.',
     bullets: [
-      '주행·인식·GUI·서버를 연결한 로봇 시스템 통합',
-      'Python과 웹 기술을 활용한 반복 작업 도구화',
-      '팀장으로서 전체 흐름 설계와 기능 통합 조율',
-      '유지보수와 인수인계를 고려한 작업 과정 문서화',
+      'Verilog 기반 디지털 회로·FSM·UART·FIFO 설계',
+      'SystemVerilog·UVM 기반 testbench와 scoreboard 검증',
+      'RV32I CPU, APB·AXI4-Lite, MicroBlaze SoC 구조 실습',
+      'ARM Cortex-M4에서 GPIO·UART·Timer·Interrupt·I2C·SPI·ADC·DMA 제어',
+      '소프트웨어·로보틱스 경험을 활용한 시스템 통합과 기술 문서화',
     ],
   };
 }
@@ -69,20 +70,108 @@ export function getAboutContent(): AboutContent {
 export function getSkillGroups(): SkillGroup[] {
   return [
     {
-      title: 'Robotics & Automation',
-      skills: ['ROS2', 'Nav2', 'SLAM', 'ArUco', 'YOLOv8', 'Automation', 'TCP/UDP', 'Database'],
+      title: 'Digital Logic & RTL Design',
+      skills: [
+        'Verilog HDL',
+        'Combinational / Sequential Logic',
+        'FSM',
+        'Counter / FND',
+        'Button Debounce',
+        'UART TX / RX',
+        'FIFO',
+        'SR04 / DHT11',
+      ],
     },
     {
-      title: 'AI & Interaction',
-      skills: ['OpenAI / GPT', 'STT', 'TTS', 'Chatbot', 'PyQt', 'Visual Programming', 'Pyodide', 'WebAssembly'],
+      title: 'Design Verification',
+      skills: [
+        'SystemVerilog',
+        'Class-based Testbench',
+        'UVM',
+        'Generator / Driver / Monitor',
+        'Scoreboard',
+        'TLM',
+        'config_db',
+        'Functional Coverage',
+        'VCS',
+        'Verdi',
+      ],
     },
     {
-      title: 'Software & Tooling',
-      skills: ['Python', 'PDF / Image Processing', 'CLI Automation', 'RustPython'],
+      title: 'CPU & SoC',
+      skills: [
+        'Dedicated CPU',
+        'RV32I Single-Cycle',
+        'RV32I Multi-Cycle',
+        'Memory Map',
+        'APB',
+        'AXI4-Lite',
+        'Register Bank',
+        'Custom IP',
+        'MicroBlaze',
+        'Vivado IP Packaging',
+      ],
     },
     {
-      title: 'Infrastructure & Operations',
-      skills: ['Docker', 'Server Operations', 'Documentation & Handoff', 'Education Support'],
+      title: 'Embedded Firmware & Interfaces',
+      skills: [
+        'C / GNU C',
+        'ARM Cortex-M4',
+        'STM32F411',
+        'CMSIS',
+        'Bare-Metal / MMIO',
+        'GPIO',
+        'RCC / PLL',
+        'UART / USART',
+        'SysTick / Timer',
+        'PWM',
+        'NVIC / EXTI',
+        'Interrupt / Event-Driven',
+        'I2C',
+        'SPI',
+        'ADC',
+        'DMA',
+        'RS-232 / RS-422 / RS-485',
+      ],
+    },
+    {
+      title: 'Toolchains & Hardware',
+      skills: [
+        'Vivado',
+        'Vitis',
+        'Vivado XSim',
+        'Icarus Verilog',
+        'XSA',
+        'ARM GNU Toolchain',
+        'GNU Make / Makefile',
+        'Linker Script',
+        'Basys 3',
+        'Nucleo-F411RE',
+        'Arduino Uno',
+        'SC16IS752',
+        'Tinkercad',
+        'Logic Analyzer',
+        'Linux / SSH',
+        'Git / GitHub',
+      ],
+    },
+    {
+      title: 'Supporting Software & Robotics',
+      skills: [
+        'Python',
+        'ROS2',
+        'Nav2',
+        'SLAM',
+        'ArUco',
+        'YOLOv8',
+        'PyQt',
+        'Flask',
+        'Docker',
+        'TCP / UDP',
+        'Database',
+        'CLI Automation',
+        'Technical Documentation',
+      ],
     },
   ];
 }
@@ -107,7 +196,7 @@ export function getExperienceEntries(): ExperienceEntry[] {
       group: 'Activities',
       title: '경기도 팹리스 아카데미 · 온디바이스AI 시스템반도체 설계 2기',
       dateRange: '2026.03 - 2026.10',
-      description: 'RTL 설계·검증과 RV32I·AXI 기반 SoC를 거쳐, 현재 ARM Cortex-M4의 register 수준 디바이스 제어를 학습하고 있습니다.',
+      description: 'Verilog·SystemVerilog·UVM 기반 설계·검증과 RV32I·AXI4-Lite SoC를 거쳐, 현재 ARM Cortex-M4에서 Interrupt·I2C·SPI·ADC·DMA 기반 주변장치 제어를 학습하고 있습니다.',
       href: '/activities/korcham-ondevice-ai-semiconductor',
     },
     {
