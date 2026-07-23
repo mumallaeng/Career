@@ -30,7 +30,7 @@ activity_kind: "training"
 
 [**korchamhrd_ai_chip_design**](https://github.com/mumallaeng/korchamhrd_ai_chip_design)은 과정에서 작성한 수업 노트, RTL·검증·CPU·protocol 미니 프로젝트와 수업 지원 도구를 한곳에 모은 저장소입니다. 아래 산출물은 이 과정 저장소 안의 프로젝트와 별도 팀·통합 프로젝트 저장소로 나누어 관리하고 있습니다.
 
-## 2026년 7월 23일까지의 진행 내용
+## 교육 진행 및 프로젝트 일정
 
 | 기간 | 학습·실습 범위 | 진행 내용 |
 |:--|:--|:--|
@@ -46,16 +46,14 @@ activity_kind: "training"
 | 26.06.30 | AXI Peripheral 발표·SoC 직무 멘토링 | Custom peripheral 계층과 register map을 중심으로 발표 내용을 보완하고, SoC 설계·검증 직무 준비 방향을 점검했습니다. |
 | 26.07.01 ~ 26.07.03 | GNU C 프로그래밍 | GNU C 개발 환경에서 입출력, 함수, 조건·반복문, 배열·구조체, pointer, 진법 변환과 endian을 실습했습니다. |
 | 26.07.06 ~ 26.07.10 | Python 프로그래밍 | 기본 문법과 object binding, container, built-in·사용자 정의 함수, comprehension, 예외 처리, module·package와 class를 실습했습니다. |
-| 26.07.13 ~ 26.07.14 | ARM Cortex-M4 디바이스 프로그래밍 | ARM GCC cross compilation과 STM32F411xE·Nucleo-64 구조를 확인하고, memory-mapped I/O를 통한 GPIO register 제어, C pointer와 `volatile`, bit mask 기반 bit set·invert·clear를 실습했습니다. |
-| 26.07.15 ~ 26.07.16 | Clock·GPIO 입력·UART | RCC·PLL·AHB/APB clock과 Flash wait state를 설정하고, GPIO input·debounce·logic analyzer 관찰, USART local echo와 `printf` retargeting을 실습했습니다. |
-| 26.07.20 ~ 26.07.21 | Timer·Interrupt·Event-Driven Firmware | SysTick과 TIM2·TIM3·TIM4의 polling·PWM을 다루고, startup·vector table·NVIC·EXTI를 거쳐 key·UART·timer interrupt를 ISR과 main loop로 분리했습니다. |
-| 26.07.22 | I2C·SPI Interface | STM32F411의 I2C1·SPI1 register를 설정하고 `SC16IS752` GPIO를 제어하며 open-drain, address·ACK, clock·data·chip-select 흐름을 확인했습니다. |
-| 26.07.23 | ADC·DMA | `PA6 / ADC1_IN6` 가변저항 전압을 ADC polling으로 읽고, DMA2 memory-to-memory 전송과 완료 interrupt를 실습한 뒤 USART TX DMA 흐름까지 연결했습니다. |
+| 26.07.13 ~ 26.07.23 | ARM Cortex-M4 디바이스 프로그래밍 | ARM GCC cross compilation과 startup·vector table·linker script, STM32F411xE·Nucleo-64 구조를 확인하고 CMSIS와 memory-mapped I/O를 이용한 GPIO·RCC/PLL clock·UART·SysTick·Timer/PWM·NVIC/EXTI interrupt를 실습했습니다. 이어 I2C·SPI register interface, `PA6 / ADC1_IN6` ADC polling, DMA2 memory-to-memory 전송과 USART TX DMA 흐름까지 다뤘습니다. |
+| 26.07.23 ~ 26.07.27 | [ARM Cortex-M4 로봇팔 제어 프로젝트](https://github.com/mumallaeng/testudines) | NUCLEO-F411RE와 Sensor Shield v5.0, G51 6DoF 로봇팔을 연결하는 Testudines bare-metal firmware 프로젝트입니다. 현재 build·startup 구조와 `TIM4_CH1` 첫 서보 PWM bring-up을 구현했으며, joystick ADC 입력, 다채널 servo PWM, UART 상태 출력과 DMA·PID feedback 경로를 순서대로 검증합니다. |
 
 ## 주요 실습 및 산출물
 
 ### 별도 GitHub 프로젝트
 
+- [Testudines](https://github.com/mumallaeng/testudines): NUCLEO-F411RE에서 G51 6DoF 로봇팔을 구동하기 위한 bare-metal firmware 프로젝트. ARM Cortex-M4 수업에서 익힌 ADC·Timer/PWM·UART·DMA를 실제 joystick·servo 제어 경로로 연결하고 있습니다.
 - [KorchamLogis](https://github.com/mumallaeng/KorchamLogis): Controller UNO와 Displayer UNO를 분리한 Dual Arduino 주행·상태 표시 미니 프로젝트
 - [Timepiecer](https://github.com/mumallaeng/Timepiecer): Basys 3에서 Timepiece와 Timer를 통합한 Verilog 팀 프로젝트. 담당 작업은 Timepiece FSM·datapath, top 통합, 관련 검증과 발표 자료 정리입니다.
 - [ascii-uart-sensor-pipeline](https://github.com/mumallaeng/ascii-uart-sensor-pipeline): UART·FIFO·ASCII codec과 SR04·DHT11, watch·stopwatch를 하나의 Basys 3 시스템으로 통합한 프로젝트
@@ -76,6 +74,6 @@ activity_kind: "training"
 
 ## 현재 진행 단계
 
-2026년 7월 23일 기준으로 Verilog·SystemVerilog·UVM 기반 설계·검증과 RV32I·AXI4-Lite SoC 단계를 거쳐 ARM Cortex-M4 bare-metal firmware를 진행하고 있습니다. STM32F411xE MCU와 Nucleo-64 보드에서 GPIO, clock, UART, timer/PWM, interrupt, I2C, SPI, ADC와 DMA peripheral을 register 수준으로 제어했습니다.
+2026년 7월 23일 기준으로 Verilog·SystemVerilog·UVM 기반 설계·검증과 RV32I·AXI4-Lite SoC 단계를 거쳐 ARM Cortex-M4 디바이스 프로그래밍 과정을 진행했습니다. STM32F411xE MCU와 Nucleo-64 보드에서 GPIO, clock, UART, timer/PWM, interrupt, I2C, SPI, ADC와 DMA peripheral을 register 수준으로 제어했습니다.
 
-현재 실습 범위는 startup·vector table·linker script를 포함한 firmware build image, CMSIS register 접근, ISR과 main loop의 event 분리, sensor·serial interface와 DMA data transfer입니다.
+7월 23일부터 27일까지는 [Testudines 로봇팔 제어 프로젝트](https://github.com/mumallaeng/testudines)를 진행합니다. 현재 NUCLEO-F411RE bare-metal build·startup 구조와 첫 번째 servo PWM channel을 구현했으며, joystick ADC 입력과 다채널 PWM, UART 진단, DMA·PID feedback을 결합한 로봇팔 제어 경로로 확장하고 있습니다.
