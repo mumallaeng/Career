@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Noto_Sans_KR } from "next/font/google";
+import { Geist_Mono, Noto_Sans, Noto_Sans_KR } from "next/font/google";
 import SiteHeader from "../components/SiteHeader";
 import ThemeRuntime from "../components/ThemeRuntime";
 import LanguageProvider from "../components/LanguageProvider";
 import { Suspense } from "react";
 import "./globals.css";
+
+const latinSans = Noto_Sans({
+  variable: "--font-latin-sans",
+  weight: "variable",
+  subsets: ["latin"],
+});
 
 const gothicSans = Noto_Sans_KR({
   variable: "--font-gothic-sans",
@@ -32,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="ko" data-theme={defaultTheme}>
       <body
-        className={`${gothicSans.variable} ${geistMono.variable} antialiased`}
+        className={`${latinSans.variable} ${gothicSans.variable} ${geistMono.variable} antialiased`}
       >
         <Suspense fallback={null}>
           <ThemeRuntime defaultTheme={defaultTheme} />
