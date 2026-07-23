@@ -220,24 +220,10 @@ export function getExperienceEntries(): ExperienceEntry[] {
       description: '교사 직무연수와 K-디지털 강의 콘텐츠를 제작·지원하고, 인천과학대제전 메타버스 행사를 운영했습니다.',
       href: '/activities/assistant',
     },
-    {
-      group: 'Work experience',
-      title: '인하공업전문대학 인공지능빅데이터센터 근로장학생',
-      dateRange: '2021.09 - 2022.01',
-      description: '서버·인프라 운영을 지원하고, 기술 세미나 기획·발표와 인수인계 문서화를 진행했습니다.',
-      href: '/activities/itc-work-scholarship',
-    },
-    {
-      group: 'Work experience',
-      title: '경기도 기능경기대회 사이버보안',
-      dateRange: '2019.04',
-      description: 'Windows·Linux 서버와 네트워크 보안 환경을 구성하고 사이버보안 직종 금메달을 수상했습니다.',
-      href: '/activities/skills-competition-cyber-security',
-    },
   ];
 }
 
-const CURATED_PROJECT_SLUGS = [
+const CURATED_JOB_RELATED_SLUGS = [
   'shoepernoma',
   'stonespring',
   'greent',
@@ -247,9 +233,11 @@ const CURATED_PROJECT_SLUGS = [
   'codeb',
   'inha-air',
   'pdf-to-question-bank',
+  'itc-work-scholarship',
+  'skills-competition-cyber-security',
 ] as const;
 
-const PROJECT_HIGHLIGHTS: Record<(typeof CURATED_PROJECT_SLUGS)[number], string[]> = {
+const JOB_RELATED_HIGHLIGHTS: Record<(typeof CURATED_JOB_RELATED_SLUGS)[number], string[]> = {
   shoepernoma: [
     '로보틱스 시스템 통합',
     '인식 및 제어 파이프라인 구성',
@@ -295,12 +283,42 @@ const PROJECT_HIGHLIGHTS: Record<(typeof CURATED_PROJECT_SLUGS)[number], string[
     '예약 입력과 검증 흐름 개발',
     '팀 기능 병합과 오류 수정',
   ],
+  'itc-work-scholarship': [
+    'Ubuntu 서버·인프라 운영',
+    'Docker·CUDA 개발 환경 구축',
+    '운영 절차 문서화와 인수인계',
+  ],
+  'skills-competition-cyber-security': [
+    'Windows·Linux 서버 구성',
+    '네트워크 보안과 서비스 방어',
+    '경기도 기능경기대회 금메달',
+  ],
+};
+
+const JOB_RELATED_META: Partial<
+  Record<
+    (typeof CURATED_JOB_RELATED_SLUGS)[number],
+    Pick<ProjectSummary, 'type' | 'role' | 'description'>
+  >
+> = {
+  'itc-work-scholarship': {
+    type: '직무 경험',
+    role: '근로장학생',
+    description:
+      '서버·인프라 운영을 지원하고, 기술 세미나 기획·발표와 운영 절차 및 인수인계 문서화를 진행했습니다.',
+  },
+  'skills-competition-cyber-security': {
+    type: '기술 대회',
+    role: '금메달',
+    description:
+      'Windows·Linux 서버와 네트워크 보안 환경을 구성하고 사이버보안 직종 금메달을 수상했습니다.',
+  },
 };
 
 export function getFeaturedProjects(): ProjectSummary[] {
   const projects: ProjectSummary[] = [];
 
-  for (const slug of CURATED_PROJECT_SLUGS) {
+  for (const slug of CURATED_JOB_RELATED_SLUGS) {
     const activity = getActivityBySlug(slug);
     if (!activity) {
       continue;
@@ -311,18 +329,19 @@ export function getFeaturedProjects(): ProjectSummary[] {
     const dateRange = (startDate || endDate)
       ? formatActivityDate(startDate, endDate)
       : formatActivityDate(date);
+    const curatedMeta = JOB_RELATED_META[slug];
 
     projects.push({
       slug,
       title: frontMatter.title,
       dateRange,
-      role: frontMatter.role,
-      type: frontMatter.type,
-      description: frontMatter.description,
+      role: curatedMeta?.role ?? frontMatter.role,
+      type: curatedMeta?.type ?? frontMatter.type,
+      description: curatedMeta?.description ?? frontMatter.description,
       tags: frontMatter.tech_stack ?? frontMatter.tags ?? [],
       thumbnailUrl,
       thumbnailHasExplicitSize: thumbnailHasExplicitSize ?? false,
-      highlights: PROJECT_HIGHLIGHTS[slug],
+      highlights: JOB_RELATED_HIGHLIGHTS[slug],
       href: `/activities/${slug}`,
     });
   }

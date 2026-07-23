@@ -5,12 +5,12 @@ import { getActivitiesData } from '@/lib/content';
 
 export const metadata: Metadata = {
   title: '직무 관련 경험 | 김연우',
-  description: '김연우의 프로젝트 기반 직무 관련 경험',
+  description: '김연우의 프로젝트, 근로 경험 및 기술 대회 기록',
 };
 
 export default function ProjectsCollectionPage() {
   const projects = getActivitiesData().filter(
-    activity => activity.frontMatter.content_type === 'project'
+    activity => ['project', 'work_experience'].includes(activity.frontMatter.content_type ?? '')
   );
 
   return (
@@ -21,7 +21,7 @@ export default function ProjectsCollectionPage() {
         </Link>
         <h1 className="activities-collection-title">직무 관련 경험</h1>
         <p className="activities-collection-description">
-          프로젝트로 수행한 직무 관련 경험을 모았습니다.
+          프로젝트와 근로 경험, 기술 대회 기록을 모았습니다.
         </p>
       </header>
 

@@ -6,13 +6,11 @@ import { getActivitiesData } from '@/lib/content';
 const experienceContentTypes = new Set([
   'education',
   'social_activity',
-  'work_experience',
-  'award_competition',
 ]);
 
 export const metadata: Metadata = {
   title: '경험과 활동 | 김연우',
-  description: '김연우의 학력, 교육·대외활동 및 직무 경험 기록',
+  description: '김연우의 학력 및 교육·대외활동 기록',
 };
 
 export default function ExperienceCollectionPage() {
@@ -28,7 +26,7 @@ export default function ExperienceCollectionPage() {
         </Link>
         <h1 className="activities-collection-title">경험과 활동</h1>
         <p className="activities-collection-description">
-          학력, 교육·대외활동, 직무 경험으로 분류된 전체 기록입니다.
+          학력과 교육·대외활동으로 분류된 전체 기록입니다.
         </p>
       </header>
 

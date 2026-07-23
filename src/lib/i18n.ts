@@ -8,7 +8,7 @@ export const homeCopy = {
       about: '소개',
       skills: '기술',
       experience: '경험',
-      projects: '소프트웨어·로보틱스',
+      projects: '직무 관련 경험',
       sectionNavigation: '섹션 탐색',
     },
     hero: {
@@ -39,7 +39,7 @@ export const homeCopy = {
         'Work experience': '직무 관련 경험',
       },
     },
-    projects: { title: '소프트웨어·로보틱스 경험', more: '소프트웨어·로보틱스 경험 더보기' },
+    projects: { title: '직무 관련 경험', more: '직무 관련 경험 더보기' },
     contact: {
       title: '연락하기',
       description: '온디바이스 AI와 시스템반도체 설계·검증 관련 채용 또는 협업 제안은 아래 채널로 연락해 주세요.',
@@ -60,7 +60,7 @@ export const homeCopy = {
       about: 'About',
       skills: 'Skills',
       experience: 'Experience',
-      projects: 'Software & Robotics',
+      projects: 'Work Experience',
       sectionNavigation: 'Section navigation',
     },
     hero: {
@@ -91,7 +91,7 @@ export const homeCopy = {
         'Work experience': 'Work-Related Experience',
       },
     },
-    projects: { title: 'Software & Robotics Experience', more: 'View all software & robotics experience' },
+    projects: { title: 'Work-Related Experience', more: 'View all work-related experience' },
     contact: {
       title: 'Get in Touch',
       description: 'For opportunities related to on-device AI and semiconductor design or verification, please reach out through the channels below.',
@@ -126,10 +126,6 @@ const experienceEnglish: Record<string, Pick<ExperienceEntry, 'title' | 'descrip
     title: 'Gyeonggi Fabless Academy · On-Device AI System Semiconductor Design, Cohort 2',
     description: 'Currently completing a program spanning RTL design and verification, RV32I and AXI-based SoC integration, and ARM Cortex-M4 bare-metal peripheral control through interrupts, I2C, SPI, ADC, and DMA.',
   },
-  '/activities/itc-work-scholarship': {
-    title: 'AI & Big Data Center Work-Study Scholarship',
-    description: 'Supported server and infrastructure operations, planned and presented a technical seminar, and documented the handoff.',
-  },
   '/activities/assistant': {
     title: 'Course Content and Event Operations Support',
     description: 'Created and supported teacher-training and K-Digital course content, then helped operate a metaverse science festival.',
@@ -137,10 +133,6 @@ const experienceEnglish: Record<string, Pick<ExperienceEntry, 'title' | 'descrip
   '/activities/open_source_contribution_academy': {
     title: '2022 Open Source Contribution Academy',
     description: 'Contributed to RustPython as a lead mentee, learned open-source collaboration, and received the grand prize.',
-  },
-  '/activities/skills-competition-cyber-security': {
-    title: 'Gyeonggi Skills Competition - Cybersecurity',
-    description: 'Configured Windows and Linux servers and network-security environments, earning a gold medal in cybersecurity.',
   },
 };
 
@@ -210,6 +202,20 @@ const projectEnglish: Record<
     role: 'User Flow and GUI Development',
     description: 'A Java Swing airline-booking application covering account flows, booking inputs, date selection, and validation.',
     highlights: ['Java Swing GUI', 'Booking input and validation flow', 'Feature integration and bug fixing'],
+  },
+  'itc-work-scholarship': {
+    title: 'AI & Big Data Center Work-Study Scholarship',
+    type: 'Work Experience',
+    role: 'Work-Study Student',
+    description: 'Supported server and infrastructure operations, planned and presented a technical seminar, and documented operating procedures and the handoff.',
+    highlights: ['Ubuntu server and infrastructure operations', 'Docker and CUDA environment setup', 'Operating documentation and handoff'],
+  },
+  'skills-competition-cyber-security': {
+    title: 'Gyeonggi Skills Competition - Cybersecurity',
+    type: 'Skills Competition',
+    role: 'Gold Medal',
+    description: 'Configured Windows and Linux servers and network-security environments, earning a gold medal in cybersecurity.',
+    highlights: ['Windows and Linux server configuration', 'Network security and service defense', 'Gyeonggi Skills Competition gold medal'],
   },
 };
 
