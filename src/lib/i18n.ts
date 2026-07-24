@@ -13,7 +13,7 @@ export const homeCopy = {
     },
     hero: {
       kicker: '커리어',
-      tagline: '온디바이스 시스템반도체 설계·검증을 목표로 성장 중인 주니어 엔지니어입니다.',
+      tagline: '온디바이스 AI 시스템반도체 설계·검증 역량을 쌓고 있는 주니어 엔지니어입니다.',
       viewProjects: '설계·검증 경험 보기',
       contact: '연락하기',
     },
