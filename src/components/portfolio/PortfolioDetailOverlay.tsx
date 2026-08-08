@@ -12,7 +12,7 @@ const PANEL_WIDTH_STORAGE_KEY = 'portfolio-detail-panel-width-v1';
 const MIN_PANEL_WIDTH = 420;
 const MIN_PAGE_WIDTH = 480;
 const MAX_PANEL_RATIO = 0.72;
-const DEFAULT_PANEL_RATIO = 0.45;
+const DEFAULT_PANEL_RATIO = 0.5;
 const DEFAULT_PANEL_MIN_WIDTH = 480;
 const KEYBOARD_RESIZE_STEP = 16;
 
