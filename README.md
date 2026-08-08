@@ -35,6 +35,8 @@ npm run build:local
 
 See:
 
+- `docs/storage-role-baseline.md`
+  - Google Drive / OneDrive / HDD / Vault-Bridge role boundary for repo assets
 - `docs/public-surface-baseline.md`
 - `docs/publication-readiness-baseline.md`
 - `docs/publication-provenance-baseline.md`
