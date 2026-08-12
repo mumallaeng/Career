@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Noto_Sans_KR } from "next/font/google";
 import SiteHeader from "../components/SiteHeader";
 import ThemeRuntime from "../components/ThemeRuntime";
 import LanguageProvider from "../components/LanguageProvider";
+import { COLOR_SCHEME_STORAGE_KEY, DEFAULT_COLOR_SCHEME } from "../lib/color-scheme";
 import { Suspense } from "react";
 import "./globals.css";
 
@@ -28,6 +29,15 @@ export const metadata: Metadata = {
   description: "Welcome to my introduction page!",
 };
 
+const colorSchemeInitScript = `
+  try {
+    var storedColorScheme = window.localStorage.getItem(${JSON.stringify(COLOR_SCHEME_STORAGE_KEY)});
+    document.documentElement.dataset.colorScheme = storedColorScheme === 'dark' ? 'dark' : '${DEFAULT_COLOR_SCHEME}';
+  } catch {
+    document.documentElement.dataset.colorScheme = '${DEFAULT_COLOR_SCHEME}';
+  }
+`;
+
 export default function RootLayout({
   children,
 }: {
@@ -37,7 +47,16 @@ export default function RootLayout({
   const fontVariables = `${latinSans.variable} ${gothicSans.variable} ${geistMono.variable}`;
 
   return (
-    <html lang="ko" data-theme={defaultTheme} className={fontVariables}>
+    <html
+      lang="ko"
+      data-theme={defaultTheme}
+      data-color-scheme={DEFAULT_COLOR_SCHEME}
+      className={fontVariables}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: colorSchemeInitScript }} />
+      </head>
       <body className="antialiased">
         <Suspense fallback={null}>
           <ThemeRuntime defaultTheme={defaultTheme} />
