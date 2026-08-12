@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Noto_Sans, Noto_Sans_KR } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Sans_KR } from "next/font/google";
 import SiteHeader from "../components/SiteHeader";
 import ThemeRuntime from "../components/ThemeRuntime";
 import LanguageProvider from "../components/LanguageProvider";
 import { Suspense } from "react";
 import "./globals.css";
 
-const latinSans = Noto_Sans({
+const latinSans = Geist({
   variable: "--font-latin-sans",
   weight: "variable",
   subsets: ["latin"],
@@ -34,12 +34,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const defaultTheme = process.env.NEXT_PUBLIC_THEME ?? "hero-grid";
+  const fontVariables = `${latinSans.variable} ${gothicSans.variable} ${geistMono.variable}`;
 
   return (
-    <html lang="ko" data-theme={defaultTheme}>
-      <body
-        className={`${latinSans.variable} ${gothicSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="ko" data-theme={defaultTheme} className={fontVariables}>
+      <body className="antialiased">
         <Suspense fallback={null}>
           <ThemeRuntime defaultTheme={defaultTheme} />
         </Suspense>
