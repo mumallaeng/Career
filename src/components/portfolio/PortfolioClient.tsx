@@ -204,6 +204,8 @@ export default function PortfolioClient({
         isWideView={isWideViewport}
         closeLabel={copy.detail.close}
         resizeLabel={copy.detail.resize}
+        expandLabel={copy.detail.expand}
+        collapseLabel={copy.detail.collapse}
         onClose={closeDetail}
       />
     </div>

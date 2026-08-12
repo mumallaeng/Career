@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type {
   KeyboardEvent as ReactKeyboardEvent,
   PointerEvent as ReactPointerEvent,
@@ -66,6 +66,8 @@ interface PortfolioDetailOverlayProps {
   isWideView: boolean;
   closeLabel: string;
   resizeLabel: string;
+  expandLabel: string;
+  collapseLabel: string;
   onClose: () => void;
 }
 
@@ -75,8 +77,11 @@ export default function PortfolioDetailOverlay({
   isWideView,
   closeLabel,
   resizeLabel,
+  expandLabel,
+  collapseLabel,
   onClose,
 }: PortfolioDetailOverlayProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const resizeHandleRef = useRef<HTMLDivElement>(null);
@@ -150,6 +155,16 @@ export default function PortfolioDetailOverlay({
     bodyRef.current.scrollTop = 0;
     bodyRef.current.scrollLeft = 0;
   }, [detail?.href]);
+
+  useEffect(() => {
+    setIsExpanded(false);
+  }, [detail?.href]);
+
+  useEffect(() => {
+    if (!isOpen || !isWideView) {
+      setIsExpanded(false);
+    }
+  }, [isOpen, isWideView]);
 
   const handleResizePointerDown = useCallback(
     (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -257,12 +272,12 @@ export default function PortfolioDetailOverlay({
       <div
         ref={panelRef}
         id="portfolio-detail-panel"
-        className={`portfolio-detail-panel${isOpen ? ' is-open' : ''}`}
+        className={`portfolio-detail-panel${isOpen ? ' is-open' : ''}${isExpanded ? ' is-expanded' : ''}`}
         role="dialog"
         aria-modal={!isWideView}
         aria-label={detail.title}
       >
-        {isWideView && (
+        {isWideView && !isExpanded && (
           <div
             ref={resizeHandleRef}
             className="portfolio-detail-resize-handle"
@@ -286,16 +301,36 @@ export default function PortfolioDetailOverlay({
         )}
         <div className="portfolio-detail-header">
           <ContactLinks compact />
-          <button
-            type="button"
-            className="portfolio-detail-close"
-            onClick={onClose}
-            aria-label={closeLabel}
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
-            </svg>
-          </button>
+          <div className="portfolio-detail-header-actions">
+            {isWideView && (
+              <button
+                type="button"
+                className="portfolio-detail-expand"
+                onClick={() => setIsExpanded((expanded) => !expanded)}
+                aria-label={isExpanded ? collapseLabel : expandLabel}
+                aria-pressed={isExpanded}
+                title={isExpanded ? collapseLabel : expandLabel}
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  {isExpanded ? (
+                    <path d="M9 3v6H3M15 3v6h6M9 21v-6H3M15 21v-6h6" strokeLinecap="round" strokeLinejoin="round" />
+                  ) : (
+                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" strokeLinecap="round" strokeLinejoin="round" />
+                  )}
+                </svg>
+              </button>
+            )}
+            <button
+              type="button"
+              className="portfolio-detail-close"
+              onClick={onClose}
+              aria-label={closeLabel}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         <div ref={bodyRef} className="portfolio-detail-body">

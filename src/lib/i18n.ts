@@ -7,8 +7,8 @@ export const homeCopy = {
     nav: {
       about: '소개',
       skills: '기술',
-      experience: '경험',
-      projects: '직무 관련 경험',
+      experience: '활동',
+      projects: '경험',
       sectionNavigation: '섹션 탐색',
     },
     hero: {
@@ -47,6 +47,8 @@ export const homeCopy = {
     detail: {
       close: '닫기',
       resize: '상세 패널 너비 조절',
+      expand: '상세 페이지 크게 보기',
+      collapse: '분할 화면으로 돌아가기',
     },
     aria: {
       copyEmail: '이메일 주소 복사',
@@ -59,8 +61,8 @@ export const homeCopy = {
     nav: {
       about: 'About',
       skills: 'Skills',
-      experience: 'Experience',
-      projects: 'Work Experience',
+      experience: 'Activities',
+      projects: 'Experience',
       sectionNavigation: 'Section navigation',
     },
     hero: {
@@ -99,6 +101,8 @@ export const homeCopy = {
     detail: {
       close: 'Close',
       resize: 'Resize detail panel',
+      expand: 'Expand detail view',
+      collapse: 'Return to split view',
     },
     aria: {
       copyEmail: 'Copy email address',

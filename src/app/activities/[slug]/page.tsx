@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getActivitiesData, getActivityBySlug } from '@/lib/content';
 import MDXRenderer from '@/components/MDXRenderer';
 import CertificateGrid from '@/components/CertificateGrid';
+import ScrollToTop from '@/components/ScrollToTop';
 import { formatActivityDate } from '@/lib/utils/date';
 
 export async function generateStaticParams() {
@@ -40,6 +41,7 @@ export default async function ActivityDetailPage({
 
   return (
     <main className="activity-detail-page">
+      <ScrollToTop routeKey={slug} />
       <div className="activity-detail-container">
         <nav className="activity-detail-back">
           <Link

@@ -15,6 +15,8 @@ const SECTIONS = [
   { id: 'projects', labelKey: 'projects' },
 ] as const;
 
+const SECTION_ACTIVATION_OFFSET = 112;
+
 export default function PortfolioNav() {
   const [activeId, setActiveId] = useState('about');
   const pathname = usePathname();
@@ -35,21 +37,49 @@ export default function PortfolioNav() {
       return;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    let animationFrame = 0;
 
-        if (visible[0]) {
-          setActiveId(visible[0].target.id);
+    const updateActiveSection = () => {
+      animationFrame = 0;
+      const activationLine = window.scrollY + SECTION_ACTIVATION_OFFSET;
+      const isAtPageEnd =
+        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+      let nextId = elements[0].id;
+
+      for (const element of elements) {
+        if (element.offsetTop <= activationLine) {
+          nextId = element.id;
         }
-      },
-      { rootMargin: '-96px 0px -55% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
-    );
+      }
 
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+      if (isAtPageEnd) {
+        nextId = elements[elements.length - 1].id;
+      }
+
+      setActiveId((currentId) => (currentId === nextId ? currentId : nextId));
+    };
+
+    const scheduleUpdate = () => {
+      if (animationFrame === 0) {
+        animationFrame = window.requestAnimationFrame(updateActiveSection);
+      }
+    };
+
+    updateActiveSection();
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
+
+    const resizeObserver = new ResizeObserver(scheduleUpdate);
+    elements.forEach((element) => resizeObserver.observe(element));
+
+    return () => {
+      window.removeEventListener('scroll', scheduleUpdate);
+      window.removeEventListener('resize', scheduleUpdate);
+      resizeObserver.disconnect();
+      if (animationFrame !== 0) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+    };
   }, [isHome, pathname]);
 
   return (
