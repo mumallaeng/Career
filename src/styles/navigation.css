@@ -137,6 +137,16 @@
     display: block;
 }
 
+.navbar-contact-huggingface-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    font-size: 17px;
+    line-height: 1;
+}
+
 .navbar-contact-tooltip {
     position: absolute;
     z-index: 100;

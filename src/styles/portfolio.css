@@ -539,6 +539,17 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
     flex-shrink: 0;
 }
 
+.portfolio-contact-huggingface-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    font-size: 17px;
+    line-height: 1;
+}
+
 .portfolio-contact-links--compact {
     flex: 1;
     align-items: center;
@@ -571,6 +582,12 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
 .portfolio-contact-links--compact .portfolio-contact-link svg {
     width: 14px;
     height: 14px;
+}
+
+.portfolio-contact-links--compact .portfolio-contact-huggingface-icon {
+    width: 14px;
+    height: 14px;
+    font-size: 13px;
 }
 
 /* ---------------------------------------------------------------------- */
