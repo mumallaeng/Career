@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import MDXRenderer from '@/components/MDXRenderer';
 import PlantUmlDiagram from '@/components/PlantUmlDiagram';
+import ActivityDetailClose from '@/components/ActivityDetailClose';
 import { containsPlantUml, isPlantUmlExtension } from '@/lib/plantuml';
 
 const ACTIVITIES_ROOT = path.join(process.cwd(), 'src/content/activities');
@@ -219,10 +220,11 @@ export default async function ActivityDocPage({
   return (
     <main className="activity-detail-page activity-doc-page">
       <div className="activity-detail-container">
-        <nav className="activity-detail-back">
+        <nav className="activity-detail-toolbar" aria-label="상세 문서 탐색">
           <Link href={`/activities/${slug}`} className="activity-detail-back-link">
             ← {projectLabel}
           </Link>
+          <ActivityDetailClose href={`/activities/${slug}`} />
         </nav>
 
         <article className="activity-detail-article">

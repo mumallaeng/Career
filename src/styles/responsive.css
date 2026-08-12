@@ -63,7 +63,8 @@
         padding: 0 16px;
     }
 
-    .activity-detail-back {
+    .activity-detail-back,
+    .activity-detail-toolbar {
         margin-bottom: 32px;
     }
 
