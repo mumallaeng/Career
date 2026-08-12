@@ -30,12 +30,15 @@ export default function ThemeToggle() {
     setColorScheme(getDocumentColorScheme());
 
     const handleStorage = (event: StorageEvent) => {
-      if (event.key !== COLOR_SCHEME_STORAGE_KEY || !isColorScheme(event.newValue)) {
+      if (event.key !== null && event.key !== COLOR_SCHEME_STORAGE_KEY) {
         return;
       }
 
-      applyColorScheme(event.newValue);
-      setColorScheme(event.newValue);
+      const nextScheme = isColorScheme(event.newValue)
+        ? event.newValue
+        : DEFAULT_COLOR_SCHEME;
+      applyColorScheme(nextScheme);
+      setColorScheme(nextScheme);
     };
 
     window.addEventListener('storage', handleStorage);
