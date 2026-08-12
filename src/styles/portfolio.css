@@ -691,6 +691,17 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
     color: var(--color-text);
 }
 
+.portfolio-detail-summary {
+    min-width: 0;
+}
+
+.portfolio-detail-panel.is-expanded .portfolio-detail-summary {
+    width: 100%;
+    max-width: 800px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 .portfolio-detail-meta {
     display: flex;
     flex-wrap: wrap;
