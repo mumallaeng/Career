@@ -1,3 +1,9 @@
+@media (max-width: 1199px) {
+    .activities-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .activities-container {

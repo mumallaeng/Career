@@ -864,6 +864,15 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
 /* Responsive layout                                                      */
 /* ---------------------------------------------------------------------- */
 
+@media (max-width: 1199px) {
+    .portfolio-intro-grid,
+    .portfolio-about-list,
+    .portfolio-skills-grid,
+    .portfolio-projects-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 900px) {
     .portfolio-intro-grid {
         grid-template-columns: 1fr;
