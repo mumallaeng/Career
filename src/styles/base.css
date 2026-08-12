@@ -81,14 +81,16 @@ body {
 }
 
 .prose code {
-    background-color: #f5f5f7;
+    background-color: var(--color-code-bg);
+    color: var(--color-code-text);
     padding: 0.125rem 0.25rem;
     border-radius: 0.25rem;
     font-family: var(--font-mono);
 }
 
 .prose pre {
-    background-color: #f5f5f7;
+    background-color: var(--color-code-bg);
+    color: var(--color-code-text);
     padding: 1rem;
     border-radius: 0.5rem;
     overflow-x: auto;

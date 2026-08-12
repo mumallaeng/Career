@@ -31,7 +31,7 @@
     height: 180px;
     overflow: hidden;
     border-bottom: 1px solid var(--color-border-subtle);
-    background: #ffffff;
+    background: var(--color-image-stage);
 }
 
 .activity-card-thumbnail.cover-fit .activity-card-thumbnail-image {
@@ -100,13 +100,13 @@
 
 /* Tag styling reused across pages */
 .tag {
-    background: #f8f9fa;
-    color: #495057;
+    background: var(--color-tag-bg);
+    color: var(--color-tag-text);
     padding: 6px 12px;
     border-radius: 16px;
     font-size: 12px;
     font-weight: 500;
-    border: 1px solid #e9ecef;
+    border: 1px solid var(--color-tag-border);
 }
 
 .tag-container {
@@ -124,7 +124,7 @@
 
 .tag-section-label {
     display: block;
-    color: var(--color-text-muted);
+    color: var(--color-muted);
     font-size: 12px;
     font-weight: 700;
 }
@@ -133,16 +133,16 @@
     display: inline-flex;
     align-items: center;
     padding: 6px 12px;
-    background: #f8f9fa;
-    color: #495057;
+    background: var(--color-tag-bg);
+    color: var(--color-tag-text);
     border-radius: 20px;
     font-size: 13px;
     font-weight: 500;
-    border: 1px solid #e9ecef;
+    border: 1px solid var(--color-tag-border);
     transition: all 0.2s ease;
 }
 
 .tag-item:hover {
-    background: #e9ecef;
-    border-color: #dee2e6;
+    background: var(--color-tag-hover);
+    border-color: var(--color-tag-hover-border);
 }
