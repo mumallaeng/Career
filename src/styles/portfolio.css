@@ -527,23 +527,30 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
 .portfolio-contact-links--compact {
     flex: 1;
     align-items: center;
+    flex-wrap: nowrap;
     gap: 4px 8px;
     min-width: 0;
     margin-top: 0;
 }
 
 .portfolio-contact-links--compact .portfolio-contact-link {
+    flex: 0 1 auto;
     gap: 5px;
     max-width: 100%;
+    min-width: 0;
     padding: 5px 6px;
     border: 0;
     background: transparent;
     font-size: 12px;
+    white-space: nowrap;
 }
 
 .portfolio-contact-links--compact .portfolio-contact-link span {
     min-width: 0;
-    overflow-wrap: anywhere;
+    overflow: hidden;
+    overflow-wrap: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .portfolio-contact-links--compact .portfolio-contact-link svg {
@@ -595,10 +602,11 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
 
 .portfolio-detail-header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 16px 24px;
+    height: 65px;
+    padding: 0 24px;
     border-bottom: 1px solid var(--color-border-subtle);
     flex-shrink: 0;
 }
