@@ -1,0 +1,23 @@
+/* Design tokens, ported verbatim from Career's src/styles/themes.css
+   (only the tokens the design-system components reference). */
+:root {
+    --font-sans: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", Arial, sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+    --color-bg: #ffffff;
+    --color-text: #1d1d1f;
+    --color-muted: #6e6e73;
+    --color-border: #d2d2d7;
+
+    --color-bg-secondary: #f5f5f7;
+    --color-primary: #1d1d1f;
+    --color-primary-hover: #000000;
+    --color-primary-contrast: #ffffff;
+    --color-border-subtle: #e5e5ea;
+    --color-backdrop: rgba(29, 29, 31, 0.32);
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 20px;
+}

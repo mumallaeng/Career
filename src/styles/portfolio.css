@@ -735,7 +735,7 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
 /* Wide desktop: Notion-style split view, left page stays interactive. */
 @media (min-width: 1200px) {
     body {
-        --portfolio-detail-panel-width: max(45vw, 480px);
+        --portfolio-detail-panel-width: max(50vw, 480px);
     }
 
     .portfolio-page,
