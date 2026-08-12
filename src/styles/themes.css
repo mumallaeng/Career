@@ -1,6 +1,7 @@
-/* Theme tokens */
+/* Design and color-scheme tokens */
 :root,
 [data-theme="hero-grid"] {
+    color-scheme: light;
     /* Bundled web fonts -> platform UI fonts -> OS-specific sans-serif fallbacks. */
     --font-sans:
         var(--font-latin-sans, "Geist"),
@@ -30,6 +31,19 @@
     --color-accent-strong: #0a84ff;
     --color-accent-contrast: #ffffff;
     --color-border: #d2d2d7;
+    --color-nav-bg: rgba(255, 255, 255, 0.86);
+    --color-toggle-hover: rgba(29, 29, 31, 0.06);
+    --color-dark-mode-icon: #173f59;
+    --color-light-mode-icon: #f8fbfd;
+    --color-image-stage: #ffffff;
+    --color-code-bg: #f5f5f7;
+    --color-code-text: #1d1d1f;
+    --color-table-hover: #fafafa;
+    --color-tag-bg: #f8f9fa;
+    --color-tag-text: #495057;
+    --color-tag-border: #e9ecef;
+    --color-tag-hover: #e9ecef;
+    --color-tag-hover-border: #dee2e6;
 
     --color-surface: rgba(255, 255, 255, 0.1);
     --color-surface-strong: rgba(255, 255, 255, 0.95);
@@ -43,7 +57,7 @@
 
     --color-card-overlay: linear-gradient(to top, rgba(128, 128, 128, 0.8), rgba(128, 128, 128, 0));
 
-    /* Portfolio (single-page) design tokens: light theme only. */
+    /* Portfolio design tokens. */
     --color-bg-secondary: #f5f5f7;
     --color-primary: #1d1d1f;
     --color-primary-hover: #000000;
@@ -59,4 +73,49 @@
     --shadow-featured-hover: 0 0 30px rgba(0, 0, 0, 0.15);
     --shadow-card: 0 6px 24px rgba(0, 0, 0, 0.08);
     --shadow-card-hover: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+[data-color-scheme="dark"] {
+    color-scheme: dark;
+    --color-bg: #0f1720;
+    --color-text: #ecf2f8;
+    --color-muted: #a9bac8;
+    --color-accent: #7dd3fc;
+    --color-accent-strong: #38bdf8;
+    --color-accent-contrast: #0f1720;
+    --color-border: #435261;
+    --color-nav-bg: rgba(15, 23, 32, 0.88);
+    --color-toggle-hover: rgba(255, 255, 255, 0.09);
+    --color-image-stage: #ffffff;
+    --color-code-bg: #15212d;
+    --color-code-text: #ecf2f8;
+    --color-table-hover: #172330;
+    --color-tag-bg: #182532;
+    --color-tag-text: #bfd0dd;
+    --color-tag-border: #2b3c4b;
+    --color-tag-hover: #203140;
+    --color-tag-hover-border: #435261;
+
+    --color-surface: rgba(255, 255, 255, 0.045);
+    --color-surface-strong: rgba(21, 33, 45, 0.95);
+    --color-surface-border: rgba(255, 255, 255, 0.14);
+    --color-surface-border-soft: rgba(255, 255, 255, 0.08);
+    --color-surface-shadow: rgba(0, 0, 0, 0.28);
+    --color-surface-shadow-soft: rgba(0, 0, 0, 0.22);
+
+    --color-tooltip-bg: rgba(236, 242, 248, 0.96);
+    --color-tooltip-text: #0f1720;
+    --color-card-overlay: linear-gradient(to top, rgba(15, 23, 32, 0.9), rgba(15, 23, 32, 0));
+
+    --color-bg-secondary: #15212d;
+    --color-primary: #ecf2f8;
+    --color-primary-hover: #ffffff;
+    --color-primary-contrast: #0f1720;
+    --color-border-subtle: #263544;
+    --color-backdrop: rgba(3, 7, 12, 0.62);
+
+    --shadow-featured: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-featured-hover: 0 0 30px rgba(0, 0, 0, 0.42);
+    --shadow-card: 0 6px 24px rgba(0, 0, 0, 0.24);
+    --shadow-card-hover: 0 8px 25px rgba(0, 0, 0, 0.34);
 }

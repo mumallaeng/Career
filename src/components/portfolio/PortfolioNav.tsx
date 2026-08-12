@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import LanguageToggle from '@/components/LanguageToggle';
+import ThemeToggle from '@/components/ThemeToggle';
 import NavContactActions from '@/components/NavContactActions';
 import { useLanguage } from '@/components/LanguageProvider';
 import { homeCopy } from '@/lib/i18n';
@@ -102,6 +103,7 @@ export default function PortfolioNav() {
         <div className="portfolio-nav-contact">
           <NavContactActions />
           <LanguageToggle />
+          <ThemeToggle />
         </div>
       </div>
     </header>
