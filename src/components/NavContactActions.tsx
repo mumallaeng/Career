@@ -2,7 +2,14 @@
 
 import Link from 'next/link';
 import { useEffect, useId, useRef, useState } from 'react';
-import { contactEmail, contactGithub, contactGithubUrl, contactPhone } from '@/data/contact';
+import {
+  contactEmail,
+  contactGithub,
+  contactGithubUrl,
+  contactHuggingFace,
+  contactHuggingFaceUrl,
+  contactPhone,
+} from '@/data/contact';
 import { copyToClipboard } from '@/lib/clipboard';
 import { homeCopy } from '@/lib/i18n';
 import { useLanguage } from './LanguageProvider';
@@ -17,6 +24,7 @@ export default function NavContactActions() {
   const phoneTooltipId = useId();
   const emailTooltipId = useId();
   const githubTooltipId = useId();
+  const huggingFaceTooltipId = useId();
 
   useEffect(
     () => () => {
@@ -98,6 +106,20 @@ export default function NavContactActions() {
         </svg>
         <span id={githubTooltipId} className="navbar-contact-tooltip" role="tooltip">
           @{contactGithub}
+        </span>
+      </Link>
+
+      <Link
+        href={contactHuggingFaceUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="navbar-contact-action"
+        aria-label={copy.aria.visitHuggingFace}
+        aria-describedby={huggingFaceTooltipId}
+      >
+        <span className="navbar-contact-huggingface-icon" aria-hidden="true">🤗</span>
+        <span id={huggingFaceTooltipId} className="navbar-contact-tooltip" role="tooltip">
+          @{contactHuggingFace}
         </span>
       </Link>
     </>

@@ -339,32 +339,34 @@ export default function PortfolioDetailOverlay({
             <img src={detail.thumbnailUrl} alt="" className="portfolio-detail-thumbnail" />
           )}
 
-          <h2 className="portfolio-detail-title">{detail.title}</h2>
-          <div className="portfolio-detail-meta">
-            {detail.meta.map((item) => (
-              <span key={item}>{item}</span>
-            ))}
-          </div>
-
-          <p className="portfolio-detail-description">{detail.description}</p>
-
-          {detail.highlights && detail.highlights.length > 0 && (
-            <ul className="portfolio-detail-highlights">
-              {detail.highlights.map((highlight) => (
-                <li key={highlight}>{highlight}</li>
-              ))}
-            </ul>
-          )}
-
-          {detail.tags && detail.tags.length > 0 && (
-            <div className="portfolio-detail-tags">
-              {detail.tags.map((tag) => (
-                <span key={tag} className="portfolio-project-tag">
-                  {tag}
-                </span>
+          <div className="portfolio-detail-summary">
+            <h2 className="portfolio-detail-title">{detail.title}</h2>
+            <div className="portfolio-detail-meta">
+              {detail.meta.map((item) => (
+                <span key={item}>{item}</span>
               ))}
             </div>
-          )}
+
+            <p className="portfolio-detail-description">{detail.description}</p>
+
+            {detail.highlights && detail.highlights.length > 0 && (
+              <ul className="portfolio-detail-highlights">
+                {detail.highlights.map((highlight) => (
+                  <li key={highlight}>{highlight}</li>
+                ))}
+              </ul>
+            )}
+
+            {detail.tags && detail.tags.length > 0 && (
+              <div className="portfolio-detail-tags">
+                {detail.tags.map((tag) => (
+                  <span key={tag} className="portfolio-project-tag">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
 
           <div className="portfolio-detail-content post-body">
             <MDXRenderer key={detail.href} content={detail.content} />
