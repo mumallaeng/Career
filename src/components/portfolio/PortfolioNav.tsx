@@ -102,8 +102,11 @@ export default function PortfolioNav() {
 
         <div className="portfolio-nav-contact">
           <NavContactActions />
-          <LanguageToggle />
-          <ThemeToggle />
+          <span className="portfolio-nav-control-divider" aria-hidden="true">|</span>
+          <div className="portfolio-nav-preferences">
+            <LanguageToggle />
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </header>

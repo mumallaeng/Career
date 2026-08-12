@@ -132,7 +132,22 @@
 .portfolio-nav-contact {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.portfolio-nav-control-divider {
+    color: var(--color-border);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1;
+    user-select: none;
+}
+
+.portfolio-nav-preferences {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 /* --- Introduction --- */
