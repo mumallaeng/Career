@@ -4,6 +4,7 @@ import { getActivitiesData, getActivityBySlug } from '@/lib/content';
 import MDXRenderer from '@/components/MDXRenderer';
 import CertificateGrid from '@/components/CertificateGrid';
 import ScrollToTop from '@/components/ScrollToTop';
+import ActivityDetailClose from '@/components/ActivityDetailClose';
 import { formatActivityDate } from '@/lib/utils/date';
 
 export async function generateStaticParams() {
@@ -35,21 +36,23 @@ export default async function ActivityDetailPage({
   const activityDate = (startDate || endDate)
     ? formatActivityDate(startDate, endDate)
     : formatActivityDate(date);
-  const isProject = contentType === 'project';
-  const collectionHref = isProject ? '/activities/projects' : '/activities/experience';
-  const collectionLabel = isProject ? '프로젝트 목록으로' : '경험과 활동 목록으로';
+  const belongsToProjectCollection = contentType === 'project' || contentType === 'work_experience';
+  const collectionHref = belongsToProjectCollection ? '/activities/projects' : '/activities/experience';
+  const collectionLabel = belongsToProjectCollection ? '직무 관련 경험 목록으로' : '경험과 활동 목록으로';
+  const closeHref = belongsToProjectCollection ? '/#projects' : '/#experience';
 
   return (
     <main className="activity-detail-page">
       <ScrollToTop routeKey={slug} />
       <div className="activity-detail-container">
-        <nav className="activity-detail-back">
+        <nav className="activity-detail-toolbar" aria-label="상세 페이지 탐색">
           <Link
             href={collectionHref}
             className="activity-detail-back-link"
           >
             ← {collectionLabel}
           </Link>
+          <ActivityDetailClose href={closeHref} />
         </nav>
 
         <article className="activity-detail-article">

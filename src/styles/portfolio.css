@@ -724,29 +724,6 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
     overflow-x: auto;
 }
 
-/* Medium desktop / tablet: centered modal above a dimmed background. */
-@media (min-width: 769px) and (max-width: 1199px) {
-    .portfolio-detail-backdrop.is-open {
-        background: var(--color-backdrop);
-    }
-
-    .portfolio-detail-panel {
-        inset: 5vh 8vw auto;
-        top: 5vh;
-        bottom: 5vh;
-        left: 8vw;
-        right: 8vw;
-        border-radius: var(--radius-lg);
-        transform: translateY(24px);
-        opacity: 0;
-    }
-
-    .portfolio-detail-panel.is-open {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
 /* Wide desktop: Notion-style split view, left page stays interactive. */
 @media (min-width: 1200px) {
     body {
@@ -863,6 +840,15 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
 /* ---------------------------------------------------------------------- */
 /* Responsive layout                                                      */
 /* ---------------------------------------------------------------------- */
+
+@media (max-width: 1199px) {
+    .portfolio-intro-grid,
+    .portfolio-about-list,
+    .portfolio-skills-grid,
+    .portfolio-projects-grid {
+        grid-template-columns: 1fr;
+    }
+}
 
 @media (max-width: 900px) {
     .portfolio-intro-grid {

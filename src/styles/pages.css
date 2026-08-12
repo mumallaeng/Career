@@ -59,7 +59,12 @@
     padding: 0 24px;
 }
 
-.activity-detail-back {
+.activity-detail-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    max-width: 800px;
     margin-bottom: 40px;
 }
 
@@ -72,6 +77,34 @@
 
 .activity-detail-back-link:hover {
     color: var(--color-primary);
+}
+
+.activity-detail-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--color-bg-secondary);
+    color: var(--color-text);
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.activity-detail-close:hover {
+    background: var(--color-border-subtle);
+}
+
+.activity-detail-close:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.activity-detail-close svg {
+    width: 18px;
+    height: 18px;
 }
 
 .activity-detail-article {

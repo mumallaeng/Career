@@ -26,7 +26,6 @@ interface PortfolioClientProps {
   detailContent: PortfolioDetailContent;
 }
 
-const MOBILE_QUERY = '(max-width: 768px)';
 const WIDE_QUERY = '(min-width: 1200px)';
 const CLOSE_ANIMATION_MS = 320;
 
@@ -88,7 +87,7 @@ export default function PortfolioClient({
 
   const openDetail = useCallback(
     (href: string) => {
-      if (window.matchMedia(MOBILE_QUERY).matches) {
+      if (!window.matchMedia(WIDE_QUERY).matches) {
         return false;
       }
 
