@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import {
+  COLOR_SCHEME_MEDIA_QUERY,
   COLOR_SCHEME_STORAGE_KEY,
   DEFAULT_COLOR_SCHEME,
   isColorScheme,
@@ -18,6 +19,19 @@ function applyColorScheme(colorScheme: ColorScheme) {
   document.documentElement.dataset.colorScheme = colorScheme;
 }
 
+function getSavedColorScheme(): ColorScheme | null {
+  try {
+    const storedColorScheme = window.localStorage.getItem(COLOR_SCHEME_STORAGE_KEY);
+    return isColorScheme(storedColorScheme) ? storedColorScheme : null;
+  } catch {
+    return null;
+  }
+}
+
+function getPreferredColorScheme(mediaQuery: MediaQueryList): ColorScheme {
+  return mediaQuery.matches ? 'dark' : 'light';
+}
+
 export default function ThemeToggle() {
   const { locale } = useLanguage();
   const [colorScheme, setColorScheme] = useState<ColorScheme>(DEFAULT_COLOR_SCHEME);
@@ -27,22 +41,35 @@ export default function ThemeToggle() {
     : (isDark ? 'Switch to light mode' : 'Switch to dark mode');
 
   useEffect(() => {
-    setColorScheme(getDocumentColorScheme());
+    const mediaQuery = window.matchMedia(COLOR_SCHEME_MEDIA_QUERY);
+    const syncColorScheme = () => {
+      const nextScheme = getSavedColorScheme() ?? getPreferredColorScheme(mediaQuery);
+      applyColorScheme(nextScheme);
+      setColorScheme(nextScheme);
+    };
+
+    syncColorScheme();
 
     const handleStorage = (event: StorageEvent) => {
       if (event.key !== null && event.key !== COLOR_SCHEME_STORAGE_KEY) {
         return;
       }
+      syncColorScheme();
+    };
 
-      const nextScheme = isColorScheme(event.newValue)
-        ? event.newValue
-        : DEFAULT_COLOR_SCHEME;
-      applyColorScheme(nextScheme);
-      setColorScheme(nextScheme);
+    const handleSystemColorScheme = () => {
+      if (getSavedColorScheme() === null) {
+        syncColorScheme();
+      }
     };
 
     window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
+    mediaQuery.addEventListener('change', handleSystemColorScheme);
+
+    return () => {
+      window.removeEventListener('storage', handleStorage);
+      mediaQuery.removeEventListener('change', handleSystemColorScheme);
+    };
   }, []);
 
   const toggleColorScheme = () => {
