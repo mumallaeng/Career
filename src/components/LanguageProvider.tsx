@@ -1,9 +1,12 @@
 'use client';
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import type { Locale } from '@/lib/i18n';
-
-const STORAGE_KEY = 'career-language';
+import {
+  DEFAULT_LOCALE,
+  LANGUAGE_STORAGE_KEY,
+  localeFromLanguageTags,
+  type Locale,
+} from '@/lib/i18n';
 
 interface LanguageContextValue {
   locale: Locale;
@@ -12,29 +15,58 @@ interface LanguageContextValue {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
+function getPreferredLocale(): Locale {
+  const preferredLanguages = [
+    ...(window.navigator.languages ?? []),
+    window.navigator.language,
+  ];
+  return localeFromLanguageTags(preferredLanguages);
+}
+
+function getSavedLocale(): Locale | null {
+  try {
+    const storedLocale = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    return storedLocale === 'ko' || storedLocale === 'en' ? storedLocale : null;
+  } catch {
+    return null;
+  }
+}
+
+function getInitialLocale(): Locale {
+  return getSavedLocale() ?? getPreferredLocale();
+}
+
 export default function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocale] = useState<Locale>('ko');
+  const [locale, setLocale] = useState<Locale>(DEFAULT_LOCALE);
 
   useEffect(() => {
-    let initialLocale: Locale = 'ko';
-    try {
-      const stored = window.localStorage.getItem(STORAGE_KEY);
-      if (stored === 'ko' || stored === 'en') {
-        initialLocale = stored;
+    const syncLocale = () => setLocale(getInitialLocale());
+
+    syncLocale();
+    window.addEventListener('languagechange', syncLocale);
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === null || event.key === LANGUAGE_STORAGE_KEY) {
+        syncLocale();
       }
-    } catch {
-      // Keep the Korean default when storage is unavailable.
-    }
-    setLocale(initialLocale);
-    document.documentElement.lang = initialLocale;
+    };
+    window.addEventListener('storage', handleStorage);
+
+    return () => {
+      window.removeEventListener('languagechange', syncLocale);
+      window.removeEventListener('storage', handleStorage);
+    };
   }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   const toggleLocale = useCallback(() => {
     const nextLocale = locale === 'ko' ? 'en' : 'ko';
     setLocale(nextLocale);
-    document.documentElement.lang = nextLocale;
     try {
-      window.localStorage.setItem(STORAGE_KEY, nextLocale);
+      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, nextLocale);
     } catch {
       // Language switching still works for the current session.
     }

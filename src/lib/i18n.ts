@@ -2,6 +2,19 @@ import type { ExperienceEntry, ProjectSummary } from '@/lib/portfolio';
 
 export type Locale = 'ko' | 'en';
 
+export const LANGUAGE_STORAGE_KEY = 'career-language';
+export const DEFAULT_LOCALE: Locale = 'ko';
+
+export function localeFromLanguageTags(languages: readonly string[]): Locale {
+  for (const language of languages) {
+    const primaryLanguage = language.toLowerCase().split('-')[0];
+    if (primaryLanguage === 'ko' || primaryLanguage === 'en') {
+      return primaryLanguage;
+    }
+  }
+  return DEFAULT_LOCALE;
+}
+
 export const homeCopy = {
   ko: {
     nav: {

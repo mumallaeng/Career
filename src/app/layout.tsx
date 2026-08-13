@@ -3,7 +3,11 @@ import { Geist, Geist_Mono, Noto_Sans_KR } from "next/font/google";
 import SiteHeader from "../components/SiteHeader";
 import ThemeRuntime from "../components/ThemeRuntime";
 import LanguageProvider from "../components/LanguageProvider";
-import { COLOR_SCHEME_STORAGE_KEY, DEFAULT_COLOR_SCHEME } from "../lib/color-scheme";
+import {
+  COLOR_SCHEME_MEDIA_QUERY,
+  COLOR_SCHEME_STORAGE_KEY,
+  DEFAULT_COLOR_SCHEME,
+} from "../lib/color-scheme";
 import { Suspense } from "react";
 import "./globals.css";
 
@@ -30,11 +34,17 @@ export const metadata: Metadata = {
 };
 
 const colorSchemeInitScript = `
+  var systemColorScheme = '${DEFAULT_COLOR_SCHEME}';
+  try {
+    systemColorScheme = window.matchMedia(${JSON.stringify(COLOR_SCHEME_MEDIA_QUERY)}).matches ? 'dark' : 'light';
+  } catch {}
   try {
     var storedColorScheme = window.localStorage.getItem(${JSON.stringify(COLOR_SCHEME_STORAGE_KEY)});
-    document.documentElement.dataset.colorScheme = storedColorScheme === 'dark' ? 'dark' : '${DEFAULT_COLOR_SCHEME}';
+    document.documentElement.dataset.colorScheme = storedColorScheme === 'dark' || storedColorScheme === 'light'
+      ? storedColorScheme
+      : systemColorScheme;
   } catch {
-    document.documentElement.dataset.colorScheme = '${DEFAULT_COLOR_SCHEME}';
+    document.documentElement.dataset.colorScheme = systemColorScheme;
   }
 `;
 
