@@ -3,9 +3,9 @@ title: "경기도 팹리스 아카데미 · 온디바이스AI 시스템반도체
 startDate: 2026-03-24T00:00:00+09:00
 endDate: 2026-10-23T00:00:00+09:00
 draft: false
-description: "RTL 설계·검증, RV32I·AXI 기반 SoC, ARM Cortex-M4 bare-metal firmware를 다루는 980시간 교육과정 수강 중"
-tags: ["education", "semiconductor", "fpga", "embedded"]
-tech_stack: ["Verilog", "SystemVerilog", "UVM", "RV32I", "APB", "AXI4-Lite", "Vivado", "Vitis", "Vivado XSim", "Icarus Verilog", "VCS", "Verdi", "MicroBlaze", "C", "Python", "ARM Cortex-M4", "STM32F411", "CMSIS", "GPIO", "UART", "Timer/PWM", "NVIC/EXTI", "I2C", "SPI", "ADC", "DMA", "SR04", "DHT11", "SC16IS752", "Basys 3", "Nucleo-F411RE", "Arduino Uno", "Tinkercad", "Logic Analyzer"]
+description: "RTL 설계·검증, RV32I·AXI 기반 SoC, ARM Cortex-M4 bare-metal firmware, On-Device AI(Jetson)를 다루는 980시간 교육과정 수강 중"
+tags: ["education", "semiconductor", "fpga", "embedded", "on-device-ai"]
+tech_stack: ["Verilog", "SystemVerilog", "UVM", "RV32I", "APB", "AXI4-Lite", "Vivado", "Vitis", "Vivado XSim", "Icarus Verilog", "VCS", "Verdi", "MicroBlaze", "C", "Python", "ARM Cortex-M4", "STM32F411", "CMSIS", "GPIO", "UART", "Timer/PWM", "NVIC/EXTI", "I2C", "SPI", "ADC", "DMA", "SR04", "DHT11", "SC16IS752", "Basys 3", "Nucleo-F411RE", "Arduino Uno", "Tinkercad", "Logic Analyzer", "Jetson Orin Nano", "TensorRT", "ONNX", "OpenCV", "YOLO11n", "RTMPose", "GRU", "Ollama"]
 skill_tags: ["rtl-design", "verification", "protocol-design", "soc-integration", "bare-metal-firmware", "peripheral-driver", "technical-documentation"]
 domain_tags: ["semiconductor", "fpga", "embedded-systems", "on-device-ai"]
 categories: ["활동"]
@@ -16,6 +16,10 @@ activity_kind: "training"
 
 {/* more */}
 
+[mumallaeng/KorchamLogis](https://github.com/mumallaeng/)
+
+> *[컨소시엄] 온디바이스AI 시스템반도체 설계 2기* 교육과정에서 C언어 프로그래밍 수업 중에 진행된 Mini Projects입니다.
+
 ## 과정 정보
 
 - 과정명: [하만(위프로), 에이직랜드 온디바이스AI 시스템반도체 설계 2기](https://gfa.korchamhrd.net/education/professionalSkillEduDetail.do?rootMenuId=5475&menuId=5527&gaebalwon_cd=09000&gwajeong_no=M2026005)
@@ -24,7 +28,7 @@ activity_kind: "training"
 - 훈련 유형: 국가인적자원개발컨소시엄
 - 교육 기관: 대한상공회의소 서울기술교육센터
 - 교육 장소: 경기도 팹리스 아카데미 판교캠퍼스
-- 진행 상태: 수강 중 (2026년 7월 23일 기준)
+- 진행 상태: 수강 중 (2026년 8월 21일 기준)
 
 ## 과정 전체 저장소
 
@@ -34,46 +38,54 @@ activity_kind: "training"
 
 | 기간 | 학습·실습 범위 | 진행 내용 |
 |:--|:--|:--|
-| 26.03.24 ~ 26.04.03 | 임베디드 C 및 Mini Project | C 기초와 Arduino/Tinkercad 센서·모터 제어를 학습하고, Dual Arduino Uno 기반 주행·표시 시스템을 구현했습니다. |
-| 26.04.06 ~ 26.04.20 | Verilog HDL 디지털 회로 설계 | Vivado 설계 흐름, 조합·순차회로, testbench, FSM, button debounce, stopwatch datapath를 실습하고 설계 결과를 발표했습니다. |
-| 26.04.21 ~ 26.04.30 | UART·FIFO·센서 인터페이스 | UART TX/RX와 loopback, FIFO 제어, SR04·DHT11 센서 FSM을 설계하고 시뮬레이션했습니다. |
-| 26.05.07 ~ 26.05.13 | SystemVerilog 검증 | `class`, `interface`, `mailbox`, `event`, `fork-join`을 사용한 class 기반 testbench와 FIFO scoreboard 구조를 실습했습니다. |
-| 26.05.14 ~ 26.05.29 | CPU·RV32I·APB | Dedicated CPU, RV32I single-cycle·multi-cycle 구조, C code의 machine code 변환, memory map과 APB master/slave 흐름을 정리했습니다. |
-| 26.06.01 ~ 26.06.10 | SystemVerilog OOP·UVM | generator·driver·monitor·scoreboard 구조에서 UVM component, sequence, TLM, `config_db`, functional coverage까지 확장하고 Adder·RAM DUT를 검증했습니다. |
-| 26.06.11 ~ 26.06.18 | SPI·I2C 설계 및 검증 | SPI mode와 CPOL/CPHA, I2C command·open-drain 구조를 RTL과 testbench로 확인하고, Basys3·브레드보드·로직 애널라이저를 이용한 보드 검증 흐름을 실습했습니다. |
-| 26.06.18 ~ 26.06.19 | AXI·AXI4-Lite | AXI channel과 `VALID/READY` handshake를 학습하고 AXI4-Lite master/slave, register bank, testbench 및 Vivado IP packaging 흐름을 실습했습니다. |
-| 26.06.22 ~ 26.06.26 | MicroBlaze SoC와 Custom Peripheral | AXI4-Lite GPIO·Timer·UART IP, MicroBlaze block design, address map, XSA·Vitis firmware, polling·interrupt 연동 구조를 다뤘습니다. |
-| 26.06.30 | AXI Peripheral 발표·SoC 직무 멘토링 | Custom peripheral 계층과 register map을 중심으로 발표 내용을 보완하고, SoC 설계·검증 직무 준비 방향을 점검했습니다. |
-| 26.07.01 ~ 26.07.03 | GNU C 프로그래밍 | GNU C 개발 환경에서 입출력, 함수, 조건·반복문, 배열·구조체, pointer, 진법 변환과 endian을 실습했습니다. |
-| 26.07.06 ~ 26.07.10 | Python 프로그래밍 | 기본 문법과 object binding, container, built-in·사용자 정의 함수, comprehension, 예외 처리, module·package와 class를 실습했습니다. |
-| 26.07.13 ~ 26.07.23 | ARM Cortex-M4 디바이스 프로그래밍 | ARM GCC cross compilation과 startup·vector table·linker script, STM32F411xE·Nucleo-64 구조를 확인하고 CMSIS와 memory-mapped I/O를 이용한 GPIO·RCC/PLL clock·UART·SysTick·Timer/PWM·NVIC/EXTI interrupt를 실습했습니다. 이어 I2C·SPI register interface, `PA6 / ADC1_IN6` ADC polling, DMA2 memory-to-memory 전송과 USART TX DMA 흐름까지 다뤘습니다. |
-| 26.07.23 ~ 26.07.27 | [ARM Cortex-M4 로봇팔 제어 프로젝트](https://github.com/mumallaeng/testudines) | NUCLEO-F411RE와 Sensor Shield v5.0, G51 6DoF 로봇팔을 연결하는 Testudines bare-metal firmware 프로젝트입니다. 현재 build·startup 구조와 `TIM4_CH1` 첫 서보 PWM bring-up을 구현했으며, joystick ADC 입력, 다채널 servo PWM, UART 상태 출력과 DMA·PID feedback 경로를 순서대로 검증합니다. |
+| 26.03.24 ~ 26.04.03 | [임베디드 C 및 Mini Project(KorchamLogis)](https://github.com/mumallaeng/KorchamLogis) | C 기초와 Arduino/Tinkercad 센서·모터 제어 학습, Controller UNO와 Displayer UNO를 분리한 Dual Arduino Uno 기반 주행·표시 시스템 구현 |
+| 26.04.06 ~ 26.04.20 | Verilog HDL 디지털 회로 설계 | Vivado 설계 흐름, 조합·순차회로, testbench, FSM, button debounce, stopwatch datapath 실습과 설계 결과 발표 |
+| 26.04.16 ~ 26.04.20 | [Timepiecer](https://github.com/mumallaeng/Timepiecer) | Basys 3에서 Timepiece와 Timer를 통합한 Verilog 팀 프로젝트. 담당 작업: Timepiece FSM·datapath, top 통합, 관련 검증과 발표 자료 정리 |
+| 26.04.21 ~ 26.04.30 | UART·FIFO·센서 인터페이스 | UART TX/RX와 loopback, FIFO 제어, SR04·DHT11 센서 FSM 설계 및 시뮬레이션 |
+| 26.04.22 ~ 26.04.27 | [UART·FIFO RTL](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-UART_FIFO) | Verilog UART/FIFO loopback RTL과 testbench |
+| 26.05.01 ~ 26.05.06 | [ascii-uart-sensor-pipeline](https://github.com/mumallaeng/ascii-uart-sensor-pipeline) | UART·FIFO·ASCII codec과 SR04·DHT11, watch·stopwatch를 하나의 Basys 3 시스템으로 통합한 프로젝트 |
+| 26.05.07 ~ 26.05.13 | SystemVerilog 검증 | `class`, `interface`, `mailbox`, `event`, `fork-join`을 사용한 class 기반 testbench와 FIFO scoreboard 구조 실습 |
+| 26.05.12 ~ 26.05.18 | [SystemVerilog UART·FIFO 검증](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-SV_Verification) | UART TX/RX·FIFO·loopback 단위 및 통합 testbench |
+| 26.05.14 ~ 26.05.29 | CPU·RV32I·APB | Dedicated CPU, RV32I single-cycle·multi-cycle 구조, C code의 machine code 변환, memory map과 APB master/slave 흐름 정리 |
+| 26.05.22 ~ 26.05.27 | [RV32I CPU](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-RV32I) | RV32I datapath·control RTL, instruction type별 testbench와 program memory 예제 |
+| 26.06.01 ~ 26.06.10 | SystemVerilog OOP·UVM | generator·driver·monitor·scoreboard 구조에서 UVM component, sequence, TLM, `config_db`, functional coverage까지 확장, Adder·RAM DUT 검증 |
+| 26.06.11 ~ 26.06.18 | SPI·I2C 설계 및 검증 | SPI mode와 CPOL/CPHA, I2C command·open-drain 구조를 RTL과 testbench로 확인, Basys3·브레드보드·로직 애널라이저를 이용한 보드 검증 흐름 실습 |
+| 26.06.11 ~ 26.06.18 | [UVM SPI·I2C](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-UVM_SPI_I2C) | SPI·I2C controller/target RTL, UVM environment, Basys 3 board constraints와 build script |
+| 26.06.18 ~ 26.06.19 | AXI·AXI4-Lite | AXI channel과 `VALID/READY` handshake 학습, AXI4-Lite master/slave, register bank, testbench 및 Vivado IP packaging 흐름 실습 |
+| 26.06.22 ~ 26.06.26 | MicroBlaze SoC와 Custom Peripheral | AXI4-Lite GPIO·Timer·UART IP, MicroBlaze block design, address map, XSA·Vitis firmware, polling·interrupt 연동 구조 |
+| 26.06.22 ~ 26.06.30 | [AXI_Peripheral](https://github.com/mumallaeng/AXI_Peripheral) | MicroBlaze와 AXI4-Lite custom peripheral을 결합한 프로젝트. 담당 작업: IIC custom IP, register·HAL·firmware 경로와 board-to-board 검증 |
+| 26.06.30 | AXI Peripheral 발표·선배와의 직무/면접 상담 특강 | Custom peripheral 계층과 register map을 중심으로 발표 내용 보완. 이어 현업 선배들의 경험을 바탕으로 SoC 설계·검증 흐름(IP/Block 설계→통합→기능검증→합성→STA→LEC→post-simulation→tape-out 이후 대응), 언어별 준비 방향(Verilog·SystemVerilog·C·Python·Linux·git), 프로젝트 정리와 발표 방향, 자기소개서·면접 대응, 직무 선택(설계/검증/embedded·SoC software/P&R·PD) 특강 |
+| 26.07.01 ~ 26.07.03 | GNU C 프로그래밍 | GNU C 개발 환경에서 입출력, 함수, 조건·반복문, 배열·구조체, pointer, 진법 변환과 endian 실습 |
+| 26.07.06 ~ 26.07.10 | Python 프로그래밍 | 기본 문법과 object binding, container, built-in·사용자 정의 함수, comprehension, 예외 처리, module·package와 class 실습 |
+| 26.07.13 ~ 26.07.23 | ARM Cortex-M4 디바이스 프로그래밍 | ARM GCC cross compilation과 startup·vector table·linker script, STM32F411xE·Nucleo-64 구조 확인, CMSIS와 memory-mapped I/O를 이용한 GPIO·RCC/PLL clock·UART·SysTick·Timer/PWM·NVIC/EXTI interrupt 실습. 이어 I2C·SPI register interface, `PA6 / ADC1_IN6` ADC polling, DMA2 memory-to-memory 전송과 USART TX DMA 흐름 |
+| 26.07.23 ~ 26.07.27 | [ARM Cortex-M4 로봇팔 제어 프로젝트](https://github.com/mumallaeng/testudines) | NUCLEO-F411RE와 Sensor Shield v5.0, G51 6DoF 로봇팔을 연결하는 Testudines bare-metal firmware 프로젝트. Build·startup 구조와 `TIM4_CH1` 첫 서보 PWM bring-up, 6채널 servo PWM, UART 상태 출력(pulse echo), joystick ADC 입력 구현과 시연까지 완료 |
+| 26.07.24 | 채용 담당자 Q&A와 지원 준비 특강 | 지원 서류 작성 기준(지원 직무·기간·기술 명칭·자격 일치), 프로젝트·포트폴리오 정리 방법(목표·구조·본인 역할·문제와 판단·검증·결과), 자기소개서와 발표형 면접 준비, 실무 언어별 학습 방향(SystemVerilog·UVM/Python automation/C 시스템·firmware), 생성형 AI 활용 기준, 영어와 지원 커뮤니케이션 특강 |
+| 26.07.28 ~ 26.08.04 | On-Device AI(ML/DL, CNN, Jetson) | Perceptron부터 Linear·Logistic Regression, Softmax Classification, Multi Layer Perceptron 이론, CNN 개념과 기본연산(Convolution·Padding·Stride·Pooling) 학습. 이어 Jetson Orin Nano에서 OpenCV 기반 웹캠 얼굴 검출 실습, MobileNetV2 전이학습 모델을 ONNX·TensorRT로 변환한 가위바위보(RPS) 분류 배포. Object Detection(IoU·AP·mAP·NMS·YOLO) 개념과 실습, Ollama 기반 local LLM 환경과 API 연동 |
+| 26.08.05 ~ 26.08.19 | [On-Device AI 프로젝트 Wardy](https://github.com/mumallaeng/wardy) | 3인 팀 '지켜조'로 개발한 일반 가정용 돌봄 안전 모니터링 시스템. USB 웹캠 영상에서 사람 탐지(YOLO11n) → 익명 추적(Kalman Filter·Hungarian assignment) → 자세 추정(RTMPose, COCO-17 keypoint) → 시간축 낙상 의심 판단(TemporalFallGRU)으로 이어지는 파이프라인에 위험물(가위·칼 등) 근접 탐지와 로컬 LLM(Ollama) 기반 일일 요약을 더해 NVIDIA Jetson Orin Nano에서 구현, C++ edge runtime과 browser UI로 통합 |
+| 26.08.20 ~ 26.08.24 | 취업 특강 |  |
+| 26.08.25 ~ 26.08.?? | VGA |  |
+| 26.09.?? ~ 26.09.?? | VGA 프로젝트 |  |
+| 26.09.?? ~ 26.10.08 | 파이널 프로젝트 |  |
+| 26.10.?? ~ 26.10.?? | 취업 준비 |  |
+| 26.10.23 | 수료 |  |
 
 ## 주요 실습 및 산출물
 
-### 별도 GitHub 프로젝트
-
-- [Testudines](https://github.com/mumallaeng/testudines): NUCLEO-F411RE에서 G51 6DoF 로봇팔을 구동하기 위한 bare-metal firmware 프로젝트. ARM Cortex-M4 수업에서 익힌 ADC·Timer/PWM·UART·DMA를 실제 joystick·servo 제어 경로로 연결하고 있습니다.
-- [KorchamLogis](https://github.com/mumallaeng/KorchamLogis): Controller UNO와 Displayer UNO를 분리한 Dual Arduino 주행·상태 표시 미니 프로젝트
-- [Timepiecer](https://github.com/mumallaeng/Timepiecer): Basys 3에서 Timepiece와 Timer를 통합한 Verilog 팀 프로젝트. 담당 작업은 Timepiece FSM·datapath, top 통합, 관련 검증과 발표 자료 정리입니다.
-- [ascii-uart-sensor-pipeline](https://github.com/mumallaeng/ascii-uart-sensor-pipeline): UART·FIFO·ASCII codec과 SR04·DHT11, watch·stopwatch를 하나의 Basys 3 시스템으로 통합한 프로젝트
-- [AXI_Peripheral](https://github.com/mumallaeng/AXI_Peripheral): MicroBlaze와 AXI4-Lite custom peripheral을 결합한 팀 프로젝트. 담당 작업은 IIC custom IP, register·HAL·firmware 경로와 board-to-board 검증입니다.
-
-### 과정 저장소 내부 미니 프로젝트
-
-- [UART·FIFO RTL](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-UART_FIFO): Verilog UART/FIFO loopback RTL과 testbench
-- [SystemVerilog UART·FIFO 검증](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-SV_Verification): UART TX/RX·FIFO·loopback 단위 및 통합 testbench
-- [RV32I CPU](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-RV32I): RV32I datapath·control RTL, instruction type별 testbench와 program memory 예제
-- [UVM SPI·I2C](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-UVM_SPI_I2C): SPI·I2C controller/target RTL, UVM environment, Basys 3 board constraints와 build script
-
-### 문서화
-
-- Verilog FSM·counter·FND·stopwatch 설계 보고서와 발표 자료
-- AXI4-Lite register map, MicroBlaze SoC, firmware 계층과 board 검증 자료
-- 날짜별 수업 내용을 회로 구조, protocol timing, register map, firmware 계층 중심으로 정리한 기술 문서
+| 프로젝트 | 기간 | 구분 | 내용 |
+|:--|:--|:--|:--|
+| [KorchamLogis](https://github.com/mumallaeng/KorchamLogis) | 2026.03.24~04.03 | 팀 | Controller UNO와 Displayer UNO를 분리한 Dual Arduino 주행·상태 표시 미니 프로젝트 |
+| [Timepiecer](https://github.com/mumallaeng/Timepiecer) | 2026.04.16~04.20 | 팀 | Basys 3에서 Timepiece와 Timer를 통합한 Verilog 프로젝트. 담당 작업: Timepiece FSM·datapath, top 통합, 관련 검증과 발표 자료 정리 |
+| [UART·FIFO RTL](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-UART_FIFO) | 2026.04.22~04.27 | 개인 | Verilog UART/FIFO loopback RTL과 testbench |
+| [ascii-uart-sensor-pipeline](https://github.com/mumallaeng/ascii-uart-sensor-pipeline) | 2026.05.01~05.06 | 팀 | UART·FIFO·ASCII codec과 SR04·DHT11, watch·stopwatch를 하나의 Basys 3 시스템으로 통합한 프로젝트 |
+| [SystemVerilog UART·FIFO 검증](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-SV_Verification) | 2026.05.12~05.18 | 개인 | UART TX/RX·FIFO·loopback 단위 및 통합 testbench |
+| [RV32I CPU](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-RV32I) | 2026.05.22~05.27 | 개인 | RV32I datapath·control RTL, instruction type별 testbench와 program memory 예제 |
+| [UVM SPI·I2C](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-UVM_SPI_I2C) | 2026.06.11~06.18 | 개인 | SPI·I2C controller/target RTL, UVM environment, Basys 3 board constraints와 build script |
+| [AXI_Peripheral](https://github.com/mumallaeng/AXI_Peripheral) | 2026.06.22~06.30 | 팀 | MicroBlaze와 AXI4-Lite custom peripheral을 결합한 프로젝트. 담당 작업: IIC custom IP, register·HAL·firmware 경로와 board-to-board 검증 |
+| [Testudines](https://github.com/mumallaeng/testudines) | 2026.07.23~07.27 | 팀 | NUCLEO-F411RE에서 G51 6DoF 로봇팔을 구동하는 bare-metal firmware 프로젝트. Build·startup 구조와 TIM4_CH1 첫 서보 PWM bring-up, 6채널 servo PWM, UART 상태 출력(pulse echo), joystick ADC 입력 구현과 시연까지 완료 |
+| [Wardy](https://github.com/mumallaeng/wardy) | 2026.08.05~08.19 | 팀 | 3인 팀 '지켜조'로 개발한 일반 가정용 돌봄 안전 모니터링 시스템. 사람 탐지·추적·자세 추정·낙상 판단·위험물 탐지·로컬 LLM 요약을 Jetson Orin Nano에서 하나의 파이프라인으로 통합 |
 
 ## 현재 진행 단계
 
-2026년 7월 23일 기준으로 Verilog·SystemVerilog·UVM 기반 설계·검증과 RV32I·AXI4-Lite SoC 단계를 거쳐 ARM Cortex-M4 디바이스 프로그래밍 과정을 진행했습니다. STM32F411xE MCU와 Nucleo-64 보드에서 GPIO, clock, UART, timer/PWM, interrupt, I2C, SPI, ADC와 DMA peripheral을 register 수준으로 제어했습니다.
+2026년 8월 21일 기준으로 On-Device AI(ML/DL, CNN, Jetson Orin Nano)를 마쳤습니다. 이어 3인 팀 '지켜조'로 Jetson 기반 가정용 돌봄 안전 모니터링 시스템 Wardy(2026.08.05~08.19)를 개발했고, 사람 탐지·추적·자세 추정·낙상 판단·위험물 탐지·로컬 LLM 요약을 하나의 파이프라인으로 통합했습니다.
 
-7월 23일부터 27일까지는 [Testudines 로봇팔 제어 프로젝트](https://github.com/mumallaeng/testudines)를 진행합니다. 현재 NUCLEO-F411RE bare-metal build·startup 구조와 첫 번째 servo PWM channel을 구현했으며, joystick ADC 입력과 다채널 PWM, UART 진단, DMA·PID feedback을 결합한 로봇팔 제어 경로로 확장하고 있습니다.
+현재는 취업 특강 주간(2026.08.20~08.24)이 진행 중이며, 이후 VGA 실습과 VGA 프로젝트, 파이널 프로젝트를 거쳐 2026년 10월 23일 수료로 이어질 예정입니다.
