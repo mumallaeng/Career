@@ -1,13 +1,13 @@
 ---
 title: "오픈소스 기여"
-startDate: 2022-07-01T00:00:00+09:00
-endDate: 2022-10-22T00:00:00+09:00
+startDate: 2022-06-11T00:00:00+09:00
+endDate: 2026-08-23T00:00:00+09:00
 draft: false
-description: "RustPython과 Pyodide에 기여한 오픈소스 활동 모음"
-tags: ["open-source", "python", "rust", "webassembly"]
-tech_stack: ["Python", "Rust", "WebAssembly", "GitHub"]
-skill_tags: ["open-source-contribution", "code-review", "issue-tracking", "pull-request"]
-domain_tags: ["open-source", "programming-language"]
+description: "RustPython, Pyodide, pyre, Xilinx 등 여러 오픈소스 프로젝트에 이슈·PR로 기여한 기록"
+tags: ["open-source", "python", "rust", "webassembly", "eda", "vivado"]
+tech_stack: ["Python", "Rust", "WebAssembly", "Tcl", "GitHub"]
+skill_tags: ["open-source-contribution", "code-review", "issue-tracking", "pull-request", "interpreter-internals"]
+domain_tags: ["open-source", "programming-language", "eda-tooling"]
 categories: ["프로젝트"]
 featured: true
 type: "오픈소스"
@@ -16,18 +16,121 @@ content_type: "project"
 project_kind: "open_source"
 ---
 
+[mumallaeng/rustpython](https://github.com/mumallaeng/rustpython) \
+[mumallaeng/pyodide](https://github.com/mumallaeng/pyodide)
+
+<img src="https://rustpython.github.io/assets/img/rust-python-logo.svg" alt="RustPython Logo" width="150"/>
+<img src="https://pyodide.org/en/stable/_static/pyodide-logo-light.svg" alt="Pyodide Logo" width="150"/>
+
 {/* more */}
 
 2022년 [오픈소스 컨트리뷰션 아카데미](open_source_contribution_academy.mdx)에서 RustPython 프로젝트 리드 멘티로 활동하며 첫 오픈소스 기여를 시작했고, \
-이후 개인적으로도 Pyodide 프로젝트에 기여하며 오픈소스 활동을 이어갔습니다.
+이어서 개인적으로 Pyodide에도 기여했습니다. \
+2026년에는 RustPython 메인테이너가 새로 시작한 인터프리터 프로젝트 pyre, 평소 사용하는 Vivado 관련 도구인 Xilinx/XilinxTclStore와 vivado-on-silicon-mac, \
+그리고 VSCode Python 확장까지 기여·이슈 리포트 범위를 넓혀가고 있습니다.
 
-## 기여 프로젝트
+## 기여 프로젝트 요약
 
-| 프로젝트 | 기간 | 내용 |
+| 프로젝트 | 기간 | 유형 | 내용 |
+|:--|:--|:--|:--|
+| [RustPython](https://github.com/RustPython/RustPython) | 2022.06~2022.11, 2026.08 | PR 25건(24건 병합) | Python 인터프리터의 표준 라이브러리·AST·타입 시스템·경고 처리·파서 진단 개선 |
+| [Pyodide](https://github.com/pyodide/pyodide) | 2022.10 | PR 1건(병합) | WebAssembly 기반 Python 런타임의 `repr_shorten` 버그 수정과 `shorten()` 함수 추가 |
+| [youknowone/pyre](https://github.com/youknowone/pyre) | 2026.08 | PR 3건(병합) | RustPython 메인테이너가 새로 시작한 Python 인터프리터 프로젝트에 `binascii`, 인터프리터 경고, 웹 플레이그라운드 기여 |
+| [Xilinx/XilinxTclStore](https://github.com/Xilinx/XilinxTclStore) | 2026.08 | PR 1건(리뷰 중) | Vivado JUnit tclapp 설치가 sandbox 환경에서 실패하는 문제 수정 |
+| [ichi4096/vivado-on-silicon-mac](https://github.com/ichi4096/vivado-on-silicon-mac) | 2026.04 | PR 1건(closed) | Apple Silicon Mac용 Vivado 설치 스크립트에 Vivado 2025.2 지원 추가 |
+| [microsoft/vscode-python](https://github.com/microsoft/vscode-python) | 2026.07 | Issue 1건(open) | 내장 함수가 shadow될 때 터미널 REPL `>>>` 프롬프트가 사라지는 문제 리포트 |
+
+## RustPython
+
+Rust로 구현된 Python 인터프리터 오픈소스 프로젝트입니다. \
+2022년 오픈소스 컨트리뷰션 아카데미에서 첫 기여를 시작해 Python 표준 라이브러리와 객체 동작을 CPython에 맞추는 작은 단위의 PR을 여러 차례 보냈고, \
+2026년에는 파서 진단 메시지 개선 PR로 다시 기여했습니다. 이슈와 테스트를 보며 동작 차이를 좁히고 PR 리뷰에 맞춰 구현을 고치는 오픈소스 협업 흐름을 익혔습니다.
+
+| PR | 날짜 | 구분 | 내용 |
+|:--|:--|:--|:--|
+| [#3773](https://github.com/RustPython/RustPython/pull/3773) | 2022.06.11 | 기타 | classmethod 초기화 지원 추가 |
+| [#3784](https://github.com/RustPython/RustPython/pull/3784) | 2022.06.13 | itertools | `itertools.count` 객체의 문자열 표현(repr) 구현 |
+| [#3822](https://github.com/RustPython/RustPython/pull/3822) | 2022.06.26 | itertools | count 반복자가 일반 숫자 타입(PyNumber)을 받도록 수정 |
+| [#3824](https://github.com/RustPython/RustPython/pull/3824) | 2022.06.28 | itertools | count 객체의 repr 표현 수정 |
+| [#3834](https://github.com/RustPython/RustPython/pull/3834) | 2022.07.01 | itertools | step 파라미터가 일반 숫자 타입을 받도록 개선 |
+| [#3852](https://github.com/RustPython/RustPython/pull/3852) | 2022.07.09 | 타입 시스템 | union 타입 검증(`is_unionable`) 로직 수정 |
+| [#3854](https://github.com/RustPython/RustPython/pull/3854) | 2022.07.09 | weakref | weak proxy의 시퀀스·매핑 프로토콜 구현 |
+| [#3900](https://github.com/RustPython/RustPython/pull/3900) | 2022.07.16 | weakref | weak proxy의 boolean·bytes 변환 지원 |
+| [#3909](https://github.com/RustPython/RustPython/pull/3909) | 2022.07.17 | weakref | weak proxy의 비교 연산 구현 |
+| [#3914](https://github.com/RustPython/RustPython/pull/3914) | 2022.07.18 | weakref | mapping proxy의 비교 연산 구현 |
+| [#3954](https://github.com/RustPython/RustPython/pull/3954) | 2022.07.24 | 기타 | escape 인코딩·디코딩 함수 수정 |
+| [#3986](https://github.com/RustPython/RustPython/pull/3986) | 2022.07.30 | 기타 | 메타클래스 class cell 검증 수정 |
+| [#4130](https://github.com/RustPython/RustPython/pull/4130) | 2022.08.23 | warning | 경고 컨텍스트 설정(`setup_context`) 개선 |
+| [#4146](https://github.com/RustPython/RustPython/pull/4146) | 2022.08.31 | warning | `warn_explicit` 경고 시스템 기능 향상 |
+| [#4183](https://github.com/RustPython/RustPython/pull/4183) | 2022.09.24 | 기타 | 함수 `__qualname__`·repr 개선 |
+| [#4185](https://github.com/RustPython/RustPython/pull/4185) | 2022.09.27 | 기타 | Deprecated된 `itertools::zip` 대신 `std::iter::zip` 사용하도록 수정 |
+| [#4217](https://github.com/RustPython/RustPython/pull/4217) | 2022.10.15 | 타입 시스템 | 타입 어노테이션 지원 구현 |
+| [#4239](https://github.com/RustPython/RustPython/pull/4239) | 2022.10.22 | 기타 | property 타입에 `name` 필드와 `__set_name__` 메서드 추가 |
+| [#4240](https://github.com/RustPython/RustPython/pull/4240) | 2022.10.22 | 기타 | type에 `__doc__` 추가 |
+| [#4243](https://github.com/RustPython/RustPython/pull/4243) | 2022.10.23 | AST | AST 노드에 `_fields` 속성 추가(introspection 지원) |
+| [#4244](https://github.com/RustPython/RustPython/pull/4244) | 2022.10.23 | AST | AST 노드 속성(`_fields`, `_attributes`) 타입 문제 수정 |
+| [#4249](https://github.com/RustPython/RustPython/pull/4249) | 2022.10.25 | 기타 | marshal 시스템에 StopIteration 예외 지원 추가 |
+| [#4253](https://github.com/RustPython/RustPython/pull/4253) | 2022.10.28 | 타입 시스템 | union 타입의 문자열 표현(repr) 수정 |
+| [#4272](https://github.com/RustPython/RustPython/pull/4272) | 2022.11.09 | itertools | combinations 반복자의 `__reduce__` 메서드 구현 |
+| [#8540](https://github.com/RustPython/RustPython/pull/8540) | 2026.08.17 (병합 08.19) | 파서 진단 | 비어있는 `ExpectedExpression`을 `'invalid syntax'`로 정리, `<>` 진단 오프셋 수정 |
+
+## Pyodide
+
+Python을 WebAssembly로 컴파일하여 브라우저에서 실행 가능하게 하는 인터프리터입니다. \
+컨트리뷰션 아카데미에서 RustPython에 기여한 이후 혼자서 오픈소스에 기여해보고 싶어 찾던 중, 이전에 [DIY/CodeB](codeb.mdx)에서 Pyodide를 사용했던 경험이 떠올라 기여를 시작했습니다.
+
+### Pull Request: [Fix repr_shorten and Add shorten #3178](https://github.com/pyodide/pyodide/pull/3178)
+- **기간**: 2022.10.12 ~ 2022.10.22 (11일, 병합)
+
+#### 해결한 문제
+
+1. **`repr_shorten` 함수의 버그** — `split` 파라미터가 제대로 검증되지 않아, 값이 문자열 길이의 절반을 초과하면 `"5678..5678"` 같은 비정상적인 출력이 발생했습니다.
+2. **문서화 부족** — 함수 사용 예제가 없어 개발자들이 사용법을 이해하기 어려웠습니다.
+
+#### 구현 내용
+
+```python
+split = min(split, limit//2)
+```
+- `split` 파라미터를 제한해 항상 접두사와 접미사가 구분자와 함께 포함되도록 보장
+- 범용 텍스트 단축 유틸리티 `shorten()` 함수를 `repr_shorten`의 일반화 버전으로 추가
+- 두 함수 모두에 상세한 docstring 예제를 추가하고 changelog에 변경 사항을 문서화
+
+#### 느낀 점
+- Pyodide는 PR에서 changelog 작성이 필요했습니다. 평소 사용하며 체계적인 문서화가 인상 깊었는데, 직접 기여하면서 그 이유를 느낄 수 있었습니다.
+- 직접 사용해본 오픈소스 프로젝트에 기여하니 더 의미있고 재미있었습니다.
+
+## pyre
+
+[youknowone/pyre](https://github.com/youknowone/pyre)는 RustPython 메인테이너 Jeong, YunWon(youknowone)님이 새로 시작한, 빠르고 CPython 호환성을 목표로 하는 Python 인터프리터 프로젝트입니다. \
+RustPython에서의 인연을 이어 2026년 8월에 기여했습니다.
+
+| PR | 날짜 | 내용 |
 |:--|:--|:--|
-| [RustPython](rustpython.mdx) | 2022.07.01~10.14 | Rust로 구현된 Python 인터프리터. `itertools`, weak proxy, mapping proxy, AST 속성, 타입 어노테이션 등 CPython 표준 라이브러리·객체 동작 호환 기여 |
-| [Pyodide](pyodide.mdx) | 2022.10.12~10.22 | Python을 WebAssembly로 컴파일해 브라우저에서 실행하는 인터프리터. `repr_shorten` 버그 수정과 `shorten()` 함수 추가 |
+| [#955](https://github.com/youknowone/pyre/pull/955) | 2026.08.01 (병합) | GitHub Pages 웹 플레이그라운드 UX 개선과 테마 토글 추가 |
+| [#1298](https://github.com/youknowone/pyre/pull/1298) | 2026.08.17 (병합 08.19) | 바이너리 line-buffered 파일을 열기 전 경고를 띄우도록 인터프리터 동작 개선 |
+| [#1351](https://github.com/youknowone/pyre/pull/1351) | 2026.08.19 (병합) | `binascii`의 `a2b_base64` padding 상태 머신을 CPython 동작에 맞춰 재작성, `a2b_uu`·버퍼 연속성 문제 수정 |
+
+## Vivado 생태계 기여
+
+과정에서 실제로 사용하는 Vivado/Vitis 툴체인과 맞닿아 있는 오픈소스 프로젝트에도 이슈·PR을 보내고 있습니다.
+
+- **[Xilinx/XilinxTclStore](https://github.com/Xilinx/XilinxTclStore) — [PR #846](https://github.com/Xilinx/XilinxTclStore/pull/846)** (2026.08.23, 리뷰 중) \
+  Tcl 8.6의 `clock`·`msgcat` 네임스페이스 충돌로 Vivado에서 junit tclapp 설치가 sandbox 환경에서 실패하는 문제를 수정했습니다.
+- **[ichi4096/vivado-on-silicon-mac](https://github.com/ichi4096/vivado-on-silicon-mac) — [PR #82](https://github.com/ichi4096/vivado-on-silicon-mac/pull/82)** (2026.04.13, closed) \
+  Apple Silicon(M1/M2/M3) Mac에 Vivado를 설치하는 스크립트에 Vivado 2025.2 지원을 추가했습니다.
+
+## 이슈 리포트
+
+- **[microsoft/vscode-python](https://github.com/microsoft/vscode-python) — [Issue #26039](https://github.com/microsoft/vscode-python/issues/26039)** (2026.07.12, open) \
+  내장 함수(`int` 등)를 변수명으로 덮어쓰면 `pythonrc.py`의 PS1 설정이 깨지면서 터미널 REPL의 `>>>` 프롬프트가 사라지는 문제를 리포트했습니다.
 
 ## 관련 활동
 
 - [2022 오픈소스 컨트리뷰션 아카데미](open_source_contribution_academy.mdx) — RustPython 팀 리드 멘티로 활동, 대상(과학기술정보통신부장관상) 수상
+
+## 배운 점
+
+- Rust로 구현된 대규모 오픈소스 프로젝트의 구조와 개발 프로세스, Python 인터프리터의 내부 동작 원리를 익혔습니다.
+- 오픈소스 커뮤니티에서의 협업, 코드 리뷰, 체계적인 문서화(changelog) 관행을 경험했습니다.
+- 2022년의 학습형 기여를 넘어, 2026년에는 실제로 사용하는 도구(Vivado)와 관심 있는 프로젝트(pyre)에서 스스로 이슈를 찾아 기여를 이어가고 있습니다.
