@@ -1,0 +1,65 @@
+---
+title: "경기도 팹리스 아카데미 · 미니 프로젝트 모음"
+startDate: 2026-03-24T00:00:00+09:00
+endDate: 2026-08-19T00:00:00+09:00
+draft: false
+description: "온디바이스AI 시스템반도체 설계 2기 과정에서 진행한 개인·팀 미니 프로젝트 요약"
+tags: ["semiconductor", "fpga", "embedded", "rtl", "verification", "uvm", "rv32i", "axi", "firmware", "on-device-ai"]
+tech_stack: ["Verilog", "SystemVerilog", "UVM", "RV32I", "APB", "AXI4-Lite", "Vivado", "MicroBlaze", "C", "Python", "ARM Cortex-M4", "STM32F411", "Arduino Uno", "Jetson Orin Nano"]
+skill_tags: ["rtl-design", "verification", "protocol-design", "soc-integration", "bare-metal-firmware", "team-collaboration"]
+domain_tags: ["semiconductor", "fpga", "embedded-systems", "on-device-ai"]
+categories: ["프로젝트"]
+featured: true
+type: "미니 프로젝트 모음"
+content_type: "project"
+---
+
+{/* more */}
+
+[경기도 팹리스 아카데미 · 온디바이스AI 시스템반도체 설계 2기](korcham-ondevice-ai-semiconductor.mdx) 과정 중 과목별로 진행한 개인·팀 미니 프로젝트를 모았습니다. \
+과정 전체 일정과 교육 내용은 [과정 소개 게시글](korcham-ondevice-ai-semiconductor.mdx)에서 확인할 수 있습니다.
+
+## 전체 요약
+
+| 프로젝트 | 기간 | 구분 | 내용 |
+|:--|:--|:--|:--|
+| [KorchamLogis](https://github.com/mumallaeng/KorchamLogis) | 2026.03.24~04.03 | 팀 | Controller UNO와 Displayer UNO를 분리한 Dual Arduino 주행·상태 표시 미니 프로젝트 |
+| [Timepiecer](https://github.com/mumallaeng/Timepiecer) | 2026.04.16~04.20 | 팀 | Basys 3에서 Timepiece와 Timer를 통합한 Verilog 프로젝트. 담당 작업: Timepiece FSM·datapath, top 통합, 관련 검증과 발표 자료 정리 |
+| [UART·FIFO RTL](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-UART_FIFO) | 2026.04.22~04.27 | 개인 | Verilog UART/FIFO loopback RTL과 testbench |
+| [ascii-uart-sensor-pipeline](https://github.com/mumallaeng/ascii-uart-sensor-pipeline) | 2026.05.01~05.06 | 팀 | UART·FIFO·ASCII codec과 SR04·DHT11, watch·stopwatch를 하나의 Basys 3 시스템으로 통합한 프로젝트 |
+| [SystemVerilog UART·FIFO 검증](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-SV_Verification) | 2026.05.12~05.18 | 개인 | UART TX/RX·FIFO·loopback 단위 및 통합 testbench |
+| [RV32I CPU](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-RV32I) | 2026.05.22~05.27 | 개인 | RV32I datapath·control RTL, instruction type별 testbench와 program memory 예제 |
+| [UVM SPI·I2C](https://github.com/mumallaeng/korchamhrd_ai_chip_design/tree/main/mini_project-UVM_SPI_I2C) | 2026.06.11~06.18 | 개인 | SPI·I2C controller/target RTL, UVM environment, Basys 3 board constraints와 build script |
+| [AXI_Peripheral](https://github.com/mumallaeng/AXI_Peripheral) | 2026.06.22~06.30 | 팀 | MicroBlaze와 AXI4-Lite custom peripheral을 결합한 프로젝트. 담당 작업: IIC custom IP, register·HAL·firmware 경로와 board-to-board 검증 |
+| [Testudines](https://github.com/mumallaeng/testudines) | 2026.07.23~07.27 | 팀 | NUCLEO-F411RE에서 G51 6DoF 로봇팔을 구동하는 bare-metal firmware 프로젝트. Build·startup 구조와 TIM4_CH1 첫 서보 PWM bring-up, 6채널 servo PWM, UART 상태 출력(pulse echo), joystick ADC 입력 구현과 시연까지 완료 |
+| [Wardy](https://github.com/mumallaeng/wardy) | 2026.08.05~08.19 | 팀 | 3인 팀 '지켜조'로 개발한 일반 가정용 돌봄 안전 모니터링 시스템. 사람 탐지·추적·자세 추정·낙상 판단·위험물 탐지·로컬 LLM 요약을 Jetson Orin Nano에서 하나의 파이프라인으로 통합 |
+
+## 프로젝트별 메모
+
+### 임베디드·디지털 회로
+
+- **KorchamLogis** (팀) — C 프로그래밍 수업 중 Arduino/Tinkercad로 진행한 첫 미니 프로젝트. Controller UNO와 Displayer UNO 역할을 분리한 Dual Arduino 구조로 주행·표시 시스템을 구현했습니다.
+- **Timepiecer** (팀) — Verilog HDL 실습 직후 Basys 3에서 Timepiece와 Timer 기능을 통합한 프로젝트. Timepiece FSM·datapath 설계와 top 모듈 통합, 검증·발표 자료 정리를 담당했습니다.
+
+### UART·FIFO·센서 인터페이스
+
+- **UART·FIFO RTL** (개인) — UART TX/RX loopback과 FIFO 제어를 Verilog RTL과 testbench로 구현했습니다.
+- **ascii-uart-sensor-pipeline** (팀) — UART·FIFO·ASCII codec에 SR04·DHT11 센서, watch·stopwatch 기능을 더해 하나의 Basys 3 시스템으로 통합했습니다.
+
+### SystemVerilog 검증·UVM
+
+- **SystemVerilog UART·FIFO 검증** (개인) — `class`·`interface`·`mailbox`·`event`·`fork-join` 기반 class 테스트벤치로 UART TX/RX·FIFO·loopback 단위·통합 검증을 진행했습니다.
+- **UVM SPI·I2C** (개인) — SPI·I2C controller/target RTL을 UVM environment(generator·driver·monitor·scoreboard)로 검증하고, Basys 3 보드 constraints와 build script까지 구성했습니다.
+
+### CPU·SoC
+
+- **RV32I CPU** (개인) — RV32I single-cycle datapath·control RTL을 설계하고 instruction type별 testbench와 program memory 예제로 검증했습니다.
+- **AXI_Peripheral** (팀) — MicroBlaze SoC에 AXI4-Lite custom peripheral을 결합한 프로젝트. IIC custom IP와 register·HAL·firmware 경로 구현, board-to-board 검증을 담당했습니다.
+
+### ARM Cortex-M4 firmware
+
+- **Testudines** — NUCLEO-F411RE와 Sensor Shield v5.0으로 G51 6DoF 로봇팔을 구동하는 bare-metal firmware 프로젝트. Build·startup 구조 정리, `TIM4_CH1` 첫 서보 PWM bring-up, 6채널 servo PWM, UART pulse-echo 상태 출력, joystick ADC 입력까지 구현하고 시연을 완료했습니다.
+
+### On-Device AI
+
+- **Wardy** (3인 팀 '지켜조') — Jetson Orin Nano 기반 가정용 돌봄 안전 모니터링 시스템. USB 웹캠 영상에서 사람 탐지(YOLO11n) → 익명 추적(Kalman Filter·Hungarian assignment) → 자세 추정(RTMPose) → 낙상 의심 판단(TemporalFallGRU)으로 이어지는 파이프라인에 위험물 근접 탐지와 로컬 LLM(Ollama) 기반 일일 요약을 더해 C++ edge runtime과 browser UI로 통합했습니다.

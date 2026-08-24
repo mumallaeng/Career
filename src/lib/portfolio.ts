@@ -180,10 +180,17 @@ export function getExperienceEntries(): ExperienceEntry[] {
   return [
     {
       group: 'Education',
-      title: '인하공업전문대학 컴퓨터시스템과 · 학점은행제 컴퓨터공학',
-      dateRange: '2020.03 - 2025.08',
-      description: '인하공업전문대학 컴퓨터시스템과 과정 이후 학점은행제 컴퓨터공학 학사 학위를 취득했습니다.',
-      href: '/activities/inha-technical-college-and-academic-creditbank-system',
+      title: '인하공업전문대학 컴퓨터시스템과',
+      dateRange: '2020.03 - 2023.01',
+      description: '인하공업전문대학 컴퓨터시스템과 전문학사 과정을 이수했습니다(중퇴).',
+      href: '/activities/inha-technical-college-computer-system',
+    },
+    {
+      group: 'Education',
+      title: '학점은행제 컴퓨터공학과',
+      dateRange: '2023.01 - 2025.08',
+      description: '학점은행제 평가인정 학습과정을 이수하고 컴퓨터공학 학사 학위를 취득했습니다.',
+      href: '/activities/academic-creditbank-computer-engineering',
     },
     {
       group: 'Education',
@@ -224,10 +231,12 @@ export function getExperienceEntries(): ExperienceEntry[] {
 }
 
 const CURATED_JOB_RELATED_SLUGS = [
+  'korcham-ondevice-ai-mini-projects',
   'shoepernoma',
   'stonespring',
   'greent',
   'healthcasting',
+  'open-source-contributions',
   'pyodide',
   'rustpython',
   'codeb',
@@ -238,6 +247,16 @@ const CURATED_JOB_RELATED_SLUGS = [
 ] as const;
 
 const JOB_RELATED_HIGHLIGHTS: Record<(typeof CURATED_JOB_RELATED_SLUGS)[number], string[]> = {
+  'korcham-ondevice-ai-mini-projects': [
+    'RTL 설계·SystemVerilog/UVM 검증',
+    'RV32I CPU, AXI4-Lite SoC 통합',
+    'ARM Cortex-M4 bare-metal firmware',
+  ],
+  'open-source-contributions': [
+    'RustPython·Pyodide 오픈소스 기여',
+    'CPython 호환성 개선과 PR 협업',
+    '오픈소스 컨트리뷰션 아카데미 대상',
+  ],
   shoepernoma: [
     '로보틱스 시스템 통합',
     '인식 및 제어 파이프라인 구성',
