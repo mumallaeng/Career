@@ -174,8 +174,8 @@ const projectEnglish: Record<
     title: 'Open Source Contributions',
     type: 'Open Source',
     role: 'Contributor',
-    description: 'A collection of open-source contributions to RustPython and Pyodide.',
-    highlights: ['RustPython and Pyodide contributions', 'CPython compatibility fixes and PR collaboration', 'Grand prize at the Open Source Contribution Academy'],
+    description: 'A collection of issue/PR contributions to RustPython, Pyodide, pyre, Xilinx tooling, and VSCode Python.',
+    highlights: ['RustPython, Pyodide, and pyre contributions', 'Issues and PRs on Xilinx and VSCode Python tooling', 'Grand prize at the Open Source Contribution Academy'],
   },
   shoepernoma: {
     title: 'Shoepernoma',
@@ -204,20 +204,6 @@ const projectEnglish: Record<
     role: 'Team Lead / Trend Data',
     description: 'A health-alert system using search trends, weather data, and exploratory data analysis.',
     highlights: ['Search-trend data collection', 'External data integration and EDA', 'Time-series correlation analysis'],
-  },
-  pyodide: {
-    title: 'Pyodide',
-    type: 'Open Source',
-    role: 'Contributor',
-    description: 'An open-source contribution improving shortened representations in the WebAssembly-based Python runtime.',
-    highlights: ['WebAssembly-based Python runtime', 'Representation shortening logic', 'Independent open-source contribution'],
-  },
-  rustpython: {
-    title: 'RustPython',
-    type: 'Open Source',
-    role: 'Contributor',
-    description: 'Open-source contributions to Python interpreter internals, standard-library behavior, and object compatibility.',
-    highlights: ['Python interpreter internals', 'Standard-library compatibility', 'Code review and pull-request collaboration'],
   },
   'pdf-to-question-bank': {
     title: 'PDF to Question Bank',
