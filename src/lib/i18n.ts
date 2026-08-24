@@ -133,9 +133,13 @@ const experienceEnglish: Record<string, Pick<ExperienceEntry, 'title' | 'descrip
     title: 'Sungil Information High School, Digital Information',
     description: 'Graduated after studying the foundations of programming, networking, and server administration.',
   },
-  '/activities/inha-technical-college-and-academic-creditbank-system': {
-    title: 'Inha Technical College · B.S. in Computer Engineering',
-    description: 'Studied Computer Systems at Inha Technical College, then earned a B.S. in Computer Engineering through the Academic Credit Bank System.',
+  '/activities/inha-technical-college-computer-system': {
+    title: 'Inha Technical College, Computer Systems',
+    description: 'Studied Computer Systems at Inha Technical College (withdrew).',
+  },
+  '/activities/academic-creditbank-computer-engineering': {
+    title: 'Academic Credit Bank System · B.S. in Computer Engineering',
+    description: 'Completed accredited coursework and earned a B.S. in Computer Engineering through the Academic Credit Bank System.',
   },
   '/activities/kdt-addinedu': {
     title: 'AddinEdu IT Academy',
@@ -159,6 +163,20 @@ const projectEnglish: Record<
   string,
   Pick<ProjectSummary, 'title' | 'description' | 'highlights' | 'type' | 'role'>
 > = {
+  'korcham-ondevice-ai-mini-projects': {
+    title: 'Gyeonggi Fabless Academy - Mini Project Collection',
+    type: 'Course Mini Projects',
+    role: undefined,
+    description: 'Individual and team mini projects completed by course module during the On-Device AI System Semiconductor Design program.',
+    highlights: ['RTL design and SystemVerilog/UVM verification', 'RV32I CPU and AXI4-Lite SoC integration', 'ARM Cortex-M4 bare-metal firmware'],
+  },
+  'open-source-contributions': {
+    title: 'Open Source Contributions',
+    type: 'Open Source',
+    role: 'Contributor',
+    description: 'A collection of open-source contributions to RustPython and Pyodide.',
+    highlights: ['RustPython and Pyodide contributions', 'CPython compatibility fixes and PR collaboration', 'Grand prize at the Open Source Contribution Academy'],
+  },
   shoepernoma: {
     title: 'Shoepernoma',
     type: 'Team Project',
