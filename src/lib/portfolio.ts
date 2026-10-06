@@ -251,8 +251,8 @@ const JOB_RELATED_HIGHLIGHTS: Record<(typeof CURATED_JOB_RELATED_SLUGS)[number],
     'ARM Cortex-M4 bare-metal firmware',
   ],
   'open-source-contributions': [
-    'RustPython·Pyodide·pyre 오픈소스 기여',
-    'Xilinx·VSCode 등 실무 툴체인 이슈·PR',
+    'RustPython·Pyodide·pyre·Chisel·FINN 오픈소스 기여',
+    'Xilinx·RapidWright 등 반도체 툴체인 병합 PR',
     '오픈소스 컨트리뷰션 아카데미 대상',
   ],
   shoepernoma: [
