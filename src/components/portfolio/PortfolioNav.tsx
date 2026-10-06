@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import LanguageToggle from '@/components/LanguageToggle';
@@ -83,10 +83,20 @@ export default function PortfolioNav() {
     };
   }, [isHome, pathname]);
 
+  const handleBrandClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
+      return;
+    }
+    const goHome = new CustomEvent('portfolio:go-home', { cancelable: true });
+    if (!window.dispatchEvent(goHome)) {
+      event.preventDefault();
+    }
+  };
+
   return (
     <header className="portfolio-nav">
       <div className="portfolio-nav-inner">
-        <Link href="/" className="portfolio-nav-brand">김연우</Link>
+        <Link href="/" className="portfolio-nav-brand" onClick={handleBrandClick}>김연우</Link>
 
         <nav className="portfolio-nav-links" aria-label={copy.nav.sectionNavigation}>
           {SECTIONS.map(({ id, labelKey }) => (
