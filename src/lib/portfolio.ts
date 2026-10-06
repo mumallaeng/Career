@@ -1,10 +1,13 @@
 import { getActivityBySlug } from '@/lib/content';
 import { formatActivityDate } from '@/lib/utils/date';
+import { getOneDriveAssetByFilename, getOneDriveAssetUrl } from '@/data/onedrive-assets';
 
 export interface HeroContent {
   kicker: string;
   name: string;
   tagline: string;
+  photoUrl?: string;
+  photoAlt?: string;
 }
 
 export interface AboutContent {
@@ -46,10 +49,13 @@ export type PortfolioDetailContent = Record<string, string>;
 // existing public content; it does not author new claims.
 
 export function getHeroContent(): HeroContent {
+  const photo = getOneDriveAssetByFilename('261005-증명사진_copy.jpg');
   return {
     kicker: 'Career',
-    name: '김연우 | Gim Yeonwoo',
+    name: '김연우(金延祐) | Gim Yeonwoo',
     tagline: 'A junior engineer working toward a career in on-device AI semiconductor design and verification.',
+    photoUrl: photo ? getOneDriveAssetUrl(photo, 'default') : undefined,
+    photoAlt: photo?.name,
   };
 }
 

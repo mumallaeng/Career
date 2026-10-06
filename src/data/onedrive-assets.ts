@@ -132,6 +132,14 @@ function buildDevStoragePublicPath(size: 'thumb' | 'default', filename: string):
 
 const onedriveAssetBlueprints = [
   {
+    act_id: '프로필',
+    filename: '261005-증명사진_copy.jpg',
+    name: '김연우 증명사진',
+    type: 'profile',
+    startDate: '2026-10-05',
+  },
+
+  {
     act_id: '네임컴작명연구소',
     filename: '020309-네임컴작명연구소-0_copy.jpg',
     name: '네임컴작명연구소 0',

@@ -29,7 +29,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "김연우(Gim Yeonwoo)",
+  title: "김연우(金延祐) | Gim Yeonwoo",
   description: "Welcome to my introduction page!",
 };
 
