@@ -1,11 +1,11 @@
 ---
 title: "오픈소스 기여"
 startDate: 2022-06-11T00:00:00+09:00
-endDate: 2026-08-23T00:00:00+09:00
+endDate: 2026-10-01T00:00:00+09:00
 draft: false
-description: "RustPython, Pyodide, pyre, Xilinx 등 여러 오픈소스 프로젝트에 이슈·PR로 기여한 기록"
-tags: ["open-source", "python", "rust", "webassembly", "eda", "vivado"]
-tech_stack: ["Python", "Rust", "WebAssembly", "Tcl", "GitHub"]
+description: "RustPython, Pyodide, pyre, Chisel, FINN, RapidWright 등 여러 오픈소스 프로젝트에 이슈·PR로 기여한 기록"
+tags: ["open-source", "python", "rust", "webassembly", "eda", "vivado", "chisel", "fpga"]
+tech_stack: ["Python", "Rust", "Scala", "Java", "Gradle", "WebAssembly", "Tcl", "GitHub"]
 skill_tags: ["open-source-contribution", "code-review", "issue-tracking", "pull-request", "interpreter-internals"]
 domain_tags: ["open-source", "programming-language", "eda-tooling"]
 categories: ["프로젝트"]
@@ -28,7 +28,7 @@ project_kind: "open_source"
 2022년 [오픈소스 컨트리뷰션 아카데미](open_source_contribution_academy.mdx)에서 RustPython 프로젝트 리드 멘티로 활동하며 첫 오픈소스 기여를 시작했고, \
 이어서 개인적으로 Pyodide에도 기여했습니다. \
 2026년에는 RustPython 메인테이너가 새로 시작한 인터프리터 프로젝트 pyre, 평소 사용하는 Vivado 관련 도구인 Xilinx/XilinxTclStore와 vivado-on-silicon-mac, \
-그리고 VSCode Python 확장까지 기여·이슈 리포트 범위를 넓혀가고 있습니다.
+VSCode Python 확장, 그리고 반도체 설계 쪽 Chisel, FINN, RapidWright까지 기여·이슈 리포트 범위를 넓혀가고 있습니다.
 
 ## 기여 프로젝트 요약
 
@@ -37,7 +37,10 @@ project_kind: "open_source"
 | [RustPython](https://github.com/RustPython/RustPython) | 2022.06~2022.11, 2026.08 | PR 25건(24건 병합) | Python 인터프리터의 표준 라이브러리·AST·타입 시스템·경고 처리·파서 진단 개선 |
 | [Pyodide](https://github.com/pyodide/pyodide) | 2022.10 | PR 1건(병합) | WebAssembly 기반 Python 런타임의 `repr_shorten` 버그 수정과 `shorten()` 함수 추가 |
 | [youknowone/pyre](https://github.com/youknowone/pyre) | 2026.08 | PR 3건(병합) | RustPython 메인테이너가 새로 시작한 Python 인터프리터 프로젝트에 `binascii`, 인터프리터 경고, 웹 플레이그라운드 기여 |
-| [Xilinx/XilinxTclStore](https://github.com/Xilinx/XilinxTclStore) | 2026.08 | PR 1건(리뷰 중) | Vivado JUnit tclapp 설치가 sandbox 환경에서 실패하는 문제 수정 |
+| [Xilinx/XilinxTclStore](https://github.com/Xilinx/XilinxTclStore) | 2026.08~09 | PR 1건(병합) | Vivado JUnit tclapp 설치가 sandbox 환경에서 실패하는 문제 수정 |
+| [chipsalliance/chisel](https://github.com/chipsalliance/chisel) | 2026.09~10 | PR 2건(병합) | Chisel 하드웨어 생성 언어의 연결(`:=`·`<>`) 오류와 `Bool` 폭 변경 오류 메시지 개선 |
+| [Xilinx/finn](https://github.com/Xilinx/finn) | 2026.08~09 | PR 3건(병합) | 신경망 FPGA 가속기 빌드 flow의 설정 누락 검사 추가와 `MaxPool` datatype 전파 수정 |
+| [Xilinx/RapidWright](https://github.com/Xilinx/RapidWright) | 2026.09 | PR 2건(병합) | macOS에서의 메모리 추적 크래시 수정과 example 프로그램 CI smoke test 추가 |
 | [ichi4096/vivado-on-silicon-mac](https://github.com/ichi4096/vivado-on-silicon-mac) | 2026.04~06 | Fork 직접 확장 + PR 1건(closed) | 약 2년간 업데이트가 없던 저장소를 포크해 Vivado 2020.2·2025.2 지원과 Vitis·XVC 하드웨어 서버 연동을 직접 구현, 2025.2 지원은 업스트림 PR도 시도(closed) |
 | [microsoft/vscode-python](https://github.com/microsoft/vscode-python) | 2026.07 | Issue 1건(open) | 내장 함수가 shadow될 때 터미널 REPL `>>>` 프롬프트가 사라지는 문제 리포트 |
 
@@ -112,13 +115,41 @@ RustPython에서의 인연을 이어 2026년 8월에 기여했습니다.
 | [#1298](https://github.com/youknowone/pyre/pull/1298) | 2026.08.17 (병합 08.19) | 바이너리 line-buffered 파일을 열기 전 경고를 띄우도록 인터프리터 동작 개선 |
 | [#1351](https://github.com/youknowone/pyre/pull/1351) | 2026.08.19 (병합) | `binascii`의 `a2b_base64` padding 상태 머신을 CPython 동작에 맞춰 재작성, `a2b_uu`·버퍼 연속성 문제 수정 |
 
+## Chisel
+
+Scala 기반 하드웨어 생성 언어입니다. 직접 쓰면서 마주친 불친절한 에러 메시지를 고치는 PR을 보냈습니다.
+
+| PR | 기간 | 내용 |
+|:--|:--|:--|
+| [#5491](https://github.com/chipsalliance/chisel/pull/5491) | 2026.09.20 ~ 09.21 (병합) | `:=`·`<>` 연결에서 하드웨어가 아닌 피연산자가 좌변인지 우변인지 구분하는 에러 메시지로 개선 |
+| [#5495](https://github.com/chipsalliance/chisel/pull/5495) | 2026.09.24 ~ 10.01 (병합) | `Bool`을 1비트가 아닌 폭으로 바꿀 때 이유와 `.asUInt` 대안을 알려 주는 에러 메시지 추가 |
+
+## FINN
+
+AMD(Xilinx)의 양자화 신경망 FPGA 가속기 빌드 프레임워크입니다. 빌드가 오류 없이 끝나지만 결과가 잘못되는 경우를 빌드 시점에 잡는 방향으로 기여했습니다.
+
+| PR | 기간 | 내용 |
+|:--|:--|:--|
+| [#1665](https://github.com/Xilinx/finn/pull/1665) | 2026.08.24 ~ 09.16 (병합) | 하드웨어 출력 빌드에서 folding 설정이 없으면 PE=1·SIMD=1로 가장 느린 구현이 만들어지는 문제를 빌드 전에 검사 |
+| [#1673](https://github.com/Xilinx/finn/pull/1673) | 2026.08.26 ~ 09.22 (병합) | `steps`·`stop_step` 설정 때문에 `verify_steps`가 조용히 실행되지 않는 경우를 검사 |
+| [#1697](https://github.com/Xilinx/finn/pull/1697) | 2026.09.19 ~ 09.22 (병합) | 앞단 datatype이 줄어들 때 `MaxPool`의 입력 datatype이 갱신되지 않는 문제 수정 |
+
+## RapidWright
+
+AMD FPGA의 배치·배선을 Java로 다루는 프레임워크입니다. macOS에서 example을 돌려 보다 발견한 문제를 고치고, CI에 runtime 검증을 추가했습니다.
+
+| PR | 기간 | 내용 |
+|:--|:--|:--|
+| [#1433](https://github.com/Xilinx/RapidWright/pull/1433) | 2026.09.20 ~ 09.28 (병합) | Linux 전용 `/proc` 메모리 추적이 macOS에서 `FileNotFoundException`을 내는 문제 수정(`FileTools.isLinux()` 추가) |
+| [#1435](https://github.com/Xilinx/RapidWright/pull/1435) | 2026.09.22 ~ 09.28 (병합) | `runExamples` Gradle task로 example 프로그램을 smoke test로 실행하고 CI에 연결 |
+
 ## Vivado 생태계 기여
 
 과정에서 실제로 사용하는 Vivado/Vitis 툴체인과 맞닿아 있는 오픈소스 프로젝트에도 이슈·PR을 보내고, 직접 유지보수하고 있습니다.
 
 ### Xilinx/XilinxTclStore
 
-**[PR #846](https://github.com/Xilinx/XilinxTclStore/pull/846)** (2026.08.23, 리뷰 중) \
+**[PR #846](https://github.com/Xilinx/XilinxTclStore/pull/846)** (2026.08.23, 2026.09.18 병합) \
 Tcl 8.6의 `clock`·`msgcat` 네임스페이스 충돌로 Vivado에서 junit tclapp 설치가 sandbox 환경에서 실패하는 문제를 수정했습니다.
 
 ### ichi4096/vivado-on-silicon-mac (fork 직접 확장 유지보수)
@@ -147,4 +178,5 @@ Apple Silicon(M1/M2/M3) Mac에 Docker로 Vivado를 설치하는 도구인데, �
 
 - Rust로 구현된 대규모 오픈소스 프로젝트의 구조와 개발 프로세스, Python 인터프리터의 내부 동작 원리를 익혔습니다.
 - 오픈소스 커뮤니티에서의 협업, 코드 리뷰, 체계적인 문서화(changelog) 관행을 경험했습니다.
-- 2022년의 학습형 기여를 넘어, 2026년에는 실제로 사용하는 도구(Vivado)와 관심 있는 프로젝트(pyre)에서 스스로 이슈를 찾아 기여를 이어가고 있습니다.
+- 2022년의 학습형 기여를 넘어, 2026년에는 실제로 사용하는 도구(Vivado, Chisel, FINN, RapidWright)와 관심 있는 프로젝트(pyre)에서 스스로 이슈를 찾아 기여를 이어가고 있습니다.
+- 설정 누락이나 불친절한 에러처럼 '조용히 잘못되는' 지점을 재현하고, 메인테이너 리뷰에 맞춰 범위를 줄여 병합까지 가져가는 과정을 경험했습니다.

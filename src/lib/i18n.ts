@@ -174,8 +174,8 @@ const projectEnglish: Record<
     title: 'Open Source Contributions',
     type: 'Open Source',
     role: 'Contributor',
-    description: 'A collection of issue/PR contributions to RustPython, Pyodide, pyre, Xilinx tooling, and VSCode Python.',
-    highlights: ['RustPython, Pyodide, and pyre contributions', 'Issues and PRs on Xilinx and VSCode Python tooling', 'Grand prize at the Open Source Contribution Academy'],
+    description: 'A collection of issue/PR contributions to RustPython, Pyodide, pyre, Chisel, FINN, RapidWright, Xilinx tooling, and VSCode Python.',
+    highlights: ['RustPython, Pyodide, and pyre contributions', 'Merged PRs on Chisel, FINN, RapidWright, and Xilinx tooling', 'Grand prize at the Open Source Contribution Academy'],
   },
   shoepernoma: {
     title: 'Shoepernoma',
