@@ -1,7 +1,7 @@
 ---
 title: "경기도 팹리스 아카데미 · 미니 프로젝트 모음"
 startDate: 2026-03-24T00:00:00+09:00
-endDate: 2026-08-19T00:00:00+09:00
+endDate: 2026-10-15T00:00:00+09:00
 draft: false
 description: "온디바이스AI 시스템반도체 설계 2기 과정에서 진행한 개인·팀 미니 프로젝트 요약"
 tags: ["semiconductor", "fpga", "embedded", "rtl", "verification", "uvm", "rv32i", "axi", "firmware", "on-device-ai"]
@@ -15,6 +15,8 @@ content_type: "project"
 ---
 
 {/* more */}
+
+> *[컨소시엄] 온디바이스AI 시스템반도체 설계 2기* 교육과정에서 진행된 과제 및 Mini Project 모음입니다.
 
 [경기도 팹리스 아카데미 · 온디바이스AI 시스템반도체 설계 2기](korcham-ondevice-ai-semiconductor.mdx) 과정 중 과목별로 진행한 개인·팀 미니 프로젝트를 모았습니다. \
 과정 전체 일정과 교육 내용은 [과정 소개 게시글](korcham-ondevice-ai-semiconductor.mdx)에서 확인할 수 있습니다.
@@ -33,6 +35,8 @@ content_type: "project"
 | [AXI_Peripheral](https://github.com/mumallaeng/AXI_Peripheral) | 2026.06.22~06.30 | 팀 | MicroBlaze와 AXI4-Lite custom peripheral을 결합한 프로젝트. 담당 작업: IIC custom IP, register·HAL·firmware 경로와 board-to-board 검증 |
 | [Testudines](https://github.com/mumallaeng/testudines) | 2026.07.23~07.27 | 팀 | NUCLEO-F411RE에서 G51 6DoF 로봇팔을 구동하는 bare-metal firmware 프로젝트. Build·startup 구조와 TIM4_CH1 첫 서보 PWM bring-up, 6채널 servo PWM, UART 상태 출력(pulse echo), joystick ADC 입력 구현과 시연까지 완료 |
 | [Wardy](https://github.com/mumallaeng/wardy) | 2026.08.05~08.19 | 팀 | 3인 팀 '지켜조'로 개발한 일반 가정용 돌봄 안전 모니터링 시스템. 사람 탐지·추적·자세 추정·낙상 판단·위험물 탐지·로컬 LLM 요약을 Jetson Orin Nano에서 하나의 파이프라인으로 통합 |
+| [VGA Pan-Tilt CCTV](https://github.com/mumallaeng/VGA-Pan-Tilt-CCTV) | 2026.08.31~09.07 | 팀 | 7인 팀 '빙글빙글'이 Basys 3와 OV7670으로 만든 능동형 CCTV. 색·엣지·움직임으로 대상을 검출하고 Pan-Tilt 서보를 제어해 화면 중앙에 유지. 담당 작업: 모터 파트 `servo_top` |
+| [LightLetter](https://github.com/mumallaeng/LightLetter) | 2026.09.09~10.15 | 팀 | 7인 팀 'LLINK'의 파이널 프로젝트. 손글씨를 FPGA CNN으로 인식하고 BFSK 광통신으로 전송해 수신부 FFT로 복원하는 Zybo Z7-20 2대 시스템. 담당 작업: CNN Output Buffer·ReLU/양자화, 공유 Fully Connected 연산기 |
 
 ## 프로젝트별 메모
 
@@ -62,4 +66,9 @@ content_type: "project"
 
 ### On-Device AI
 
-- **Wardy** (3인 팀 '지켜조') — Jetson Orin Nano 기반 가정용 돌봄 안전 모니터링 시스템. USB 웹캠 영상에서 사람 탐지(YOLO11n) → 익명 추적(Kalman Filter·Hungarian assignment) → 자세 추정(RTMPose) → 낙상 의심 판단(TemporalFallGRU)으로 이어지는 파이프라인에 위험물 근접 탐지와 로컬 LLM(Ollama) 기반 일일 요약을 더해 C++ edge runtime과 browser UI로 통합했습니다.
+- **[Wardy](https://github.com/mumallaeng/wardy)** (3인 팀 '지켜조') — Jetson Orin Nano 기반 가정용 돌봄 안전 모니터링 시스템. USB 웹캠 영상에서 사람 탐지(YOLO11n) → 익명 추적(Kalman Filter·Hungarian assignment) → 자세 추정(RTMPose) → 낙상 의심 판단(TemporalFallGRU)으로 이어지는 파이프라인에 위험물 근접 탐지와 로컬 LLM(Ollama) 기반 일일 요약을 더해 C++ edge runtime과 browser UI로 통합했습니다.
+
+### VGA·파이널 프로젝트
+
+- **[VGA Pan-Tilt CCTV](https://github.com/mumallaeng/VGA-Pan-Tilt-CCTV)** (7인 팀 '빙글빙글') — Basys 3와 OV7670으로 색·엣지·움직임 기반 대상 검출과 Pan-Tilt 서보 자동 추적을 구현한 1주 프로젝트. 모터 파트 `servo_top`의 명세·설계·검증 계획을 담당했습니다.
+- **[LightLetter](https://github.com/mumallaeng/LightLetter)** (7인 팀 'LLINK') — 손글씨 문자를 FPGA CNN으로 인식하고 BFSK 광통신과 FFT 복원으로 상대 보드의 화면에 표시하는 파이널 프로젝트. CNN Output Buffer·ReLU/양자화 블록과 공유 Fully Connected 연산기를 담당했습니다.

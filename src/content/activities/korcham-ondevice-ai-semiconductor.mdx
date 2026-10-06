@@ -18,7 +18,7 @@ activity_kind: "training"
 
 [mumallaeng/KorchamLogis](https://github.com/mumallaeng/)
 
-> *[컨소시엄] 온디바이스AI 시스템반도체 설계 2기* 교육과정에서 C언어 프로그래밍 수업 중에 진행된 Mini Projects입니다.
+> *[컨소시엄] 온디바이스AI 시스템반도체 설계 2기* 교육과정의 기록입니다.
 
 ## 과정 정보
 
@@ -28,7 +28,7 @@ activity_kind: "training"
 - 훈련 유형: 국가인적자원개발컨소시엄
 - 교육 기관: 대한상공회의소 서울기술교육센터
 - 교육 장소: 경기도 팹리스 아카데미 판교캠퍼스
-- 진행 상태: 수강 중 (2026년 8월 21일 기준)
+- 진행 상태: 수강 중 (2026년 10월 6일 기준)
 
 ## 과정 전체 저장소
 
@@ -63,11 +63,12 @@ activity_kind: "training"
 | 26.07.24 | 채용 담당자 Q&A와 지원 준비 특강 | 지원 서류 작성 기준(지원 직무·기간·기술 명칭·자격 일치), 프로젝트·포트폴리오 정리 방법(목표·구조·본인 역할·문제와 판단·검증·결과), 자기소개서와 발표형 면접 준비, 실무 언어별 학습 방향(SystemVerilog·UVM/Python automation/C 시스템·firmware), 생성형 AI 활용 기준, 영어와 지원 커뮤니케이션 특강 |
 | 26.07.28 ~ 26.08.04 | On-Device AI(ML/DL, CNN, Jetson) | Perceptron부터 Linear·Logistic Regression, Softmax Classification, Multi Layer Perceptron 이론, CNN 개념과 기본연산(Convolution·Padding·Stride·Pooling) 학습. 이어 Jetson Orin Nano에서 OpenCV 기반 웹캠 얼굴 검출 실습, MobileNetV2 전이학습 모델을 ONNX·TensorRT로 변환한 가위바위보(RPS) 분류 배포. Object Detection(IoU·AP·mAP·NMS·YOLO) 개념과 실습, Ollama 기반 local LLM 환경과 API 연동 |
 | 26.08.05 ~ 26.08.19 | [On-Device AI 프로젝트 Wardy](https://github.com/mumallaeng/wardy) | 3인 팀 '지켜조'로 개발한 일반 가정용 돌봄 안전 모니터링 시스템. USB 웹캠 영상에서 사람 탐지(YOLO11n) → 익명 추적(Kalman Filter·Hungarian assignment) → 자세 추정(RTMPose, COCO-17 keypoint) → 시간축 낙상 의심 판단(TemporalFallGRU)으로 이어지는 파이프라인에 위험물(가위·칼 등) 근접 탐지와 로컬 LLM(Ollama) 기반 일일 요약을 더해 NVIDIA Jetson Orin Nano에서 구현, C++ edge runtime과 browser UI로 통합 |
-| 26.08.20 ~ 26.08.24 | 취업 특강 |  |
-| 26.08.25 ~ 26.08.?? | VGA |  |
-| 26.09.?? ~ 26.09.?? | VGA 프로젝트 |  |
-| 26.09.?? ~ 26.10.08 | 파이널 프로젝트 |  |
-| 26.10.?? ~ 26.10.?? | 취업 준비 |  |
+| 26.08.20 ~ 26.08.24 | 취업 특강 | 2026 채용 동향과 기업유형별 준비 전략·직무분석(08.20), 자기소개서 작성·첨삭과 면접 역량 강화(08.21), 모의면접 시뮬레이션과 피드백(08.24) |
+| 26.08.25 ~ 26.08.28 | VGA | CRT 발광 원리와 VGA timing, RGB444·카운터 기반 sync 설계, 컬러바와 Image ROM 실습, 이미지 업스케일과 grayscale·binary filter, OV7670 카메라 write 모듈과 frame buffer |
+| 26.08.31 ~ 26.09.07 | [VGA 프로젝트 VGA Pan-Tilt CCTV](https://github.com/mumallaeng/VGA-Pan-Tilt-CCTV) | 7인 팀 '빙글빙글'이 Basys 3와 OV7670으로 만든 능동형 CCTV. 색·엣지·움직임으로 대상을 검출하고 Pan-Tilt 서보를 제어해 화면 중앙에 유지. 담당 작업: 모터 파트 `servo_top` |
+| 26.09.09 ~ 26.09.11 | Zynq 영상 파이프라인 | Zynq에서 MIPI 카메라 → AXI VDMA → DDR3 → HDMI 출력 블록 디자인, AXI4-Stream 영상 구간에 grayscale filter 삽입, binary filter MMIO driver와 register access macro |
+| 26.09.09 ~ 26.10.15 | [파이널 프로젝트 LightLetter](https://github.com/mumallaeng/LightLetter) | 7인 팀 'LLINK'. 손글씨를 FPGA CNN으로 인식하고 BFSK 광통신으로 전송해 수신부 FFT로 복원하는 Zybo Z7-20 2대 시스템. 담당 작업: CNN Output Buffer·ReLU/양자화, 공유 Fully Connected 연산기. 10.02 발표 연습, 10.15 최종 발표 예정 |
+| 26.10.16 ~ 26.10.22 | 취업 준비 |  |
 | 26.10.23 | 수료 |  |
 
 ## 주요 실습 및 산출물
@@ -76,6 +77,4 @@ activity_kind: "training"
 
 ## 현재 진행 단계
 
-2026년 8월 21일 기준으로 On-Device AI(ML/DL, CNN, Jetson Orin Nano)를 마쳤습니다. 이어 3인 팀 '지켜조'로 Jetson 기반 가정용 돌봄 안전 모니터링 시스템 Wardy(2026.08.05~08.19)를 개발했고, 사람 탐지·추적·자세 추정·낙상 판단·위험물 탐지·로컬 LLM 요약을 하나의 파이프라인으로 통합했습니다.
-
-현재는 취업 특강 주간(2026.08.20~08.24)이 진행 중이며, 이후 VGA 실습과 VGA 프로젝트, 파이널 프로젝트를 거쳐 2026년 10월 23일 수료로 이어질 예정입니다.
+2026년 10월 6일 기준으로 취업 특강, VGA 수업과 VGA 프로젝트(VGA Pan-Tilt CCTV)를 마쳤고, 7인 팀 'LLINK'의 파이널 프로젝트 LightLetter가 발표 준비 단계에 있습니다. 10월 2일 1차 발표 연습을 진행했으며 10월 15일 최종 발표를 거쳐 10월 23일 수료로 이어질 예정입니다.
