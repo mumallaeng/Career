@@ -157,7 +157,25 @@
 }
 
 .portfolio-intro-hero {
-    max-width: 760px;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    max-width: 960px;
+}
+
+.portfolio-hero-photo {
+    flex: 0 0 auto;
+    width: 210px;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 1px solid var(--color-border-subtle);
+}
+
+.portfolio-hero-text {
+    min-width: 0;
+    max-width: 640px;
 }
 
 .portfolio-hero-kicker {
@@ -911,6 +929,17 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
 @media (max-width: 768px) {
     .portfolio-intro {
         padding: 96px 0 64px;
+    }
+
+    .portfolio-intro-hero {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 28px;
+    }
+
+    .portfolio-hero-photo {
+        width: 150px;
+        border-radius: 12px;
     }
 
     .portfolio-hero-name {

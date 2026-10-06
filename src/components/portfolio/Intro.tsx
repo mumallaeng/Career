@@ -19,16 +19,28 @@ export default function Intro({ hero, about, locale }: IntroProps) {
     <section id="about" className="portfolio-section portfolio-intro">
       <div className="portfolio-container">
         <div className="portfolio-intro-hero">
-          <p className="portfolio-hero-kicker">{copy.hero.kicker}</p>
-          <h1 className="portfolio-hero-name">{hero.name}</h1>
-          <p className="portfolio-hero-tagline">{copy.hero.tagline}</p>
-          <div className="portfolio-hero-actions">
-            <a href="#experience" className="portfolio-button portfolio-button--primary">
-              {copy.hero.viewProjects}
-            </a>
-            <a href="#contact" className="portfolio-button portfolio-button--secondary">
-              {copy.hero.contact}
-            </a>
+          {hero.photoUrl && (
+            <img
+              className="portfolio-hero-photo"
+              src={hero.photoUrl}
+              alt={hero.photoAlt ?? hero.name}
+              width={600}
+              height={800}
+              decoding="async"
+            />
+          )}
+          <div className="portfolio-hero-text">
+            <p className="portfolio-hero-kicker">{copy.hero.kicker}</p>
+            <h1 className="portfolio-hero-name">{hero.name}</h1>
+            <p className="portfolio-hero-tagline">{copy.hero.tagline}</p>
+            <div className="portfolio-hero-actions">
+              <a href="#experience" className="portfolio-button portfolio-button--primary">
+                {copy.hero.viewProjects}
+              </a>
+              <a href="#contact" className="portfolio-button portfolio-button--secondary">
+                {copy.hero.contact}
+              </a>
+            </div>
           </div>
         </div>
 
