@@ -139,6 +139,22 @@ export default function PortfolioClient({
   useEffect(() => () => clearCloseTimer(), [clearCloseTimer]);
 
   useEffect(() => {
+    const handleGoHome = (event: Event) => {
+      event.preventDefault();
+      if (isOpen) {
+        setIsOpen(false);
+        clearDetailAfterAnimation();
+      }
+      window.history.pushState({}, '', '/');
+      homeUrlRef.current = '/';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.addEventListener('portfolio:go-home', handleGoHome);
+    return () => window.removeEventListener('portfolio:go-home', handleGoHome);
+  }, [clearDetailAfterAnimation, isOpen]);
+
+  useEffect(() => {
     if (!isOpen) {
       document.body.classList.remove('portfolio-split-open');
       return undefined;
