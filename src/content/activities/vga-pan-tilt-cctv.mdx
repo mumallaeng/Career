@@ -1,0 +1,55 @@
+---
+title: "VGA Pan-Tilt CCTV"
+startDate: 2026-08-31T00:00:00+09:00
+endDate: 2026-09-07T00:00:00+09:00
+draft: false
+description: "Basys 3와 OV7670으로 대상을 검출하고 Pan-Tilt 서보를 제어해 화면 중앙에 유지하는 능동형 CCTV"
+tags: ["fpga", "rtl", "verification", "uvm", "servo", "vga"]
+tech_stack: ["Verilog", "SystemVerilog", "UVM", "Basys 3", "OV7670", "VGA", "XADC", "SG90", "PWM", "Vivado"]
+skill_tags: ["rtl-design", "verification", "motor-control", "team-collaboration"]
+domain_tags: ["fpga", "embedded-systems", "computer-vision"]
+categories: ["프로젝트"]
+type: "팀 프로젝트"
+role: "모터 제어(servo_top)"
+content_type: "project"
+project_kind: "team"
+featured: false
+---
+
+{/* more */}
+
+[mumallaeng/VGA-Pan-Tilt-CCTV](https://github.com/mumallaeng/VGA-Pan-Tilt-CCTV)
+
+> *[컨소시엄] 온디바이스AI 시스템반도체 설계 2기* 교육과정의 VGA 프로젝트입니다. \
+> 과정 소개: [경기도 팹리스 아카데미 · 온디바이스AI 시스템반도체 설계 2기](korcham-ondevice-ai-semiconductor.mdx) \
+> 다른 과정 프로젝트: [미니 프로젝트 모음](korcham-ondevice-ai-mini-projects.mdx)
+
+색상·엣지·움직임 정보로 추적 대상을 실시간 검출하고, Pan(Yaw)·Tilt(Pitch) 2축 서보를 자동으로 제어해 대상을 화면 중앙에 유지하는 CCTV 시스템입니다. CNN 같은 모델 없이 RTL 영상 처리만으로 구현했습니다.
+
+## 프로젝트 정보
+
+| 항목 | 내용 |
+|:--|:--|
+| 기간 | 2026.08.31 ~ 2026.09.07 (1주) |
+| 팀 | 도리도리 7인: 조성재(팀장), 권재원, 김동현, 김연우, 박경민, 박종웅, 변호연 |
+| 보드·카메라 | Basys 3, OV7670 |
+| 제어 모드 | AUTO 자동 추적, MANUAL 조이스틱(XADC) 조종. 조이스틱 버튼으로 전환 |
+
+## 역할 분담
+
+| 파트 | 팀원 | 담당 |
+|:--|:--|:--|
+| 영상처리 | 박종웅, 조성재 | 캡처·전처리, 색·엣지·움직임 검출, 중심점·오차 계산, VGA 오버레이 |
+| 통합 | 김동현 | 좌표 변화량 계산, top 배선, 파트 간 인터페이스 계약 |
+| 모터 | 김연우 | `servo_top`: 제어 모드 mux, 축별 제어, servo PWM 2채널 |
+| 조이스틱 | 권재원, 변호연 | XADC 입력, AUTO·MANUAL 전환, 수동 조종 델타 |
+
+## 담당 작업
+
+- 모터 파트 `servo_top`을 단독으로 맡아 인터페이스 명세, 모듈 설계서, 검증 계획을 작성했습니다.
+- 영상 파트가 보내는 좌표 오차를 Pan·Tilt 각도 변화로 바꾸는 축 제어와 `servo_pwm` 두 채널을 설계했습니다.
+- 검증 계획은 단위 self-check testbench와 `servo_top` UVM 환경으로 구성했습니다.
+
+## 결과
+
+OV7670 영상에서 대상을 검출하고 서보가 대상을 따라가는 top 통합까지 확인했습니다(09.06).
