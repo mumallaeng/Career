@@ -11,6 +11,7 @@ import PlantUmlDiagram from '@/components/PlantUmlDiagram';
 import DriveAssetGrid from '@/components/DriveAssetGrid';
 import GradeGrid from '@/components/GradeGrid';
 import MdxTable from '@/components/MdxTable';
+import DateSort, { DateSortItem } from '@/components/DateSort';
 import { onedriveAssetMap, getOneDriveAssetByFilename, getOneDriveAssetsByActId } from '@/data/onedrive-assets';
 
 const handleLegacyImages = (
@@ -392,6 +393,8 @@ const components = {
   DriveAssetGrid,
   GradeGrid,
   Table: MdxTable,
+  DateSort: ({ children }: { children?: ReactNode }) => <DateSort tbodyType={components.tbody}>{children}</DateSort>,
+  DateSortItem,
 };
 
 export default function MDXRenderer({ content }: MDXRendererProps) {

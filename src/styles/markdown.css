@@ -392,3 +392,33 @@
 .post-body > *:first-child {
     margin-top: 0 !important;
 }
+
+.date-sort-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.date-sort-button {
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-muted);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.date-sort-button:hover {
+    border-color: var(--color-text);
+    color: var(--color-text);
+}
+
+.date-sort-button.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-primary-contrast);
+}
