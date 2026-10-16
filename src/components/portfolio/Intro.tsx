@@ -33,14 +33,6 @@ export default function Intro({ hero, about, locale }: IntroProps) {
             <p className="portfolio-hero-kicker">{copy.hero.kicker}</p>
             <h1 className="portfolio-hero-name">{hero.name}</h1>
             <p className="portfolio-hero-tagline">{copy.hero.tagline}</p>
-            <div className="portfolio-hero-actions">
-              <a href="#experience" className="portfolio-button portfolio-button--primary">
-                {copy.hero.viewProjects}
-              </a>
-              <a href="#contact" className="portfolio-button portfolio-button--secondary">
-                {copy.hero.contact}
-              </a>
-            </div>
           </div>
         </div>
 
