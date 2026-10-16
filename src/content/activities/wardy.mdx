@@ -10,7 +10,7 @@ skill_tags: ["edge-inference", "system-integration", "time-series-modeling", "te
 domain_tags: ["on-device-ai", "caregiving", "computer-vision"]
 categories: ["프로젝트"]
 type: "팀 프로젝트"
-role: "낙상 판단·통합"
+role: "추적·자세 추정·낙상 판단"
 content_type: "project"
 project_kind: "team"
 featured: true
@@ -31,7 +31,7 @@ featured: true
 | 항목 | 내용 |
 |:--|:--|
 | 기간 | 2026.08.05 ~ 2026.08.19 |
-| 팀 | 지켜조(9조) 3인: 김연우(낙상 판단·통합), 박지원(위험물 탐지), 조정민(사람 탐지) |
+| 팀 | 지켜조(9조) 3인: 김연우(M-02~M-04), 박지원(M-05 위험물 탐지), 조정민(M-01 사람 탐지) |
 | 실행 환경 | Jetson Orin Nano, USB webcam, Windows·macOS·mobile browser |
 | 원칙 | 의료 진단 없이 '의심 상황'과 '확인 필요' 정보를 제공하고 자료는 로컬 기기에 저장 |
 
@@ -50,8 +50,9 @@ C++ Edge Service가 GStreamer로 프레임을 받아 M-01을 실행하고, Unix 
 
 ## 담당 작업
 
-- 낙상 판단과 전체 파이프라인 통합을 맡았습니다.
-- 08.13~08.18 통합 검증 기간에 통합 파이프라인에서 드러난 인식·상태 처리 문제를 하나씩 확인하고 고쳤습니다.
+- M-02 익명 추적: Kalman Filter·IoU Gate·Hungarian assignment로 사람마다 익명 `track_id`를 부여했습니다.
+- M-03 자세 추정: RTMPose-M으로 COCO-17 keypoint를 추정하고 자세를 분류했습니다.
+- M-04 낙상 감지: 20 frame(2초) 관절 시퀀스를 받는 TemporalFallGRU와 standing→lying 급전환 Fast Path로 낙상을 판단했습니다.
 
 ## 결과
 
