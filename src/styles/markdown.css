@@ -42,6 +42,32 @@
     transition: background-color 0.2s ease;
 }
 
+/* Wrapped Long-Text Tables */
+.post-body .mdx-table--wrap {
+    overflow-x: auto;
+}
+
+.post-body .mdx-table--wrap td {
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    line-height: 1.6;
+    vertical-align: top;
+}
+
+.post-body .mdx-table--wrap td:first-child {
+    min-width: 9rem;
+}
+
+.post-body .mdx-table--wrap td:nth-child(2),
+.post-body .mdx-table--wrap td:nth-child(3) {
+    white-space: nowrap;
+}
+
+.post-body .mdx-table--wrap td:last-child {
+    min-width: 18rem;
+}
+
 .grade-grid {
     display: grid;
     grid-template-columns: var(--grade-grid-columns, minmax(0, 3fr) minmax(0, 1fr));
@@ -327,6 +353,11 @@
 .post-body code {
     font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
     font-size: 14px;
+}
+
+/* Let long code runs joined by middle dots wrap instead of widening the page */
+.post-body li {
+    overflow-wrap: anywhere;
 }
 
 /* Inline code */
