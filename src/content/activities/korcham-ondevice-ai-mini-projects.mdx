@@ -4,6 +4,7 @@ startDate: 2026-03-24T00:00:00+09:00
 endDate: 2026-10-15T00:00:00+09:00
 draft: false
 description: "온디바이스AI 시스템반도체 설계 2기 과정에서 진행한 개인·팀 미니 프로젝트 요약"
+thumbnail: "fabless-academy-thumbnail.png"
 tags: ["semiconductor", "fpga", "embedded", "rtl", "verification", "uvm", "rv32i", "axi", "firmware", "on-device-ai"]
 tech_stack: ["Verilog", "SystemVerilog", "UVM", "RV32I", "APB", "AXI4-Lite", "Vivado", "MicroBlaze", "C", "Python", "ARM Cortex-M4", "STM32F411", "Arduino Uno", "Jetson Orin Nano"]
 skill_tags: ["rtl-design", "verification", "protocol-design", "soc-integration", "bare-metal-firmware", "team-collaboration"]
@@ -50,6 +51,8 @@ content_type: "project"
 
 ### LightLetter (Final Project)
 
+<VideoTag filename="lightletter-tx-ui.mp4" title="LightLetter 송신 UI" />
+
 - 7인 팀 'LLINK', CNN Output Buffer·FC 설계 담당
 - 손글씨 문자를 FPGA CNN으로 인식하고 BFSK 광통신으로 전송해, 수신 보드에서 FFT로 복원하는 Zybo Z7-20 2대 시스템
 - CNN Convolution 후단 Output Buffer와 ReLU·양자화 블록을 설계하고 Python = C = RTL bit-exact까지 확인
@@ -61,6 +64,8 @@ content_type: "project"
 <DateSortItem date="2026-08-31">
 
 ### VGA Pan-Tilt CCTV
+
+<VideoTag filename="vga-pan-tilt-cctv-demo.mp4" title="VGA Pan-Tilt CCTV 시연" />
 
 - 7인 팀 '도리도리', 모터 파트 `servo_top` 단독 담당
 - Basys 3와 OV7670으로 색·엣지·움직임 기반 대상을 검출하고 Pan·Tilt 2축 서보로 대상을 화면 중앙에 유지하는 능동형 CCTV
@@ -88,6 +93,8 @@ content_type: "project"
 
 ### Testudines (ARM Cortex-M4 firmware)
 
+<VideoTag filename="testudines-full-joint-run-x2.mp4" title="Testudines 전체 관절 구동" />
+
 - NUCLEO-F411RE와 Sensor Shield v5.0으로 G51 6DoF 로봇팔을 구동하는 bare-metal firmware 프로젝트
 - Build·startup 구조를 정리하고 `TIM4_CH1`으로 첫 서보 PWM bring-up
 - 6채널 servo PWM과 joystick ADC 입력으로 로봇팔 관절 제어
@@ -111,6 +118,8 @@ content_type: "project"
 <DateSortItem date="2026-06-11">
 
 ### UVM SPI·I2C
+
+<DriveAssetGrid actId="korcham-mini-uvm-spi-i2c" layout={[50, 50]} />
 
 - 개인 프로젝트
 - SPI·I2C controller/target RTL을 직접 구현하고 UVM 1.2 testbench로 자동 검증
@@ -157,6 +166,8 @@ content_type: "project"
 <DateSortItem date="2026-04-22">
 
 ### UART·FIFO RTL
+
+<VideoTag filename="uart-fifo-rtl-loopback-demo.mp4" title="UART·FIFO loopback 시연" />
 
 - 개인 프로젝트
 - Timepiecer에서 7-Segment로만 확인하던 값을 PC와 주고받도록 Basys 3와 PC를 UART로 연결한 loopback 시스템
