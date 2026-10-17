@@ -284,6 +284,21 @@
     font-weight: 500;
 }
 
+/* Side-by-side Images */
+.post-body .media-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 2rem 0;
+}
+
+.post-body .media-row > img {
+    flex: 0 1 auto;
+    min-width: 0;
+    height: auto;
+    margin: 0;
+}
+
 /* Regular Images */
 .post-body img {
     max-width: 100%;
