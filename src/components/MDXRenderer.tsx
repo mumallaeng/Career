@@ -12,6 +12,7 @@ import DriveAssetGrid from '@/components/DriveAssetGrid';
 import GradeGrid from '@/components/GradeGrid';
 import MdxTable from '@/components/MdxTable';
 import DateSort, { DateSortItem } from '@/components/DateSort';
+import { rehypeMdxLiteralProps, remarkMdxLiteralProps } from '@/lib/mdx-literal-props';
 import { onedriveAssetMap, getOneDriveAssetByFilename, getOneDriveAssetsByActId } from '@/data/onedrive-assets';
 
 const handleLegacyImages = (
@@ -410,7 +411,8 @@ export default function MDXRenderer({ content }: MDXRendererProps) {
 
       const compiled = await serialize(content, {
         mdxOptions: {
-          remarkPlugins: [remarkGfm],
+          remarkPlugins: [remarkGfm, [remarkMdxLiteralProps, { constants }]],
+          rehypePlugins: [rehypeMdxLiteralProps],
         },
         scope: {
           onedriveAssetMap,
