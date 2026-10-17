@@ -204,46 +204,6 @@
     color: var(--color-muted);
 }
 
-.portfolio-hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 36px;
-}
-
-.portfolio-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 22px;
-    border-radius: var(--radius-pill);
-    font-size: 15px;
-    font-weight: 600;
-    text-decoration: none;
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: opacity 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.portfolio-button--primary {
-    background: var(--color-primary);
-    color: var(--color-primary-contrast);
-}
-
-.portfolio-button--primary:hover {
-    background: var(--color-primary-hover);
-}
-
-.portfolio-button--secondary {
-    background: transparent;
-    color: var(--color-text);
-    border-color: var(--color-border);
-}
-
-.portfolio-button--secondary:hover {
-    border-color: var(--color-text);
-}
-
 .portfolio-intro-grid {
     display: grid;
     grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.8fr);
