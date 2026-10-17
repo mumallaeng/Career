@@ -1,0 +1,84 @@
+---
+title: "VGA Pan-Tilt CCTV"
+startDate: 2026-08-31T00:00:00+09:00
+endDate: 2026-09-08T00:00:00+09:00
+draft: false
+description: "Basys 3와 OV7670으로 녹색 객체를 검출하고 Pan-Tilt 서보로 화면 중앙에 유지하는 FPGA 기반 수동·자동 객체 추적 시스템"
+tags: ["fpga", "rtl", "verification", "uvm", "servo", "vga"]
+tech_stack: ["SystemVerilog", "Verilog", "UVM", "Basys 3", "OV7670", "VGA", "XADC", "SG90", "PWM", "Vivado", "Synopsys VCS", "Python"]
+skill_tags: ["rtl-design", "verification", "motor-control", "team-collaboration"]
+domain_tags: ["fpga", "embedded-systems", "computer-vision"]
+categories: ["프로젝트"]
+type: "팀 프로젝트"
+role: "서보 제어(servo_top)"
+content_type: "project"
+project_kind: "team"
+featured: false
+---
+
+{/* more */}
+
+[mumallaeng/VGA-Pan-Tilt-CCTV](https://github.com/mumallaeng/VGA-Pan-Tilt-CCTV)
+
+> *[컨소시엄] 온디바이스AI 시스템반도체 설계 2기* 교육과정 VGA 수업에서 진행된 과제입니다. \
+> 과정 소개: [경기도 팹리스 아카데미 · 온디바이스AI 시스템반도체 설계 2기](korcham-ondevice-ai-semiconductor.mdx) \
+> 다른 과정 프로젝트: [미니 프로젝트 모음](korcham-ondevice-ai-mini-projects.mdx)
+
+OV7670 카메라 영상에서 녹색 객체를 검출하고, 객체 중심과 화면 중심의 오차로 Pan-Tilt 카메라가 대상을 따라가도록 만든 FPGA 시스템입니다. 영상 입력, 색상 검출, 노이즈 제거, 중심 좌표 계산과 서보 제어를 Basys 3 하나에 통합했고, 조이스틱으로 카메라 방향을 직접 조절하는 수동 모드도 함께 구성했습니다.
+
+<VideoTag filename="vga-pan-tilt-cctv-demo.mp4" title="VGA Pan-Tilt CCTV 시연" />
+
+## 프로젝트 정보
+
+| 항목 | 내용 |
+|:--|:--|
+| 기간 | 2026.08.31 ~ 2026.09.08 |
+| 팀 | 1팀 도리도리 7인 (팀장 조성재) |
+| 보드·장치 | Basys 3(100 MHz), OV7670, VGA 모니터, HW-504 조이스틱, SG90 서보 2개 |
+| 검증 | SystemVerilog Testbench, UVM(Synopsys VCS), Python Golden Model |
+
+## 역할 분담
+
+| 팀원 | 담당 범위 | 주요 작업 |
+|:--|:--|:--|
+| 조성재 | 팀장 및 영상 노이즈 필터 | 일정 관리, Line Buffer, 3×3 Window, Majority 판정 |
+| 권재원 | 조이스틱 입력 처리 | XADC 구성, X/Y 분리, 이동평균, 변화량 변환, UART 검증 |
+| 김동현 | 영상 출력 및 통합 | Bounding Box 오버레이, VGA 출력, 전체 Top 통합 |
+| 김연우 | 서보 제어 | 자동 및 수동 입력 선택, 각도별 PWM, `servo_top` 통합 |
+| 박경민 | 영상과 모터 인터페이스 | 좌표 오차의 각도 변환, 각도 누적, STM32 모터 시험 |
+| 박종웅 | 영상 입출력 및 하드웨어 | SCCB, 카메라 초기화, 색상 필터, 2축 브래킷 구성 |
+| 변호연 | 객체 위치 계산 | min/max 경계, 중심 좌표, 화면 중심 오차 계산 |
+
+## 설계 사양
+
+| 항목 | 설계 내용 |
+|:--|:--|
+| 카메라 입력 | OV7670, QVGA 320×240, RGB565 |
+| VGA 출력 | 640×480 타이밍, RGB444, 픽셀 클록 25 MHz |
+| 추적 대상 | 녹색 객체, G ≥ 128, G−R ≥ 40, G−B ≥ 40 |
+| 공간 노이즈 제거 | 3×3 이웃 9픽셀 중 5개 이상이 검출되면 마스크 1 |
+| 객체 유효 조건 | 프레임 내 검출 픽셀 수 700개 이상 |
+| 좌표 안정화 | 객체 중심 좌표에 5프레임 평균 적용 |
+| 조이스틱 처리 | 12-bit ADC, 4-sample 이동평균, 변화량 −10~+10 |
+| 서보 출력 | SG90 2축, 50 Hz, High 펄스 폭 약 1~2 ms |
+| 기계적 동작 범위 | Pan 15°~165°, Tilt 25°~155° |
+
+영상 경로는 OV7670 Capture → Frame Buffer → Green Filter → 3×3 Noise Filter → 경계·중심 계산으로 이어지고, VGA 화면에는 카메라 영상과 Bounding Box를 출력합니다. 자동 모드는 영상에서 계산한 중심 오차를, 수동 모드는 조이스틱 변화량을 서보 제어부에 넘깁니다.
+
+## 담당 작업
+
+- `ctrl_mode_mux`: 자동 모드의 `frame_dx/dy`와 수동 모드의 `joy_dx/dy` 중 하나를 고르고, 자동은 대상 검출이 유효할 때의 `frame_done`, 수동은 `joy_done`에 맞춰 갱신 신호를 함께 전달했습니다.
+- `servo_pwm`: 각도 명령을 High count로 바꾸고 20 ms(2,000,000 count) 주기 카운터와 비교해 Pan·Tilt PWM을 만들었습니다. 목표 High count는 주기 경계에서 반영해 출력 중인 펄스 폭이 중간에 바뀌지 않게 했습니다.
+- `servo_top` 통합: 입력 선택, 축별 각도 제어(5/16°/count 이득, 1회 최대 ±20°, Pan 15°~165°·Tilt 25°~155° 제한), 2채널 PWM을 하나로 묶었습니다.
+
+## 검증 결과
+
+| 검증 대상 | 주요 결과 |
+|:--|:--|
+| OV7670 Capture (UVM) | Scoreboard 78,203건 PASS, FAIL 0 |
+| SCCB Master (UVM) | PASS 56, FAIL 0, Functional·Code Coverage 각 100% |
+| 영상 Golden Model | 320×240 및 640×480 비교에서 6단계 MATCH |
+| 조이스틱 이동평균 | 제시된 측정 구간의 Peak-to-Peak 변동폭 약 60% 감소 |
+| FPGA 시연 | 영상 및 Bounding Box 출력, 자동 추적과 수동 제어 구현 |
+
+통합 시험에서 객체를 보정할수록 카메라가 반대로 움직이는 문제가 나왔습니다. 영상 좌표의 보정 방향과 브래킷에 장착된 서보의 회전 방향이 반대였기 때문이며, 각도 변화량의 부호를 반전해 정상 추적하도록 고쳤습니다. 조명에 따른 색상 임계값 자동 조정, 객체 미검출 시 재탐색, 오차 크기에 따른 가변 이득은 향후 개선 항목으로 남겼습니다.

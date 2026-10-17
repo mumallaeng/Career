@@ -3444,6 +3444,178 @@ const onedriveAssetBlueprints = [
   //   startDate: '2025-05-27',
   // },
 
+  // 대한상공회의소 미니 프로젝트 README GIF
+  {
+    act_id: 'korcham-mini-wardy',
+    filename: 'wardy-mobile.gif',
+    name: 'Wardy 모바일 화면',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/wardy-mobile.gif',
+  },
+
+  {
+    act_id: 'korcham-mini-wardy',
+    filename: 'wardy-fall.gif',
+    name: 'Wardy 눕기·낙상 구분',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/wardy-fall.gif',
+  },
+
+  {
+    act_id: 'korcham-mini-axi-peripheral',
+    filename: 'axi-peripheral-spi.gif',
+    name: 'AXI Peripheral SPI 시연',
+    type: 'None',
+    startDate: '2026-06-30',
+    remotePathOverride: 'media/photos/projects/AXI_Peripheral/axi-peripheral-spi.gif',
+  },
+
+  {
+    act_id: 'korcham-mini-axi-peripheral',
+    filename: 'axi-peripheral-iic-test.gif',
+    name: 'AXI Peripheral IIC 시연',
+    type: 'None',
+    startDate: '2026-06-30',
+    remotePathOverride: 'media/photos/projects/AXI_Peripheral/axi-peripheral-iic-test.gif',
+  },
+
+  {
+    act_id: 'korcham-mini-ascii-uart',
+    filename: 'ascii-uart-watch.gif',
+    name: 'watch 모드 시연',
+    type: 'None',
+    startDate: '2026-05-06',
+    remotePathOverride: 'media/photos/projects/ascii-uart-sensor-pipeline/ascii-uart-watch.gif',
+  },
+
+  {
+    act_id: 'korcham-mini-ascii-uart',
+    filename: 'ascii-uart-stopwatch.gif',
+    name: 'stopwatch 모드 시연',
+    type: 'None',
+    startDate: '2026-05-06',
+    remotePathOverride: 'media/photos/projects/ascii-uart-sensor-pipeline/ascii-uart-stopwatch.gif',
+  },
+
+  {
+    act_id: 'korcham-mini-ascii-uart',
+    filename: 'ascii-uart-dht11.gif',
+    name: 'DHT11 센서 시연',
+    type: 'None',
+    startDate: '2026-05-06',
+    remotePathOverride: 'media/photos/projects/ascii-uart-sensor-pipeline/ascii-uart-dht11.gif',
+  },
+
+  {
+    act_id: 'korcham-mini-ascii-uart',
+    filename: 'ascii-uart-sr04.gif',
+    name: 'SR04 센서 시연',
+    type: 'None',
+    startDate: '2026-05-06',
+    remotePathOverride: 'media/photos/projects/ascii-uart-sensor-pipeline/ascii-uart-sr04.gif',
+  },
+
+  {
+    act_id: 'korcham-mini-timepiecer',
+    filename: 'timepiecer-timepiece.gif',
+    name: 'Timepiece 시연',
+    type: 'None',
+    startDate: '2026-04-20',
+    remotePathOverride: 'media/photos/projects/Timepiecer/timepiecer-timepiece.gif',
+  },
+
+  {
+    act_id: 'korcham-mini-timepiecer',
+    filename: 'timepiecer-timer.gif',
+    name: 'Timer 시연',
+    type: 'None',
+    startDate: '2026-04-20',
+    remotePathOverride: 'media/photos/projects/Timepiecer/timepiecer-timer.gif',
+  },
+
+  {
+    act_id: 'korcham-mini-korchamlogis',
+    filename: 'korchamlogis-x2.gif',
+    name: 'KorchamLogis 주행 시연(2배속)',
+    type: 'None',
+    startDate: '2026-04-03',
+    remotePathOverride: 'media/photos/projects/KorchamLogis/korchamlogis-x2.gif',
+  },
+
+  {
+    act_id: 'korcham-mini-korchamlogis',
+    filename: 'korchamlogis-car-x2.gif',
+    name: 'KorchamCar 주행 시연(2배속)',
+    type: 'None',
+    startDate: '2026-04-03',
+    remotePathOverride: 'media/photos/projects/KorchamLogis/korchamlogis-car-x2.gif',
+  },
+
+  {
+    act_id: 'korcham-fabless-academy',
+    filename: 'fabless-academy-thumbnail.png',
+    name: '경기도 팹리스 아카데미 썸네일',
+    type: 'None',
+    startDate: '2026-03-24',
+    remotePathOverride: 'media/photos/projects/KorchamFablessAcademy/fabless-academy-thumbnail.png',
+  },
+
+  {
+    act_id: 'korcham-mini-uart-fifo-rtl',
+    filename: 'uart-fifo-rtl-loopback-demo.mp4',
+    name: 'UART·FIFO loopback 시연',
+    type: 'None',
+    startDate: '2026-04-27',
+    remotePathOverride: 'media/photos/projects/UART_FIFO_RTL/uart-fifo-rtl-loopback-demo.mp4',
+  },
+
+  {
+    act_id: 'korcham-mini-uvm-spi-i2c',
+    filename: 'uvm-spi-i2c-demo-00.gif',
+    name: 'UVM SPI·I2C board-to-board 시연',
+    type: 'None',
+    startDate: '2026-06-18',
+    remotePathOverride: 'media/photos/projects/UVM_SPI_I2C/uvm-spi-i2c-demo-00.gif',
+  },
+
+  {
+    act_id: 'korcham-mini-uvm-spi-i2c',
+    filename: 'uvm-spi-i2c-demo-04.gif',
+    name: 'UVM SPI·I2C 결과 표시',
+    type: 'None',
+    startDate: '2026-06-18',
+    remotePathOverride: 'media/photos/projects/UVM_SPI_I2C/uvm-spi-i2c-demo-04.gif',
+  },
+
+  {
+    act_id: 'korcham-mini-testudines',
+    filename: 'testudines-full-joint-run-x2.mp4',
+    name: 'Testudines 전체 관절 구동(2배속)',
+    type: 'None',
+    startDate: '2026-07-27',
+    remotePathOverride: 'media/photos/projects/testudines/testudines-full-joint-run-x2.mp4',
+  },
+
+  {
+    act_id: 'korcham-mini-vga-pan-tilt-cctv',
+    filename: 'vga-pan-tilt-cctv-demo.mp4',
+    name: 'VGA Pan-Tilt CCTV 시연',
+    type: 'None',
+    startDate: '2026-09-07',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/vga-pan-tilt-cctv-demo.mp4',
+  },
+
+  {
+    act_id: 'korcham-mini-lightletter',
+    filename: 'lightletter-tx-ui.mp4',
+    name: 'LightLetter 송신 UI',
+    type: 'None',
+    startDate: '2026-10-07',
+    remotePathOverride: 'media/photos/projects/LightLetter/lightletter-tx-ui.mp4',
+  },
+
 ] as const satisfies readonly OneDriveAssetBlueprint[];
 
 const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinition => {
