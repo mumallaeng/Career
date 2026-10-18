@@ -165,7 +165,7 @@
 
 .portfolio-hero-photo {
     flex: 0 0 auto;
-    width: 210px;
+    width: 180px;
     height: auto;
     aspect-ratio: 3 / 4;
     object-fit: cover;
@@ -175,7 +175,7 @@
 
 .portfolio-hero-text {
     min-width: 0;
-    max-width: 640px;
+    max-width: 740px;
 }
 
 .portfolio-hero-kicker {
@@ -883,6 +883,12 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
     .portfolio-intro-grid {
         grid-template-columns: 1fr;
         gap: 40px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+    .portfolio-hero-name {
+        font-size: 4.9vw;
     }
 }
 
