@@ -49,12 +49,12 @@
 }
 
 /* Project reports carry prose cells, so let them wrap */
-.post-body.doc-context-project-report th,
-.post-body.doc-context-project-report td {
+.post-body--report th,
+.post-body--report td {
     white-space: normal;
 }
 
-.post-body.doc-context-project-report a {
+.post-body--report a {
     overflow-wrap: anywhere;
 }
 

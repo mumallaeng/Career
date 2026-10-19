@@ -26,6 +26,7 @@ export interface FrontMatter {
   source_hash?: string;
   work_type?: string;
   project_kind?: string;
+  body_style?: 'report';
   activity_kind?: string;
 }
 

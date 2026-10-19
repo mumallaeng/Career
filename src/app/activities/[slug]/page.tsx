@@ -95,7 +95,7 @@ export default async function ActivityDetailPage({
             )}
           </header>
 
-          <div className="post-body">
+          <div className={activity.frontMatter.body_style === 'report' ? 'post-body post-body--report' : 'post-body'}>
             <MDXRenderer content={activity.content} />
             {slug === 'certificate' && (
               <>
