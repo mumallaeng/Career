@@ -4680,6 +4680,1096 @@ const onedriveAssetBlueprints = [
     remotePathOverride: 'media/photos/projects/GreenT/media/데이터베이스_개별_3.png',
   },
 
+
+  // 프로젝트 상세 보고서 그림 (GitHub README·완료보고서 원본)
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-03.png',
+    name: 'Wardy 상세 보고서 그림 3',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-03.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-04.png',
+    name: 'Wardy 상세 보고서 그림 4',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-04.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-05.png',
+    name: 'Wardy 상세 보고서 그림 5',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-05.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-06.png',
+    name: 'Wardy 상세 보고서 그림 6',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-06.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-07.png',
+    name: 'Wardy 상세 보고서 그림 7',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-07.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-08.png',
+    name: 'Wardy 상세 보고서 그림 8',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-08.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-09.png',
+    name: 'Wardy 상세 보고서 그림 9',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-09.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-10.png',
+    name: 'Wardy 상세 보고서 그림 10',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-10.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-11.png',
+    name: 'Wardy 상세 보고서 그림 11',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-11.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-12.png',
+    name: 'Wardy 상세 보고서 그림 12',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-12.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-13.png',
+    name: 'Wardy 상세 보고서 그림 13',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-13.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-14.png',
+    name: 'Wardy 상세 보고서 그림 14',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-14.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-15.png',
+    name: 'Wardy 상세 보고서 그림 15',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-15.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-16.png',
+    name: 'Wardy 상세 보고서 그림 16',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-16.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-17.png',
+    name: 'Wardy 상세 보고서 그림 17',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-17.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-18.png',
+    name: 'Wardy 상세 보고서 그림 18',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-18.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-19.png',
+    name: 'Wardy 상세 보고서 그림 19',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-19.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-20.png',
+    name: 'Wardy 상세 보고서 그림 20',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-20.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-21.png',
+    name: 'Wardy 상세 보고서 그림 21',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-21.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-22.png',
+    name: 'Wardy 상세 보고서 그림 22',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-22.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-23.png',
+    name: 'Wardy 상세 보고서 그림 23',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-23.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-24.png',
+    name: 'Wardy 상세 보고서 그림 24',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-24.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-25.png',
+    name: 'Wardy 상세 보고서 그림 25',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-25.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-26.png',
+    name: 'Wardy 상세 보고서 그림 26',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-26.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-27.png',
+    name: 'Wardy 상세 보고서 그림 27',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-27.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-28.png',
+    name: 'Wardy 상세 보고서 그림 28',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-28.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-29.png',
+    name: 'Wardy 상세 보고서 그림 29',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-29.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-30.png',
+    name: 'Wardy 상세 보고서 그림 30',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-30.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-31.png',
+    name: 'Wardy 상세 보고서 그림 31',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-31.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-32.png',
+    name: 'Wardy 상세 보고서 그림 32',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-32.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-33.gif',
+    name: '0813-11 50 52',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-33.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-34.gif',
+    name: '0813-19 05 08-1',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-34.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-35.gif',
+    name: '0813-19 05 08-2',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-35.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-36.gif',
+    name: '0813-19 05 08-3',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-36.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-37.gif',
+    name: '0813-20 28 47-1',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-37.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-38.gif',
+    name: '0813-20 28 47-2',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-38.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-39.gif',
+    name: '0813-20 28 47-3',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-39.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-40.gif',
+    name: '0813-20 28 47-4',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-40.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-41.gif',
+    name: '0814-10 17 01',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-41.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-42.gif',
+    name: '0814-10 18 17',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-42.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-43.gif',
+    name: '0814-10 19 16-1',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-43.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-44.gif',
+    name: '0814-10 55 40-1',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-44.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-45.gif',
+    name: '0814-10 19 57',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-45.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-46.gif',
+    name: '0814-11 35 23-1-성공',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-46.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-47.gif',
+    name: '0814-11 37 23-1-오탐',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-47.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-48.gif',
+    name: '0814-11 37 23-2-성공',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-48.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-49.gif',
+    name: '0814-11 37 23-3-성공',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-49.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-50.gif',
+    name: '0817-13 17 11-눕기낙상구분',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-50.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-02.gif',
+    name: '0817-13 19 31-눕기낙상구분',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-02.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-51.png',
+    name: 'Wardy 상세 보고서 그림 51',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-51.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-52.png',
+    name: 'Wardy 상세 보고서 그림 52',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-52.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-53.gif',
+    name: '0814-11 35 23-2-event-log',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-53.gif',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-54.png',
+    name: 'Wardy 상세 보고서 그림 54',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-54.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-55.png',
+    name: 'Wardy 상세 보고서 그림 55',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-55.png',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-56.png',
+    name: 'Wardy 상세 보고서 그림 56',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/readme/wardy-readme-56.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-02.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 2',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-02.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-03.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 3',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-03.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-04.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 4',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-04.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-05.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 5',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-05.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-06.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 6',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-06.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-07.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 7',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-07.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-08.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 8',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-08.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-09.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 9',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-09.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-10.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 10',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-10.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-11.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 11',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-11.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-12.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 12',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-12.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-13.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 13',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-13.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-14.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 14',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-14.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-15.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 15',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-15.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-16.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 16',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-16.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-17.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 17',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-17.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-18.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 18',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-18.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-19.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 19',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-19.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-20.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 20',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-20.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-21.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 21',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-21.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-22.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 22',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-22.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-23.gif',
+    name: '자동 추적과 수동 모드 전환 시연',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-23.gif',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-24.gif',
+    name: '부호 반전 전 서보 동작',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-24.gif',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-25.gif',
+    name: '부호 반전 전 모니터 화면 2배속',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-25.gif',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-readme-26.png',
+    name: 'VGA Pan-Tilt CCTV 상세 보고서 그림 26',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/readme/vga-readme-26.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-01.gif',
+    name: 'LightLetter 상세 보고서 그림 1',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-01.gif',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-02.png',
+    name: 'LightLetter 상세 보고서 그림 2',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-02.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-03.gif',
+    name: 'LightLetter 상세 보고서 그림 3',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-03.gif',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-04.gif',
+    name: 'LightLetter 상세 보고서 그림 4',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-04.gif',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-05.gif',
+    name: 'LightLetter 상세 보고서 그림 5',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-05.gif',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-06.gif',
+    name: 'LightLetter 상세 보고서 그림 6',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-06.gif',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-07.gif',
+    name: 'LightLetter 상세 보고서 그림 7',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-07.gif',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-08.png',
+    name: 'LightLetter 상세 보고서 그림 8',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-08.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-09.png',
+    name: 'LightLetter 상세 보고서 그림 9',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-09.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-10.png',
+    name: 'LightLetter 상세 보고서 그림 10',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-10.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-11.png',
+    name: 'LightLetter 상세 보고서 그림 11',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-11.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-12.png',
+    name: 'LightLetter 상세 보고서 그림 12',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-12.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-13.png',
+    name: 'LightLetter 상세 보고서 그림 13',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-13.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-14.png',
+    name: 'LightLetter 상세 보고서 그림 14',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-14.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-15.png',
+    name: 'LightLetter 상세 보고서 그림 15',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-15.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-16.gif',
+    name: 'LightLetter 상세 보고서 그림 16',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-16.gif',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-17.png',
+    name: 'LightLetter 상세 보고서 그림 17',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-17.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-18.png',
+    name: 'LightLetter 상세 보고서 그림 18',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-18.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-19.png',
+    name: 'LightLetter 상세 보고서 그림 19',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-19.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-20.png',
+    name: 'LightLetter 상세 보고서 그림 20',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-20.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-21.png',
+    name: 'LightLetter 상세 보고서 그림 21',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-21.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-22.png',
+    name: 'LightLetter 상세 보고서 그림 22',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-22.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-23.png',
+    name: 'LightLetter 상세 보고서 그림 23',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-23.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-24.png',
+    name: 'LightLetter 상세 보고서 그림 24',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-24.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-25.gif',
+    name: 'LightLetter 상세 보고서 그림 25',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-25.gif',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-26.png',
+    name: 'LightLetter 상세 보고서 그림 26',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-26.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-27.png',
+    name: 'LightLetter 상세 보고서 그림 27',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-27.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-28.png',
+    name: 'LightLetter 상세 보고서 그림 28',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-28.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-29.png',
+    name: 'LightLetter 상세 보고서 그림 29',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-29.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-30.png',
+    name: 'LightLetter 상세 보고서 그림 30',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-30.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-31.png',
+    name: 'LightLetter 상세 보고서 그림 31',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-31.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-32.gif',
+    name: 'LightLetter 상세 보고서 그림 32',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-32.gif',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-33.gif',
+    name: 'LightLetter 상세 보고서 그림 33',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-33.gif',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-34.gif',
+    name: 'LightLetter 상세 보고서 그림 34',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-34.gif',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-35.png',
+    name: 'LightLetter 상세 보고서 그림 35',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-35.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-36.png',
+    name: 'LightLetter 상세 보고서 그림 36',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-36.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-37.png',
+    name: 'LightLetter 상세 보고서 그림 37',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-37.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-38.png',
+    name: 'LightLetter 상세 보고서 그림 38',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-38.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-39.png',
+    name: 'LightLetter 상세 보고서 그림 39',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-39.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-40.png',
+    name: 'LightLetter 상세 보고서 그림 40',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-40.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-report-41.png',
+    name: 'LightLetter 상세 보고서 그림 41',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-41.png',
+  },
 ] as const satisfies readonly OneDriveAssetBlueprint[];
 
 const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinition => {
