@@ -467,6 +467,7 @@ export default function MDXRenderer({ content }: MDXRendererProps) {
 // Google Drive Image Component
 interface ImgTagProps {
   driveUrl?: string;
+  filename?: string;
   src?: string;
   name?: string;
   alt?: string;
@@ -481,10 +482,19 @@ function DriveUrlToID(driveUrl: string): string | null {
 }
 
 // Google Drive URL에서 파일 ID 추출 및 duckduckgo로 이미지 링크 생성
-export function ImgTag({ driveUrl, src: fallbackSrc, name = '', alt = '', className = '', ...restProps }: ImgTagProps) {
+export function ImgTag({ driveUrl, filename, src: fallbackSrc, name = '', alt = '', className = '', ...restProps }: ImgTagProps) {
   let resolvedSrc: string | null = null;
 
-  if (driveUrl && typeof driveUrl === 'string' && driveUrl.trim() !== '') {
+  if (filename && typeof filename === 'string' && filename.trim() !== '') {
+    const asset = resolveAssetByFilename(filename.trim());
+
+    if (!asset) {
+      console.error('ImgTag: unregistered OneDrive asset', { filename });
+      return null;
+    }
+
+    resolvedSrc = asset.publicPath;
+  } else if (driveUrl && typeof driveUrl === 'string' && driveUrl.trim() !== '') {
     const fileId = DriveUrlToID(driveUrl.trim());
 
     if (!fileId) {

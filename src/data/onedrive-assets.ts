@@ -3616,6 +3616,1070 @@ const onedriveAssetBlueprints = [
     remotePathOverride: 'media/photos/projects/LightLetter/lightletter-tx-ui.mp4',
   },
 
+
+  {
+    act_id: 'korcham-mini-rv32i',
+    filename: 'rv32i-cpu-structure.png',
+    name: 'RV32I CPU 구조',
+    type: 'None',
+    startDate: '2026-05-27',
+    remotePathOverride: 'media/photos/projects/RV32I/rv32i-cpu-structure.png',
+  },
+
+  {
+    act_id: 'korcham-mini-rv32i',
+    filename: 'rv32i-sum-counting-waveform.png',
+    name: 'RV32I sum_counting 실행 파형',
+    type: 'None',
+    startDate: '2026-05-27',
+    remotePathOverride: 'media/photos/projects/RV32I/rv32i-sum-counting-waveform.png',
+  },
+
+  {
+    act_id: 'korcham-mini-sv-verification',
+    filename: 'sv-verification-testbench.png',
+    name: 'SystemVerilog class testbench 구조',
+    type: 'None',
+    startDate: '2026-05-18',
+    remotePathOverride: 'media/photos/projects/SV_Verification/sv-verification-testbench.png',
+  },
+
+  {
+    act_id: 'korcham-mini-sv-verification',
+    filename: 'sv-verification-loopback-waveform.png',
+    name: 'UART·FIFO loopback 파형과 PASS 로그',
+    type: 'None',
+    startDate: '2026-05-18',
+    remotePathOverride: 'media/photos/projects/SV_Verification/sv-verification-loopback-waveform.png',
+  },
+
+  // GitHub README 첨부 이미지를 옮긴 OneDrive 원본
+  {
+    act_id: 'StoneSpring',
+    filename: '전체1.gif',
+    name: 'StoneSpring AI전체',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/전체1.gif',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: '전체동작.gif',
+    name: 'StoneSpring 전체동작',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/전체동작.gif',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: '마채1.gif',
+    name: 'StoneSpring 마이크+채팅1',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/마채1.gif',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: '표제.gif',
+    name: 'StoneSpring 표정',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/표제.gif',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: '제스처1.gif',
+    name: 'StoneSpring 제스처1',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/제스처1.gif',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: '제스처2.gif',
+    name: 'StoneSpring 제스처2',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/제스처2.gif',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: '제스처3.gif',
+    name: 'StoneSpring 제스처3',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/제스처3.gif',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: '제스처4.gif',
+    name: 'StoneSpring 제스처4',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/제스처4.gif',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'GUI-1.png',
+    name: 'StoneSpring GUI-1',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/GUI-1.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'GUI-2.png',
+    name: 'StoneSpring GUI-2',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/GUI-2.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'GUI-3.png',
+    name: 'StoneSpring GUI-3',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/GUI-3.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'GUI-4.png',
+    name: 'StoneSpring GUI-4',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/GUI-4.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'GUI-5.png',
+    name: 'StoneSpring GUI-5',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/GUI-5.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'GUI-6.png',
+    name: 'StoneSpring GUI-6',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/GUI-6.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'GUI-7.png',
+    name: 'StoneSpring GUI-7',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/GUI-7.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'GUI-8.png',
+    name: 'StoneSpring GUI-8',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/GUI-8.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'voice_emotion-1.gif',
+    name: 'StoneSpring voice_emotion-1',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/voice_emotion-1.gif',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'voice_emotion-2.gif',
+    name: 'StoneSpring voice_emotion-2',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/voice_emotion-2.gif',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'voice_emotion_model-1.png',
+    name: 'StoneSpring voice_emotion_model-1',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/voice_emotion_model-1.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'voice_emotion_model-2.png',
+    name: 'StoneSpring voice_emotion_model-2',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/voice_emotion_model-2.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'voice_emotion_model-3.png',
+    name: 'StoneSpring voice_emotion_model-3',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/voice_emotion_model-3.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'voice_emotion_model-4.png',
+    name: 'StoneSpring voice_emotion_model-4',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/voice_emotion_model-4.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'face_emotion.gif',
+    name: 'StoneSpring face_emotion',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/face_emotion.gif',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'face_emotion_model-1.png',
+    name: 'StoneSpring face_emotion_model-1',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/face_emotion_model-1.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'face_emotion_model-2.png',
+    name: 'StoneSpring face_emotion_model-2',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/face_emotion_model-2.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'gesture.gif',
+    name: 'StoneSpring gesture',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/gesture.gif',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'gesture-model.png',
+    name: 'StoneSpring gesture-model',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/gesture-model.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'system_architecture.png',
+    name: 'StoneSpring system_architecture',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/system_architecture.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'system_architecture_0.1.0.png',
+    name: 'StoneSpring system_architecture_0 1 0',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/system_architecture_0.1.0.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'system_architecture_0.2.0.png',
+    name: 'StoneSpring system_architecture_0 2 0',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/system_architecture_0.2.0.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'system_architecture_0.3.0.png',
+    name: 'StoneSpring system_architecture_0 3 0',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/system_architecture_0.3.0.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'data_structure.png',
+    name: 'StoneSpring data_structure',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/data_structure.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'data_structure_1.png',
+    name: 'StoneSpring data_structure_1',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/data_structure_1.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'data_structure_2.png',
+    name: 'StoneSpring data_structure_2',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/data_structure_2.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'data_structure_3.png',
+    name: 'StoneSpring data_structure_3',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/data_structure_3.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'sequence_diagram_1.png',
+    name: 'StoneSpring sequence_diagram_1',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/sequence_diagram_1.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'sequence_diagram_2.png',
+    name: 'StoneSpring sequence_diagram_2',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/sequence_diagram_2.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'sequence_diagram_3.png',
+    name: 'StoneSpring sequence_diagram_3',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/sequence_diagram_3.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'sequence_diagram_4.png',
+    name: 'StoneSpring sequence_diagram_4',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/sequence_diagram_4.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'sequence_diagram_5.png',
+    name: 'StoneSpring sequence_diagram_5',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/sequence_diagram_5.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'emotion_1.png',
+    name: 'StoneSpring emotion_1',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/emotion_1.png',
+  },
+
+  {
+    act_id: 'StoneSpring',
+    filename: 'emotion_2.png',
+    name: 'StoneSpring emotion_2',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/emotion_2.png',
+  },
+
+  {
+    act_id: 'pdf_to_question_bank',
+    filename: 'preview_1.png',
+    name: 'PDF to Question Bank preview_1',
+    type: 'None',
+    startDate: '2024-10-26',
+    remotePathOverride: 'media/photos/projects/pdf_to_question_bank/preview_1.png',
+  },
+
+  {
+    act_id: 'pdf_to_question_bank',
+    filename: 'preview_2.png',
+    name: 'PDF to Question Bank preview_2',
+    type: 'None',
+    startDate: '2024-10-26',
+    remotePathOverride: 'media/photos/projects/pdf_to_question_bank/preview_2.png',
+  },
+
+  {
+    act_id: 'pdf_to_question_bank',
+    filename: 'preview_3.png',
+    name: 'PDF to Question Bank preview_3',
+    type: 'None',
+    startDate: '2024-10-26',
+    remotePathOverride: 'media/photos/projects/pdf_to_question_bank/preview_3.png',
+  },
+
+  {
+    act_id: 'pdf_to_question_bank',
+    filename: 'preview_4.png',
+    name: 'PDF to Question Bank preview_4',
+    type: 'None',
+    startDate: '2024-10-26',
+    remotePathOverride: 'media/photos/projects/pdf_to_question_bank/preview_4.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'INHA_AIR_1280px_2x.gif',
+    name: 'INHA AIR INHA_AIR_demo',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/INHA_AIR_1280px_2x.gif',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '00_start.png',
+    name: 'INHA AIR 00_start',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/00_start.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '01_idpw.png',
+    name: 'INHA AIR 01_idpw',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/01_idpw.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '01_signin.png',
+    name: 'INHA AIR 01_signin',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/01_signin.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '01_signup_1.png',
+    name: 'INHA AIR 01_signup_1',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/01_signup_1.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '02_menu.png',
+    name: 'INHA AIR 02_menu',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/02_menu.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '03_search_1.png',
+    name: 'INHA AIR 03_search_1',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/03_search_1.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '04_book_00.png',
+    name: 'INHA AIR 04_book_00',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/04_book_00.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '04_book_01.png',
+    name: 'INHA AIR 04_book_01',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/04_book_01.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '04_book_02.png',
+    name: 'INHA AIR 04_book_02',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/04_book_02.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '04_book_03.png',
+    name: 'INHA AIR 04_book_03',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/04_book_03.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '04_book_04.png',
+    name: 'INHA AIR 04_book_04',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/04_book_04.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '04_book_06.png',
+    name: 'INHA AIR 04_book_06',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/04_book_06.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '04_book_07.png',
+    name: 'INHA AIR 04_book_07',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/04_book_07.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '04_book_08.png',
+    name: 'INHA AIR 04_book_08',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/04_book_08.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '04_book_09.png',
+    name: 'INHA AIR 04_book_09',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/04_book_09.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '04_book_10.png',
+    name: 'INHA AIR 04_book_10',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/04_book_10.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '04_book_11.png',
+    name: 'INHA AIR 04_book_11',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/04_book_11.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '04_book_12.png',
+    name: 'INHA AIR 04_book_12',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/04_book_12.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '05_detail_0.png',
+    name: 'INHA AIR 05_detail_0',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/05_detail_0.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '05_detail_1.png',
+    name: 'INHA AIR 05_detail_1',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/05_detail_1.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: '06_management.png',
+    name: 'INHA AIR 06_management',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/06_management.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'information_architecture_admin.png',
+    name: 'INHA AIR information_architecture_admin',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/information_architecture_admin.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'information_architecture_user.png',
+    name: 'INHA AIR information_architecture_user',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/information_architecture_user.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'flow_U01_signin.png',
+    name: 'INHA AIR flow_U01_signin',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/flow_U01_signin.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'flow_U02_signup.png',
+    name: 'INHA AIR flow_U02_signup',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/flow_U02_signup.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'flow_U03_book_0.png',
+    name: 'INHA AIR flow_U03_book_0',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/flow_U03_book_0.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'flow_U03_book_1.png',
+    name: 'INHA AIR flow_U03_book_1',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/flow_U03_book_1.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'flow_U03_book_2.png',
+    name: 'INHA AIR flow_U03_book_2',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/flow_U03_book_2.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'flow_U04_book_info_0.png',
+    name: 'INHA AIR flow_U04_book_info_0',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/flow_U04_book_info_0.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'flow_U04_book_info_1.png',
+    name: 'INHA AIR flow_U04_book_info_1',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/flow_U04_book_info_1.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'flow_U04_book_info_2.png',
+    name: 'INHA AIR flow_U04_book_info_2',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/flow_U04_book_info_2.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'flow_U05_detail_0.png',
+    name: 'INHA AIR flow_U05_detail_0',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/flow_U05_detail_0.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'flow_U05_detail_1.png',
+    name: 'INHA AIR flow_U05_detail_1',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/flow_U05_detail_1.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'flow_A06_admin_0.png',
+    name: 'INHA AIR flow_A06_admin_0',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/flow_A06_admin_0.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'databases_1.png',
+    name: 'INHA AIR databases_1',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/databases_1.png',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'databases_2.png',
+    name: 'INHA AIR databases_2',
+    type: 'None',
+    startDate: '2021-07-15',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/databases_2.png',
+  },
+
+  {
+    act_id: 'HealthCasting',
+    filename: '1-1.장염환자수와검색어트랜드분석.png',
+    name: 'HealthCasting 1-1 장염환자수와검색어트랜드분석',
+    type: 'None',
+    startDate: '2025-01-03',
+    remotePathOverride: 'media/photos/projects/HealthCasting/1-1.장염환자수와검색어트랜드분석.png',
+  },
+
+  {
+    act_id: 'HealthCasting',
+    filename: '3-1.기상데이터와_장염환자_상관관계.png',
+    name: 'HealthCasting 3-1 기상데이터와_장염환자_상관관계',
+    type: 'None',
+    startDate: '2025-01-03',
+    remotePathOverride: 'media/photos/projects/HealthCasting/3-1.기상데이터와_장염환자_상관관계.png',
+  },
+
+  {
+    act_id: 'HealthCasting',
+    filename: '3-2.기상데이터와_장염환자.png',
+    name: 'HealthCasting 3-2 기상데이터와_장염환자',
+    type: 'None',
+    startDate: '2025-01-03',
+    remotePathOverride: 'media/photos/projects/HealthCasting/3-2.기상데이터와_장염환자.png',
+  },
+
+  {
+    act_id: 'HealthCasting',
+    filename: '2-2.연령별_환자분석.png',
+    name: 'HealthCasting 2-2 연령별_환자분석',
+    type: 'None',
+    startDate: '2025-01-03',
+    remotePathOverride: 'media/photos/projects/HealthCasting/2-2.연령별_환자분석.png',
+  },
+
+  {
+    act_id: 'HealthCasting',
+    filename: '1-2.장염환자수와네이버검색어트랜드.png',
+    name: 'HealthCasting 1-2 장염환자수와네이버검색어트랜드',
+    type: 'None',
+    startDate: '2025-01-03',
+    remotePathOverride: 'media/photos/projects/HealthCasting/1-2.장염환자수와네이버검색어트랜드.png',
+  },
+
+  {
+    act_id: 'HealthCasting',
+    filename: '3-4.장염일교차.png',
+    name: 'HealthCasting 3-4 장염일교차',
+    type: 'None',
+    startDate: '2025-01-03',
+    remotePathOverride: 'media/photos/projects/HealthCasting/3-4.장염일교차.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'rfid.gif',
+    name: 'GreenT rfid_open_door',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/rfid.gif',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'FarmProgram-01.png',
+    name: 'GreenT 01.start',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/FarmProgram-01.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'FarmProgram-02-admin.png',
+    name: 'GreenT 02.admin_signin',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/FarmProgram-02-admin.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'FarmProgram-03-admin.png',
+    name: 'GreenT 03.admin_main',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/FarmProgram-03-admin.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'FarmProgram-04-admin.png',
+    name: 'GreenT 04.admin_user_info',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/FarmProgram-04-admin.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'FarmProgram-05-admin.png',
+    name: 'GreenT 05.reset_pw',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/FarmProgram-05-admin.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'FarmProgram-06-admin.png',
+    name: 'GreenT 06.admin_kit',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/FarmProgram-06-admin.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'FarmProgram-07-admin.png',
+    name: 'GreenT 07.admin_plant',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/FarmProgram-07-admin.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'FarmProgram-08-admin.png',
+    name: 'GreenT 08.sign_up',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/FarmProgram-08-admin.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'FarmProgram-09-admin.png',
+    name: 'GreenT 09.admin_user_info',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/FarmProgram-09-admin.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'FarmProgram-10-user.png',
+    name: 'GreenT 10.user-register',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/FarmProgram-10-user.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'FarmProgram-11-user-kit-rental.png',
+    name: 'GreenT 11.kit_rental',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/FarmProgram-11-user-kit-rental.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'FarmProgram-12.png',
+    name: 'GreenT 12.kit-rental_detail',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/FarmProgram-12.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'FarmProgram-13-plant_detail_최종.png',
+    name: 'GreenT 13.plant_detail',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/FarmProgram-13-plant_detail_최종.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: '1.각_부품이_모여서.png',
+    name: 'GreenT 각_부품이_모여서',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/1.각_부품이_모여서.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: '2.하나의_키트를_이루고_1.png',
+    name: 'GreenT 하나의_키트를_이루고',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/2.하나의_키트를_이루고_1.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: '2.하나의_키트를_이루고_2.png',
+    name: 'GreenT 각_키트들이_모여',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/2.하나의_키트를_이루고_2.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: '3.세트가_되며.png',
+    name: 'GreenT 세트가_되며',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/3.세트가_되며.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: '4.하나의_스마트팜_완성.png',
+    name: 'GreenT 하나의_스마트팜_완성',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/4.하나의_스마트팜_완성.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'sa_hardware_architecture.png',
+    name: 'GreenT sa_hardware_architecture',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/sa_hardware_architecture.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'sa_software_architecture.png',
+    name: 'GreenT sa_software_architecture',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/sa_software_architecture.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: '데이터베이스_전체.png',
+    name: 'GreenT database_all',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/데이터베이스_전체.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: '데이터베이스_개별_1.png',
+    name: 'GreenT database-1',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/데이터베이스_개별_1.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: '데이터베이스_개별_2.png',
+    name: 'GreenT database-2',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/데이터베이스_개별_2.png',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: '데이터베이스_개별_3.png',
+    name: 'GreenT database-3',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/media/데이터베이스_개별_3.png',
+  },
+
 ] as const satisfies readonly OneDriveAssetBlueprint[];
 
 const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinition => {
