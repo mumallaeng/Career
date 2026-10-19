@@ -84,7 +84,7 @@ export const homeCopy = {
     about: {
       title: 'About Me',
       summary:
-        "I'm Yeonwoo Kim, working toward on-device AI semiconductor design and verification from RTL through SoC integration and embedded firmware. I have designed digital logic in Verilog, built SystemVerilog and UVM verification environments, and worked through RV32I, AXI4-Lite, MicroBlaze, and ARM Cortex-M4 peripheral control. I use my earlier software and robotics experience as a supporting strength for design automation, board-level integration, and technical documentation.",
+        "I'm Yeonwoo Gim, working toward on-device AI semiconductor design and verification from RTL through SoC integration and embedded firmware. I have designed digital logic in Verilog, built SystemVerilog and UVM verification environments, and worked through RV32I, AXI4-Lite, MicroBlaze, and ARM Cortex-M4 peripheral control. I use my earlier software and robotics experience as a supporting strength for design automation, board-level integration, and technical documentation.",
       bullets: [
         'Digital logic, FSM, UART, and FIFO design in Verilog',
         'SystemVerilog and UVM testbenches with scoreboard-based verification',
