@@ -3563,6 +3563,15 @@ const onedriveAssetBlueprints = [
   },
 
   {
+    act_id: 'open-source-contributions',
+    filename: 'open-source-contributions-thumbnail.png',
+    name: '오픈소스 기여 썸네일',
+    type: 'None',
+    startDate: '2022-06-11',
+    remotePathOverride: 'media/photos/projects/OpenSource/open-source-contributions-thumbnail.png',
+  },
+
+  {
     act_id: 'korcham-mini-uart-fifo-rtl',
     filename: 'uart-fifo-rtl-loopback-demo.mp4',
     name: 'UART·FIFO loopback 시연',
@@ -5797,6 +5806,9 @@ const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinit
   const publicPathPoster = posterFilename
     ? buildDevStoragePublicPath('default', posterFilename)
     : undefined;
+  // Motion originals are not synced, so preview a GIF by its optimized copy and a video by its poster.
+  const remotePathThumb = remotePathPoster ?? (hasOptimizedDefault ? remotePathDefault : remotePathOriginal);
+  const publicPathThumb = publicPathPoster ?? (hasOptimizedDefault ? publicPathDefault : publicPathOriginal);
 
   return {
     ...asset,
@@ -5806,9 +5818,6 @@ const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinit
     publicPathOriginal,
     remotePathThumb,
     publicPathThumb,
-  // Motion originals are not synced, so preview a GIF by its optimized copy and a video by its poster.
-  const remotePathThumb = remotePathPoster ?? (hasOptimizedDefault ? remotePathDefault : remotePathOriginal);
-  const publicPathThumb = publicPathPoster ?? (hasOptimizedDefault ? publicPathDefault : publicPathOriginal);
     remotePathPoster,
     publicPathPoster,
     isResizableImage,
