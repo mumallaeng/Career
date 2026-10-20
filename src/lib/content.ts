@@ -133,15 +133,18 @@ function extractFirstImage(content: string): ThumbnailData | undefined {
     }
   }
 
-  // Try to find DriveAssetGrid usage
-  const gridMatch = searchableContent.match(/<DriveAssetGrid[^>]*actId=["']([^"']+)["'][^>]*\/?>/i);
-  if (gridMatch) {
-    const actId = gridMatch[1].trim();
-    const assets = getOneDriveAssetsByActId(actId);
-    const firstImage = assets.find(asset => asset.isResizableImage);
-    if (firstImage) {
+  // Try the first OneDrive-backed media component in document order
+  const mediaPattern = /<(ImgTag|VideoTag)\b[^>]*\bfilename=["']([^"']+)["'][^>]*>|<DriveAssetGrid\b[^>]*\bactId=["']([^"']+)["'][^>]*>/gi;
+  for (const mediaMatch of searchableContent.matchAll(mediaPattern)) {
+    const [, , filename, actId] = mediaMatch;
+    const gridAssets = actId ? getOneDriveAssetsByActId(actId.trim()) : [];
+    const asset = actId
+      ? gridAssets.find(candidate => candidate.isResizableImage || candidate.hasVideoPoster)
+        ?? gridAssets.find(candidate => candidate.hasOptimizedDefault)
+      : getOneDriveAssetByFilename(filename);
+    if (asset) {
       return {
-        url: getOneDriveAssetUrl(firstImage, 'thumb'),
+        url: getOneDriveAssetUrl(asset, 'thumb'),
         hasExplicitDimensions: false,
       };
     }

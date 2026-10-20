@@ -5790,8 +5790,6 @@ const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinit
   const publicPathDefault = hasOptimizedDefault
     ? buildDevStoragePublicPath('default', normalizePublicFilename(optimizedFilename))
     : publicPathOriginal;
-  const remotePathThumb = isResizableImage ? remotePathDefault : remotePathOriginal;
-  const publicPathThumb = isResizableImage ? publicPathDefault : publicPathOriginal;
   const posterFilename = hasVideoPoster ? buildVideoPosterFilename(asset.filename) : undefined;
   const remotePathPoster = posterFilename
     ? buildDevStorageRemotePath('default', posterFilename)
@@ -5808,6 +5806,9 @@ const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinit
     publicPathOriginal,
     remotePathThumb,
     publicPathThumb,
+  // Motion originals are not synced, so preview a GIF by its optimized copy and a video by its poster.
+  const remotePathThumb = remotePathPoster ?? (hasOptimizedDefault ? remotePathDefault : remotePathOriginal);
+  const publicPathThumb = publicPathPoster ?? (hasOptimizedDefault ? publicPathDefault : publicPathOriginal);
     remotePathPoster,
     publicPathPoster,
     isResizableImage,
