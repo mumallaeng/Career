@@ -14,7 +14,8 @@ export function formatActivityDate(startDate?: string, endDate?: string): string
     return new Date(dateString).toLocaleDateString('ko-KR', {
       year: 'numeric',
       month: '2-digit',
-      day: '2-digit'
+      day: '2-digit',
+      timeZone: 'Asia/Seoul',
     });
   };
 
@@ -37,6 +38,7 @@ export function formatPostDate(dateString: string): string {
   return date.toLocaleDateString('ko-KR', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
+    timeZone: 'Asia/Seoul',
   });
 }

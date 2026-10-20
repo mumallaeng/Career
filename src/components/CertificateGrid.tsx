@@ -14,7 +14,7 @@ export default function CertificateGrid() {
     <div className="image-grid">
       {certificates.map(cert => {
         const key = Array.isArray(cert.act_id) ? cert.act_id.join('-') : cert.act_id;
-        const issueDate = cert.startDate ? new Date(cert.startDate).toLocaleDateString('ko-KR') : '발급일 미상';
+        const issueDate = cert.startDate ? new Date(cert.startDate).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' }) : '발급일 미상';
         const organization = cert.description ?? '';
 
         return (
