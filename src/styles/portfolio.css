@@ -198,7 +198,7 @@
 .portfolio-intro-grid {
     display: grid;
     grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.8fr);
-    align-items: stretch;
+    align-items: start;
     gap: 48px;
     margin-top: 72px;
     padding-top: 48px;
@@ -227,6 +227,10 @@
     border-radius: var(--radius-lg);
     background: var(--color-bg-secondary);
     scroll-margin-top: 88px;
+}
+
+.portfolio-intro-skills {
+    align-self: stretch;
 }
 
 .portfolio-intro-skills .portfolio-section-title,
@@ -281,25 +285,10 @@
 
 /* --- Skills --- */
 
-.portfolio-skill-groups {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px 24px;
-}
-
-.portfolio-skill-group-title {
-    margin: 0 0 10px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--color-muted);
-}
-
 .portfolio-skill-chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px 8px;
 }
 
 .portfolio-skill-chip {
@@ -950,7 +939,6 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
     }
 
     .portfolio-about-list,
-    .portfolio-skill-groups,
     .portfolio-projects-grid {
         grid-template-columns: 1fr;
     }
