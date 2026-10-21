@@ -178,15 +178,6 @@
     max-width: 740px;
 }
 
-.portfolio-hero-kicker {
-    margin: 0 0 16px;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-muted);
-}
-
 .portfolio-hero-name {
     margin: 0;
     font-size: 56px;
@@ -281,6 +272,15 @@
     content: '';
     position: absolute;
     left: 0;
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
+}
+
+/* --- Skills --- */
+
 .portfolio-skill-groups {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -295,15 +295,6 @@
     text-transform: uppercase;
     color: var(--color-muted);
 }
-
-    top: 9px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--color-primary);
-}
-
-/* --- Skills --- */
 
 .portfolio-skill-chips {
     display: flex;
@@ -950,7 +941,6 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
     }
 
     .portfolio-intro-skills,
-    .portfolio-skill-groups,
     .portfolio-intro-contact {
         padding: 24px;
     }
@@ -960,6 +950,7 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
     }
 
     .portfolio-about-list,
+    .portfolio-skill-groups,
     .portfolio-projects-grid {
         grid-template-columns: 1fr;
     }

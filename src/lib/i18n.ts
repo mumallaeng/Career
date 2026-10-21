@@ -25,7 +25,6 @@ export const homeCopy = {
       sectionNavigation: '섹션 탐색',
     },
     hero: {
-      kicker: '커리어',
       tagline: '온디바이스 AI 시스템반도체 설계·검증 역량을 쌓고 있는 주니어 엔지니어입니다.',
     },
     about: {
@@ -77,7 +76,6 @@ export const homeCopy = {
       sectionNavigation: 'Section navigation',
     },
     hero: {
-      kicker: 'Career',
       tagline: 'A junior engineer working toward a career in on-device AI semiconductor design and verification.',
     },
     about: {

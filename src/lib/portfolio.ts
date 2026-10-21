@@ -3,7 +3,6 @@ import { formatActivityDate } from '@/lib/utils/date';
 import { getOneDriveAssetByFilename, getOneDriveAssetUrl } from '@/data/onedrive-assets';
 
 export interface HeroContent {
-  kicker: string;
   name: string;
   tagline: string;
   photoUrl?: string;
@@ -51,7 +50,6 @@ export type PortfolioDetailContent = Record<string, string>;
 export function getHeroContent(): HeroContent {
   const photo = getOneDriveAssetByFilename('261005-증명사진_copy.jpg');
   return {
-    kicker: 'Career',
     name: '김연우(金延祐) | Yeonwoo Gim',
     tagline: 'A junior engineer working toward a career in on-device AI semiconductor design and verification.',
     photoUrl: photo ? getOneDriveAssetUrl(photo, 'default') : undefined,
