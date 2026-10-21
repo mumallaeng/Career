@@ -5376,6 +5376,15 @@ const onedriveAssetBlueprints = [
   },
 
   {
+    act_id: 'vga-pan-tilt-cctv-thumbnail',
+    filename: 'vga-pan-tilt-cctv-thumbnail.gif',
+    name: 'VGA Pan-Tilt CCTV 썸네일',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/vga-pan-tilt-cctv-thumbnail.gif',
+  },
+
+  {
     act_id: 'detail-report-vga-pan-tilt-cctv',
     filename: 'vga-readme-23.gif',
     name: '자동 추적과 수동 모드 전환 시연',
