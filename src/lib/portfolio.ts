@@ -237,6 +237,7 @@ export function getExperienceEntries(): ExperienceEntry[] {
 }
 
 const CURATED_JOB_RELATED_SLUGS = [
+  'lightletter',
   'korcham-ondevice-ai-mini-projects',
   'shoepernoma',
   'stonespring',
@@ -251,6 +252,11 @@ const CURATED_JOB_RELATED_SLUGS = [
 ] as const;
 
 const JOB_RELATED_HIGHLIGHTS: Record<(typeof CURATED_JOB_RELATED_SLUGS)[number], string[]> = {
+  lightletter: [
+    'FPGA CNN 가속기 Output Buffer·FC 설계',
+    'BFSK 광통신·128-point FFT 송수신',
+    'Zybo Z7-20 두 대 송수신 시연',
+  ],
   'korcham-ondevice-ai-mini-projects': [
     'RTL 설계·SystemVerilog/UVM 검증',
     'RV32I CPU, AXI4-Lite SoC 통합',
