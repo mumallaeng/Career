@@ -8,28 +8,20 @@ interface SkillsProps {
 
 export default function Skills({ groups, locale }: SkillsProps) {
   const copy = homeCopy[locale].skills;
+  const skills = groups.flatMap((group) => group.skills);
 
   return (
-    <section id="skills" className="portfolio-section portfolio-section--secondary">
-      <div className="portfolio-container">
-        <header className="portfolio-section-header">
-          <h2 className="portfolio-section-title">{copy.title}</h2>
-        </header>
-        <div className="portfolio-skills-grid">
-          {groups.map((group) => (
-            <div key={group.title} className="portfolio-skill-group">
-              <h3 className="portfolio-skill-group-title">{group.title}</h3>
-              <div className="portfolio-skill-chips">
-                {group.skills.map((skill) => (
-                  <span key={skill} className="portfolio-skill-chip">
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+    <div id="skills" className="portfolio-intro-skills" aria-labelledby="skills-title">
+      <header className="portfolio-section-header">
+        <h2 id="skills-title" className="portfolio-section-title">{copy.title}</h2>
+      </header>
+      <div className="portfolio-skill-chips">
+        {skills.map((skill) => (
+          <span key={skill} className="portfolio-skill-chip">
+            {skill}
+          </span>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }

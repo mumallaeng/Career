@@ -1,16 +1,18 @@
 'use client';
 
 import { homeCopy, type Locale } from '@/lib/i18n';
-import type { AboutContent, HeroContent } from '@/lib/portfolio';
+import type { AboutContent, HeroContent, SkillGroup } from '@/lib/portfolio';
 import ContactLinks from './ContactLinks';
+import Skills from './Skills';
 
 interface IntroProps {
   hero: HeroContent;
   about: AboutContent;
+  skills: SkillGroup[];
   locale: Locale;
 }
 
-export default function Intro({ hero, about, locale }: IntroProps) {
+export default function Intro({ hero, about, skills, locale }: IntroProps) {
   const copy = homeCopy[locale];
   const summary = locale === 'ko' ? about.summary : copy.about.summary;
   const bullets = locale === 'ko' ? about.bullets : copy.about.bullets;
@@ -48,6 +50,8 @@ export default function Intro({ hero, about, locale }: IntroProps) {
               ))}
             </ul>
           </div>
+
+          <Skills groups={skills} locale={locale} />
 
           <aside id="contact" className="portfolio-intro-contact" aria-labelledby="contact-title">
             <header className="portfolio-section-header">

@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Intro from './Intro';
-import Skills from './Skills';
 import Experience from './Experience';
 import Projects from './Projects';
 import PortfolioDetailOverlay, { type PortfolioDetail } from './PortfolioDetailOverlay';
@@ -209,8 +208,7 @@ export default function PortfolioClient({
 
   return (
     <div className="portfolio-page">
-      <Intro hero={hero} about={about} locale={locale} />
-      <Skills groups={skills} locale={locale} />
+      <Intro hero={hero} about={about} skills={skills} locale={locale} />
       <Experience entries={localizedExperience} onSelect={openDetail} locale={locale} />
       <Projects projects={localizedProjects} onSelect={openProject} locale={locale} />
       <PortfolioDetailOverlay
