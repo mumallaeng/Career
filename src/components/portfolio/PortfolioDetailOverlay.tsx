@@ -9,6 +9,8 @@ import MDXRenderer from '@/components/MDXRenderer';
 import ContactLinks from './ContactLinks';
 
 const PANEL_WIDTH_STORAGE_KEY = 'portfolio-detail-panel-width-v1';
+const PANEL_SIDE_STORAGE_KEY = 'portfolio-detail-panel-side-v1';
+const HEADER_DRAG_THRESHOLD = 8;
 const MIN_PANEL_WIDTH = 420;
 const MIN_PAGE_WIDTH = 480;
 const MAX_PANEL_RATIO = 0.72;
@@ -20,6 +22,14 @@ interface PanelWidthMetrics {
   width: number;
   min: number;
   max: number;
+}
+
+type PanelSide = 'left' | 'right';
+
+interface HeaderDrag {
+  pointerId: number;
+  startX: number;
+  moved: boolean;
 }
 
 interface ResizeDrag {
@@ -82,6 +92,8 @@ export default function PortfolioDetailOverlay({
   onClose,
 }: PortfolioDetailOverlayProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [side, setSide] = useState<PanelSide>('right');
+  const headerDragRef = useRef<HeaderDrag | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const resizeHandleRef = useRef<HTMLDivElement>(null);
@@ -148,6 +160,21 @@ export default function PortfolioDetailOverlay({
     };
   }, [applyPanelWidth, isWideView]);
 
+  useEffect(() => {
+    try {
+      if (window.localStorage.getItem(PANEL_SIDE_STORAGE_KEY) === 'left') {
+        setSide('left');
+      }
+    } catch {
+      // The panel stays on the right when browser storage is unavailable.
+    }
+  }, []);
+
+  useEffect(() => {
+    document.body.classList.toggle('portfolio-split-left', isWideView && side === 'left');
+    return () => document.body.classList.remove('portfolio-split-left');
+  }, [isWideView, side]);
+
   useLayoutEffect(() => {
     if (!detail?.href || !bodyRef.current) {
       return;
@@ -194,10 +221,11 @@ export default function PortfolioDetailOverlay({
         return;
       }
 
-      const nextWidth = drag.startWidth + (drag.startX - event.clientX);
+      const delta = event.clientX - drag.startX;
+      const nextWidth = drag.startWidth + (side === 'left' ? delta : -delta);
       preferredWidthRef.current = applyPanelWidth(nextWidth);
     },
-    [applyPanelWidth]
+    [applyPanelWidth, side]
   );
 
   const finishPointerResize = useCallback(
@@ -234,9 +262,11 @@ export default function PortfolioDetailOverlay({
       const { width, min, max } = panelWidthMetricsRef.current;
       let nextWidth: number | null = null;
 
-      if (event.key === 'ArrowLeft') {
+      const grow = side === 'left' ? 'ArrowRight' : 'ArrowLeft';
+      const shrink = side === 'left' ? 'ArrowLeft' : 'ArrowRight';
+      if (event.key === grow) {
         nextWidth = width + step;
-      } else if (event.key === 'ArrowRight') {
+      } else if (event.key === shrink) {
         nextWidth = width - step;
       } else if (event.key === 'Home') {
         nextWidth = min;
@@ -251,8 +281,63 @@ export default function PortfolioDetailOverlay({
       event.preventDefault();
       setAndPersistPanelWidth(nextWidth);
     },
-    [setAndPersistPanelWidth]
+    [setAndPersistPanelWidth, side]
   );
+
+  const handleHeaderPointerDown = useCallback(
+    (event: ReactPointerEvent<HTMLDivElement>) => {
+      if (!isWideView || isExpanded || event.button !== 0) {
+        return;
+      }
+      if ((event.target as HTMLElement).closest('a, button')) {
+        return;
+      }
+      headerDragRef.current = { pointerId: event.pointerId, startX: event.clientX, moved: false };
+      event.currentTarget.setPointerCapture(event.pointerId);
+    },
+    [isExpanded, isWideView]
+  );
+
+  const handleHeaderPointerMove = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
+    const drag = headerDragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) {
+      return;
+    }
+    const offset = event.clientX - drag.startX;
+    if (!drag.moved) {
+      if (Math.abs(offset) < HEADER_DRAG_THRESHOLD) {
+        return;
+      }
+      drag.moved = true;
+      document.body.classList.add('portfolio-split-dragging');
+    }
+    if (panelRef.current) {
+      panelRef.current.style.transform = `translateX(${offset}px)`;
+    }
+  }, []);
+
+  const finishHeaderDrag = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
+    const drag = headerDragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) {
+      return;
+    }
+    headerDragRef.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    if (!drag.moved) {
+      return;
+    }
+    document.body.classList.remove('portfolio-split-dragging');
+    panelRef.current?.style.removeProperty('transform');
+    const nextSide: PanelSide = event.clientX < window.innerWidth / 2 ? 'left' : 'right';
+    setSide(nextSide);
+    try {
+      window.localStorage.setItem(PANEL_SIDE_STORAGE_KEY, nextSide);
+    } catch {
+      // The new side still applies for this visit.
+    }
+  }, []);
 
   const resetPanelWidth = useCallback(() => {
     setAndPersistPanelWidth(getDefaultPanelWidth(window.innerWidth));
@@ -272,7 +357,7 @@ export default function PortfolioDetailOverlay({
       <div
         ref={panelRef}
         id="portfolio-detail-panel"
-        className={`portfolio-detail-panel${isOpen ? ' is-open' : ''}${isExpanded ? ' is-expanded' : ''}`}
+        className={`portfolio-detail-panel${isOpen ? ' is-open' : ''}${isExpanded ? ' is-expanded' : ''}${isWideView && side === 'left' ? ' is-left' : ''}`}
         role="dialog"
         aria-modal={!isWideView}
         aria-label={detail.title}
@@ -299,7 +384,14 @@ export default function PortfolioDetailOverlay({
             onDoubleClick={resetPanelWidth}
           />
         )}
-        <div className="portfolio-detail-header">
+        <div
+          className="portfolio-detail-header"
+          onPointerDown={handleHeaderPointerDown}
+          onPointerMove={handleHeaderPointerMove}
+          onPointerUp={finishHeaderDrag}
+          onPointerCancel={finishHeaderDrag}
+          onLostPointerCapture={finishHeaderDrag}
+        >
           <ContactLinks compact />
           <div className="portfolio-detail-header-actions">
             {isWideView && (
