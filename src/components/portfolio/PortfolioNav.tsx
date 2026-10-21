@@ -20,20 +20,19 @@ const SECTION_ACTIVATION_OFFSET = 112;
 
 export default function PortfolioNav() {
   const [activeId, setActiveId] = useState('about');
+  const [hasSections, setHasSections] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === '/' || pathname === '';
   const { locale } = useLanguage();
   const copy = homeCopy[locale];
 
   useEffect(() => {
-    if (!isHome) {
-      return;
-    }
-
+    // An open detail panel moves the URL off `/`, but the home sections stay on the page.
     const elements = SECTIONS
       .map(({ id }) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
 
+    setHasSections(elements.length > 0);
     if (elements.length === 0) {
       return;
     }
@@ -83,6 +82,18 @@ export default function PortfolioNav() {
     };
   }, [isHome, pathname]);
 
+  const handleSectionClick = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
+      return;
+    }
+    const target = document.getElementById(id);
+    if (!target) {
+      return;
+    }
+    event.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   const handleBrandClick = (event: MouseEvent<HTMLAnchorElement>) => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
       return;
@@ -103,7 +114,8 @@ export default function PortfolioNav() {
             <a
               key={id}
               href={isHome ? `#${id}` : `/#${id}`}
-              className={`portfolio-nav-link${isHome && activeId === id ? ' active' : ''}`}
+              className={`portfolio-nav-link${hasSections && activeId === id ? ' active' : ''}`}
+              onClick={(event) => handleSectionClick(event, id)}
             >
               {copy.nav[labelKey]}
             </a>
