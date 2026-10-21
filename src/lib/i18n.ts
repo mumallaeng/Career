@@ -53,7 +53,7 @@ export const homeCopy = {
     projects: { title: '직무 관련 경험', more: '직무 관련 경험 더보기' },
     contact: {
       title: '연락하기',
-      description: '온디바이스 AI와 시스템반도체 설계·검증 관련 채용 또는 협업 제안은 아래 채널로 연락해 주세요.',
+      description: '채용 또는 협업 제안은 아래 채널로 연락해 주세요.',
     },
     detail: {
       close: '닫기',
@@ -105,7 +105,7 @@ export const homeCopy = {
     projects: { title: 'Work-Related Experience', more: 'View all work-related experience' },
     contact: {
       title: 'Get in Touch',
-      description: 'For opportunities related to on-device AI and semiconductor design or verification, please reach out through the channels below.',
+      description: 'For hiring or collaboration, please reach out through the channels below.',
     },
     detail: {
       close: 'Close',

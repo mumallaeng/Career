@@ -207,7 +207,7 @@
 .portfolio-intro-grid {
     display: grid;
     grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.8fr);
-    align-items: start;
+    align-items: stretch;
     gap: 48px;
     margin-top: 72px;
     padding-top: 48px;
