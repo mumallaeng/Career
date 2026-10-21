@@ -158,7 +158,7 @@ const projectEnglish: Record<
   Pick<ProjectSummary, 'title' | 'description' | 'highlights' | 'type' | 'role'>
 > = {
   'korcham-ondevice-ai-mini-projects': {
-    title: 'Gyeonggi Fabless Academy - Mini Project Collection',
+    title: 'On-Device AI System Semiconductor Design, Cohort 2 · Mini Projects',
     type: 'Course Mini Projects',
     role: undefined,
     description: 'Individual and team mini projects completed by course module during the On-Device AI System Semiconductor Design program.',

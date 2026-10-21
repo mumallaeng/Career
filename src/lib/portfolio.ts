@@ -215,7 +215,7 @@ const CURATED_JOB_RELATED_SLUGS = [
 const JOB_RELATED_HIGHLIGHTS: Record<(typeof CURATED_JOB_RELATED_SLUGS)[number], string[]> = {
   'vga-pan-tilt-cctv': [
     'Basys 3·OV7670 영상 객체 추적',
-    'Pan-Tilt 서보 PWM 제어 `servo_top`',
+    'Pan-Tilt 서보 PWM 제어',
     '자동·수동 모드 전환',
   ],
   wardy: [
