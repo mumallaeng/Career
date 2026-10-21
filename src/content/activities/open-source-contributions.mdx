@@ -17,13 +17,6 @@ content_type: "project"
 project_kind: "open_source"
 ---
 
-[mumallaeng/rustpython](https://github.com/mumallaeng/rustpython) \
-[mumallaeng/pyodide](https://github.com/mumallaeng/pyodide) \
-[mumallaeng/vivado-on-silicon-mac](https://github.com/mumallaeng/vivado-on-silicon-mac)
-
-<img src="https://rustpython.github.io/assets/img/rust-python-logo.svg" alt="RustPython Logo" width="150"/>
-<img src="https://pyodide.org/en/stable/_static/pyodide-logo-light.svg" alt="Pyodide Logo" width="150"/>
-
 {/* more */}
 
 2022년 [오픈소스 컨트리뷰션 아카데미](open_source_contribution_academy.mdx)에서 RustPython 프로젝트 리드 멘티로 활동하며 첫 오픈소스 기여를 시작했고, \
@@ -53,31 +46,31 @@ Rust로 구현된 Python 인터프리터 오픈소스 프로젝트입니다. \
 
 | PR | 날짜 | 구분 | 내용 |
 |:--|:--|:--|:--|
-| [#3773](https://github.com/RustPython/RustPython/pull/3773) | 2022.06.11 | 기타 | classmethod 초기화 지원 추가 |
-| [#3784](https://github.com/RustPython/RustPython/pull/3784) | 2022.06.13 | itertools | `itertools.count` 객체의 문자열 표현(repr) 구현 |
-| [#3822](https://github.com/RustPython/RustPython/pull/3822) | 2022.06.26 | itertools | count 반복자가 일반 숫자 타입(PyNumber)을 받도록 수정 |
-| [#3824](https://github.com/RustPython/RustPython/pull/3824) | 2022.06.28 | itertools | count 객체의 repr 표현 수정 |
-| [#3834](https://github.com/RustPython/RustPython/pull/3834) | 2022.07.01 | itertools | step 파라미터가 일반 숫자 타입을 받도록 개선 |
-| [#3852](https://github.com/RustPython/RustPython/pull/3852) | 2022.07.09 | 타입 시스템 | union 타입 검증(`is_unionable`) 로직 수정 |
-| [#3854](https://github.com/RustPython/RustPython/pull/3854) | 2022.07.09 | weakref | weak proxy의 시퀀스·매핑 프로토콜 구현 |
-| [#3900](https://github.com/RustPython/RustPython/pull/3900) | 2022.07.16 | weakref | weak proxy의 boolean·bytes 변환 지원 |
-| [#3909](https://github.com/RustPython/RustPython/pull/3909) | 2022.07.17 | weakref | weak proxy의 비교 연산 구현 |
-| [#3914](https://github.com/RustPython/RustPython/pull/3914) | 2022.07.18 | weakref | mapping proxy의 비교 연산 구현 |
-| [#3954](https://github.com/RustPython/RustPython/pull/3954) | 2022.07.24 | 기타 | escape 인코딩·디코딩 함수 수정 |
-| [#3986](https://github.com/RustPython/RustPython/pull/3986) | 2022.07.30 | 기타 | 메타클래스 class cell 검증 수정 |
-| [#4130](https://github.com/RustPython/RustPython/pull/4130) | 2022.08.23 | warning | 경고 컨텍스트 설정(`setup_context`) 개선 |
-| [#4146](https://github.com/RustPython/RustPython/pull/4146) | 2022.08.31 | warning | `warn_explicit` 경고 시스템 기능 향상 |
-| [#4183](https://github.com/RustPython/RustPython/pull/4183) | 2022.09.24 | 기타 | 함수 `__qualname__`·repr 개선 |
-| [#4185](https://github.com/RustPython/RustPython/pull/4185) | 2022.09.27 | 기타 | Deprecated된 `itertools::zip` 대신 `std::iter::zip` 사용하도록 수정 |
-| [#4217](https://github.com/RustPython/RustPython/pull/4217) | 2022.10.15 | 타입 시스템 | 타입 어노테이션 지원 구현 |
-| [#4239](https://github.com/RustPython/RustPython/pull/4239) | 2022.10.22 | 기타 | property 타입에 `name` 필드와 `__set_name__` 메서드 추가 |
-| [#4240](https://github.com/RustPython/RustPython/pull/4240) | 2022.10.22 | 기타 | type에 `__doc__` 추가 |
+| [#8540](https://github.com/RustPython/RustPython/pull/8540) | 2026.08.17 (병합 08.19) | 파서 진단 | 비어있는 `ExpectedExpression`을 `'invalid syntax'`로 정리, `<>` 진단 오프셋 수정 |
+| [#4272](https://github.com/RustPython/RustPython/pull/4272) | 2022.11.09 | itertools | combinations 반복자의 `__reduce__` 메서드 구현 |
+| [#4253](https://github.com/RustPython/RustPython/pull/4253) | 2022.10.28 | 타입 시스템 | union 타입의 문자열 표현(repr) 수정 |
+| [#4249](https://github.com/RustPython/RustPython/pull/4249) | 2022.10.25 | 기타 | marshal 시스템에 StopIteration 예외 지원 추가 |
 | [#4243](https://github.com/RustPython/RustPython/pull/4243) | 2022.10.23 | AST | AST 노드에 `_fields` 속성 추가(introspection 지원) |
 | [#4244](https://github.com/RustPython/RustPython/pull/4244) | 2022.10.23 | AST | AST 노드 속성(`_fields`, `_attributes`) 타입 문제 수정 |
-| [#4249](https://github.com/RustPython/RustPython/pull/4249) | 2022.10.25 | 기타 | marshal 시스템에 StopIteration 예외 지원 추가 |
-| [#4253](https://github.com/RustPython/RustPython/pull/4253) | 2022.10.28 | 타입 시스템 | union 타입의 문자열 표현(repr) 수정 |
-| [#4272](https://github.com/RustPython/RustPython/pull/4272) | 2022.11.09 | itertools | combinations 반복자의 `__reduce__` 메서드 구현 |
-| [#8540](https://github.com/RustPython/RustPython/pull/8540) | 2026.08.17 (병합 08.19) | 파서 진단 | 비어있는 `ExpectedExpression`을 `'invalid syntax'`로 정리, `<>` 진단 오프셋 수정 |
+| [#4239](https://github.com/RustPython/RustPython/pull/4239) | 2022.10.22 | 기타 | property 타입에 `name` 필드와 `__set_name__` 메서드 추가 |
+| [#4240](https://github.com/RustPython/RustPython/pull/4240) | 2022.10.22 | 기타 | type에 `__doc__` 추가 |
+| [#4217](https://github.com/RustPython/RustPython/pull/4217) | 2022.10.15 | 타입 시스템 | 타입 어노테이션 지원 구현 |
+| [#4185](https://github.com/RustPython/RustPython/pull/4185) | 2022.09.27 | 기타 | Deprecated된 `itertools::zip` 대신 `std::iter::zip` 사용하도록 수정 |
+| [#4183](https://github.com/RustPython/RustPython/pull/4183) | 2022.09.24 | 기타 | 함수 `__qualname__`·repr 개선 |
+| [#4146](https://github.com/RustPython/RustPython/pull/4146) | 2022.08.31 | warning | `warn_explicit` 경고 시스템 기능 향상 |
+| [#4130](https://github.com/RustPython/RustPython/pull/4130) | 2022.08.23 | warning | 경고 컨텍스트 설정(`setup_context`) 개선 |
+| [#3986](https://github.com/RustPython/RustPython/pull/3986) | 2022.07.30 | 기타 | 메타클래스 class cell 검증 수정 |
+| [#3954](https://github.com/RustPython/RustPython/pull/3954) | 2022.07.24 | 기타 | escape 인코딩·디코딩 함수 수정 |
+| [#3914](https://github.com/RustPython/RustPython/pull/3914) | 2022.07.18 | weakref | mapping proxy의 비교 연산 구현 |
+| [#3909](https://github.com/RustPython/RustPython/pull/3909) | 2022.07.17 | weakref | weak proxy의 비교 연산 구현 |
+| [#3900](https://github.com/RustPython/RustPython/pull/3900) | 2022.07.16 | weakref | weak proxy의 boolean·bytes 변환 지원 |
+| [#3852](https://github.com/RustPython/RustPython/pull/3852) | 2022.07.09 | 타입 시스템 | union 타입 검증(`is_unionable`) 로직 수정 |
+| [#3854](https://github.com/RustPython/RustPython/pull/3854) | 2022.07.09 | weakref | weak proxy의 시퀀스·매핑 프로토콜 구현 |
+| [#3834](https://github.com/RustPython/RustPython/pull/3834) | 2022.07.01 | itertools | step 파라미터가 일반 숫자 타입을 받도록 개선 |
+| [#3824](https://github.com/RustPython/RustPython/pull/3824) | 2022.06.28 | itertools | count 객체의 repr 표현 수정 |
+| [#3822](https://github.com/RustPython/RustPython/pull/3822) | 2022.06.26 | itertools | count 반복자가 일반 숫자 타입(PyNumber)을 받도록 수정 |
+| [#3784](https://github.com/RustPython/RustPython/pull/3784) | 2022.06.13 | itertools | `itertools.count` 객체의 문자열 표현(repr) 구현 |
+| [#3773](https://github.com/RustPython/RustPython/pull/3773) | 2022.06.11 | 기타 | classmethod 초기화 지원 추가 |
 
 ## Pyodide
 
@@ -112,9 +105,9 @@ RustPython에서의 인연을 이어 2026년 8월에 기여했습니다.
 
 | PR | 날짜 | 내용 |
 |:--|:--|:--|
-| [#955](https://github.com/youknowone/pyre/pull/955) | 2026.08.01 (병합) | GitHub Pages 웹 플레이그라운드 UX 개선과 테마 토글 추가 |
-| [#1298](https://github.com/youknowone/pyre/pull/1298) | 2026.08.17 (병합 08.19) | 바이너리 line-buffered 파일을 열기 전 경고를 띄우도록 인터프리터 동작 개선 |
 | [#1351](https://github.com/youknowone/pyre/pull/1351) | 2026.08.19 (병합) | `binascii`의 `a2b_base64` padding 상태 머신을 CPython 동작에 맞춰 재작성, `a2b_uu`·버퍼 연속성 문제 수정 |
+| [#1298](https://github.com/youknowone/pyre/pull/1298) | 2026.08.17 (병합 08.19) | 바이너리 line-buffered 파일을 열기 전 경고를 띄우도록 인터프리터 동작 개선 |
+| [#955](https://github.com/youknowone/pyre/pull/955) | 2026.08.01 (병합) | GitHub Pages 웹 플레이그라운드 UX 개선과 테마 토글 추가 |
 
 ## Chisel
 
@@ -122,8 +115,8 @@ Scala 기반 하드웨어 생성 언어입니다. 직접 쓰면서 마주친 불
 
 | PR | 기간 | 내용 |
 |:--|:--|:--|
-| [#5491](https://github.com/chipsalliance/chisel/pull/5491) | 2026.09.20 ~ 09.21 (병합) | `:=`·`<>` 연결에서 하드웨어가 아닌 피연산자가 좌변인지 우변인지 구분하는 에러 메시지로 개선 |
 | [#5495](https://github.com/chipsalliance/chisel/pull/5495) | 2026.09.24 ~ 10.01 (병합) | `Bool`을 1비트가 아닌 폭으로 바꿀 때 이유와 `.asUInt` 대안을 알려 주는 에러 메시지 추가 |
+| [#5491](https://github.com/chipsalliance/chisel/pull/5491) | 2026.09.20 ~ 09.21 (병합) | `:=`·`<>` 연결에서 하드웨어가 아닌 피연산자가 좌변인지 우변인지 구분하는 에러 메시지로 개선 |
 
 ## FINN
 
@@ -131,9 +124,9 @@ AMD(Xilinx)의 양자화 신경망 FPGA 가속기 빌드 프레임워크입니�
 
 | PR | 기간 | 내용 |
 |:--|:--|:--|
-| [#1665](https://github.com/Xilinx/finn/pull/1665) | 2026.08.24 ~ 09.16 (병합) | 하드웨어 출력 빌드에서 folding 설정이 없으면 PE=1·SIMD=1로 가장 느린 구현이 만들어지는 문제를 빌드 전에 검사 |
-| [#1673](https://github.com/Xilinx/finn/pull/1673) | 2026.08.26 ~ 09.22 (병합) | `steps`·`stop_step` 설정 때문에 `verify_steps`가 조용히 실행되지 않는 경우를 검사 |
 | [#1697](https://github.com/Xilinx/finn/pull/1697) | 2026.09.19 ~ 09.22 (병합) | 앞단 datatype이 줄어들 때 `MaxPool`의 입력 datatype이 갱신되지 않는 문제 수정 |
+| [#1673](https://github.com/Xilinx/finn/pull/1673) | 2026.08.26 ~ 09.22 (병합) | `steps`·`stop_step` 설정 때문에 `verify_steps`가 조용히 실행되지 않는 경우를 검사 |
+| [#1665](https://github.com/Xilinx/finn/pull/1665) | 2026.08.24 ~ 09.16 (병합) | 하드웨어 출력 빌드에서 folding 설정이 없으면 PE=1·SIMD=1로 가장 느린 구현이 만들어지는 문제를 빌드 전에 검사 |
 
 ## RapidWright
 
@@ -141,8 +134,8 @@ AMD FPGA의 배치·배선을 Java로 다루는 프레임워크입니다. macOS�
 
 | PR | 기간 | 내용 |
 |:--|:--|:--|
-| [#1433](https://github.com/Xilinx/RapidWright/pull/1433) | 2026.09.20 ~ 09.28 (병합) | Linux 전용 `/proc` 메모리 추적이 macOS에서 `FileNotFoundException`을 내는 문제 수정(`FileTools.isLinux()` 추가) |
 | [#1435](https://github.com/Xilinx/RapidWright/pull/1435) | 2026.09.22 ~ 09.28 (병합) | `runExamples` Gradle task로 example 프로그램을 smoke test로 실행하고 CI에 연결 |
+| [#1433](https://github.com/Xilinx/RapidWright/pull/1433) | 2026.09.20 ~ 09.28 (병합) | Linux 전용 `/proc` 메모리 추적이 macOS에서 `FileNotFoundException`을 내는 문제 수정(`FileTools.isLinux()` 추가) |
 
 ## Vivado 생태계 기여
 
