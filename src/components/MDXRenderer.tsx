@@ -113,7 +113,7 @@ const resolveActivityLink = (href: string): { href: string; isInternal: boolean 
       const rest = cleanPath.slice('activities/'.length);
       const [slug, ...segments] = rest.split('/');
       if (!slug || segments.length === 0) {
-        return { href: `/${cleanPath}${query}${hash}`, isInternal: true };
+        return { href: `/${cleanPath.replace(/\.(mdx|md)$/i, '')}${query}${hash}`, isInternal: true };
       }
       return {
         href: `/activities/${slug}/docs/${segments.join('/')}${query}${hash}`,
@@ -123,7 +123,7 @@ const resolveActivityLink = (href: string): { href: string; isInternal: boolean 
 
     const [slug, ...segments] = cleanPath.split('/');
     if (!slug || segments.length === 0) {
-      return { href: `/activities/${cleanPath}${query}${hash}`, isInternal: true };
+      return { href: `/activities/${cleanPath.replace(/\.(mdx|md)$/i, '')}${query}${hash}`, isInternal: true };
     }
     return {
       href: `/activities/${slug}/docs/${segments.join('/')}${query}${hash}`,
