@@ -281,6 +281,21 @@
     content: '';
     position: absolute;
     left: 0;
+.portfolio-skill-groups {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 24px;
+}
+
+.portfolio-skill-group-title {
+    margin: 0 0 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+}
+
     top: 9px;
     width: 6px;
     height: 6px;
@@ -935,6 +950,7 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
     }
 
     .portfolio-intro-skills,
+    .portfolio-skill-groups,
     .portfolio-intro-contact {
         padding: 24px;
     }
