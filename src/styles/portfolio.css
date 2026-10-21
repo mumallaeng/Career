@@ -719,6 +719,17 @@ a.portfolio-experience-item:hover .portfolio-experience-title {
     overflow-x: auto;
 }
 
+/* The panel is narrow, so wrap cells instead of scrolling sideways */
+.portfolio-detail-content th,
+.portfolio-detail-content td {
+    white-space: normal;
+    word-break: keep-all;
+}
+
+.portfolio-detail-content td a {
+    overflow-wrap: anywhere;
+}
+
 /* Wide desktop: Notion-style split view, left page stays interactive. */
 @media (min-width: 1200px) {
     body {
