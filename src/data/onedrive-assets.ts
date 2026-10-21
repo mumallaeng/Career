@@ -5788,6 +5788,69 @@ const onedriveAssetBlueprints = [
     startDate: '2026-10-15',
     remotePathOverride: 'media/photos/projects/LightLetter/report/lightletter-report-41.png',
   },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-conv-zero-gating.png',
+    name: 'LightLetter Convolution Layer와 Zero Gating Array',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/portfolio/lightletter-conv-zero-gating.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-output-stage.png',
+    name: 'LightLetter Convolution 출력단 구조',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/portfolio/lightletter-output-stage.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-out-reorder.png',
+    name: 'LightLetter Lane Packer와 Out Reorder',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/portfolio/lightletter-out-reorder.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-fc-per-layer.png',
+    name: 'LightLetter FC 층별 전용 엔진',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/portfolio/lightletter-fc-per-layer.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-fc-shared.png',
+    name: 'LightLetter FC 공유 엔진',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/portfolio/lightletter-fc-shared.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-aruco-detect.png',
+    name: 'LightLetter ArUco 마커 검출과 크롭 범위',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/portfolio/lightletter-aruco-detect.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-aruco-crop.png',
+    name: 'LightLetter ArUco 크롭 결과',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/portfolio/lightletter-aruco-crop.png',
+  },
 ] as const satisfies readonly OneDriveAssetBlueprint[];
 
 const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinition => {
