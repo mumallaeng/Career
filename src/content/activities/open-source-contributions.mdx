@@ -30,7 +30,7 @@ VSCode Python 확장, 그리고 반도체 설계 쪽 Chisel, FINN, RapidWright�
 |:--|:--|:--|:--|
 | [RustPython](https://github.com/RustPython/RustPython) | 2022.06~2022.11, 2026.08 | PR 25건(24건 병합) | Python 인터프리터의 표준 라이브러리·AST·타입 시스템·경고 처리·파서 진단 개선 |
 | [Pyodide](https://github.com/pyodide/pyodide) | 2022.10 | PR 1건(병합) | WebAssembly 기반 Python 런타임의 `repr_shorten` 버그 수정과 `shorten()` 함수 추가 |
-| [youknowone/pyre](https://github.com/youknowone/pyre) | 2026.08 | PR 3건(병합) | RustPython 메인테이너가 새로 시작한 Python 인터프리터 프로젝트에 `binascii`, 인터프리터 경고, 웹 플레이그라운드 기여 |
+| [pyre-lang/pyre](https://github.com/pyre-lang/pyre) | 2026.08 | PR 3건(병합) | RustPython 메인테이너가 새로 시작한 Python 인터프리터 프로젝트에 `binascii`, 인터프리터 경고, 웹 플레이그라운드 기여 |
 | [Xilinx/XilinxTclStore](https://github.com/Xilinx/XilinxTclStore) | 2026.08~09 | PR 1건(병합) | Vivado JUnit tclapp 설치가 sandbox 환경에서 실패하는 문제 수정 |
 | [chipsalliance/chisel](https://github.com/chipsalliance/chisel) | 2026.09~10 | PR 2건(병합) | Chisel 하드웨어 생성 언어의 연결(`:=`·`<>`) 오류와 `Bool` 폭 변경 오류 메시지 개선 |
 | [Xilinx/finn](https://github.com/Xilinx/finn) | 2026.08~09 | PR 3건(병합) | 신경망 FPGA 가속기 빌드 flow의 설정 누락 검사 추가와 `MaxPool` datatype 전파 수정 |
@@ -100,14 +100,14 @@ split = min(split, limit//2)
 
 ## pyre
 
-[youknowone/pyre](https://github.com/youknowone/pyre)는 RustPython 메인테이너 Jeong, YunWon(youknowone)님이 새로 시작한, 빠르고 CPython 호환성을 목표로 하는 Python 인터프리터 프로젝트입니다. \
+[pyre-lang/pyre](https://github.com/pyre-lang/pyre)는 RustPython 메인테이너 Jeong, YunWon(youknowone)님이 새로 시작한, 빠르고 CPython 호환성을 목표로 하는 Python 인터프리터 프로젝트입니다. \
 RustPython에서의 인연을 이어 2026년 8월에 기여했습니다.
 
 | PR | 날짜 | 내용 |
 |:--|:--|:--|
-| [#1351](https://github.com/youknowone/pyre/pull/1351) | 2026.08.19 (병합) | `binascii`의 `a2b_base64` padding 상태 머신을 CPython 동작에 맞춰 재작성, `a2b_uu`·버퍼 연속성 문제 수정 |
-| [#1298](https://github.com/youknowone/pyre/pull/1298) | 2026.08.17 (병합 08.19) | 바이너리 line-buffered 파일을 열기 전 경고를 띄우도록 인터프리터 동작 개선 |
-| [#955](https://github.com/youknowone/pyre/pull/955) | 2026.08.01 (병합) | GitHub Pages 웹 플레이그라운드 UX 개선과 테마 토글 추가 |
+| [#1351](https://github.com/pyre-lang/pyre/pull/1351) | 2026.08.19 (병합) | `binascii`의 `a2b_base64` padding 상태 머신을 CPython 동작에 맞춰 재작성, `a2b_uu`·버퍼 연속성 문제 수정 |
+| [#1298](https://github.com/pyre-lang/pyre/pull/1298) | 2026.08.17 (병합 08.19) | 바이너리 line-buffered 파일을 열기 전 경고를 띄우도록 인터프리터 동작 개선 |
+| [#955](https://github.com/pyre-lang/pyre/pull/955) | 2026.08.01 (병합) | GitHub Pages 웹 플레이그라운드 UX 개선과 테마 토글 추가 |
 
 ## Chisel
 
