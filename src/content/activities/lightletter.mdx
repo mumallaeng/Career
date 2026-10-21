@@ -67,6 +67,10 @@ CNN 가속기에서 Convolution 뒤의 출력 처리와 Fully Connected 연산�
 
 28×28 입력에서 하드웨어로 옮기기 쉬운 구조를 찾기 위해 padding, FC1 크기, Conv 층 수, LeNet-5 변형(3×3, 원형, 현대식)을 Python에서 비교했다. 정확도와 BRAM 사용량을 함께 보고 3×3 Convolution 두 번 + 2×2 Max Pooling 두 번 + FC 400 → 120 → 84 → 26 구조로 확정했다. 처음에는 영문자와 숫자 36클래스로 시작했다가 대문자 26클래스로 다시 학습했고, 각 층 출력을 JSON으로 뽑아 C 골든 모델과 RTL testbench의 기준값으로 썼다.
 
+<ImgTag filename="lightletter-conv-zero-gating.png" alt="Convolution Layer와 Zero Gating Array" />
+
+그림 2. 하드웨어로 옮긴 Convolution Layer. Line Buffer와 MAC Array 사이의 Zero Gating Array가 입력 0일 때 곱셈을 막는다.
+
 ### Output Buffer, ReLU & Quantization
 
 - MAC Array가 3채널씩 계산한 부분합을 받아, Phase로 나눠 계산한 부분합을 bias와 이전 저장값에 더해 출력 채널별로 누적한다.
@@ -74,9 +78,11 @@ CNN 가속기에서 Convolution 뒤의 출력 처리와 Fully Connected 연산�
 - 픽셀 순서로 도착한 채널 값을 3채널 그룹으로 묶어 저장하고, Max Pooling이 한 채널의 픽셀을 연속으로 받도록 채널 순서로 다시 읽는다. 읽기 경로는 BRAM으로 합성되도록 모델링했다.
 - 누적, ReLU, 양자화를 레지스터 단계로 나누고 데이터와 valid를 같은 클록에 등록해 MAC Array 출력과 Max Pooling 입력을 맞췄다.
 
-<ImgTag filename="lightletter-report-14.png" alt="CNN Block Diagram - Output Buffer" />
+<ImgTag filename="lightletter-output-stage.png" alt="Convolution 출력단 구조" />
 
-그림 2. Output Buffer 구조
+<ImgTag filename="lightletter-out-reorder.png" alt="Lane Packer와 Out Reorder" />
+
+그림 3. Convolution 출력단(위)과 Lane Packer·Out Reorder의 채널 재정렬(아래)
 
 ### Fully Connected
 
@@ -87,25 +93,35 @@ Flatten한 400개 입력을 120 → 84 → 26으로 줄이고, 마지막 출력�
 
 층마다 양자화 시프트(`SCALE_EXP` 16/15/14)를 따로 두어 Python 모델과 같은 정수 결과를 내도록 맞췄다.
 
-<ImgTag filename="lightletter-report-15.png" alt="CNN Block Diagram - Fully Connected" />
+공유 엔진으로 줄이는 과정에서 MAC 타이밍도 다시 잡았다. 처음 짠 MAC은 곱셈 뒤 덧셈 트리가 한 클록에 몰려 조합 경로가 길었다. 덧셈 트리를 균형 있게 다시 묶고 중간에 파이프라인 레지스터를 넣었으며, 피연산자와 곱셈 결과는 DSP48E1 내부 레지스터에 등록했다. 최종 공유 엔진은 100 MHz에서 setup 여유 +1.051 ns였다. 파이프라인이 5단으로 늘어난 만큼 C 골든 모델도 같은 구조로 고쳐 bit-exact 비교를 유지했다.
 
-그림 3. Fully Connected 구조
+<ImgTag filename="lightletter-fc-per-layer.png" alt="FC 층별 전용 엔진" />
+
+<ImgTag filename="lightletter-fc-shared.png" alt="FC 공유 엔진" />
+
+그림 4. 층별 전용 엔진(위, DSP 40)과 공유 엔진(아래, DSP 20)
 
 ### ArUco 크롭
 
 화이트보드 둘레의 ArUco 마커 6개로 글자 칸 5개의 위치를 잡는다. 1280×720 프레임에서 마커를 검출하고, 카메라 캘리브레이션 값으로 렌즈 왜곡을 보정한 뒤 homography로 화이트보드를 정면 좌표로 옮긴다. 칸마다 bilinear 보간으로 112×112 RGB 이미지를 만들어 DMA로 PL 전처리에 넘긴다. OpenCV 기준 구현을 Python notebook으로 먼저 만들고, 같은 단계를 Vitis에서 쓸 수 있게 C로 옮겼다. 마커가 일부 가려져도 남은 마커로 homography를 채우고, 맞춤 오차(RMS)를 함께 돌려준다.
 
+<ImgTag filename="lightletter-aruco-detect.png" alt="ArUco 마커 검출과 크롭 범위" />
+
+<ImgTag filename="lightletter-aruco-crop.png" alt="ArUco 크롭 결과" />
+
+그림 5. 촬영 프레임별 마커 검출과 크롭 범위(위), 마커 2개가 빠지고 보드가 기운 프레임에서 잘라낸 글자 칸(아래)
+
 ## 구현
 
 - **C 골든 모델:** Output Buffer, ReLU & Quantization, Fully Connected를 RTL과 같은 순서·비트 폭으로 C에 먼저 구현하고, Python에서 뽑은 벡터로 테스트했다. FC는 RTL의 5단 MAC 파이프라인까지 C에 그대로 옮겼다.
-- **RTL:** Verilog로 구현하고 Vivado out-of-context 합성으로 모듈 단위 타이밍과 자원을 확인했다. FC MAC은 DSP48E1 내부 입력·곱셈 레지스터를 쓰도록 짰다.
+- **RTL:** Verilog로 구현하고 Vivado out-of-context 합성으로 모듈 단위 타이밍과 자원을 확인했다.
 - **ArUco C:** `aruco_crop_run()` 하나로 프레임 → 칸 5개를 처리하고, 칸별 성공 여부와 마커 좌표를 결과 구조체로 돌려준다.
 - **송신 Web UI:** Zybo HDMI 출력을 USB 캡처보드로 받아, 보드와 같은 ArUco 크롭 → 전처리 단계를 PC에서 재현해 보여 준다. 보고 싶은 전처리 단계를 골라 띄우고, 칸별 인식 글자와 상위 3개 logit, 28×28 CNN 입력값을 확인하고 저장할 수 있다.
 - **수신 Web UI:** 최근 수신 문자와 누적 문자열을 나눠 표시하도록 고쳤다.
 
 <ImgTag filename="lightletter-report-04.gif" alt="송신 UI" />
 
-그림 4. 송신 UI: 촬영 화면, 전처리 단계, 인식 문자
+그림 6. 송신 UI: 촬영 화면, 전처리 단계, 인식 문자
 
 ## 검증·결과
 
@@ -115,7 +131,7 @@ Flatten한 400개 입력을 120 → 84 → 26으로 줄이고, 마지막 출력�
 
 <ImgTag filename="lightletter-report-28.png" alt="CNN 동작 검증" />
 
-그림 5. CNN 동작 검증
+그림 7. CNN 동작 검증
 
 ### FC 두 구조 비교
 
@@ -139,21 +155,9 @@ CNN 가속기 전체는 CPU(667 MHz) 대비 연산 시간 6.22배(2582.13 µs �
 
 <ImgTag filename="lightletter-report-35.png" alt="CNN 성능 확인 결과" />
 
-그림 6. CNN 성능 확인 결과
+그림 8. CNN 성능 확인 결과
 
 ## 문제 해결
-
-### 실제 촬영에서 전부 오인식
-
-학습 정확도는 94.13%였지만, 실제 화이트보드 촬영에서는 A\~E 다섯 글자가 모두 'WMAMR'로 나왔다. 학습 데이터와 촬영 입력의 기울기, 배경, 글자 크기가 달랐다. ArUco 마커 좌표로 렌즈 왜곡과 원근을 보정해 글자 칸을 정면 형태로 만들었고, PL 전처리(임계값, Bounding Box, 22×22 정규화)와 함께 입력 형태를 학습 데이터에 맞춘 뒤 인식이 맞기 시작했다.
-
-<ImgTag filename="lightletter-report-40.png" alt="CNN 입력 영상 개선" />
-
-그림 7. CNN 입력 영상 개선
-
-### FC MAC 타이밍
-
-처음 짠 FC MAC은 곱셈 뒤 덧셈 트리가 한 클록에 몰려 조합 경로가 길었다. 덧셈 트리를 균형 있게 다시 묶고 중간에 파이프라인 레지스터를 넣었으며, 피연산자와 곱셈 결과를 DSP48E1 내부 레지스터에 등록했다. 최종 공유 엔진은 100 MHz에서 setup 여유 +1.051 ns로 타이밍을 맞췄다. 파이프라인 단계가 늘어난 만큼 C 골든 모델도 같은 5단 구조로 맞춰 bit-exact 비교를 유지했다.
 
 ### 대기 중에도 나가는 전력
 
@@ -161,6 +165,6 @@ FC 단독 전력을 SAIF로 보면 입력이 없는 대기 상태에서 전용 �
 
 ## 배운 점
 
-- 모델 정확도가 높아도 입력이 학습 데이터와 다르면 인식이 실패했다. 하드웨어 앞단의 입력 준비가 정확도만큼 중요했다.
-- RTL보다 C 골든 모델을 먼저 같은 비트 폭·순서로 만들어 두니, 파이프라인을 바꿀 때마다 bit-exact 비교로 바로 확인할 수 있었다.
-- 자원을 줄인 구조가 항상 느린 것은 아니고, 실제 입력 패턴과 대기 시간까지 넣어 재야 구조 선택의 근거가 생겼다.
+- 실제 화이트보드 촬영 입력은 학습 데이터와 기울기, 배경, 글자 크기가 전부 달랐다. 모델보다 앞단의 크롭과 전처리가 인식률을 더 크게 좌우하는 걸 보면서 전처리가 정말 중요하다는 걸 느꼈다.
+- RTL을 바로 짜기보다 C 골든 모델을 같은 비트 폭과 순서로 먼저 만들어 둔 게 가장 도움이 됐다. 파이프라인을 몇 번을 바꿔도 bit-exact 비교 한 번으로 맞는지 바로 확인할 수 있어서, 고치는 게 두렵지 않았다.
+- DSP를 절반으로 줄인 공유 엔진이 당연히 느릴 거라고 생각했는데, 보드에서 재 보니 차이는 14 µs였고 에너지는 거의 같았다. 구조를 고를 때는 짐작보다 실제 입력 조건에서 잰 숫자를 믿어야 한다는 걸 배웠다.
