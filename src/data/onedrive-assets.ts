@@ -5845,6 +5845,15 @@ const onedriveAssetBlueprints = [
 
   {
     act_id: 'detail-report-lightletter',
+    filename: 'lightletter-aruco-frame.png',
+    name: 'LightLetter ArUco 크롭 전 촬영 프레임',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/portfolio/lightletter-aruco-frame.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
     filename: 'lightletter-aruco-crop.png',
     name: 'LightLetter ArUco 크롭 결과',
     type: 'None',

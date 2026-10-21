@@ -105,11 +105,15 @@ Flatten한 400개 입력을 120 → 84 → 26으로 줄이고, 마지막 출력�
 
 화이트보드 둘레의 ArUco 마커 6개로 글자 칸 5개의 위치를 잡는다. 1280×720 프레임에서 마커를 검출하고, 카메라 캘리브레이션 값으로 렌즈 왜곡을 보정한 뒤 homography로 화이트보드를 정면 좌표로 옮긴다. 칸마다 bilinear 보간으로 112×112 RGB 이미지를 만들어 DMA로 PL 전처리에 넘긴다. OpenCV 기준 구현을 Python notebook으로 먼저 만들고, 같은 단계를 Vitis에서 쓸 수 있게 C로 옮겼다. 마커가 일부 가려져도 남은 마커로 homography를 채우고, 맞춤 오차(RMS)를 함께 돌려준다.
 
+<ImgTag filename="lightletter-aruco-frame.png" alt="크롭 전 촬영 프레임" />
+
+<ImgTag filename="lightletter-aruco-crop.png" alt="크롭 후 글자 칸" />
+
+그림 5. 크롭 전 촬영 프레임(위)과 크롭 후 글자 칸 5개(아래). 보드가 기울고 마커 2개를 못 찾은 프레임이며, 아래 그림의 윗줄은 렌즈 왜곡 보정 전, 아랫줄은 보정 후다.
+
 <ImgTag filename="lightletter-aruco-detect.png" alt="ArUco 마커 검출과 크롭 범위" />
 
-<ImgTag filename="lightletter-aruco-crop.png" alt="ArUco 크롭 결과" />
-
-그림 5. 촬영 프레임별 마커 검출과 크롭 범위(위), 마커 2개가 빠지고 보드가 기운 프레임에서 잘라낸 글자 칸(아래)
+그림 6. 촬영 프레임 6장의 마커 검출과 크롭 범위
 
 ## 구현
 
@@ -121,7 +125,7 @@ Flatten한 400개 입력을 120 → 84 → 26으로 줄이고, 마지막 출력�
 
 <ImgTag filename="lightletter-report-04.gif" alt="송신 UI" />
 
-그림 6. 송신 UI: 촬영 화면, 전처리 단계, 인식 문자
+그림 7. 송신 UI: 촬영 화면, 전처리 단계, 인식 문자
 
 ## 검증·결과
 
@@ -131,7 +135,7 @@ Flatten한 400개 입력을 120 → 84 → 26으로 줄이고, 마지막 출력�
 
 <ImgTag filename="lightletter-report-28.png" alt="CNN 동작 검증" />
 
-그림 7. CNN 동작 검증
+그림 8. CNN 동작 검증
 
 ### FC 두 구조 비교
 
@@ -155,7 +159,7 @@ CNN 가속기 전체는 CPU(667 MHz) 대비 연산 시간 6.22배(2582.13 µs �
 
 <ImgTag filename="lightletter-report-35.png" alt="CNN 성능 확인 결과" />
 
-그림 8. CNN 성능 확인 결과
+그림 9. CNN 성능 확인 결과
 
 ## 문제 해결
 
