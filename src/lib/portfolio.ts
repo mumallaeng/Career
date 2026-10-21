@@ -197,6 +197,8 @@ export function getExperienceEntries(): ExperienceEntry[] {
 
 const CURATED_JOB_RELATED_SLUGS = [
   'lightletter',
+  'vga-pan-tilt-cctv',
+  'wardy',
   'korcham-ondevice-ai-mini-projects',
   'shoepernoma',
   'stonespring',
@@ -211,6 +213,16 @@ const CURATED_JOB_RELATED_SLUGS = [
 ] as const;
 
 const JOB_RELATED_HIGHLIGHTS: Record<(typeof CURATED_JOB_RELATED_SLUGS)[number], string[]> = {
+  'vga-pan-tilt-cctv': [
+    'Basys 3·OV7670 영상 객체 추적',
+    'Pan-Tilt 서보 PWM 제어 `servo_top`',
+    '자동·수동 모드 전환',
+  ],
+  wardy: [
+    'Jetson Orin Nano 온디바이스 추론',
+    '익명 추적·자세 추정·낙상 감지 모듈',
+    '영상 외부 전송 없는 엣지 파이프라인',
+  ],
   lightletter: [
     'FPGA CNN 가속기 Output Buffer·FC 설계',
     'BFSK 광통신·128-point FFT 송수신',
