@@ -3,6 +3,7 @@ title: "Wardy"
 startDate: 2026-08-05T00:00:00+09:00
 endDate: 2026-08-19T00:00:00+09:00
 draft: false
+thumbnail: "wardy-fall.gif"
 description: "Jetson Orin Nano에서 낙상·장시간 정지·위험물 근접을 감지하는 가정용 돌봄 안전 모니터링 On-Device AI 플랫폼"
 tags: ["on-device-ai", "jetson", "computer-vision", "pose-estimation", "edge-ai"]
 tech_stack: ["Jetson Orin Nano", "TensorRT", "C++", "Python", "YOLO11n", "RTMPose", "GRU", "Ollama", "SQLite", "WebRTC", "TypeScript", "Vite"]
@@ -156,7 +157,7 @@ CDC와 WHO의 고령자 낙상 통계는 65세 이상 성인 약 4명 중 1명�
 | 브라우저 | Google Chrome 151.0.7922.138 |
 | 담당 역할 | Vite UI 개발 서버 실행, 브라우저 화면 렌더링, Jetson API·이벤트·WebRTC 영상 확인, 같은 내부망의 휴대전화에 Wardy UI 제공 |
 | 시작 방법 | ./scripts/start_macos.sh — 최초 실행 시 npm ci, Jetson CA 신뢰 등록, macOS용 로컬 UI CA·HTTPS 인증서 생성 후 Vite UI 실행 |
-| UI 접속 | Mac과 휴대전화에서 https://Mac내부망주소:8000 사용. Jetson 주소는 .wardy-device에 저장해 다음 실행부터 재사용 |
+| UI 접속 | Mac과 휴대전화에서 `https://<Mac 내부망 주소>:8000` 사용. Jetson 주소는 .wardy-device에 저장해 다음 실행부터 재사용 |
 | 인증서 신뢰 | Jetson CA는 System Keychain, Mac UI용 로컬 CA는 Login Keychain에 등록하고, 휴대전화에서는 Mac UI·Jetson 인증서를 최초 1회 신뢰 설정 |
 | 내부 통신 | Jetson TCP 8443/TCP·UDP 8189 연결, 휴대전화는 Mac TCP 8000으로 UI 접속 |
 | 우회 연결 | Jetson 직접 연결이 불가능하면 SSH 별칭 터널과 macOS loopback alias를 준비해 동일한 HTTPS 주소로 연결 |
