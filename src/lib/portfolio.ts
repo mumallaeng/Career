@@ -305,10 +305,17 @@ const JOB_RELATED_META: Partial<
   },
 };
 
+// Listed under "more" only, not on the home page.
+const HOME_HIDDEN_SLUGS = new Set<string>(['inha-air', 'pdf-to-question-bank', 'greent', 'healthcasting']);
+
 export function getFeaturedProjects(): ProjectSummary[] {
   const projects: ProjectSummary[] = [];
+  const sortDates = new Map<string, number>();
 
   for (const slug of CURATED_JOB_RELATED_SLUGS) {
+    if (HOME_HIDDEN_SLUGS.has(slug)) {
+      continue;
+    }
     const activity = getActivityBySlug(slug);
     if (!activity) {
       continue;
@@ -334,9 +341,10 @@ export function getFeaturedProjects(): ProjectSummary[] {
       highlights: JOB_RELATED_HIGHLIGHTS[slug],
       href: `/activities/${slug}`,
     });
+    sortDates.set(slug, new Date(startDate || endDate || date || 0).getTime());
   }
 
-  return projects;
+  return projects.sort((a, b) => (sortDates.get(b.slug) ?? 0) - (sortDates.get(a.slug) ?? 0));
 }
 
 export function getPortfolioDetailContent(
