@@ -140,7 +140,7 @@ const experienceEnglish: Record<string, Pick<ExperienceEntry, 'title' | 'descrip
     description: 'Completed an ROS2 and AI autonomous robot development program, receiving the top final-project award and a contribution award.',
   },
   '/activities/korcham-ondevice-ai-semiconductor': {
-    title: 'Gyeonggi Fabless Academy · On-Device AI System Semiconductor Design, Cohort 2',
+    title: 'Gyeonggi Fabless Academy Cohort 1 · On-Device AI System Semiconductor Design, Cohort 2',
     description: 'Currently completing a program spanning RTL design and verification, RV32I and AXI-based SoC integration, and ARM Cortex-M4 bare-metal peripheral control through interrupts, I2C, SPI, ADC, and DMA.',
   },
   '/activities/assistant': {
