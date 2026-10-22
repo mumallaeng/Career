@@ -3625,6 +3625,349 @@ const onedriveAssetBlueprints = [
     remotePathOverride: 'media/photos/projects/LightLetter/lightletter-tx-ui.mp4',
   },
 
+  {
+    act_id: 'korcham-mini-lightletter',
+    filename: 'lightletter-tx-ui-x2.mp4',
+    name: 'lightletter-tx-ui-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/x2/lightletter-tx-ui-x2.mp4',
+  },
+
+  {
+    act_id: 'korcham-mini-vga-pan-tilt-cctv',
+    filename: 'vga-pan-tilt-cctv-demo-x2.mp4',
+    name: 'vga-pan-tilt-cctv-demo-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/x2/vga-pan-tilt-cctv-demo-x2.mp4',
+  },
+
+  {
+    act_id: 'korcham-mini-vga-pan-tilt-cctv',
+    filename: 'vga-readme-24-x2.mp4',
+    name: 'vga-readme-24-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/x2/vga-readme-24-x2.mp4',
+  },
+
+  {
+    act_id: 'korcham-mini-vga-pan-tilt-cctv',
+    filename: 'vga-readme-25-x2.mp4',
+    name: 'vga-readme-25-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/x2/vga-readme-25-x2.mp4',
+  },
+
+  {
+    act_id: ['인하공업전문대학', 'INHA-AIR'],
+    filename: 'INHA_AIR-x2.mp4',
+    name: 'INHA_AIR-x2 (2배속)',
+    type: 'None',
+    startDate: '2021-06-04',
+    remotePathOverride: 'media/photos/projects/INHA_AIR/x2/INHA_AIR-x2.mp4',
+  },
+
+  {
+    act_id: 'GreenT',
+    filename: 'rfid-x2.mp4',
+    name: 'rfid-x2 (2배속)',
+    type: 'None',
+    startDate: '2025-02-27',
+    remotePathOverride: 'media/photos/projects/GreenT/x2/rfid-x2.mp4',
+  },
+
+  {
+    act_id: ['addinedu', 'StoneSpring'],
+    filename: '전체동작-x2.mp4',
+    name: '전체동작-x2 (2배속)',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/x2/전체동작-x2.mp4',
+  },
+
+  {
+    act_id: ['addinedu', 'StoneSpring'],
+    filename: '전체1-x2.mp4',
+    name: '전체1-x2 (2배속)',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/x2/전체1-x2.mp4',
+  },
+
+  {
+    act_id: ['addinedu', 'StoneSpring'],
+    filename: '마채1-x2.mp4',
+    name: '마채1-x2 (2배속)',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/x2/마채1-x2.mp4',
+  },
+
+  {
+    act_id: ['addinedu', 'StoneSpring'],
+    filename: '표제-x2.mp4',
+    name: '표제-x2 (2배속)',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/x2/표제-x2.mp4',
+  },
+
+  {
+    act_id: ['addinedu', 'StoneSpring'],
+    filename: '제스처1-x2.mp4',
+    name: '제스처1-x2 (2배속)',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/x2/제스처1-x2.mp4',
+  },
+
+  {
+    act_id: ['addinedu', 'StoneSpring'],
+    filename: '제스처2-x2.mp4',
+    name: '제스처2-x2 (2배속)',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/x2/제스처2-x2.mp4',
+  },
+
+  {
+    act_id: ['addinedu', 'StoneSpring'],
+    filename: '제스처3-x2.mp4',
+    name: '제스처3-x2 (2배속)',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/x2/제스처3-x2.mp4',
+  },
+
+  {
+    act_id: ['addinedu', 'StoneSpring'],
+    filename: '제스처4-x2.mp4',
+    name: '제스처4-x2 (2배속)',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/x2/제스처4-x2.mp4',
+  },
+
+  {
+    act_id: ['addinedu', 'StoneSpring'],
+    filename: 'voice_emotion-1-x2.mp4',
+    name: 'voice_emotion-1-x2 (2배속)',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/x2/voice_emotion-1-x2.mp4',
+  },
+
+  {
+    act_id: ['addinedu', 'StoneSpring'],
+    filename: 'voice_emotion-2-x2.mp4',
+    name: 'voice_emotion-2-x2 (2배속)',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/x2/voice_emotion-2-x2.mp4',
+  },
+
+  {
+    act_id: ['addinedu', 'StoneSpring'],
+    filename: 'face_emotion-x2.mp4',
+    name: 'face_emotion-x2 (2배속)',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/x2/face_emotion-x2.mp4',
+  },
+
+  {
+    act_id: ['addinedu', 'StoneSpring'],
+    filename: 'gesture-x2.mp4',
+    name: 'gesture-x2 (2배속)',
+    type: 'None',
+    startDate: '2025-04-07',
+    remotePathOverride: 'media/photos/projects/StoneSpring/x2/gesture-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-33-x2.mp4',
+    name: 'wardy-readme-33-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-33-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-34-x2.mp4',
+    name: 'wardy-readme-34-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-34-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-35-x2.mp4',
+    name: 'wardy-readme-35-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-35-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-36-x2.mp4',
+    name: 'wardy-readme-36-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-36-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-37-x2.mp4',
+    name: 'wardy-readme-37-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-37-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-38-x2.mp4',
+    name: 'wardy-readme-38-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-38-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-39-x2.mp4',
+    name: 'wardy-readme-39-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-39-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-40-x2.mp4',
+    name: 'wardy-readme-40-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-40-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-41-x2.mp4',
+    name: 'wardy-readme-41-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-41-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-42-x2.mp4',
+    name: 'wardy-readme-42-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-42-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-43-x2.mp4',
+    name: 'wardy-readme-43-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-43-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-44-x2.mp4',
+    name: 'wardy-readme-44-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-44-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-45-x2.mp4',
+    name: 'wardy-readme-45-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-45-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-46-x2.mp4',
+    name: 'wardy-readme-46-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-46-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-47-x2.mp4',
+    name: 'wardy-readme-47-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-47-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-48-x2.mp4',
+    name: 'wardy-readme-48-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-48-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-49-x2.mp4',
+    name: 'wardy-readme-49-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-49-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-50-x2.mp4',
+    name: 'wardy-readme-50-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-50-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-02-x2.mp4',
+    name: 'wardy-readme-02-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-02-x2.mp4',
+  },
+
+  {
+    act_id: 'detail-report-wardy',
+    filename: 'wardy-readme-53-x2.mp4',
+    name: 'wardy-readme-53-x2 (2배속)',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/x2/wardy-readme-53-x2.mp4',
+  },
+
+
 
   {
     act_id: 'korcham-mini-rv32i',
