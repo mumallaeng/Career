@@ -24,6 +24,12 @@ project_kind: "open_source"
 2026년에는 RustPython 메인테이너가 새로 시작한 인터프리터 프로젝트 pyre, 평소 사용하는 Vivado 관련 도구인 Xilinx/XilinxTclStore와 vivado-on-silicon-mac, \
 VSCode Python 확장, 그리고 반도체 설계 쪽 Chisel, FINN, RapidWright까지 기여·이슈 리포트 범위를 넓혀가고 있습니다.
 
+## 담당 역할
+
+- **설계 대상:** 사용 중인 인터프리터·EDA·FPGA 도구(RustPython, pyre, FINN, RapidWright, XilinxTclStore, Chisel 등)에서 직접 만난 버그와 진단 메시지를 고치는 PR
+- **목적:** 쓰다가 막힌 문제를 업스트림에서 고쳐, 같은 도구를 쓰는 사람이 같은 문제를 다시 겪지 않게 하는 것
+- **검증 방식:** 문제를 최소 재현으로 만든 뒤 회귀 테스트를 추가하고, 각 저장소의 CI와 기여 규칙(DCO sign-off 등)을 통과해 메인테이너 리뷰 후 병합
+
 ## 기여 프로젝트 요약
 
 | 프로젝트 | 기간 | 유형 | 내용 |
