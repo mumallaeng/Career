@@ -25,7 +25,7 @@ export const homeCopy = {
       sectionNavigation: '섹션 탐색',
     },
     hero: {
-      tagline: '온디바이스 AI 시스템반도체 설계·검증 역량을 쌓고 있는 주니어 엔지니어입니다.',
+      tagline: '여러 계층의 경험으로, 시스템과 로직을 연결하는 엔지니어',
     },
     about: {
       title: '소개',
@@ -76,7 +76,7 @@ export const homeCopy = {
       sectionNavigation: 'Section navigation',
     },
     hero: {
-      tagline: 'A junior engineer working toward a career in on-device AI semiconductor design and verification.',
+      tagline: 'An engineer who connects systems and logic through experience across many layers',
     },
     about: {
       title: 'About Me',
