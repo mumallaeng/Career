@@ -166,7 +166,7 @@ export function getExperienceEntries(): ExperienceEntry[] {
       group: 'Activities',
       title: '경기도 팹리스 아카데미 1기 · 온디바이스AI 시스템반도체 설계 2기',
       dateRange: '2026.03.24 - 2026.10.23',
-      description: 'Verilog·SystemVerilog·UVM 기반 설계·검증과 RV32I·AXI4-Lite SoC를 거쳐, 현재 ARM Cortex-M4에서 Interrupt·I2C·SPI·ADC·DMA 기반 주변장치 제어를 학습하고 있습니다.',
+      description: '980시간 동안 Verilog·SystemVerilog·UVM 설계·검증, RV32I·AXI4-Lite SoC, ARM Cortex-M4 bare-metal firmware, Jetson On-Device AI를 거쳐 파이널 프로젝트로 FPGA CNN 가속기와 광통신 시스템(LightLetter)을 완성했습니다.',
       href: '/activities/korcham-ondevice-ai-semiconductor',
     },
     {

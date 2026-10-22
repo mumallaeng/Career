@@ -139,7 +139,7 @@ const experienceEnglish: Record<string, Pick<ExperienceEntry, 'title' | 'descrip
   },
   '/activities/korcham-ondevice-ai-semiconductor': {
     title: 'Gyeonggi Fabless Academy Cohort 1 · On-Device AI System Semiconductor Design, Cohort 2',
-    description: 'Currently completing a program spanning RTL design and verification, RV32I and AXI-based SoC integration, and ARM Cortex-M4 bare-metal peripheral control through interrupts, I2C, SPI, ADC, and DMA.',
+    description: 'A 980-hour program covering Verilog, SystemVerilog, and UVM design and verification, RV32I and AXI4-Lite SoC integration, ARM Cortex-M4 bare-metal firmware, and on-device AI on Jetson, finished with a final project that built an FPGA CNN accelerator and optical link (LightLetter).',
   },
   '/activities/assistant': {
     title: 'Course Content and Event Operations Support',
