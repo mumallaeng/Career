@@ -3,7 +3,7 @@ title: "LightLetter"
 startDate: 2026-09-09T00:00:00+09:00
 endDate: 2026-10-15T00:00:00+09:00
 draft: false
-description: "FPGA CNN으로 손글씨 문자를 인식하고 BFSK 광통신으로 전송해 수신부 FFT로 복원하는 파이널 프로젝트"
+description: "FPGA CNN 가속기의 Convolution 출력단과 공유 FC 연산기(DSP 40 → 20)를 설계하고, Python·C 골든 모델 bit-exact 비교와 Zybo 보드 실측으로 검증"
 tags: ["fpga", "cnn", "fft", "optical-communication", "rtl", "uvm", "on-device-ai"]
 tech_stack: ["Verilog", "SystemVerilog", "UVM", "C", "Python", "Zybo Z7-20", "Vivado", "Vitis", "AXI4-Lite", "XADC", "FFT", "BFSK"]
 skill_tags: ["rtl-design", "verification", "soc-integration", "hardware-accelerator", "team-collaboration"]
@@ -45,12 +45,14 @@ featured: true
 
 ## 담당 역할
 
-CNN 가속기에서 Convolution 뒤의 출력 처리와 Fully Connected 연산기를 맡았고, 송신 보드의 ArUco 글자 영역 추출(C)과 송수신 Web UI를 만들었습니다.
+- **설계 대상:** CNN 가속기의 Convolution 출력단(Output Buffer, ReLU & Quantization, 채널 재정렬)과 Fully Connected 연산기(RTL), 송신 보드의 ArUco 글자 칸 크롭(PS C), 송수신 Web UI
+- **목적:** Convolution 결과를 다음 단이 원하는 순서와 비트 폭으로 손실 없이 넘기고, FC를 DSP 20개로 줄여 자원 여유를 확보
+- **검증 방식:** Python QAT · C 골든 모델 · RTL 출력의 bit-exact 비교, Vivado out-of-context 합성과 SAIF 전력 분석, Zybo Z7-20 보드 실측
 
 | 파트 | 한 일 |
 |:--|:--|
 | CNN 모델 | LeNet-5 계열 후보 비교, 3×3 구조 확정, 대문자 26클래스 재학습, RTL 검증용 layer 출력 추출 |
-| Output Buffer, ReLU & Quantization | Conv 부분합 누적, 40-bit → 16-bit 양자화, Max Pooling용 채널 순서 재정렬 RTL |
+| Output Buffer, ReLU & Quantization | conv2 두 패스 부분합 누적, 40-bit → 16-bit 양자화, Max Pooling·FC용 채널 순서 재정렬 RTL |
 | Fully Connected | 400 → 120 → 84 → 26 FC RTL, 층별 전용 엔진(DSP 40)과 공유 엔진(DSP 20) 설계·비교 |
 | ArUco 크롭 | 마커 검출부터 렌즈 왜곡 보정, 원근 보정, 112×112 글자 칸 5개 추출까지 PS C 구현 |
 | Web UI | 송신부 전처리 단계·CNN 인식 결과 화면, 수신부 문자 표시 |
@@ -71,27 +73,42 @@ CNN 가속기에서 Convolution 뒤의 출력 처리와 Fully Connected 연산�
 
 그림 2. 하드웨어로 옮긴 Convolution Layer. Line Buffer와 MAC Array 사이의 Zero Gating Array가 입력 0일 때 곱셈을 막는다.
 
-### Output Buffer, ReLU & Quantization
+### Output Buffer
 
-- MAC Array가 3채널씩 계산한 부분합을 받아, Phase로 나눠 계산한 부분합을 bias와 이전 저장값에 더해 출력 채널별로 누적한다.
-- 누적이 끝난 40-bit 값은 ReLU로 음수를 없애고 Quantizer에서 16-bit로 줄인다.
-- 픽셀 순서로 도착한 채널 값을 3채널 그룹으로 묶어 저장하고, Max Pooling이 한 채널의 픽셀을 연속으로 받도록 채널 순서로 다시 읽는다. 읽기 경로는 BRAM으로 합성되도록 모델링했다.
-- 누적, ReLU, 양자화를 레지스터 단계로 나누고 데이터와 valid를 같은 클록에 등록해 MAC Array 출력과 Max Pooling 입력을 맞췄다.
+conv2는 입력 채널이 6개인데 MAC Array는 3채널씩만 계산한다. 그래서 채널 0\~2와 3\~5로 두 번 나눠 돌린다. 첫 패스는 3채널 합에 bias를 더해 BRAM에 저장하고, 두 번째 패스는 같은 주소의 값을 읽어 더한 완성값을 내보낸다. 저장 공간은 11×11 픽셀 × 출력 채널 16개, 1,936칸이다. conv1은 입력이 1채널이라 패스가 하나이고 부분합 BRAM을 만들지 않는다(generate). 두 층 모두 같은 `conv_out_stage`에 LAYER 파라미터만 바꿔 쓴다.
+
+누산기는 40-bit로 잡았다. INT16 × INT16 곱 27개(3채널 × 9탭)면 36-bit에 담기지만, 같은 누산 블록을 FC1(곱 400개 + bias)에도 쓸 수 있도록 2³⁸·⁶에 bias까지 넘치지 않는 폭을 골랐다.
+
+<ImgTag filename="lightletter-seq-output-buffer-conv2.png" alt="Output Buffer conv2 sequence" />
+
+그림 3. conv2 두 패스의 부분합 저장과 합산 sequence
+
+### 채널 재정렬
+
+MAC Array는 픽셀마다 출력 채널 16개를 차례로 내놓지만, Max Pooling과 FC는 한 채널의 픽셀을 이어서 받아야 한다. FC1 weight도 PyTorch flatten 순서(채널 바깥, 픽셀 안쪽)로 학습돼 있다. 처음에는 출력 FIFO를 뒀는데, 순서를 바꿀 수 없어 레이어 출력 전체를 담는 재정렬 버퍼로 바꿨다. 들어온 순서대로 쓰고, 읽기 주소는 픽셀 × 그룹 수 + 그룹으로 계산해 채널 순서로 읽는다. 읽을 칸이 이미 써졌으면 레이어가 다 차기를 기다리지 않고 바로 내보낸다.
 
 <ImgTag filename="lightletter-output-stage.png" alt="Convolution 출력단 구조" />
 
 <ImgTag filename="lightletter-out-reorder.png" alt="Lane Packer와 Out Reorder" />
 
-그림 3. Convolution 출력단(위)과 Lane Packer·Out Reorder의 채널 재정렬(아래)
+그림 4. Convolution 출력단(위)과 Lane Packer·Out Reorder의 채널 재정렬(아래)
+
+### ReLU & Quantization
+
+40-bit 누산값을 다음 층 입력 16-bit로 바꾼다. 음수를 0으로 만든 뒤 레이어마다 정한 2의 거듭제곱 scale만큼 shift하고, round-half-even으로 반올림한 다음 32,767에서 포화시킨다. 내림한 몫과 버린 하위 비트를 비교해 올림 여부를 정하는 비교기 두 개와 덧셈 하나라 조합 논리 한 단으로 끝난다. PyTorch `torch.round`와 같은 규칙이라 골든 모델과 비트 단위로 맞출 수 있었다.
+
+<ImgTag filename="lightletter-seq-relu-quant.png" alt="ReLU·양자화 sequence" />
+
+그림 5. ReLU & Quantization sequence
 
 ### Fully Connected
 
-Flatten한 400개 입력을 120 → 84 → 26으로 줄이고, 마지막 출력에서 ArgMax로 글자를 고른다. 두 구조를 만들어 비교했다.
+Flatten한 400개 입력을 120 → 84 → 26으로 줄이고, 마지막 출력에서 ArgMax로 글자를 고른다. 병렬도는 세 번 바뀌었다. 층마다 전용 곱셈기를 두는 20/12/4(DSP 36)로 계산을 시작했고, 실측 conv 시간을 반영해 25/10/5(DSP 40)로 만들었다. DSP를 120개까지 늘려도 프레임 시간이 약 23%만 줄어, 나머지는 conv 시간이 지배한다는 것도 이때 확인했다. 그 뒤 층들이 번갈아 노는 것을 보고 세 층이 곱셈기 20개를 공유하는 구조로 바꿨다.
 
-- **층별 전용 엔진(DSP 40):** FC1·FC2·FC3에 MAC을 25·10·5개씩 둔다. 입력이 들어오는 동안 층별로 계산을 겹칠 수 있다.
-- **공유 엔진(DSP 20):** 층별 입력을 Feature Buffer(LUT 기반 distributed RAM)에 두고, FC Controller가 Layer MUX와 Weight·Bias 주소를 바꿔 세 층이 MAC 20개를 차례로 쓴다.
+- **층별 전용 엔진(DSP 40):** FC1·FC2·FC3에 MAC을 25·10·5개씩 둔다. FC1이 도는 동안 FC2·FC3 곱셈기는 논다.
+- **공유 엔진(DSP 20):** 층별 입력을 Feature Buffer(LUT 기반 distributed RAM)에 두고, FC Controller가 Layer MUX와 Weight·Bias 주소를 바꿔 세 층이 MAC 20개를 차례로 쓴다. 입력 하나를 곱셈기 20개에 동시에 넣는 input-stationary 방식이고, weight는 한 행 320-bit ROM에서 한 행씩 흘린다.
 
-층마다 양자화 시프트(`SCALE_EXP` 16/15/14)를 따로 두어 Python 모델과 같은 정수 결과를 내도록 맞췄다.
+P=20은 FC1 출력 120개를 나머지 없이 나누는 값이다. FC1이 전체 계산의 80%라 FC1에서 낭비가 없고, FC2·FC3의 빈 칸까지 넣어도 곱셈기 이용률은 약 95%(60,264 MAC ÷ 3,168 cycle × 20)다. FC1 첫 그룹은 conv2 결과가 도착하는 대로 따라가며 시작해 conv2·Max Pooling과 시간이 겹친다. 층마다 양자화 shift(`SCALE_EXP` 16/14/14)를 따로 두어 Python 모델과 같은 정수 결과를 내도록 맞췄고, weight를 export할 때 층별 최악의 합(FC1 37-bit, FC2·FC3 35-bit)을 계산해 40-bit를 넘으면 스크립트가 실패하게 했다.
 
 공유 엔진으로 줄이는 과정에서 MAC 타이밍도 다시 잡았다. 처음 짠 MAC은 곱셈 뒤 덧셈 트리가 한 클록에 몰려 조합 경로가 길었다. 덧셈 트리를 균형 있게 다시 묶고 중간에 파이프라인 레지스터를 넣었으며, 피연산자와 곱셈 결과는 DSP48E1 내부 레지스터에 등록했다. 최종 공유 엔진은 100 MHz에서 setup 여유 +1.051 ns였다. 파이프라인이 5단으로 늘어난 만큼 C 골든 모델도 같은 구조로 고쳐 bit-exact 비교를 유지했다.
 
@@ -99,33 +116,39 @@ Flatten한 400개 입력을 120 → 84 → 26으로 줄이고, 마지막 출력�
 
 <ImgTag filename="lightletter-fc-shared.png" alt="FC 공유 엔진" />
 
-그림 4. 층별 전용 엔진(위, DSP 40)과 공유 엔진(아래, DSP 20)
+그림 6. 층별 전용 엔진(위, DSP 40)과 공유 엔진(아래, DSP 20)
+
+<ImgTag filename="lightletter-seq-fc.png" alt="FC 전체 sequence" />
+
+그림 7. 공유 엔진의 FC1 → FC2 → FC3 처리 sequence. 첫 입력부터 마지막 logit까지 3,216 cycle
 
 ### ArUco 크롭
 
-화이트보드 둘레의 ArUco 마커 6개로 글자 칸 5개의 위치를 잡는다. 1280×720 프레임에서 마커를 검출하고, 카메라 캘리브레이션 값으로 렌즈 왜곡을 보정한 뒤 homography로 화이트보드를 정면 좌표로 옮긴다. 칸마다 bilinear 보간으로 112×112 RGB 이미지를 만들어 DMA로 PL 전처리에 넘긴다. OpenCV 기준 구현을 Python notebook으로 먼저 만들고, 같은 단계를 Vitis에서 쓸 수 있게 C로 옮겼다. 마커가 일부 가려져도 남은 마커로 homography를 채우고, 맞춤 오차(RMS)를 함께 돌려준다.
+화이트보드 둘레의 ArUco 마커 6개로 글자 칸 5개의 위치를 잡는다. homography는 점 4개면 풀리지만, 손이나 펜이 마커를 가리는 경우를 생각해 6개를 두고 빠진 마커 위치는 구한 행렬로 채운다. 1280×720 프레임에서 마커를 검출하고, 마커 중심의 렌즈 왜곡을 보정(k1, k2)한 뒤 homography로 화이트보드를 정면 좌표로 옮긴다. 출력 픽셀마다 보드 좌표 → homography → 왜곡 → 원본 순으로 거슬러 올라가 bilinear 샘플링하므로, 보정 영상을 따로 만들지 않고 칸 5개를 112×112 RGB로 바로 뽑아 DMA로 PL 전처리에 넘긴다.
+
+PS는 Vitis bare-metal이라 OpenCV를 올릴 수 없었다. OpenCV 기준 구현을 Python notebook으로 먼저 만들고, 적응 임계값, 마커 후보 검출, 비트 읽기와 사전 대조, homography, 왜곡 보정만 C로 옮겼다. libm도 링크되지 않아 제곱근은 뉴턴 반복으로 직접 계산했다. 글자 획이 마커처럼 보여 같은 id 후보가 둘 이상 나오면, 조합마다 homography를 풀어 잔차가 가장 작은 조합을 고른다.
 
 <ImgTag filename="lightletter-aruco-frame.png" alt="크롭 전 촬영 프레임" />
 
 <ImgTag filename="lightletter-aruco-crop.png" alt="크롭 후 글자 칸" />
 
-그림 5. 크롭 전 촬영 프레임(위)과 크롭 후 글자 칸 5개(아래). 보드가 기울고 마커 2개를 못 찾은 프레임이며, 아래 그림의 윗줄은 렌즈 왜곡 보정 전, 아랫줄은 보정 후다.
+그림 8. 크롭 전 촬영 프레임(위)과 크롭 후 글자 칸 5개(아래). 보드가 기울고 마커 2개를 못 찾은 프레임이며, 아래 그림의 윗줄은 렌즈 왜곡 보정 전, 아랫줄은 보정 후다.
 
 <ImgTag filename="lightletter-aruco-detect.png" alt="ArUco 마커 검출과 크롭 범위" />
 
-그림 6. 촬영 프레임 6장의 마커 검출과 크롭 범위
+그림 9. 촬영 프레임 6장의 마커 검출과 크롭 범위
 
 ## 구현
 
 - **C 골든 모델:** Output Buffer, ReLU & Quantization, Fully Connected를 RTL과 같은 순서·비트 폭으로 C에 먼저 구현하고, Python에서 뽑은 벡터로 테스트했다. FC는 RTL의 5단 MAC 파이프라인까지 C에 그대로 옮겼다.
 - **RTL:** Verilog로 구현하고 Vivado out-of-context 합성으로 모듈 단위 타이밍과 자원을 확인했다.
-- **ArUco C:** `aruco_crop_run()` 하나로 프레임 → 칸 5개를 처리하고, 칸별 성공 여부와 마커 좌표를 결과 구조체로 돌려준다.
+- **ArUco C:** `aruco_crop_run()` 하나로 프레임 → 칸 5개를 처리하고, 칸별 성공 여부와 마커 좌표를 결과 구조체로 돌려준다. 같은 알고리즘을 Python(`aruco_c.py`)으로 옮겨 PC 결과와 비교했다.
 - **송신 Web UI:** Zybo HDMI 출력을 USB 캡처보드로 받아, 보드와 같은 ArUco 크롭 → 전처리 단계를 PC에서 재현해 보여 준다. 보고 싶은 전처리 단계를 골라 띄우고, 칸별 인식 글자와 상위 3개 logit, 28×28 CNN 입력값을 확인하고 저장할 수 있다.
-- **수신 Web UI:** 최근 수신 문자와 누적 문자열을 나눠 표시하도록 고쳤다.
+- **수신 Web UI:** Web Serial로 UART JSON 줄을 읽어 FFT 스펙트럼과 복원 문자를 표시한다. JSON이 아닌 줄과 CRC가 실패한 문자는 버리고, 최근 수신 문자와 누적 문자열을 나눠 보여 준다.
 
 <ImgTag filename="lightletter-report-04.gif" alt="송신 UI" />
 
-그림 7. 송신 UI: 촬영 화면, 전처리 단계, 인식 문자
+그림 10. 송신 UI: 촬영 화면, 전처리 단계, 인식 문자
 
 ## 검증·결과
 
@@ -135,7 +158,7 @@ Flatten한 400개 입력을 120 → 84 → 26으로 줄이고, 마지막 출력�
 
 <ImgTag filename="lightletter-report-28.png" alt="CNN 동작 검증" />
 
-그림 8. CNN 동작 검증
+그림 11. CNN 동작 검증
 
 ### FC 두 구조 비교
 
@@ -159,13 +182,33 @@ CNN 가속기 전체는 CPU(667 MHz) 대비 연산 시간 6.22배(2582.13 µs �
 
 <ImgTag filename="lightletter-report-35.png" alt="CNN 성능 확인 결과" />
 
-그림 9. CNN 성능 확인 결과
+그림 12. CNN 성능 확인 결과
 
 ## 문제 해결
 
+### 멈출 수 없는 MAC Array
+
+- **증상:** Max Pooling이 라인 버퍼를 재사용하는 동안 ready를 내리면, 그 클록에 들어온 Convolution 결과가 사라졌다.
+- **원인:** MAC Array에는 ready 입력이 없어 멈출 수 없다. 처음 Output Buffer는 ready를 보고 기다리는 상태를 뒀지만, 앞단이 멈추지 않으니 1칸짜리 레지스터 값이 덮어써졌다.
+- **수정:** 앞단을 고치는 대신 출력단에 레이어 출력 전체를 담는 재정렬 버퍼를 뒀다. 순서를 바꿔야 하는 문제도 같은 버퍼가 함께 풀었고, Output Buffer는 ready를 보지 않고 항상 진행하게 되어 FSM 상태도 줄었다.
+
+### 재정렬 버퍼 주소 겹침
+
+- **증상:** 비교 testbench에서 1,024번째 이후 출력이 앞쪽 값과 다르게 나왔다.
+- **원인:** 쓰기 주소를 한 비트 짧게 잡아 1,024번째 이후 값이 앞 칸에 겹쳐 저장됐다.
+- **수정:** 주소를 레이어 출력 전체 깊이를 담는 폭으로 고쳤다. 같은 칸을 쓰는 클록에 바로 읽어야 하는 경우는 bypass 레지스터로 넘겼다.
+
+### Output Buffer 타이밍
+
+- **증상:** 100 MHz에서 conv2 경로가 1.239 ns 모자랐다.
+- **원인:** BRAM 읽기 → 3채널 합 → 누산 → ReLU·양자화 → 버퍼 쓰기가 한 클록 경로였다.
+- **수정:** Output Buffer 출력에 레지스터 한 단을 넣어 누산 경로와 양자화 경로를 나눴다. 지연은 1 cycle 늘었지만 값은 그대로이고, conv2 경로 WNS가 +1.304 ns가 됐다.
+
 ### 대기 중에도 나가는 전력
 
-FC 단독 전력을 SAIF로 보면 입력이 없는 대기 상태에서 전용 엔진이 74 mW, 공유 엔진이 5 mW였다. 차이는 가중치 ROM이었다. 처음 구조는 ROM을 매 클록 읽었고, 공유 엔진은 MAC을 발행하는 클록에만 읽도록 read enable을 넣었다. 보드에서 잰 대기 전력 차이 98 mW도 이 값에 레귤레이터 손실을 더한 크기와 맞았다.
+- **증상:** 보드에서 입력이 없는 대기 상태 전력이 전용 엔진 빌드 쪽이 98 mW 높았다.
+- **원인:** FC 단독 전력을 SAIF로 보니 대기 상태에서 전용 엔진 74 mW, 공유 엔진 5 mW였고, 차이는 가중치 ROM이었다. 처음 구조는 ROM을 매 클록 읽었다.
+- **수정:** 공유 엔진은 MAC을 발행하는 클록에만 ROM을 읽도록 read enable을 넣었다. 보드에서 잰 98 mW 차이도 이 값에 레귤레이터 손실을 더한 크기와 맞았다.
 
 ## 배운 점
 

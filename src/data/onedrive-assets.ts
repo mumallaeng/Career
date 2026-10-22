@@ -6203,6 +6203,33 @@ const onedriveAssetBlueprints = [
     startDate: '2026-10-15',
     remotePathOverride: 'media/photos/projects/LightLetter/portfolio/lightletter-aruco-crop.png',
   },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-seq-output-buffer-conv2.png',
+    name: 'LightLetter Output Buffer conv2 sequence',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/portfolio/lightletter-seq-output-buffer-conv2.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-seq-relu-quant.png',
+    name: 'LightLetter ReLU·양자화 sequence',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/portfolio/lightletter-seq-relu-quant.png',
+  },
+
+  {
+    act_id: 'detail-report-lightletter',
+    filename: 'lightletter-seq-fc.png',
+    name: 'LightLetter FC 전체 sequence',
+    type: 'None',
+    startDate: '2026-10-15',
+    remotePathOverride: 'media/photos/projects/LightLetter/portfolio/lightletter-seq-fc.png',
+  },
 ] as const satisfies readonly OneDriveAssetBlueprint[];
 
 const buildOneDriveAsset = (asset: OneDriveAssetBlueprint): OneDriveAssetDefinition => {
