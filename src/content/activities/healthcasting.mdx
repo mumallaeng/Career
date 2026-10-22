@@ -3,7 +3,7 @@ title: "HealthCasting"
 startDate: 2024-12-12T00:00:00+09:00
 endDate: 2025-01-03T00:00:00+09:00
 draft: false
-description: "검색 트렌드와 함께 보는 건강 경보 체계"
+description: "팀 데이터를 한 구조로 모으는 DB 연결 계층과 Google Trends 수집 파이프라인을 만들어, 질병 검색량과 실제 환자 수의 상관 분석으로 건강 경보 지표 가능성을 검토"
 tags: ["data-analysis", "health", "search-trends", "eda", "api", "weather-data"]
 tech_stack: ["Python", "Selenium", "BeautifulSoup", "pytrends", "Pandas", "MySQL", "Amazon RDS", "SQLAlchemy"]
 skill_tags: ["data-collection", "data-analysis", "database-design", "team-leading"]
@@ -24,7 +24,11 @@ project_kind: "team"
 
 {/* more */}
 
-## 담당 작업
+## 담당 역할
+
+- **설계 대상:** 팀장으로서 프로젝트 파일 구조, MySQL·Amazon RDS 연결 함수와 설정(SQLAlchemy), pytrends 기반 Google Trends 수집 파이프라인
+- **목적:** 팀원 네 명이 따로 모은 기상·환자 수·검색 트렌드 데이터를 같은 구조로 저장·조회해, 검색 트렌드가 질병 경보 지표로 쓰일 수 있는지 비교
+- **검증 방식:** 질병 키워드 검색량과 실제 환자 수의 상관 분석, 시기별 트렌드 비교 시각화
 
 - 팀장으로 프로젝트 주제 범위, 파일 구조, 데이터 수집 흐름을 정리했습니다.
 - Google Trends 데이터를 수집하고, 질병 키워드 검색량 변화와 실제 환자 수 데이터의 흐름을 비교했습니다.
