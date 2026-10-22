@@ -5729,6 +5729,15 @@ const onedriveAssetBlueprints = [
 
   {
     act_id: 'detail-report-vga-pan-tilt-cctv',
+    filename: 'vga-golden-fullscreen-gate.png',
+    name: 'VGA Golden Model FULLSCREEN 검출 게이트 전후',
+    type: 'None',
+    startDate: '2026-09-07',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/portfolio/vga-golden-fullscreen-gate.png',
+  },
+
+  {
+    act_id: 'detail-report-vga-pan-tilt-cctv',
     filename: 'vga-readme-23.gif',
     name: '자동 추적과 수동 모드 전환 시연',
     type: 'None',
