@@ -28,7 +28,7 @@ featured: false
 
 OV7670 카메라 영상에서 녹색 객체를 검출하고, 객체 중심과 화면 중심의 오차로 Pan-Tilt 카메라가 대상을 따라가도록 만든 FPGA 시스템입니다. 영상 입력, 색상 검출, 노이즈 제거, 중심 좌표 계산과 서보 제어를 Basys 3 하나에 통합했고, 조이스틱으로 카메라 방향을 직접 조절하는 수동 모드도 함께 구성했습니다.
 
-<VideoTag filename="vga-pan-tilt-cctv-demo-x2.mp4" title="VGA Pan-Tilt CCTV 시연 (2배속)" />
+<VideoTag filename="vga-pan-tilt-cctv-demo.mp4" title="VGA Pan-Tilt CCTV 시연" />
 
 ## 팀 구성
 
@@ -68,23 +68,30 @@ OV7670 카메라 영상에서 녹색 객체를 검출하고, 객체 중심과 �
 
 ### `servo_top` 구조
 
-`servo_top`은 `ctrl_mode_mux` → `axis_ctrl` → `servo_pwm_pan`/`servo_pwm_tilt` 순서로 연결된다. 자동 모드와 수동 모드가 같은 `axis_ctrl`을 공유하도록 입력 선택을 맨 앞에 두었다. 자동 모드는 객체 검출이 유효할 때의 `frame_done`, 수동 모드는 `joy_done`을 갱신 신호로 쓰고, 선택한 변화량과 갱신 신호를 함께 넘겨 두 모드의 갱신 주기가 섞이지 않게 했다.
+`servo_top`은 `ctrl_mode_mux` → `axis_ctrl`(내부 `coord_to_angle`) → `servo_pwm_pan`/`servo_pwm_tilt` 순서로 연결된다. 자동 모드와 수동 모드가 같은 `axis_ctrl`을 공유하도록 입력 선택을 맨 앞에 두었다. 갱신 신호 `sel_done`은 두 모드가 다르게 만든다.
+
+- **수동 모드:** 조이스틱 변화량을 50 Hz tick마다 넘긴다. 사람이 직접 보고 조작하는 open loop라 서보가 받을 수 있는 만큼 빠르게 보낸다.
+- **자동 모드:** 프레임 결과가 오면 `frame_pending`을 세우고, 6 Hz tick에서 가장 최근 프레임 오차를 한 번 넘긴다. 검출부터 서보 이동까지 약 100 ms가 걸리는 closed loop라, 그보다 빨리 명령하면 같은 오차를 여러 번 보내 기계적 한계까지 밀려났다.
 
 <ImgTag filename="vga-readme-10.png" alt="servo_top 구조" />
 
 그림 2. `servo_top` 구조
 
+<ImgTag filename="vga-seq-servo-top.png" alt="servo_top sequence" />
+
+그림 3. `servo_top` 내부 sequence. 모드별 갱신 주기와 공통 경로, PWM 주기 경계 반영
+
 ### 각도 누적과 범위 제한
 
-`axis_ctrl`은 입력 변화량에 5/16°/count 이득을 적용하고, 한 번에 반영하는 변화량을 최대 ±20°로 제한한 뒤 현재 각도에 누적한다. 결과는 브래킷 구조에 맞춰 Pan 15°\~165°, Tilt 25°\~155° 안으로 자른다. 각도 이동은 `move_tick`에 맞춰 한 단계씩 진행한다.
+`coord_to_angle`은 변화량에 5/16°/count 이득을 곱하고 한 번의 명령을 최대 ±20°로 포화시킨다. `axis_ctrl`은 갱신 펄스의 상승 에지에서만 현재 각도에 변화량을 반영해 한 갱신이 서보를 한 번만 움직이게 하고, 결과를 Pan 15°\~165°, Tilt 25°\~155° 안으로 자른다. `axis_ctrl`과 `servo_pwm`에 같은 범위 파라미터를 넘겨, 한쪽만 넓어서 명령이 쌓이는 windup이 생기지 않게 했다.
 
 <ImgTag filename="vga-readme-13.png" alt="각도 누적과 범위 제한" />
 
-그림 3. 변화량 → 각도 변환 → 각도 갱신 → 범위 제한
+그림 4. 변화량 → 각도 변환 → 각도 갱신 → 범위 제한
 
 ### PWM 생성
 
-`servo_pwm`은 각도 명령을 High count로 바꾸고 20 ms 주기 카운터와 비교해 PWM을 만든다. 100 MHz에서 20 ms는 2,000,000 count이고, High 구간은 1 ms(0°) + 각도 × count/degree로 1\~2 ms 사이에서 정한다. 목표 High count는 PWM 주기 경계에서만 반영해, 출력 중인 펄스의 폭이 중간에 바뀌지 않게 했다.
+`servo_pwm`은 각도 명령을 High count로 바꾸고 20 ms 주기 카운터와 비교해 PWM을 만든다. 100 MHz에서 20 ms는 2,000,000 count이고, High 구간은 1 ms(0°) + 각도 × count/degree로 1\~2 ms 사이에서 정한다. 변환한 폭은 매 클록 `high_next`에 등록해 두고, PWM 주기 경계(`counter == 0`)에서만 `high`로 옮겨 출력 중인 펄스의 폭이 중간에 바뀌지 않게 했다.
 
 | 기준 각도 | 명목 High 시간 | 100 MHz 기준 count |
 |:--|:--|:--|
@@ -94,13 +101,13 @@ OV7670 카메라 영상에서 녹색 객체를 검출하고, 객체 중심과 �
 
 <ImgTag filename="vga-readme-14.png" alt="PWM 생성" />
 
-그림 4. 각도 → 펄스 폭 → 20 ms 주기 → Pan/Tilt 출력
+그림 5. 각도 → 펄스 폭 → 20 ms 주기 → Pan/Tilt 출력
 
 ## 구현
 
 - **RTL:** `ctrl_mode_mux`, `servo_pwm`, `servo_top`을 SystemVerilog로 작성했다. 각 축의 PWM은 같은 `servo_pwm`을 두 번 인스턴스해 만든다.
 - **보드 시험 모드:** 통합 전에 서보만 따로 확인하려고 스위치로 각도를 직접 주는 `servo_pwm_check_sw`를 만들고, 이어서 조이스틱 출력을 서보에 바로 연결해 Basys 3에서 움직임을 확인했다.
-- **각도 이동 주기 분리:** 새 목표가 들어온 클록에 각도가 바로 한 단계 움직이던 것을 `move_tick`에서만 움직이도록 바꿔, 갱신 신호가 몰려도 이동 속도가 일정하게 했다. 같은 수정에서 조이스틱 polling 주기도 올렸다.
+- **갱신 주기 조정:** 각도 이동을 갱신 tick과 분리하고 조이스틱 polling 주기를 올렸다. 최종 자동 모드 6 Hz tick과 `frame_pending` 방식은 통합 단계의 Top merge(김동현)에서 정해졌다.
 - **좌표 → 각도 경로 정렬:** `coord_to_angle` 파이프라인이 valid 신호와 어긋나던 부분을 김동현과 함께 맞췄다.
 
 ## 검증·결과
@@ -125,13 +132,13 @@ OV7670 카메라 영상에서 녹색 객체를 검출하고, 객체 중심과 �
 
 <ImgTag filename="vga-readme-21.png" alt="640x480 비교 결과" />
 
-그림 5. 골든 모델 비교 구조(위)와 320×240·640×480 비교 결과(아래)
+그림 6. 골든 모델 비교 구조(위)와 320×240·640×480 비교 결과(아래)
 
 ### 시연
 
 <ImgTag filename="vga-readme-23.gif" alt="자동 추적과 수동 모드 전환 시연" width="400" />
 
-그림 6. 자동 추적 중 수동 모드로 바꿔 조이스틱으로 조작한 뒤 자동 추적으로 돌아오는 구간
+그림 7. 자동 추적 중 수동 모드로 바꿔 조이스틱으로 조작한 뒤 자동 추적으로 돌아오는 구간
 
 ### 팀 결과
 
@@ -152,7 +159,7 @@ OV7670 카메라 영상에서 녹색 객체를 검출하고, 객체 중심과 �
 
 <ImgTag filename="vga-golden-fullscreen-gate.png" alt="검출 게이트 전후 bbox" />
 
-그림 7. 게이트 전(왼쪽)과 후(오른쪽)의 RTL 출력. 같은 입력 이미지다.
+그림 8. 게이트 전(왼쪽)과 후(오른쪽)의 RTL 출력. 같은 입력 이미지다.
 
 ## 배운 점
 
