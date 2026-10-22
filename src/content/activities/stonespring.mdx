@@ -95,8 +95,9 @@ import { ImgTag } from '@/components/MDXRenderer';
 
 ## 프로젝트 결과 및 자료
 
-<VideoTag filename="전체동작.mp4" title="StoneSpring 전체동작" />
-{/* <ImgTag filename="전체동작.gif" alt="전체동작" /> */}
+<ImgTag filename="전체동작.gif" alt="전체동작" />
+
+<VideoTag filename="전체동작-x2.mp4" title="StoneSpring 전체동작 (2배속)" />
 
 ### 구현
 
@@ -104,6 +105,8 @@ import { ImgTag } from '@/components/MDXRenderer';
 
 
 <ImgTag filename="전체1.gif" alt="AI전체" />
+
+<VideoTag filename="전체1-x2.mp4" title="AI 전체 (2배속)" />
 
 <div className="image-grid image-grid--uniform">
     <ImgTag filename="마채1.gif" alt="마이크+채팅1" />
@@ -113,6 +116,15 @@ import { ImgTag } from '@/components/MDXRenderer';
     <ImgTag filename="제스처2.gif" alt="제스처2" />
     <ImgTag filename="제스처3.gif" alt="제스처3" />
     <ImgTag filename="제스처4.gif" alt="제스처4" />
+</div>
+
+<div className="image-grid image-grid--uniform">
+    <VideoTag filename="마채1-x2.mp4" title="마이크+채팅 (2배속)" />
+    <VideoTag filename="표제-x2.mp4" title="표정 (2배속)" />
+    <VideoTag filename="제스처1-x2.mp4" title="제스처1 (2배속)" />
+    <VideoTag filename="제스처2-x2.mp4" title="제스처2 (2배속)" />
+    <VideoTag filename="제스처3-x2.mp4" title="제스처3 (2배속)" />
+    <VideoTag filename="제스처4-x2.mp4" title="제스처4 (2배속)" />
 </div>
 
 <div className="image-grid image-grid--uniform">
@@ -135,6 +147,11 @@ import { ImgTag } from '@/components/MDXRenderer';
     <ImgTag filename="voice_emotion-1.gif" alt="voice_emotion-1" />
     <ImgTag filename="voice_emotion-2.gif" alt="voice_emotion-2" />
 
+</div>
+
+<div className="image-grid">
+    <VideoTag filename="voice_emotion-1-x2.mp4" title="voice_emotion-1 (2배속)" />
+    <VideoTag filename="voice_emotion-2-x2.mp4" title="voice_emotion-2 (2배속)" />
 </div>
 
 
@@ -166,6 +183,8 @@ import { ImgTag } from '@/components/MDXRenderer';
 
 <ImgTag filename="face_emotion.gif" alt="face_emotion" />
 
+<VideoTag filename="face_emotion-x2.mp4" title="face_emotion (2배속)" />
+
 - 데이터셋: AI Hub `한국인 감정인식을 위한 복합 영상` (행복·슬픔·분노·중립 4클래스)
 - 전처리:
     - 클래스별 5,000장으로 다운샘플링하여 데이터 균형 확보
@@ -190,6 +209,8 @@ import { ImgTag } from '@/components/MDXRenderer';
 **Gesture Recognition Model**
 
 <ImgTag filename="gesture.gif" alt="gesture" />
+
+<VideoTag filename="gesture-x2.mp4" title="gesture (2배속)" />
 
 - 데이터 수집:
     - 사용자가 제스처를 10초간 촬영하면 MediaPipe Hands로 21개 손 관절을 추출
