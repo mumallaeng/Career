@@ -3,7 +3,7 @@ title: "StoneSpring"
 startDate: 2025-02-27T00:00:00+09:00
 endDate: 2025-04-07T00:00:00+09:00
 draft: false
-description: "실시간 돌봄 챗봇 시스템"
+description: "돌봄 챗봇의 PyQt5 채팅 GUI와 GPT 스트리밍·STT/TTS·TCP/UDP 통신 흐름을 설계해 팀원의 감정·제스처 모듈을 하나의 앱으로 통합하고, 통합 시연으로 검증"
 thumbnail: "전체1.gif"
 tags: ["chatbot", "openai", "gpt", "stt", "tts", "tcp-udp", "caregiving"]
 tech_stack: ["Python", "PyQt5", "OpenAI Responses API", "Whisper", "gTTS", "OpenCV", "Mediapipe", "MySQL", "TCP/UDP"]
@@ -34,14 +34,22 @@ import { ImgTag } from '@/components/MDXRenderer';
 - 표정·음성 인식, 자연어 처리, 일정 관리까지 GUI 통합 제공
 - PyQt5 기반 데스크탑 앱 + GPT-4o-mini 스트리밍 응답 + DeepFace·Whisper 기반 감정 인식
 
-## 담당 작업
+## 담당 역할
 
-- 팀장으로 초기 프로젝트 구조를 잡고 PyQt5 채팅 GUI와 실시간 응답 흐름을 구현했습니다.
-- OpenAI Responses API 기반 스트리밍 출력, 마크다운 응답 처리, 대화 시나리오 정리를 맡았습니다.
-- STT/TTS 기능과 TCP·UDP 통신 흐름을 GUI에 연결해 음성 입력과 서버 통신이 함께 동작하도록 구성했습니다.
-- 팀원이 만든 감정·제스처 모듈을 GUI와 통합하는 흐름을 조율했습니다.
+- **설계 대상:** 팀장으로서 초기 프로젝트 구조, PyQt5 채팅 GUI, GPT-4o-mini 스트리밍 응답 처리, Whisper STT·gTTS 음성 경로, GUI와 서버 사이 TCP·UDP 통신
+- **목적:** 표정·음성·제스처 감정 인식 결과와 대화 응답이 한 화면에서 끊기지 않고 실시간으로 이어지는 돌봄 챗봇
+- **검증 방식:** 인터페이스 명세(로그인, 채팅, 감정 분석 결과, 영상·음성 스트림 등 10종)를 기준으로 모듈 사이 메시지를 맞추고, 팀원 모듈을 붙인 통합 시연으로 확인
 
-## 프로젝트 개요
+| 파트 | 한 일 |
+|:--|:--|
+| 채팅 응답 | OpenAI Responses API 스트리밍 출력, 마크다운 응답 처리, 돌봄 상황 답변 시나리오와 학습 데이터 정제 |
+| 음성 | Whisper.cpp(Large-v2) STT 연동과 실시간 음성 인식, gTTS 음성 안내 |
+| 통신 | TCP·UDP 양방향 메시지 송수신, 채팅 UI 반응 속도를 위한 통신 정리 |
+| 프로젝트 관리 | 초기 구조와 모듈 분담, `run.sh`로 팀원 로컬 실행 환경 통일, 리팩토링과 릴리즈 관리 |
+
+음성 감정(CNN+LSTM), 얼굴 감정(ArcFace + MLP), 제스처 인식 모델은 팀원이 만들었고, 나는 이 모듈들이 GUI·통신 흐름에 붙는 순서를 조율했다. 모델 설명은 [StoneSpring README](https://github.com/mumallaeng/StoneSpring)에 있습니다.
+
+## 팀 구성
 
 - **기간**: 
     - 2025.02.27 ~ 2025.04.07 (5주·팀프로젝트)
@@ -68,30 +76,6 @@ import { ImgTag } from '@/components/MDXRenderer';
 | **음성 감정 분석** | TensorFlow·Keras, librosa |
 | **데이터베이스** | MySQL, mysql-connector-python |
 | **인프라·통신** | Python socket TCP·UDP 서버 |
-
-
-### 주요 담당 업무
-
-**AI 채팅 시스템 개발**
-- OpenAI API를 사용한 GPT-4o-mini 모델 스트리밍 출력 구현
-- 마크다운 지원 응답 처리 로직 개발
-- 케어 상황에 맞는 답변 시나리오 강화 및 학습 데이터 정제
-
-**실시간 통신 시스템 구축**
-- TCP·UDP 양방향 통신 기반 실시간 챗봇 메시지 송수신 구성
-- 채팅 UI·UX 개선을 위한 통신 최적화
-
-**음성 인터페이스 개발**
-- Whisper.cpp 기반 STT 모델(Large-v2) 연동
-- 실시간 음성 인식 처리 시스템 구현
-- Google TTS(gTTS)를 활용한 감성 대화용 음성 안내 기능 구성
-
-**프로젝트 관리 및 인프라**
-- 초기 프로젝트 구조 설계 및 모듈 분담
-- 실행 자동화 스크립트(run.sh) 구성으로 팀원 간 로컬 테스트 환경 통일
-- 프로젝트 전반에 대한 리팩토링 및 릴리즈 관리
-
-
 
 ## 프로젝트 결과 및 자료
 
@@ -139,92 +123,6 @@ import { ImgTag } from '@/components/MDXRenderer';
 </div>
 
 <br/>
-
-**Voice Emotion Model**
-
-<div className="image-grid">
-
-    <ImgTag filename="voice_emotion-1.gif" alt="voice_emotion-1" />
-    <ImgTag filename="voice_emotion-2.gif" alt="voice_emotion-2" />
-
-</div>
-
-<div className="image-grid">
-    <VideoTag filename="voice_emotion-1-x2.mp4" title="voice_emotion-1 (2배속)" />
-    <VideoTag filename="voice_emotion-2-x2.mp4" title="voice_emotion-2 (2배속)" />
-</div>
-
-
-- 데이터셋: AI Hub `감성 및 발화 스타일별 음성합성 데이터` (7개 감정 레이블 구성)
-- 전처리:
-    - JSON을 Pandas DataFrame으로 변환해 메타데이터와 파일 경로를 정규화
-    - 클래스 불균형을 조정한 뒤 MFCC(40×100) 스펙트럼을 추출하고 `.npy`에 캐시
-    - 감정 라벨을 정수 인코딩하여 Softmax 출력과 매핑
-- 모델 학습:
-    - TensorFlow 기반 Conv2D → BatchNorm → MaxPool 블록 3단과 Dropout을 포함한 CNN 구조
-    - 입력 형태 `(40, 100, 1)`을 사용하는 분류기, 마지막 단계는 Dense + Softmax(len(labels))
-    - `MFCCGenerator`로 배치 단위 로딩, EarlyStopping(patience=30)과 ModelCheckpoint로 학습 안정화
-- 평가:
-    <div className="image-grid image-grid--uniform">
-        <ImgTag filename="voice_emotion_model-1.png" alt="voice_emotion_model-1" />
-        <ImgTag filename="voice_emotion_model-2.png" alt="voice_emotion_model-2" />
-    </div>
-
-    <div className="image-grid image-grid--uniform">
-        <ImgTag filename="voice_emotion_model-3.png" alt="voice_emotion_model-3" />
-        <ImgTag filename="voice_emotion_model-4.png" alt="voice_emotion_model-4" />
-    </div>
-    - 학습·검증 손실 곡선을 모니터링하며 최저 `val_loss` 모델을 채택
-    - 7-class 학습에서 epoch 100~300 구간에서 안정 수렴하며, confusion matrix로 클래스별 오분류를 검토
-
-<br/>
-
-**Face Emotion Model**
-
-<ImgTag filename="face_emotion.gif" alt="face_emotion" />
-
-<VideoTag filename="face_emotion-x2.mp4" title="face_emotion (2배속)" />
-
-- 데이터셋: AI Hub `한국인 감정인식을 위한 복합 영상` (행복·슬픔·분노·중립 4클래스)
-- 전처리:
-    - 클래스별 5,000장으로 다운샘플링하여 데이터 균형 확보
-    - MTCNN으로 얼굴 영역을 검출한 뒤 EYE_THRESHOLD로 기울어진 샘플 제거
-    - 최대 너비 640px 기준으로 리사이징하고, crop 이미지를 저장
-- 모델 학습:
-    - DeepFace ArcFace로 512차원 얼굴 임베딩을 생성
-    - scikit-learn `MLPClassifier(hidden_layer_sizes=(128, 64))`를 사용해 감정 분류
-    - 일괄 처리와 중간 저장으로 학습 파이프라인을 안정화
-- 평가:
-    - 8:2로 분할한 검증 세트에서 `classification_report`를 산출
-    <div className="image-grid image-grid--uniform">
-        <ImgTag filename="face_emotion_model-1.png" alt="face_emotion_model-1" />
-        <ImgTag filename="face_emotion_model-2.png" alt="face_emotion_model-2" />
-    </div>
-    - happy 클래스 F1 ≈ 0.89로 최고 성능, angry·sad는 0.75~0.78 범위에서 상호 오분류가 발생
-    - 혼동 행렬을 분석해 분노·슬픔 데이터 보강 계획을 수립
-
-<br/>
-
-
-**Gesture Recognition Model**
-
-<ImgTag filename="gesture.gif" alt="gesture" />
-
-<VideoTag filename="gesture-x2.mp4" title="gesture (2배속)" />
-
-- 데이터 수집:
-    - 사용자가 제스처를 10초간 촬영하면 MediaPipe Hands로 21개 손 관절을 추출
-    - 손 좌표와 관절 각도를 정규화해 30프레임 시퀀스의 99개 특징 벡터로 변환
-    - 누적 `.npy` 데이터를 기반으로 신규 제스처 추가 시 전체 재학습 가능
-- 모델 학습:
-    - 입력 `(30, 99)`을 사용하는 LSTM(64, ReLU) → Dense(32, ReLU) → Softmax(len(actions)) 구조
-    - 학습 완료 후 실시간 추론에 사용할 가중치를 저장
-- 평가:
-    <ImgTag filename="gesture-model.png" alt="gesture-model" />
-    - `gesture_recognize.py` 실시간 테스트에서 확률 0.8 미만 결과를 무시하고, 동일 추론이 3프레임 연속일 때만 제스처로 확정
-    - 조명 변화와 배경 노이즈 환경에서 반복 시연하며 사용자별 인식률을 검증
-
-<br/><br/><br/>
 
 
 ### 설계
