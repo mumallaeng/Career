@@ -2298,14 +2298,6 @@ const onedriveAssetBlueprints = [
 
   {
     act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
-    filename: '210605-0016-00.jpg',
-    name: '산학협력공동교육캠프 상장',
-    type: 'award',
-    startDate: '2021-06-04',
-  },
-
-  {
-    act_id: ['산학협력공동교육캠프', '인하공업전문대학', 'USAMO', '유사모'],
     filename: '210604-산학협력공동교육캠프-상장.JPG',
     name: '산학협력공동교육캠프 상장',
     type: 'award',
@@ -2859,14 +2851,6 @@ const onedriveAssetBlueprints = [
     act_id: '2022-OSSCA',
     filename: '22 오픈소스 컨트리뷰션 아카데미_상장_대상_RustPython_copy.jpg',
     name: '상장',
-    type: 'award',
-    startDate: '2022-12-06',
-  },
-
-  {
-    act_id: '2022-OSSCA',
-    filename: '221206-오픈소스컨트리뷰션아카데미-대상_copy.jpg',
-    name: '오픈소스컨트리뷰션아카데미 대상',
     type: 'award',
     startDate: '2022-12-06',
   },
@@ -3560,6 +3544,36 @@ const onedriveAssetBlueprints = [
     type: 'None',
     startDate: '2026-03-24',
     remotePathOverride: 'media/photos/projects/KorchamFablessAcademy/fabless-academy-thumbnail.png',
+  },
+
+  {
+    act_id: 'korcham-ondevice-ai-semiconductor',
+    filename: '수료증_스캔.jpg',
+    name: '수료증',
+    type: '수료증',
+    startDate: '2026-10-23',
+    description: '대한상공회의소 서울기술교육센터장',
+    remotePathOverride: 'media/photos/projects/KorchamFablessAcademy/수료증_스캔.jpg',
+  },
+
+  {
+    act_id: 'korcham-ondevice-ai-semiconductor',
+    filename: '공로상_스캔.jpg',
+    name: '공로상',
+    type: 'award',
+    startDate: '2026-10-23',
+    description: '대한상공회의소 서울기술교육센터장',
+    remotePathOverride: 'media/photos/projects/KorchamFablessAcademy/공로상_스캔.jpg',
+  },
+
+  {
+    act_id: 'korcham-ondevice-ai-semiconductor',
+    filename: '우수상_엘링크.png',
+    name: '우수상',
+    type: 'award',
+    startDate: '2026-10-15',
+    description: '대한상공회의소 서울기술교육센터장',
+    remotePathOverride: 'media/photos/projects/KorchamFablessAcademy/우수상_엘링크.png',
   },
 
   {
