@@ -43,11 +43,13 @@ export default function Intro({ hero, about, skills, locale }: IntroProps) {
               <h2 id="about-title" className="portfolio-section-title">{copy.about.title}</h2>
             </header>
             <p className="portfolio-about-summary">{summary}</p>
-            <ul className="portfolio-about-list">
-              {bullets.map((bullet) => (
-                <li key={bullet}>{bullet}</li>
-              ))}
-            </ul>
+            {bullets.length > 0 && (
+              <ul className="portfolio-about-list">
+                {bullets.map((bullet) => (
+                  <li key={bullet}>{bullet}</li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <Skills groups={skills} locale={locale} />

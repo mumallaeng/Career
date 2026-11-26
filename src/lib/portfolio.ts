@@ -60,14 +60,8 @@ export function getHeroContent(): HeroContent {
 export function getAboutContent(): AboutContent {
   return {
     summary:
-      '온디바이스 AI 시스템반도체 설계·검증을 목표로 RTL부터 SoC와 임베디드 펌웨어까지 학습하고 있는 김연우입니다. Verilog·SystemVerilog로 디지털 회로를 설계하고 UVM으로 검증했으며, RV32I CPU와 AXI4-Lite 기반 SoC, ARM Cortex-M4 주변장치 제어를 실습했습니다. 이전에 쌓은 소프트웨어·로보틱스 경험은 설계 자동화, 보드 제어, 시스템 통합과 기술 문서화에 활용하고 있습니다.',
-    bullets: [
-      'Verilog 기반 디지털 회로·FSM·UART·FIFO 설계',
-      'SystemVerilog·UVM 기반 testbench와 scoreboard 검증',
-      'RV32I CPU, APB·AXI4-Lite, MicroBlaze SoC 구조 실습',
-      'ARM Cortex-M4에서 GPIO·UART·Timer·Interrupt·I2C·SPI·ADC·DMA 제어',
-      '소프트웨어·로보틱스 경험을 활용한 시스템 통합과 기술 문서화',
-    ],
+      '소프트웨어 개발에서 출발해 RTL 설계로 영역을 넓힌 신입 하드웨어 엔지니어 김연우입니다. 관심 있던 분야를 직접 경험해 보며 AI 블록 코딩 플랫폼 개발과 서버 운영, 로봇 소프트웨어 개발을 거쳤고, 시스템반도체 설계에서 RISC-V CPU를 ISA에 맞춰 설계하며 써 온 언어가 명령으로 바뀌어 실행되는 경로가 회로에서 그대로 이어진다는 것을 직접 확인했습니다. 이후 CNN 가속기의 연산 블록과 AXI4-Lite I2C IP를 설계하고 UVM과 FPGA 보드 실측으로 검증하며, 회로부터 그 위의 시스템까지 이어지는 경로를 직접 설계하는 엔지니어를 목표로 하고 있습니다.',
+    bullets: [],
   };
 }
 
