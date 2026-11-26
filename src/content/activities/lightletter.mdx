@@ -63,7 +63,7 @@ featured: true
 
 | 파트 | 한 일 |
 |:--|:--|
-| CNN 모델 | LeNet-5 계열 후보 비교, 3×3 구조 확정, 대문자 26클래스 재학습, RTL 검증용 layer 출력 추출 |
+| CNN 모델 | LeNet-5 계열 후보 비교, 3×3 구조 확정, 대소문자를 합친 26클래스 재학습, RTL 검증용 layer 출력 추출 |
 | Output Buffer, ReLU & Quantization | conv2 두 패스 부분합 누적, 40-bit → 16-bit 양자화, Max Pooling·FC용 채널 순서 재정렬 RTL |
 | Fully Connected | 400 → 120 → 84 → 26 FC RTL, 층별 전용 엔진(DSP 40)과 공유 엔진(DSP 20) 설계·비교 |
 | ArUco 크롭 | 마커 검출부터 렌즈 왜곡 보정, 원근 보정, 112×112 글자 칸 5개 추출까지 PS C 구현 |
@@ -79,7 +79,7 @@ featured: true
 
 ### CNN 모델 구조
 
-28×28 입력에서 하드웨어로 옮기기 쉬운 구조를 찾기 위해 padding, FC1 크기, Conv 층 수, LeNet-5 변형(3×3, 원형, 현대식)을 Python에서 비교했다. 정확도와 BRAM 사용량을 함께 보고 3×3 Convolution 두 번 + 2×2 Max Pooling 두 번 + FC 400 → 120 → 84 → 26 구조로 확정했다. 처음에는 영문자와 숫자 36클래스로 시작했다가 대문자 26클래스로 다시 학습했고, 각 층 출력을 JSON으로 뽑아 C 골든 모델과 RTL testbench의 기준값으로 썼다.
+28×28 입력에서 하드웨어로 옮기기 쉬운 구조를 찾기 위해 padding, FC1 크기, Conv 층 수, LeNet-5 변형(3×3, 원형, 현대식)을 Python에서 비교했다. 정확도와 BRAM 사용량을 함께 보고 3×3 Convolution 두 번 + 2×2 Max Pooling 두 번 + FC 400 → 120 → 84 → 26 구조로 확정했다. 처음에는 영문자와 숫자 36클래스로 시작했다가 대문자 26클래스로 다시 학습했다. 이후 소문자도 인식하도록 대소문자를 같은 라벨로 합친 26클래스로 학습해, 소문자를 써도 출력은 대문자로 나온다. 각 층 출력을 JSON으로 뽑아 C 골든 모델과 RTL testbench의 기준값으로 썼다.
 
 <ImgTag filename="lightletter-conv-zero-gating.png" alt="Convolution Layer와 Zero Gating Array" />
 
@@ -107,7 +107,7 @@ MAC Array는 픽셀마다 출력 채널 16개를 차례로 내놓지만, Max Poo
 
 ### ReLU & Quantization
 
-40-bit 누산값을 다음 층 입력 16-bit로 바꾼다. 음수를 0으로 만든 뒤 레이어마다 정한 2의 거듭제곱 scale만큼 shift하고, round-half-even으로 반올림한 다음 32,767에서 포화시킨다. 내림한 몫과 버린 하위 비트를 비교해 올림 여부를 정하는 비교기 두 개와 덧셈 하나라 조합 논리 한 단으로 끝난다. PyTorch `torch.round`와 같은 규칙이라 골든 모델과 비트 단위로 맞출 수 있었다.
+40-bit 누산값을 다음 층 입력 16-bit로 바꾼다. 음수를 0으로 만든 뒤 레이어마다 정한 2의 거듭제곱 scale(conv1 15 bit, conv2 16 bit)만큼 shift하고, round-half-even으로 반올림한 다음 32,767에서 포화시킨다. 내림한 몫과 버린 하위 비트를 비교해 올림 여부를 정하는 비교기 두 개와 덧셈 하나라 조합 논리 한 단으로 끝난다. 반올림 방식은 골든 모델이 쓰는 PyTorch `torch.round`(round-half-even)에 맞춰 골랐고, 덕분에 골든 모델과 비트 단위로 맞출 수 있었다.
 
 <ImgTag filename="lightletter-seq-relu-quant.png" alt="ReLU·양자화 sequence" />
 
@@ -117,7 +117,7 @@ MAC Array는 픽셀마다 출력 채널 16개를 차례로 내놓지만, Max Poo
 
 Flatten한 400개 입력을 120 → 84 → 26으로 줄이고, 마지막 출력에서 ArgMax로 글자를 고른다. 병렬도는 세 번 바뀌었다. 층마다 전용 곱셈기를 두는 20/12/4(DSP 36)로 계산을 시작했고, 실측 conv 시간을 반영해 25/10/5(DSP 40)로 만들었다. DSP를 120개까지 늘려도 프레임 시간이 약 23%만 줄어, 나머지는 conv 시간이 지배한다는 것도 이때 확인했다. 그 뒤 층들이 번갈아 노는 것을 보고 세 층이 곱셈기 20개를 공유하는 구조로 바꿨다.
 
-- **층별 전용 엔진(DSP 40):** FC1·FC2·FC3에 MAC을 25·10·5개씩 둔다. FC1이 도는 동안 FC2·FC3 곱셈기는 논다.
+- **층별 전용 엔진(DSP 40):** FC1·FC2·FC3에 MAC을 25·10·5개씩 둔다. FC1이 연산하는 동안 FC2·FC3 곱셈기는 대기 상태다.
 - **공유 엔진(DSP 20):** 층별 입력을 Feature Buffer(LUT 기반 distributed RAM)에 두고, FC Controller가 Layer MUX와 Weight·Bias 주소를 바꿔 세 층이 MAC 20개를 차례로 쓴다. 입력 하나를 곱셈기 20개에 동시에 넣는 input-stationary 방식이고, weight는 한 행 320-bit ROM에서 한 행씩 흘린다.
 
 P=20은 FC1 출력 120개를 나머지 없이 나누는 값이다. FC1이 전체 계산의 80%라 FC1에서 낭비가 없고, FC2·FC3의 빈 칸까지 넣어도 곱셈기 이용률은 약 95%(60,264 MAC ÷ 3,168 cycle × 20)다. FC1 첫 그룹은 conv2 결과가 도착하는 대로 따라가며 시작해 conv2·Max Pooling과 시간이 겹친다. 층마다 양자화 shift(`SCALE_EXP` 16/14/14)를 따로 두어 Python 모델과 같은 정수 결과를 내도록 맞췄고, weight를 export할 때 층별 최악의 합(FC1 37-bit, FC2·FC3 35-bit)을 계산해 40-bit를 넘으면 스크립트가 실패하게 했다.
