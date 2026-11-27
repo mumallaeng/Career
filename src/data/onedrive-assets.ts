@@ -3446,6 +3446,14 @@ const onedriveAssetBlueprints = [
     startDate: '2026-08-19',
     remotePathOverride: 'media/photos/projects/Wardy/wardy-fall.gif',
   },
+  {
+    act_id: 'wardy-fall-ui',
+    filename: 'wardy-fall-ui.png',
+    name: 'Wardy 낙상 감지 화면 썸네일',
+    type: 'None',
+    startDate: '2026-08-19',
+    remotePathOverride: 'media/photos/projects/Wardy/wardy-fall-ui.png',
+  },
 
   {
     act_id: 'korcham-mini-axi-peripheral',
@@ -5460,6 +5468,14 @@ const onedriveAssetBlueprints = [
     type: 'None',
     startDate: '2026-09-08',
     remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/vga-pan-tilt-cctv-thumbnail.gif',
+  },
+  {
+    act_id: 'vga-pan-tilt-cctv-photos',
+    filename: 'vga-pan-tilt-cctv-photos.png',
+    name: 'VGA Pan-Tilt CCTV 실물 사진 썸네일',
+    type: 'None',
+    startDate: '2026-09-08',
+    remotePathOverride: 'media/photos/projects/VGA-Pan-Tilt-CCTV/vga-pan-tilt-cctv-photos.png',
   },
 
   {
