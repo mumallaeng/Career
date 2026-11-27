@@ -4,6 +4,7 @@ startDate: 2026-09-09T00:00:00+09:00
 endDate: 2026-10-15T00:00:00+09:00
 draft: false
 description: "FPGA CNN 가속기의 Convolution 출력단과 공유 FC 연산기(DSP 40 → 20)를 설계하고, Python·C 골든 모델 bit-exact 비교와 Zybo 보드 실측으로 검증"
+thumbnail: "lightletter-fc-shared.png"
 tags: ["fpga", "cnn", "fft", "optical-communication", "rtl", "uvm", "on-device-ai"]
 tech_stack: ["Verilog", "SystemVerilog", "UVM", "C", "Python", "Zybo Z7-20", "Vivado", "Vitis", "AXI4-Lite", "XADC", "FFT", "BFSK"]
 skill_tags: ["rtl-design", "verification", "soc-integration", "hardware-accelerator", "team-collaboration"]
@@ -138,7 +139,7 @@ P=20은 FC1 출력 120개를 나머지 없이 나누는 값이다. FC1이 전체
 
 화이트보드 둘레의 ArUco 마커 6개로 글자 칸 5개의 위치를 잡는다. homography는 점 4개면 풀리지만, 손이나 펜이 마커를 가리는 경우를 생각해 6개를 두고 빠진 마커 위치는 구한 행렬로 채운다. 1280×720 프레임에서 마커를 검출하고, 마커 중심의 렌즈 왜곡을 보정(k1, k2)한 뒤 homography로 화이트보드를 정면 좌표로 옮긴다. 출력 픽셀마다 보드 좌표 → homography → 왜곡 → 원본 순으로 거슬러 올라가 bilinear 샘플링하므로, 보정 영상을 따로 만들지 않고 칸 5개를 112×112 RGB로 바로 뽑아 DMA로 PL 전처리에 넘긴다.
 
-PS는 Vitis bare-metal이라 OpenCV를 올릴 수 없었다. OpenCV 기준 구현을 Python notebook으로 먼저 만들고, 적응 임계값, 마커 후보 검출, 비트 읽기와 사전 대조, homography, 왜곡 보정만 C로 옮겼다. libm도 링크되지 않아 제곱근은 뉴턴 반복으로 직접 계산했다. 글자 획이 마커처럼 보여 같은 id 후보가 둘 이상 나오면, 조합마다 homography를 풀어 잔차가 가장 작은 조합을 고른다.
+PS는 Vitis bare-metal이라 OpenCV를 그대로 쓰기 어려웠다. OpenCV 기준 구현을 Python notebook으로 먼저 만들고, OpenCV(C++) 소스를 참고해 적응 임계값, 마커 후보 검출, 비트 읽기와 사전 대조, homography, 왜곡 보정만 C로 다시 구현했다. 글자 획이 마커처럼 보여 같은 id 후보가 둘 이상 나오면, 조합마다 homography를 풀어 잔차가 가장 작은 조합을 고른다.
 
 <ImgTag filename="lightletter-aruco-frame.png" alt="크롭 전 촬영 프레임" />
 
